@@ -7,7 +7,7 @@ export const Main = ({ route }) => {
     <Fragment>
       <Header />
       {renderRoutes(route.routes)}
-      <Footer />
+      <Footer isHomepage />
     </Fragment>
   );
 };

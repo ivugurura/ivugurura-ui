@@ -1,7 +1,13 @@
-import { Main, Home, TopicView } from './views';
+import { Main, Home, TopicView, Dashboard } from './views';
 
 export const routes = [
   {
+    path: '/admin',
+    exact: true,
+    component: Dashboard,
+  },
+  {
+    path: '/',
     component: Main,
     routes: [
       {
@@ -10,7 +16,7 @@ export const routes = [
         component: Home,
       },
       {
-        path: '/:topicSlug',
+        path: '/:topicSlug/view',
         exact: true,
         component: TopicView,
       },

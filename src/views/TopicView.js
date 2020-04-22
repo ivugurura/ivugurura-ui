@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 import { Row, Col, Container, Card, Form } from 'react-bootstrap';
+import { RecentTopics, SampleTopics } from '../components/common';
+import { bgStyles } from '../utils/styles';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const TopicView = () => {
@@ -81,11 +83,15 @@ export const TopicView = () => {
               </Card.Footer>
             </Card>
           </Col>
-          <Col xs={12} md={3} lg={3}>
-            <h2>Topic content</h2>
+          <Col xs={12} md={3} lg={3} style={bgStyles.bgPrimary}>
+            <RecentTopics />
+            <Card>
+              <Card.Img src={topicImg} />
+            </Card>
           </Col>
         </Row>
       </Container>
+      <SampleTopics />
     </Fragment>
   );
 };

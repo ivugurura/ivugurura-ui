@@ -21,7 +21,7 @@ export const SampleTopics = ({ isHomePage }) => {
         <Row>
           {[1, 2, 3].map((item) => (
             <Col key={item} xs={12} md={4} lg={4}>
-              <Link to={`/topic-title-${item}`}>
+              <Link to={`/topic-title-${item}/view`}>
                 <Card>
                   <Card.Img variant='top' src={topicImg} />
                   <Card.Body>

@@ -10,14 +10,13 @@ import {
   Alert,
 } from 'react-bootstrap';
 import { bgStyles, textStyles } from '../../utils/styles';
+import { Logo } from './Logo';
 
 export const Header = () => {
   return (
     <Fragment>
       <Navbar collapseOnSelect expand='lg' style={bgStyles.bgPrimary}>
-        <Navbar.Brand href='#home' style={textStyles.textTransparent}>
-          Ubugorozi
-        </Navbar.Brand>
+        <Logo />
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='mr-auto'>

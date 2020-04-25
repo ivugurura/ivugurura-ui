@@ -1,10 +1,28 @@
-import { Main, Home, TopicView, Dashboard } from './views';
+import {
+  Main,
+  Home,
+  TopicView,
+  Dashboard,
+  AdminMain,
+  AddEditTopic,
+} from './views';
 
 export const routes = [
   {
     path: '/admin',
-    exact: true,
-    component: Dashboard,
+    component: AdminMain,
+    routes: [
+      {
+        path: '/admin',
+        exact: true,
+        component: Dashboard,
+      },
+      {
+        path: '/admin/add-topic',
+        exact: true,
+        component: AddEditTopic,
+      },
+    ],
   },
   {
     path: '/',

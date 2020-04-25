@@ -13,7 +13,9 @@ export const Footer = ({ isHomepage }) => {
             <Row>
               <Col xs={12} md={4} lg={4}>
                 <Card.Body>
-                  <Card.Title>Inyandiko</Card.Title>
+                  <Card.Title style={textStyles.textFtTitle}>
+                    Inyandiko
+                  </Card.Title>
                   <Form.Control size='lg' as='select'>
                     {[1, 2, 3].map((topic) => (
                       <option key={topic}>{`Icyigisho cya ${topic}`}</option>
@@ -26,7 +28,9 @@ export const Footer = ({ isHomepage }) => {
               </Col>
               <Col xs={12} md={4} lg={4}>
                 <Card.Body>
-                  <Card.Title>Twandikire</Card.Title>
+                  <Card.Title style={textStyles.textFtTitle}>
+                    Twandikire
+                  </Card.Title>
                   {['Amazina', 'Email', 'Message'].map((contact) => (
                     <Form.Control
                       key={contact}
@@ -49,7 +53,7 @@ export const Footer = ({ isHomepage }) => {
         <Container fluid style={textStyles.textTransparent}>
           <Row>
             <Col xs={12} md={4} lg={4}>
-              {`@Copyright 2016-${currentYear}, Reformation Voice. All right reserved`}
+              {`@Copyright 2016-${currentYear}, Reformation Voice`}
             </Col>
             <Col xs={12} md={4} lg={4}>
               Tel:+250 788 476 743

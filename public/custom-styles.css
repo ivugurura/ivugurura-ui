@@ -15,22 +15,22 @@
 
 .card-counter.primary {
   background-color: #007bff;
-  color: #fff;
+  color: black;
 }
 
 .card-counter.danger {
   background-color: #ef5350;
-  color: #fff;
+  color: black;
 }
 
 .card-counter.success {
   background-color: #66bb6a;
-  color: #fff;
+  color: black;
 }
 
 .card-counter.info {
   background-color: #26c6da;
-  color: #fff;
+  color: black;
 }
 
 .card-counter i {
@@ -42,7 +42,7 @@
   position: absolute;
   right: 35px;
   top: 20px;
-  font-size: 32px;
+  font-size: 48px;
   display: block;
 }
 
@@ -50,9 +50,9 @@
   position: absolute;
   right: 35px;
   top: 65px;
-  font-style: italic;
+  font-style: bold;
   text-transform: capitalize;
-  opacity: 0.5;
+  opacity: 0.7;
   display: block;
-  font-size: 18px;
+  font-size: 32px;
 }

@@ -1,10 +1,11 @@
 import React from 'react';
+import { Card } from 'react-bootstrap';
 
-export const CardCounter = () => {
+export const CardCounter = ({ color, count, title }) => {
   return (
-    <div className='card-counter primary'>
-      <span className='count-numbers'>12</span>
-      <span className='count-name'>Flowz</span>
-    </div>
+    <Card bg={color}>
+      <Card.Header>{title}</Card.Header>
+      <Card.Body>{count}</Card.Body>
+    </Card>
   );
 };

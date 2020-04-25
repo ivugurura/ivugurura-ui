@@ -1,54 +1,40 @@
-import React, { Fragment } from 'react';
-import { Navbar, Container, Row, Col, Card, Media } from 'react-bootstrap';
-import { bgStyles } from '../utils/styles';
-import { Logo, Footer, CardCounter } from '../components/common';
+import React from 'react';
+import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import { CardCounter } from '../components/common';
+import { ActivePosts, DraftPosts } from '../components';
+import { Link } from 'react-router-dom';
 
-const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const Dashboard = () => {
   return (
-    <Fragment>
-      <Navbar style={bgStyles.bgPrimary}>
-        <Logo />
-        <Navbar.Toggle />
-        <Navbar.Collapse className='justify-content-end'></Navbar.Collapse>
-      </Navbar>
-      <Container className='mt-3'>
-        <Row>
-          <Col xs={6} md={3} lg={3}>
-            <CardCounter />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} md={6} lg={6}>
-            <Card>
-              <Card.Header>
-                <Card.Title>ACTIVE POSTS</Card.Title>
-              </Card.Header>
-              <Card.Body>
-                <Media>
-                  <img
-                    width={64}
-                    height={100}
-                    className='img-thumbnail'
-                    src={topicImg}
-                    alt='Generic placeholder'
-                  />
-                  <Media.Body>
-                    <b>Media Heading</b>
-                    <p>
-                      Donec sed odio dui. Nullam quis risus eget urna mollis
-                      ornare vel eu leo. Cum sociis natoque penatibus
-                    </p>
-                    <hr />
-                  </Media.Body>
-                </Media>
-              </Card.Body>
+    <Container className='mt-3' fluid>
+      <Row>
+        <Col xs={12} md={3} lg={3}>
+          <CardCounter count={17} title='Published' color='success' />
+        </Col>
+        <Col xs={12} md={3} lg={3}>
+          <CardCounter count={4} title='Draft' color='info' />
+        </Col>
+        <Col xs={12} md={3} lg={3}>
+          <CardCounter count={67} title='Videos' color='primary' />
+        </Col>
+        <Col xs={12} md={3} lg={3}>
+          <CardCounter count={71} title='Audios' color='danger' />
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={12} md={6} lg={6}>
+          <ActivePosts />
+        </Col>
+        <Col xs={12} md={6} lg={6}>
+          <Container fluid className='mt-3'>
+            <Link to='/admin/add-topic'>Add new post</Link>
+            <Button>Add media</Button>
+            <Card className='mt-2'>
+              <DraftPosts />
             </Card>
-          </Col>
-          <Col xs={12} md={6} lg={6}></Col>
-        </Row>
-      </Container>
-      <Footer />
-    </Fragment>
+          </Container>
+        </Col>
+      </Row>
+    </Container>
   );
 };

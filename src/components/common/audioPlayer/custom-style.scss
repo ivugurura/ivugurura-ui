@@ -13,7 +13,6 @@
     .song__title {
       text-align: left;
       margin: 0;
-      font-size: 2.5em;
       color: white;
       font-family: 'Permanent Marker', cursive;
       font-weight: normal;
@@ -74,8 +73,6 @@
     width: 100%;
     display: flex;
     align-items: center;
-    width: 90%;
-    margin-top: 20px;
 
     .bar__time {
       color: white;
@@ -103,27 +100,27 @@
   }
 
   @media screen and (max-width: 800px) {
-    // flex-direction: column;
+    flex-direction: column;
 
-    // .controls {
-    //   width: 100%;
-    //   margin-top: 20px;
-    // }
+    .controls {
+      width: 100%;
+      margin-top: 20px;
+    }
 
-    // .bar {
-    //   width: 90%;
-    // }
+    .bar {
+      width: 90%;
+    }
   }
 
   @media screen and (max-width: 500px) {
-    // .song {
-    //   .song__title {
-    //     font-size: 2.5em;
-    //   }
+    .song {
+      .song__title {
+        font-size: 2.5em;
+      }
 
-    //   .song__artist {
-    //     font-size: 0.8em;
-    //   }
-    // }
+      .song__artist {
+        font-size: 0.8em;
+      }
+    }
   }
 }

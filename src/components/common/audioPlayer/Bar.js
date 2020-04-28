@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+// eslint-disable-next-line
 import momentDurationFormatSetup from 'moment-duration-format';
 
 export const Bar = ({ duration, curTime, onTimeUpdate }) => {

@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from 'react';
 import VideoPlayer from 'react-player';
-// import AudioPlayer from 'react-audioplayer';
 import { Container, Row, Card, Col, Carousel } from 'react-bootstrap';
 import { SampleTopics, Audio } from '../components/common';
 
@@ -38,7 +37,11 @@ export const Home = () => {
           </Col>
           <Col md={6} lg={6} xs={12}>
             <Card>
-              <VideoPlayer url='' playing={false} width='100%' />
+              <VideoPlayer
+                url='https://www.youtube.com/watch?v=aMqN62kfTJI'
+                playing={false}
+                width='100%'
+              />
             </Card>
           </Col>
         </Row>
@@ -54,8 +57,11 @@ export const Home = () => {
               <Audio />
             </Col>
             <Col xs={12} md={8} lg={8}>
-              {/* <VideoPlayer url='' playing={false} width='100%' /> */}
-              <img src={ytbImg} />
+              <VideoPlayer
+                url='https://www.youtube.com/watch?v=hWAn04AtDZg'
+                playing={false}
+                width='100%'
+              />
             </Col>
           </Row>
         </Card.Body>

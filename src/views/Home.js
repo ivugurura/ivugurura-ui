@@ -52,18 +52,10 @@ export const Home = () => {
           <Row>
             <Col xs={12} md={4} lg={4}>
               <Audio />
-              {/* <AudioPlayer
-                playlist={[
-                  {
-                    src:
-                      'https://studio18.radiolize.com/radio/8220/radio.mp3?1587915754',
-                    name: 'Song',
-                  },
-                ]}
-              /> */}
             </Col>
             <Col xs={12} md={8} lg={8}>
-              <VideoPlayer url='' playing={false} width='100%' />
+              {/* <VideoPlayer url='' playing={false} width='100%' /> */}
+              <img src={ytbImg} />
             </Col>
           </Row>
         </Card.Body>

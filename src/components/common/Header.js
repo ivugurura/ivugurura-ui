@@ -3,15 +3,50 @@ import MarqueeText from 'react-marquee-text-component';
 import {
   Navbar,
   Nav,
-  NavDropdown,
   FormControl,
   Button,
   Container,
   Alert,
+  Dropdown,
+  NavLink,
+  NavItem,
 } from 'react-bootstrap';
 import { bgStyles, textStyles } from '../../utils/styles';
 import { Logo } from './Logo';
 
+const navs = [
+  {
+    name: 'Divinity truth',
+    link: '#truth',
+  },
+  {
+    name: 'Social life',
+    link: '#truth',
+    subNavs: [
+      {
+        name: 'Mariage',
+        link: '#mariage',
+      },
+    ],
+  },
+  {
+    name: 'The prophecy',
+    link: '#truth',
+  },
+  {
+    name: 'Preaching and songs',
+    subNavs: [
+      {
+        name: 'Audio',
+        link: '#truth',
+      },
+      {
+        name: 'Video',
+        link: '#truth',
+      },
+    ],
+  },
+];
 export const Header = () => {
   return (
     <Fragment>
@@ -23,24 +58,33 @@ export const Header = () => {
             <Nav.Link href='#features' style={textStyles.textTransparent}>
               Home
             </Nav.Link>
-            <Nav.Link href='#pricing' style={textStyles.textTransparent}>
-              Divinity truth
-            </Nav.Link>
-            <Nav.Link href='#pricing' style={textStyles.textTransparent}>
-              Social life
-            </Nav.Link>
-            <Nav.Link href='#pricing' style={textStyles.textTransparent}>
-              The prophrcy
-            </Nav.Link>
-            <NavDropdown
-              title='Preaching and songs'
-              id='collasible-nav-dropdown'
-              bsPrefix='nav-link'
-            >
-              <NavDropdown.Item href='#action/3.1'>Audio</NavDropdown.Item>
-              <NavDropdown.Item href='#action/3.3'>Video</NavDropdown.Item>
-              {/* <NavDropdown.Divider /> */}
-            </NavDropdown>
+            {navs.map((nav, navIndex) =>
+              !nav.subNavs ? (
+                <Nav.Link
+                  href={nav.link}
+                  style={textStyles.textTransparent}
+                  key={navIndex}
+                >
+                  {nav.name}
+                </Nav.Link>
+              ) : (
+                <Dropdown as={NavItem} key={navIndex}>
+                  <Dropdown.Toggle
+                    as={NavLink}
+                    style={textStyles.textTransparent}
+                  >
+                    {nav.name}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    {nav.subNavs.map((subNav, subNavIndex) => (
+                      <Dropdown.Item href={subNav.link} key={subNavIndex}>
+                        {subNav.name}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+              )
+            )}
             <Nav.Link href='#pricing' style={textStyles.textTransparent}>
               Contact us
             </Nav.Link>

@@ -1,12 +1,9 @@
 import React, { Fragment } from 'react';
-import MarqueeText from 'react-marquee-text-component';
 import {
   Navbar,
   Nav,
   FormControl,
   Button,
-  Container,
-  Alert,
   Dropdown,
   NavLink,
   NavItem,
@@ -49,65 +46,53 @@ const navs = [
 ];
 export const Header = () => {
   return (
-    <Fragment>
-      <Navbar collapseOnSelect expand='lg' style={bgStyles.bgPrimary}>
-        <Logo />
-        <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-        <Navbar.Collapse id='responsive-navbar-nav'>
-          <Nav className='mr-auto'>
-            <Nav.Link href='#features' style={textStyles.textTransparent}>
-              Home
-            </Nav.Link>
-            {navs.map((nav, navIndex) =>
-              !nav.subNavs ? (
-                <Nav.Link
-                  href={nav.link}
+    <Navbar collapseOnSelect expand='lg' style={bgStyles.bgPrimary}>
+      <Logo />
+      <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+      <Navbar.Collapse id='responsive-navbar-nav'>
+        <Nav className='mr-auto'>
+          <Nav.Link href='#features' style={textStyles.textTransparent}>
+            Home
+          </Nav.Link>
+          {navs.map((nav, navIndex) =>
+            !nav.subNavs ? (
+              <Nav.Link
+                href={nav.link}
+                style={textStyles.textTransparent}
+                key={navIndex}
+              >
+                {nav.name}
+              </Nav.Link>
+            ) : (
+              <Dropdown as={NavItem} key={navIndex}>
+                <Dropdown.Toggle
+                  as={NavLink}
                   style={textStyles.textTransparent}
-                  key={navIndex}
                 >
                   {nav.name}
-                </Nav.Link>
-              ) : (
-                <Dropdown as={NavItem} key={navIndex}>
-                  <Dropdown.Toggle
-                    as={NavLink}
-                    style={textStyles.textTransparent}
-                  >
-                    {nav.name}
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    {nav.subNavs.map((subNav, subNavIndex) => (
-                      <Dropdown.Item href={subNav.link} key={subNavIndex}>
-                        {subNav.name}
-                      </Dropdown.Item>
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown>
-              )
-            )}
-            <Nav.Link href='/admin' style={textStyles.textFtTitle}>
-              Admin dashboard
-            </Nav.Link>
-            <Nav.Link href='#pricing' style={textStyles.textTransparent}>
-              Contact us
-            </Nav.Link>
-          </Nav>
-          <Nav className='mr-auto'>
-            <FormControl type='text' placeholder='Search' className='mr-sm-2' />
-          </Nav>
-          <Button variant='danger'>Umva Radio</Button>
-        </Navbar.Collapse>
-      </Navbar>
-      <Container className='mt-2' fluid>
-        <Alert variant='danger'>
-          <h4>
-            <MarqueeText
-              text='Itangazo: Muratumiwe mu materaniro ya conference y isi yose'
-              repeat={1}
-            />
-          </h4>
-        </Alert>
-      </Container>
-    </Fragment>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  {nav.subNavs.map((subNav, subNavIndex) => (
+                    <Dropdown.Item href={subNav.link} key={subNavIndex}>
+                      {subNav.name}
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+            )
+          )}
+          <Nav.Link href='/admin' style={textStyles.textFtTitle}>
+            Admin dashboard
+          </Nav.Link>
+          <Nav.Link href='#pricing' style={textStyles.textTransparent}>
+            Contact us
+          </Nav.Link>
+        </Nav>
+        <Nav className='mr-auto'>
+          <FormControl type='text' placeholder='Search' className='mr-sm-2' />
+        </Nav>
+        <Button variant='danger'>Umva Radio</Button>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };

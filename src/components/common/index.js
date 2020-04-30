@@ -5,3 +5,4 @@ export * from './RecentTopics';
 export * from './Logo';
 export * from './CardCounter';
 export * from './audioPlayer/Audio';
+export * from './Communique';

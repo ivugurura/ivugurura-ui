@@ -9,22 +9,6 @@ import {
 
 export const routes = [
   {
-    path: '/admin',
-    component: AdminMain,
-    routes: [
-      {
-        path: '/admin',
-        exact: true,
-        component: Dashboard,
-      },
-      {
-        path: '/admin/add-topic',
-        exact: true,
-        component: AddEditTopic,
-      },
-    ],
-  },
-  {
     path: '/',
     component: Main,
     routes: [
@@ -37,6 +21,16 @@ export const routes = [
         path: '/:topicSlug/view',
         exact: true,
         component: TopicView,
+      },
+      {
+        path: '/admin',
+        exact: true,
+        component: Dashboard,
+      },
+      {
+        path: '/admin/add-topic',
+        exact: true,
+        component: AddEditTopic,
       },
     ],
   },

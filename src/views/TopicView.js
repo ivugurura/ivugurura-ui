@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react';
 import { Row, Col, Container, Card, Form } from 'react-bootstrap';
-import { RecentTopics, SampleTopics } from '../components/common';
+import { RecentTopics, SampleTopics, Communique } from '../components/common';
 import { bgStyles } from '../utils/styles';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const TopicView = () => {
   return (
     <Fragment>
+      <Communique />
       <Container fluid>
         <Row>
           <Col xs={12} md={9} lg={9}>

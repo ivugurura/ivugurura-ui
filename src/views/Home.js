@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import VideoPlayer from 'react-player';
 import { Container, Row, Card, Col, Carousel } from 'react-bootstrap';
-import { SampleTopics, Audio } from '../components/common';
+import { SampleTopics, Audio, Communique } from '../components/common';
 
 // const ytbImg = `${process.env.PUBLIC_URL}/yt-img.png`;
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
@@ -13,6 +13,7 @@ export const Home = () => {
   };
   return (
     <Fragment>
+      <Communique />
       <Container fluid>
         <Row>
           <Col md={6} lg={6} xs={12}>

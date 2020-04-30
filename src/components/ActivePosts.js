@@ -19,7 +19,7 @@ export const ActivePosts = () => {
               alt='Generic placeholder'
             />
             <Media.Body>
-              <b>{`Media Heading ${topic}`}</b>
+              <b>{`Ikigisho cya ${topic}`}</b>
               <p>
                 Donec sed odio dui. Nullam quis risus eget urna mollis ornare
                 vel eu leo. Cum sociis natoque penatibus

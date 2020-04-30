@@ -25,7 +25,7 @@ export const SampleTopics = ({ isHomePage }) => {
                 <Card>
                   <Card.Img variant='top' src={topicImg} />
                   <Card.Body>
-                    <Card.Title>Topic title</Card.Title>
+                    <Card.Title>Topic title #{item}</Card.Title>
                     <Card.Text>
                       Some quick example text to build on the card title and
                       make up the bulk of the card's content...

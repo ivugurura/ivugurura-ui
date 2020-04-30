@@ -27,7 +27,9 @@ export const Dashboard = () => {
         </Col>
         <Col xs={12} md={6} lg={6}>
           <Container fluid className='mt-3'>
-            <Link to='/admin/add-topic'>Add new post</Link>
+            <Link to='/admin/add-topic' className='btn btn-primary'>
+              Add new post
+            </Link>
             <Button>Add media</Button>
             <Card className='mt-2'>
               <DraftPosts />

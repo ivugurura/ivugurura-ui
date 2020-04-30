@@ -85,6 +85,9 @@ export const Header = () => {
                 </Dropdown>
               )
             )}
+            <Nav.Link href='/admin' style={textStyles.textFtTitle}>
+              Admin dashboard
+            </Nav.Link>
             <Nav.Link href='#pricing' style={textStyles.textTransparent}>
               Contact us
             </Nav.Link>
@@ -98,7 +101,10 @@ export const Header = () => {
       <Container className='mt-2' fluid>
         <Alert variant='danger'>
           <h4>
-            <MarqueeText text='Itangazo: Muratumiwe mu materaniro' repeat={1} />
+            <MarqueeText
+              text='Itangazo: Muratumiwe mu materaniro ya conference y isi yose'
+              repeat={1}
+            />
           </h4>
         </Alert>
       </Container>

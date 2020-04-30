@@ -18,11 +18,11 @@ export const Footer = ({ isHomepage }) => {
                   </Card.Title>
                   <Form.Control size='lg' as='select'>
                     {[1, 2, 3].map((topic) => (
-                      <option key={topic}>{`Icyigisho cya ${topic}`}</option>
+                      <option key={topic}>{`Inyandiko ${topic}`}</option>
                     ))}
                   </Form.Control>
                   {[1, 2, 3].map((item) => (
-                    <Card.Text key={item}>{`Icyigisho cya ${item}`}</Card.Text>
+                    <Card.Text key={item}>{`Inyandiko ya ${item}`}</Card.Text>
                   ))}
                 </Card.Body>
               </Col>

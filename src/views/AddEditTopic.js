@@ -10,6 +10,7 @@ import {
   Container,
 } from 'react-bootstrap';
 import { topicEditorButtons } from '../utils/constants';
+import { Link } from 'react-router-dom';
 
 export const AddEditTopic = () => {
   return (
@@ -59,7 +60,9 @@ export const AddEditTopic = () => {
           </Row>
         </Card.Body>
         <Card.Footer>
-          <Button variant='secondary'>Cancel</Button>
+          <Link to='/admin' className='btn btn-default'>
+            Cancel
+          </Link>
           <Button variant='primary'>Save Changes</Button>
         </Card.Footer>
       </Card>

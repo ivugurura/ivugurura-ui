@@ -3,7 +3,7 @@ import VideoPlayer from 'react-player';
 import { Container, Row, Card, Col, Carousel } from 'react-bootstrap';
 import { SampleTopics, Audio } from '../components/common';
 
-const ytbImg = `${process.env.PUBLIC_URL}/yt-img.png`;
+// const ytbImg = `${process.env.PUBLIC_URL}/yt-img.png`;
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const Home = () => {
   const [topicIndex, setTopicIndex] = useState(0);

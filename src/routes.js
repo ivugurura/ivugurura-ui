@@ -22,6 +22,12 @@ export const routes = [
         exact: true,
         component: TopicView,
       },
+    ],
+  },
+  {
+    path: '/admin',
+    component: AdminMain,
+    routes: [
       {
         path: '/admin',
         exact: true,

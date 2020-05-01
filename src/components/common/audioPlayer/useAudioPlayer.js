@@ -35,7 +35,7 @@ export const useAudioPlayer = () => {
       audio.removeEventListener('loadeddata', setAudioData);
       audio.removeEventListener('timeupdate', setAudioTime);
     };
-  });
+  }, [clickedTime, curTime, playing]);
 
   return {
     curTime,

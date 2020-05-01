@@ -1,4 +1,4 @@
-export * from './Header';
+export * from './NavHeader';
 export * from './Footer';
 export * from './SampleTopics';
 export * from './RecentTopics';

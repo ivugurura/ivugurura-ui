@@ -1,3 +1,5 @@
-export const initialTestState = {
-  name: 'test'
+export const initialCategoryState = {
+  navCategories: [],
+  navsFetched: false,
+  loading: false,
 };

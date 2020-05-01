@@ -1,2 +1,2 @@
 export * from './actionTypes';
-export * from './test/index';
+export * from './categories';

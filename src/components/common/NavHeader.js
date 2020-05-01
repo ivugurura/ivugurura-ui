@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { useEffect } from 'react';
 import {
   Navbar,
   Nav,
@@ -10,41 +10,16 @@ import {
 } from 'react-bootstrap';
 import { bgStyles, textStyles } from '../../utils/styles';
 import { Logo } from './Logo';
+import { useSelector, useDispatch } from 'react-redux';
+import { getNavCategories } from '../../redux/actions';
 
-const navs = [
-  {
-    name: 'Divinity truth',
-    link: '#truth',
-  },
-  {
-    name: 'Social life',
-    link: '#truth',
-    subNavs: [
-      {
-        name: 'Mariage',
-        link: '#mariage',
-      },
-    ],
-  },
-  {
-    name: 'The prophecy',
-    link: '#truth',
-  },
-  {
-    name: 'Preaching and songs',
-    subNavs: [
-      {
-        name: 'Audio',
-        link: '#truth',
-      },
-      {
-        name: 'Video',
-        link: '#truth',
-      },
-    ],
-  },
-];
-export const Header = () => {
+export const NavHeader = () => {
+  const navCategories = useSelector(({ category }) => category.navCategories);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getNavCategories());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getNavCategories]);
   return (
     <Navbar collapseOnSelect expand='lg' style={bgStyles.bgPrimary}>
       <Logo />
@@ -54,10 +29,10 @@ export const Header = () => {
           <Nav.Link href='#features' style={textStyles.textTransparent}>
             Home
           </Nav.Link>
-          {navs.map((nav, navIndex) =>
-            !nav.subNavs ? (
+          {navCategories.map((nav, navIndex) =>
+            !nav.categories.length ? (
               <Nav.Link
-                href={nav.link}
+                href={`/${nav.slug}`}
                 style={textStyles.textTransparent}
                 key={navIndex}
               >
@@ -72,8 +47,8 @@ export const Header = () => {
                   {nav.name}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  {nav.subNavs.map((subNav, subNavIndex) => (
-                    <Dropdown.Item href={subNav.link} key={subNavIndex}>
+                  {nav.categories.map((subNav, subNavIndex) => (
+                    <Dropdown.Item href={`/${subNav.slug}`} key={subNavIndex}>
                       {subNav.name}
                     </Dropdown.Item>
                   ))}

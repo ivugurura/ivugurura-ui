@@ -1,1 +1,1 @@
-export const ACTION_TEST = 'ACTION_TEST';
+export const GET_NAVS_CATEGORIES = 'GET_NAVS_CATEGORIES';

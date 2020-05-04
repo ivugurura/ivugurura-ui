@@ -4,6 +4,9 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Container, Row, Card, Col } from 'react-bootstrap';
 import { SampleTopics, Audio, Communique } from '../components/common';
+import { translate } from '../components/utils';
+import { Radio } from '../components';
+import { textStyles, bgStyles } from '../utils/styles';
 
 // const ytbImg = `${process.env.PUBLIC_URL}/yt-img.png`;
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
@@ -32,16 +35,31 @@ export const Home = () => {
             </Carousel>
           </Col>
           <Col md={6} lg={6} xs={12}>
-            <Card>
-              <VideoPlayer url='' playing={false} width='100%' />
-            </Card>
+            <Row>
+              <Col xs={12} sm={12} md={6}>
+                <h4 className='text-center'>{translate('radioName')}</h4>
+                <h6>{translate('listen')}</h6>
+              </Col>
+              <Col xs={12} sm={12} md={6}>
+                <Radio />
+              </Col>
+              <Col xs={12} sm={12} md={12}>
+                <VideoPlayer
+                  url='https://www.youtube.com/watch?v=ItyDNdoUhUQ'
+                  playing={false}
+                  width='100%'
+                />
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>
       <SampleTopics isHomePage />
       <Card>
-        <Card.Header className='text-center'>
-          <h1>Indirimbo na video z Abagorozi</h1>
+        <Card.Header className='text-center' style={bgStyles.bgPrimary}>
+          <h1 style={textStyles.textTransparent}>
+            {translate('audioVideoTxt')}
+          </h1>
         </Card.Header>
         <Card.Body>
           <Row>
@@ -49,7 +67,11 @@ export const Home = () => {
               <Audio />
             </Col>
             <Col xs={12} md={8} lg={8}>
-              <VideoPlayer url='' playing={false} width='100%' />
+              <VideoPlayer
+                url='https://www.youtube.com/watch?v=hWAn04AtDZg'
+                playing={false}
+                width='100%'
+              />
             </Col>
           </Row>
         </Card.Body>

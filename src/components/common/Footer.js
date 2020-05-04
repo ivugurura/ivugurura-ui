@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Card, Form } from 'react-bootstrap';
 import { bgStyles, textStyles } from '../../utils/styles';
 import { RecentTopics } from './RecentTopics';
+import { translate } from '../utils';
 
 const currentYear = new Date().getFullYear();
 export const Footer = ({ isHomepage }) => {
@@ -14,7 +15,7 @@ export const Footer = ({ isHomepage }) => {
               <Col xs={12} md={4} lg={4}>
                 <Card.Body>
                   <Card.Title style={textStyles.textFtTitle}>
-                    Inyandiko
+                    {translate('writingsCat')}
                   </Card.Title>
                   <Form.Control size='lg' as='select'>
                     {[1, 2, 3].map((topic) => (
@@ -29,7 +30,7 @@ export const Footer = ({ isHomepage }) => {
               <Col xs={12} md={4} lg={4}>
                 <Card.Body>
                   <Card.Title style={textStyles.textFtTitle}>
-                    Twandikire
+                    {translate('contactUs')}
                   </Card.Title>
                   {['Amazina', 'Email', 'Message'].map((contact) => (
                     <Form.Control
@@ -53,7 +54,8 @@ export const Footer = ({ isHomepage }) => {
         <Container fluid style={textStyles.textTransparent}>
           <Row>
             <Col xs={12} md={4} lg={4}>
-              {`@Copyright 2016-${currentYear}, Reformation Voice`}
+              {`@Copyright 2016-${currentYear}, `}
+              <span>{translate('title')}</span>
             </Col>
             <Col xs={12} md={4} lg={4}>
               Tel:+250 788 476 743

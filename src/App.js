@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { store } from './redux/store';
 import { routes } from './routes';
-import { LangProvider } from './components/LangProvider';
+import { LangProvider } from './components';
 import { setLanguage } from './redux/actions';
 
 let systemLanguage = localStorage.getItem('lang');

@@ -14,7 +14,7 @@ export const categoryReducer = (state = initialCategoryState, action) => {
         ...state,
         loading: false,
         navsFetched: true,
-        navCategories: action.payload.data.data,
+        navCategories: action.payload.data.data | [],
       };
     default:
       return state;

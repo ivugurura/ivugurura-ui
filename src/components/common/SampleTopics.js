@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
 import { bgStyles, textStyles } from '../../utils/styles';
 import { Link } from 'react-router-dom';
+import { translate } from '../utils';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const SampleTopics = ({ isHomePage }) => {
@@ -9,9 +10,9 @@ export const SampleTopics = ({ isHomePage }) => {
     <Card style={bgStyles.bgAccent}>
       {isHomePage ? (
         <Card.Header style={bgStyles.bgPrimary} className='text-center'>
-          <h1 style={textStyles.textTransparent}>Radio Ijwi ry Ubugorozi</h1>
+          <h1 style={textStyles.textTransparent}>{translate('radioName')}</h1>
           <Card.Link style={textStyles.textTransparent}>
-            Yumve nonaha hano
+            {translate('listen')}
           </Card.Link>
         </Card.Header>
       ) : (

@@ -4,11 +4,21 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { store } from './redux/store';
 import { routes } from './routes';
+import { LangProvider } from './components/LangProvider';
+import { setLanguage } from './redux/actions';
 
+let systemLanguage = localStorage.getItem('lang');
+if (!systemLanguage) {
+  localStorage.setItem('lang', 'kn');
+  systemLanguage = 'kn';
+}
+store.dispatch(setLanguage(systemLanguage));
 export const App = () => {
   return (
     <Provider store={store}>
-      <Router>{renderRoutes(routes)}</Router>
+      <LangProvider>
+        <Router>{renderRoutes(routes)}</Router>
+      </LangProvider>
     </Provider>
   );
 };

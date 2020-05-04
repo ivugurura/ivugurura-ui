@@ -1,1 +1,2 @@
 export const GET_NAVS_CATEGORIES = 'GET_NAVS_CATEGORIES';
+export const SET_LANGUAGE = 'SET_LANGUAGE';

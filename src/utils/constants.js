@@ -13,3 +13,14 @@ export const topicEditorButtons = [
   // ['save', 'template'],
   // '/', Line break
 ];
+
+export const systemLanguages = [
+  {
+    lang: 'Kinyarwanda',
+    abbr: 'kn',
+  },
+  {
+    lang: 'English',
+    abbr: 'en',
+  },
+];

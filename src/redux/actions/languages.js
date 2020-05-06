@@ -1,4 +1,4 @@
-import { SET_LANGUAGE } from '../actionTypes';
+import { SET_LANGUAGE } from './actionTypes';
 
 export const setLanguage = (newLanguage) => {
   return {

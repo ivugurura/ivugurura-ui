@@ -1,5 +1,5 @@
-import { GET_NAVS_CATEGORIES } from '../actionTypes';
-import { http } from '../../../helpers';
+import { GET_NAVS_CATEGORIES } from './actionTypes';
+import { http } from '../../helpers';
 
 export const getNavCategories = () => {
   return {

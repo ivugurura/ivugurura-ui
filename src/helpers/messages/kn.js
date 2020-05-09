@@ -7,5 +7,6 @@ export const kn = {
   listen: 'Yumve nonaha hano',
   audioVideoTxt: 'Indirimbo na videwo z Abagorozi',
   recentTopics: 'Ibyigisho biheruka',
+  relatedTopics: 'Ibyigisho bijyanye',
   writingsCat: 'Inyandiko',
 };

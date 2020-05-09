@@ -7,5 +7,6 @@ export const en = {
   listen: 'Press here to listen',
   audioVideoTxt: 'Reformers audios and videos',
   recentTopics: 'Recent topics',
+  relatedTopics: 'Related topics',
   writingsCat: 'Topics',
 };

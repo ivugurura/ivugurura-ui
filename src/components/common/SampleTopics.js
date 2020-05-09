@@ -1,5 +1,7 @@
 import React from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
+import Carousel from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 import { bgStyles, textStyles } from '../../utils/styles';
 import { Link } from 'react-router-dom';
 import { translate } from '../utils';
@@ -16,12 +18,19 @@ export const SampleTopics = ({ isHomePage }) => {
           </Card.Link>
         </Card.Header>
       ) : (
-        <h1 className='text-center mt-2'>Related topics</h1>
+        <h1 className='text-center mt-2'>{translate('relatedTopics')}</h1>
       )}
       <Card.Body>
-        <Row>
-          {[1, 2, 3].map((item) => (
-            <Col key={item} xs={12} md={4} lg={4}>
+        <Carousel
+          slidesPerPage={3}
+          autoPlay={5000}
+          slidesPerScroll={3}
+          stopAutoPlayOnHover
+          centered
+          arrows
+        >
+          {[1, 2, 3, 4, 5, 6].map((item) => (
+            <Col key={item} xs={12} md={12} lg={12}>
               <Link to={`/topic-title-${item}/view`}>
                 <Card>
                   <Card.Img variant='top' src={topicImg} />
@@ -36,7 +45,7 @@ export const SampleTopics = ({ isHomePage }) => {
               </Link>
             </Col>
           ))}
-        </Row>
+        </Carousel>
       </Card.Body>
     </Card>
   );

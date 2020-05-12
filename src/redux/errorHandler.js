@@ -15,6 +15,7 @@ export const errorHandler = () => {
         } else {
           errorMessage = error.message;
         }
+        console.log('Error message', error.message);
         console.log('handled error:', errorMessage);
       });
     }

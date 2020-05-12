@@ -2,23 +2,21 @@ import React, { useEffect } from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCarsoulTopics } from '../redux/actions/topics';
-import { Container, Spinner } from 'react-bootstrap';
+import { getTopics } from '../redux/actions/topics';
+import { Loading } from './common';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const TopicsCarousel = () => {
   const topic = useSelector(({ topic }) => topic);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getCarsoulTopics({ page: 1, pageSize: 3 }));
-  }, [getCarsoulTopics]);
+    dispatch(getTopics({ page: 1, pageSize: 3, category: 'carsoul' }));
+  }, [getTopics]);
   const { carsoulLoading, carsoulTopics } = topic;
   return (
     <>
       {carsoulLoading ? (
-        <h1 className='text-center'>
-          <Spinner animation='border' />
-        </h1>
+        <Loading message='Loading, please wait...' />
       ) : (
         <Carousel autoPlay infiniteLoop stopOnHover>
           {carsoulTopics.length ? (

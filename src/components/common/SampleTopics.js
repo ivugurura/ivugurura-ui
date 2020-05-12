@@ -20,10 +20,12 @@ export const SampleTopics = ({ isHomePage, topics, loading }) => {
   useEffect(() => {
     if (isHomePage) {
       dispatch(getTopics({ page: 1, pageSize: 3, category: 'recent' }));
-      componentTopics = topic.recentTopics;
-      componentLoading = topic.recentLoading;
     }
   }, [getTopics]);
+  if (isHomePage) {
+    componentTopics = topic.recentTopics;
+    componentLoading = topic.recentLoading;
+  }
   const carsoulBreakpoints = {
     500: {
       slidesPerPage: 1,
@@ -61,13 +63,13 @@ export const SampleTopics = ({ isHomePage, topics, loading }) => {
             arrows
             breakpoints={carsoulBreakpoints}
           >
-            {componentTopics.map((item) => (
-              <Col key={item} xs={12} md={12} lg={12}>
-                <Link to={`/topic-title-${item}/view`}>
+            {componentTopics.map((topic, topicItem) => (
+              <Col key={topicItem} xs={12} md={12} lg={12}>
+                <Link to={`/${topic.slug}/view`}>
                   <Card>
                     <Card.Img variant='top' src={topicImg} />
                     <Card.Body>
-                      <Card.Title>Topic title #{item}</Card.Title>
+                      <Card.Title>{topic.title}</Card.Title>
                       <Card.Text>
                         Some quick example text to build on the card title and
                         make up the bulk of the card's content...

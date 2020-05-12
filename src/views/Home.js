@@ -33,7 +33,7 @@ export const Home = () => {
           </Col>
         </Row>
       </Container>
-      <SampleTopics isHomePage />
+      <SampleTopics isHomePage topics={[]} loading={false} />
       <Card>
         <Card.Header className='text-center' style={bgStyles.bgPrimary}>
           <h1 style={textStyles.textTransparent}>

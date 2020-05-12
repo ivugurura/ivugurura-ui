@@ -2,7 +2,6 @@ import {
   GET_CARSOUL_TOPICS,
   GET_ALL_TOPICS,
   GET_RECENT_TOPICS,
-  GET_CATEGORY_TOPICS,
 } from './actionTypes';
 import { http } from '../../helpers';
 

@@ -11,6 +11,7 @@ export const TopicsCarousel = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTopics({ page: 1, pageSize: 3, category: 'carsoul' }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getTopics]);
   const { carsoulLoading, carsoulTopics } = topic;
   return (

@@ -2,6 +2,7 @@ import {
   GET_CARSOUL_TOPICS,
   GET_ALL_TOPICS,
   GET_RECENT_TOPICS,
+  VIEW_TOPIC_DETAIL,
 } from './actionTypes';
 import { http } from '../../helpers';
 
@@ -17,10 +18,16 @@ export const getTopics = ({ page, pageSize, category }) => {
     default:
       break;
   }
+  const params = `page=${page}&pageSize=${pageSize}&category=${category}`;
   return {
     type: categoryType,
-    payload: http.get(
-      `/topics?page=${page}&pageSize=${pageSize}&category=${category}`
-    ),
+    payload: http.get(`/topics?${params}`),
+  };
+};
+
+export const getTopicDetail = (topicSlug) => {
+  return {
+    type: VIEW_TOPIC_DETAIL,
+    payload: http.get(`/topics/${topicSlug}`),
   };
 };

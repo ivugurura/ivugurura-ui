@@ -2,7 +2,8 @@ import { messages } from './messages';
 
 export const initialCategoryState = {
   navCategories: [],
-  navsFetched: false,
+  navLoading: false,
+  categories: [],
   loading: false,
 };
 export const initialTopicState = {
@@ -18,4 +19,8 @@ export const initialTopicState = {
 export const initialLangState = {
   locale: 'kn',
   messages: messages['kn'],
+};
+export const initialOneTopicState = {
+  topic: {},
+  topicLoading: false,
 };

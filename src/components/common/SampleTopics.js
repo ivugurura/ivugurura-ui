@@ -21,6 +21,7 @@ export const SampleTopics = ({ isHomePage, topics, loading }) => {
     if (isHomePage) {
       dispatch(getTopics({ page: 1, pageSize: 3, category: 'recent' }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getTopics]);
   if (isHomePage) {
     componentTopics = topic.recentTopics;

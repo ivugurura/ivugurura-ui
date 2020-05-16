@@ -12,7 +12,7 @@ import {
 import { bgStyles, textStyles } from '../../utils/styles';
 import { Logo } from './Logo';
 import { useSelector, useDispatch } from 'react-redux';
-import { getNavCategories, setLanguage } from '../../redux/actions';
+import { getCategories, setLanguage } from '../../redux/actions';
 import { systemLanguages } from '../../utils/constants';
 import { translate } from '../utils';
 
@@ -22,9 +22,9 @@ export const NavHeader = () => {
   const navCategories = useSelector(({ category }) => category.navCategories);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getNavCategories());
+    dispatch(getCategories('/navs'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getNavCategories, setLanguage]);
+  }, [getCategories, setLanguage]);
   const selectLanguage = (e) => {
     const newLang = e.target.value;
     localStorage.setItem('lang', newLang);

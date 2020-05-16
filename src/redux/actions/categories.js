@@ -1,9 +1,11 @@
-import { GET_NAVS_CATEGORIES } from './actionTypes';
+import { GET_NAVS_CATEGORIES, GET_CATEGORIES } from './actionTypes';
 import { http } from '../../helpers';
 
-export const getNavCategories = () => {
+export const getCategories = (categoryType) => {
+  const actionType =
+    categoryType === '/' ? GET_CATEGORIES : GET_NAVS_CATEGORIES;
   return {
-    type: GET_NAVS_CATEGORIES,
-    payload: http.get('/categories/navs'),
+    type: actionType,
+    payload: http.get(`/categories${categoryType}`),
   };
 };

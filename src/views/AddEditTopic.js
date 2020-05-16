@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SunEditor from 'suneditor-react';
 import ImageUploader from 'react-images-upload';
 import {
@@ -11,12 +11,21 @@ import {
 } from 'react-bootstrap';
 import { topicEditorButtons } from '../utils/constants';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategories } from '../redux/actions';
+import { FileUploader } from '../components';
 
 export const AddEditTopic = () => {
+  const dispatch = useDispatch();
+  const { categories, loading } = useSelector(({ category }) => category);
+  useEffect(() => {
+    dispatch(getCategories('/'));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getCategories]);
   return (
     <Container fluid className='mt-2'>
       <Card>
-        <Card.Header closeButton>
+        <Card.Header>
           <Card.Title>
             <Row>
               <Col xs={12} md={6} lg={6}>
@@ -28,6 +37,15 @@ export const AddEditTopic = () => {
               <Col xs={12} md={3} lg={3}>
                 <FormControl as='select'>
                   <option>Select category</option>
+                  {loading ? (
+                    <option>Loading</option>
+                  ) : (
+                    categories.map((category, categoryIndex) => (
+                      <option key={categoryIndex} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))
+                  )}
                 </FormControl>
               </Col>
             </Row>
@@ -46,16 +64,7 @@ export const AddEditTopic = () => {
               />
             </Col>
             <Col xs={12} md={3} lg={3}>
-              <ImageUploader
-                withIcon={true}
-                buttonText='Add cover image'
-                onChange={() => console.log('Upload')}
-                imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                maxFileSize={5242880}
-                withPreview={true}
-                singleImage={true}
-                name='cover-image'
-              />
+              <FileUploader />
             </Col>
           </Row>
         </Card.Body>

@@ -24,3 +24,7 @@ export const initialOneTopicState = {
   topic: {},
   topicLoading: false,
 };
+export const initialFilerState = {
+  uploadLoading: false,
+  coverImagePath: '',
+};

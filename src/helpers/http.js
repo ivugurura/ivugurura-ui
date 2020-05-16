@@ -13,5 +13,6 @@ export const http = axios.create({
   headers: {
     Authorization: token,
     'Accept-Language': lang,
+    'Content-Type': 'multipart/form-data',
   },
 });

@@ -23,8 +23,11 @@ export const initialLangState = {
 export const initialOneTopicState = {
   topic: {},
   topicLoading: false,
+  newTopicLoading: false,
+  newTopicMesg: '',
 };
 export const initialFilerState = {
   uploadLoading: false,
   coverImagePath: '',
+  percent: 0,
 };

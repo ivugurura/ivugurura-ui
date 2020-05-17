@@ -1,6 +1,7 @@
 import { initialOneTopicState } from '../../helpers';
 import { pending, fulfilled, rejected } from '../../utils/actions';
-import { VIEW_TOPIC_DETAIL } from '../actions';
+import { VIEW_TOPIC_DETAIL, ADD_NEW_TOPIC } from '../actions';
+import { error } from '../errorHandler';
 
 export const oneTopicReducer = (state = initialOneTopicState, action) => {
   switch (action.type) {
@@ -19,6 +20,23 @@ export const oneTopicReducer = (state = initialOneTopicState, action) => {
       return {
         ...state,
         topicLoading: false,
+      };
+    case pending(ADD_NEW_TOPIC):
+      return {
+        ...state,
+        newTopicLoading: true,
+      };
+    case fulfilled(ADD_NEW_TOPIC):
+      return {
+        ...state,
+        newTopicLoading: false,
+        newTopicMesg: 'Added',
+      };
+    case rejected(ADD_NEW_TOPIC):
+      return {
+        ...state,
+        newTopicLoading: false,
+        newTopicMesg: error(action.payload),
       };
     default:
       return state;

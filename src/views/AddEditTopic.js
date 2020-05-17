@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import SunEditor from 'suneditor-react';
-import ImageUploader from 'react-images-upload';
 import {
   Card,
   Button,
@@ -14,14 +13,38 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../redux/actions';
 import { FileUploader } from '../components';
+import { addTopic } from '../redux/actions/topics';
 
 export const AddEditTopic = () => {
   const dispatch = useDispatch();
-  const { categories, loading } = useSelector(({ category }) => category);
+  const { category, filer, oneTopic } = useSelector(
+    ({ category, filer, oneTopic }) => ({
+      category,
+      filer,
+      oneTopic,
+    })
+  );
+  const [topic, setTopic] = useState({
+    title: '',
+    categoryId: '',
+    content: '',
+  });
   useEffect(() => {
     dispatch(getCategories('/'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getCategories]);
+  }, [getCategories, addTopic]);
+  const onInputChange = (event) => {
+    const theTopic = { ...topic };
+    const theKey = event.target ? event.target.name : 'content';
+    theTopic[theKey] = event.target ? event.target.value : event;
+    setTopic(theTopic);
+  };
+  const onSaveChange = () => {
+    topic.coverImage = filer.coverImagePath;
+    dispatch(addTopic(topic));
+  };
+  console.log('server error', oneTopic.newTopicMesg);
+
   return (
     <Container fluid className='mt-2'>
       <Card>
@@ -32,15 +55,26 @@ export const AddEditTopic = () => {
                 <h4>Write the content below or PASTE THEM</h4>
               </Col>
               <Col xs={12} md={3} lg={3}>
-                <FormControl type='text' placeholder='Topic title' />
+                <FormControl
+                  type='text'
+                  placeholder='Topic title'
+                  name='title'
+                  value={topic.title}
+                  onChange={onInputChange}
+                />
               </Col>
               <Col xs={12} md={3} lg={3}>
-                <FormControl as='select'>
+                <FormControl
+                  as='select'
+                  name='categoryId'
+                  value={topic.categoryId}
+                  onChange={onInputChange}
+                >
                   <option>Select category</option>
-                  {loading ? (
+                  {category.loading ? (
                     <option>Loading</option>
                   ) : (
-                    categories.map((category, categoryIndex) => (
+                    category.categories.map((category, categoryIndex) => (
                       <option key={categoryIndex} value={category.id}>
                         {category.name}
                       </option>
@@ -57,10 +91,12 @@ export const AddEditTopic = () => {
               <SunEditor
                 setOptions={{
                   buttonList: topicEditorButtons,
-                  height: 200,
+                  height: 230,
                 }}
                 name='content'
+                value={topic.content}
                 placeholder='Please type here...'
+                onChange={onInputChange}
               />
             </Col>
             <Col xs={12} md={3} lg={3}>
@@ -72,7 +108,9 @@ export const AddEditTopic = () => {
           <Link to='/admin' className='btn btn-default'>
             Cancel
           </Link>
-          <Button variant='primary'>Save Changes</Button>
+          <Button variant='primary' onClick={onSaveChange}>
+            Save Changes
+          </Button>
         </Card.Footer>
       </Card>
     </Container>

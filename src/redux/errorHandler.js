@@ -23,3 +23,13 @@ export const errorHandler = () => {
     return next(action);
   };
 };
+export const error = (serverResponse) => {
+  let errorMessage = '';
+  if (serverResponse.response) {
+    const { error: message } = serverResponse.response.data;
+    errorMessage = message;
+  } else {
+    errorMessage = serverResponse.message;
+  }
+  return errorMessage;
+};

@@ -1,7 +1,6 @@
 import { initialUserState } from '../../helpers';
 import { pending, fulfilled, rejected } from '../../utils/actions';
 import { LOGIN_USER, SET_USER } from '../actions';
-import { error } from '../errorHandler';
 
 export const useReducer = (state = initialUserState, action) => {
   switch (action.type) {
@@ -22,7 +21,6 @@ export const useReducer = (state = initialUserState, action) => {
       return {
         ...state,
         userLoading: false,
-        errorMesg: error(action.payload),
       };
     case SET_USER:
       return {

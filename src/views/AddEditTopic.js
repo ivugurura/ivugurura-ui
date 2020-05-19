@@ -32,7 +32,7 @@ export const AddEditTopic = () => {
   useEffect(() => {
     dispatch(getCategories('/'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getCategories, addTopic]);
+  }, [getCategories, oneTopic]);
   const onInputChange = (event) => {
     const theTopic = { ...topic };
     const theKey = event.target ? event.target.name : 'content';
@@ -43,7 +43,6 @@ export const AddEditTopic = () => {
     topic.coverImage = filer.coverImagePath;
     dispatch(addTopic(topic));
   };
-  console.log('server error', oneTopic.newTopicMesg);
 
   return (
     <Container fluid className='mt-2'>

@@ -1,7 +1,6 @@
 import { initialOneTopicState } from '../../helpers';
 import { pending, fulfilled, rejected } from '../../utils/actions';
 import { VIEW_TOPIC_DETAIL, ADD_NEW_TOPIC } from '../actions';
-import { error } from '../errorHandler';
 
 export const oneTopicReducer = (state = initialOneTopicState, action) => {
   switch (action.type) {
@@ -36,7 +35,6 @@ export const oneTopicReducer = (state = initialOneTopicState, action) => {
       return {
         ...state,
         newTopicLoading: false,
-        newTopicMesg: error(action.payload),
       };
     default:
       return state;

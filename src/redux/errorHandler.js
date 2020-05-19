@@ -1,4 +1,5 @@
 import isPromise from 'is-promise';
+import { toast } from 'react-toastify';
 
 export const errorHandler = () => {
   return (next) => (action) => {
@@ -15,21 +16,10 @@ export const errorHandler = () => {
         } else {
           errorMessage = error.message;
         }
-        console.log('Error message', error.message);
-        console.log('handled error:', errorMessage);
+        toast(errorMessage);
       });
     }
 
     return next(action);
   };
-};
-export const error = (serverResponse) => {
-  let errorMessage = '';
-  if (serverResponse.response) {
-    const { error: message } = serverResponse.response.data;
-    errorMessage = message;
-  } else {
-    errorMessage = serverResponse.message;
-  }
-  return errorMessage;
 };

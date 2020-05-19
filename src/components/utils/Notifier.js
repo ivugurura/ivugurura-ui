@@ -9,30 +9,21 @@ export const Notifier = ({ message }) => {
     }
   }, [message]);
   return (
-    <div
-      aria-live='polite'
-      aria-atomic='true'
+    <Toast
       style={{
-        position: 'relative',
-        minHeight: '100px',
+        position: 'absolute',
+        top: 0,
+        right: 0,
       }}
+      onClose={() => setShow(false)}
+      show={show}
+      delay={3000}
+      autohide
     >
-      <Toast
-        style={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-        }}
-        onClose={() => setShow(false)}
-        show={show}
-        delay={3000}
-        autohide
-      >
-        <Toast.Header>
-          <strong className='mr-auto'>Notifier</strong>
-        </Toast.Header>
-        <Toast.Body>{message}</Toast.Body>
-      </Toast>
-    </div>
+      <Toast.Header>
+        <strong className='mr-auto'>Notifier</strong>
+      </Toast.Header>
+      <Toast.Body>{message}</Toast.Body>
+    </Toast>
   );
 };

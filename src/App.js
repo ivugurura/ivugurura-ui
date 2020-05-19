@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import jwtDecode from 'jwt-decode';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
+import { ToastContainer } from 'react-toastify';
 import { store } from './redux/store';
 import { routes } from './routes';
 import { LangProvider } from './components';
@@ -31,6 +32,7 @@ export const App = () => {
   return (
     <Provider store={store}>
       <LangProvider>
+        <ToastContainer />
         <Router>{renderRoutes(routes)}</Router>
       </LangProvider>
     </Provider>

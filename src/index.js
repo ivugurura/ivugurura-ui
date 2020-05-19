@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'suneditor/dist/css/suneditor.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
 

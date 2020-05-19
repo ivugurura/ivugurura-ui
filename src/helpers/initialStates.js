@@ -31,3 +31,10 @@ export const initialFilerState = {
   coverImagePath: '',
   percent: 0,
 };
+export const initialUserState = {
+  userLoading: false,
+  isAuthenticated: false,
+  userFetched: false,
+  errorMesg: '',
+  info: {},
+};

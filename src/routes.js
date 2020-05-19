@@ -5,6 +5,7 @@ import {
   Dashboard,
   AdminMain,
   AddEditTopic,
+  Login,
 } from './views';
 
 export const routes = [
@@ -12,6 +13,11 @@ export const routes = [
     path: '/admin',
     component: AdminMain,
     routes: [
+      {
+        path: '/admin/login',
+        exact: true,
+        component: Login,
+      },
       {
         path: '/admin',
         exact: true,

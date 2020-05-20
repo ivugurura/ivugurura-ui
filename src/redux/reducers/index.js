@@ -5,6 +5,7 @@ import { topicReducer } from './topicReducer';
 import { oneTopicReducer } from './oneTopicReducer';
 import { filerReducer } from './filerReducer';
 import { useReducer } from './userReducer';
+import { dashboardReducer } from './dashboardReducer';
 
 export default combineReducers({
   category: categoryReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   oneTopic: oneTopicReducer,
   filer: filerReducer,
   user: useReducer,
+  dashboard: dashboardReducer,
 });

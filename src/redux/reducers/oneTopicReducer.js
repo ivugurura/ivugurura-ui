@@ -29,7 +29,7 @@ export const oneTopicReducer = (state = initialOneTopicState, action) => {
       return {
         ...state,
         newTopicLoading: false,
-        newTopicMesg: 'Added',
+        newTopicAdded: true,
       };
     case rejected(ADD_NEW_TOPIC):
       return {

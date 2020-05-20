@@ -9,6 +9,7 @@ import { translate } from '../utils';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTopics } from '../../redux/actions/topics';
 import { Loading } from './Loading';
+import { truncate } from '../../utils/constants';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const SampleTopics = ({ isHomePage, topics, loading }) => {
@@ -71,10 +72,7 @@ export const SampleTopics = ({ isHomePage, topics, loading }) => {
                     <Card.Img variant='top' src={topicImg} />
                     <Card.Body>
                       <Card.Title>{topic.title}</Card.Title>
-                      <Card.Text>
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content...
-                      </Card.Text>
+                      <Card.Text>{truncate(topic.description, 80)}</Card.Text>
                     </Card.Body>
                   </Card>
                 </Link>

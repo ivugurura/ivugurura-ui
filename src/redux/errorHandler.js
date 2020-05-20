@@ -16,7 +16,11 @@ export const errorHandler = () => {
         } else {
           errorMessage = error.message;
         }
-        toast(errorMessage);
+        toast(errorMessage, {
+          type: toast.TYPE.ERROR,
+          position: toast.POSITION.BOTTOM_RIGHT,
+          toastId: 13,
+        });
       });
     }
 

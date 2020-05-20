@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { uploadFile } from '../redux/actions';
+import { uploadFile, deleteFile } from '../redux/actions';
 import { truncate } from '../utils/constants';
+import { Form, Button, ButtonGroup } from 'react-bootstrap';
 
 export const FileUploader = ({ fileType }) => {
   const dispatch = useDispatch();
-  const { uploadLoading, coverImagePath } = useSelector(({ filer }) => filer);
+  const {
+    uploadLoading,
+    coverImagePath,
+    delLoading,
+    deleteSuccess,
+  } = useSelector(({ filer }) => filer);
   const [file, setFile] = useState('');
   const [fileSrc, setFileSrc] = useState('');
   const [fileName, setFileName] = useState('Select cover image');
@@ -19,31 +25,42 @@ export const FileUploader = ({ fileType }) => {
     formData.append('file', file);
     dispatch(uploadFile(formData));
   };
+  useEffect(() => {
+    if (deleteSuccess) {
+      setFileSrc('');
+      setFile('');
+      setFileName('Select cover image');
+    }
+  }, [uploadLoading, coverImagePath, delLoading, deleteSuccess]);
   return (
     <div className='custom-file mb-4'>
-      <input
-        type='file'
-        className='custom-file-input'
+      <Form.File
         id='customFile'
+        label={truncate(fileName, 18)}
         onChange={onChange}
+        custom
       />
-      <label className='custom-file-label' htmlFor='customFile'>
-        {truncate(fileName, 18)}
-      </label>
       <div className='text-center'>
         <img src={fileSrc} className='img-fluid img-thumbnail' alt='' />
       </div>
-      <button
-        className='btn btn-sm btn-round btn-primary'
-        onClick={onUpload}
-        disabled={fileName === '' ? true : false}
-      >
-        {uploadLoading
-          ? 'Uploading...'
-          : coverImagePath
-          ? 'Has uploaded'
-          : 'Upload'}
-      </button>
+      <ButtonGroup>
+        {coverImagePath ? (
+          <Button
+            variant='outline-warning'
+            onClick={() => dispatch(deleteFile('image', coverImagePath))}
+          >
+            {delLoading ? 'Deleting...' : 'Delete image'}
+          </Button>
+        ) : (
+          <Button variant='outline-primary' onClick={onUpload}>
+            {uploadLoading
+              ? 'Uploading...'
+              : coverImagePath
+              ? 'Has uploaded'
+              : 'Upload'}
+          </Button>
+        )}
+      </ButtonGroup>
     </div>
   );
 };

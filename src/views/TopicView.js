@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { Row, Col, Container, Card, Form } from 'react-bootstrap';
+import HtmlParser from 'react-html-parser';
 import {
   RecentTopics,
   SampleTopics,
@@ -35,10 +36,11 @@ export const TopicView = ({ match }) => {
                   {topic.createdAt}
                 </Card.Subtitle>
                 <Card>
-                  <Card.Img variant='top' src={topicImg} />
-                  <Card.Body>
-                    <Card.Text>{topic.content}</Card.Text>
-                  </Card.Body>
+                  <Card.Img
+                    variant='top'
+                    src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
+                  />
+                  <Card.Body>{HtmlParser(topic.content)}</Card.Body>
                   <Card.Footer>
                     <Form.Control as='textarea' rows='3' />
                     <Form.Row className='mt-2'>

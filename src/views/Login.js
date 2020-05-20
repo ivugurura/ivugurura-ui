@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Card, Row, Col } from 'react-bootstrap';
-import { ToastContainer } from 'react-toastify';
-import { toast } from 'react-toastify';
+import { Container, Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser } from '../redux/actions';
-import { Notifier } from '../components/utils';
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -23,7 +20,7 @@ export const Login = () => {
       localStorage.setItem('user', JSON.stringify(info));
       window.location.href = '/admin';
     }
-  }, [userLoading, userFetched]);
+  }, [userLoading, userFetched, info]);
   return (
     <Container>
       <Row>

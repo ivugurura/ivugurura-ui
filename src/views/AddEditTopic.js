@@ -9,13 +9,13 @@ import {
   Container,
 } from 'react-bootstrap';
 import { topicEditorButtons } from '../utils/constants';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../redux/actions';
 import { FileUploader } from '../components';
 import { addTopic } from '../redux/actions/topics';
+import { toast } from 'react-toastify';
 
-export const AddEditTopic = () => {
+export const AddEditTopic = ({ history }) => {
   const dispatch = useDispatch();
   const { category, filer, oneTopic } = useSelector(
     ({ category, filer, oneTopic }) => ({
@@ -28,9 +28,16 @@ export const AddEditTopic = () => {
     title: '',
     categoryId: '',
     content: '',
+    description: '',
   });
   useEffect(() => {
     dispatch(getCategories('/'));
+    if (oneTopic.newTopicAdded) {
+      toast(`${topic.title.toUpperCase()} has added`);
+      setTimeout(() => {
+        history.goBack();
+      }, 5000);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getCategories, oneTopic]);
   const onInputChange = (event) => {
@@ -46,13 +53,11 @@ export const AddEditTopic = () => {
 
   return (
     <Container fluid className='mt-2'>
+      <h4 className='text-center'>Add topic or PAST IT HERE</h4>
       <Card>
         <Card.Header>
           <Card.Title>
             <Row>
-              <Col xs={12} md={6} lg={6}>
-                <h4>Write the content below or PASTE THEM</h4>
-              </Col>
               <Col xs={12} md={3} lg={3}>
                 <FormControl
                   type='text'
@@ -81,6 +86,15 @@ export const AddEditTopic = () => {
                   )}
                 </FormControl>
               </Col>
+              <Col xs={12} md={6} lg={6}>
+                <FormControl
+                  type='text'
+                  placeholder='Topic description'
+                  name='description'
+                  value={topic.description}
+                  onChange={onInputChange}
+                />
+              </Col>
             </Row>
           </Card.Title>
         </Card.Header>
@@ -104,11 +118,15 @@ export const AddEditTopic = () => {
           </Row>
         </Card.Body>
         <Card.Footer>
-          <Link to='/admin' className='btn btn-default'>
+          <Button variant='outline-secondary' onClick={() => history.goBack()}>
             Cancel
-          </Link>
-          <Button variant='primary' onClick={onSaveChange}>
-            Save Changes
+          </Button>
+          <Button
+            variant='primary'
+            onClick={onSaveChange}
+            disabled={oneTopic.newTopicLoading}
+          >
+            {oneTopic.newTopicLoading ? 'Saving... Please wait' : 'Save topic'}
           </Button>
         </Card.Footer>
       </Card>

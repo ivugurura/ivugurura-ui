@@ -13,6 +13,7 @@ export const ADD_NEW_TOPIC = 'ADD_NEW_TOPIC';
 
 export const UPLOAD_FILE = 'UPLOAD_FILE';
 export const SET_UPLOADED_PCT = 'SET_UPLOADED_PCT';
+export const DELETE_FILE = 'DELETE_FILE';
 
 export const LOGIN_USER = 'LOGIN_USER';
 export const SET_USER = 'SET_USER';

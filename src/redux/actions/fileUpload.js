@@ -1,4 +1,4 @@
-import { UPLOAD_FILE, SET_UPLOADED_PCT } from './actionTypes';
+import { UPLOAD_FILE, SET_UPLOADED_PCT, DELETE_FILE } from './actionTypes';
 import { http } from '../../helpers';
 
 export const setUploadedPct = (pct) => {
@@ -22,5 +22,12 @@ export const uploadFile = (fileData) => {
   return {
     type: UPLOAD_FILE,
     payload: http.post(`/albums/upload/image`, fileData, config),
+  };
+};
+export const deleteFile = (fileType, fileName) => {
+  const pathUrl = `${fileType}/${fileName}`;
+  return {
+    type: DELETE_FILE,
+    payload: http.delete(`/albums/${pathUrl}`),
   };
 };

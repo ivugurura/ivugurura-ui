@@ -1,6 +1,6 @@
 import { initialFilerState } from '../../helpers';
 import { pending, fulfilled, rejected } from '../../utils/actions';
-import { UPLOAD_FILE, SET_UPLOADED_PCT } from '../actions';
+import { UPLOAD_FILE, SET_UPLOADED_PCT, DELETE_FILE } from '../actions';
 
 export const filerReducer = (state = initialFilerState, action) => {
   switch (action.type) {
@@ -24,6 +24,23 @@ export const filerReducer = (state = initialFilerState, action) => {
       return {
         ...state,
         uploadLoading: false,
+      };
+    case pending(DELETE_FILE):
+      return {
+        ...state,
+        delLoading: true,
+      };
+    case fulfilled(DELETE_FILE):
+      return {
+        ...state,
+        coverImagePath: '',
+        deleteSuccess: true,
+        delLoading: false,
+      };
+    case rejected(DELETE_FILE):
+      return {
+        ...state,
+        delLoading: false,
       };
     default:
       return state;

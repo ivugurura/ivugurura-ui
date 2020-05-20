@@ -24,10 +24,12 @@ export const initialOneTopicState = {
   topic: {},
   topicLoading: false,
   newTopicLoading: false,
-  newTopicMesg: '',
+  newTopicAdded: false,
 };
 export const initialFilerState = {
   uploadLoading: false,
+  delLoading: false,
+  deleteSuccess: false,
   coverImagePath: '',
   percent: 0,
 };

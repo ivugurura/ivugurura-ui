@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { CardCounter } from '../components/common';
-import { ActivePosts, DraftPosts } from '../components';
+import { AdminPosts, DraftPosts } from '../components';
 import { Link } from 'react-router-dom';
 
 export const Dashboard = () => {
@@ -23,7 +23,7 @@ export const Dashboard = () => {
       </Row>
       <Row>
         <Col xs={12} md={6} lg={6}>
-          <ActivePosts />
+          <AdminPosts isPublished />
         </Col>
         <Col xs={12} md={6} lg={6}>
           <Container fluid className='mt-3'>
@@ -32,7 +32,7 @@ export const Dashboard = () => {
             </Link>
             <Button>Add media</Button>
             <Card className='mt-2'>
-              <DraftPosts />
+              <AdminPosts />
             </Card>
           </Container>
         </Col>

@@ -4,6 +4,8 @@ import {
   GET_RECENT_TOPICS,
   VIEW_TOPIC_DETAIL,
   ADD_NEW_TOPIC,
+  GET_PUBLISHED_TOPICS,
+  GET_UNPUBLISHED_TOPICS,
 } from './actionTypes';
 import { http } from '../../helpers';
 
@@ -36,5 +38,14 @@ export const addTopic = (newTopic) => {
   return {
     type: ADD_NEW_TOPIC,
     payload: http.post('/topics', newTopic),
+  };
+};
+export const getDashboardTopics = (topicStatus, page, pageSize) => {
+  const topicActionType =
+    topicStatus === 'published' ? GET_PUBLISHED_TOPICS : GET_UNPUBLISHED_TOPICS;
+  const params = `page=${page}&pageSize=${pageSize}`;
+  return {
+    type: topicActionType,
+    payload: http.get(`/user/topics/${topicStatus}?${params}`),
   };
 };

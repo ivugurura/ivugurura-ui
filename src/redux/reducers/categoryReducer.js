@@ -1,4 +1,4 @@
-import { initialCategoryState } from '../../helpers';
+import { initialCategoryState } from '../initialStates';
 import { fulfilled, pending, rejected } from '../../utils/actions';
 import { GET_NAVS_CATEGORIES, GET_CATEGORIES } from '../actions';
 

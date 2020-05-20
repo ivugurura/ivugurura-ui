@@ -1,4 +1,4 @@
-import { initialFilerState } from '../../helpers';
+import { initialFilerState } from '../initialStates';
 import { pending, fulfilled, rejected } from '../../utils/actions';
 import { UPLOAD_FILE, SET_UPLOADED_PCT, DELETE_FILE } from '../actions';
 

@@ -1,4 +1,4 @@
-import { messages } from './messages';
+import { messages } from '../helpers/messages';
 
 export const initialCategoryState = {
   navCategories: [],
@@ -39,4 +39,12 @@ export const initialUserState = {
   userFetched: false,
   errorMesg: '',
   info: {},
+};
+export const initialDashState = {
+  countLoading: false,
+  counts: {},
+  published: [],
+  publishedLoading: false,
+  unPublished: [],
+  unPublishedLoading: false,
 };

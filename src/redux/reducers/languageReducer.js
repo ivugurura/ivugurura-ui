@@ -1,4 +1,4 @@
-import { initialLangState } from '../../helpers';
+import { initialLangState } from '../initialStates';
 import { SET_LANGUAGE } from '../actions';
 import { messages } from '../../helpers/messages';
 

@@ -1,4 +1,4 @@
-import { initialUserState } from '../../helpers';
+import { initialUserState } from '../initialStates';
 import { pending, fulfilled, rejected } from '../../utils/actions';
 import { LOGIN_USER, SET_USER } from '../actions';
 

@@ -1,4 +1,4 @@
-import { initialTopicState } from '../../helpers';
+import { initialTopicState } from '../initialStates';
 import { fulfilled, pending, rejected } from '../../utils/actions';
 import { GET_CARSOUL_TOPICS, GET_RECENT_TOPICS } from '../actions';
 

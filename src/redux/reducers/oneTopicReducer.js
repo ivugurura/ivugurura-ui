@@ -1,4 +1,4 @@
-import { initialOneTopicState } from '../../helpers';
+import { initialOneTopicState } from '../initialStates';
 import { pending, fulfilled, rejected } from '../../utils/actions';
 import { VIEW_TOPIC_DETAIL, ADD_NEW_TOPIC } from '../actions';
 

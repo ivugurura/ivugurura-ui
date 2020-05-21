@@ -19,7 +19,7 @@ export const TopicView = ({ match }) => {
   useEffect(() => {
     dispatch(getTopicDetail(topicSlug));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getTopicDetail]);
+  }, [topicSlug, getTopicDetail]);
   const relatedTopics = topic.category ? topic.category.relatedTopics : [];
   return (
     <Fragment>

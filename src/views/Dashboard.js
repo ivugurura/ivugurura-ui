@@ -1,29 +1,61 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
-import { CardCounter } from '../components/common';
-import { AdminPosts, DraftPosts } from '../components';
+import { CardCounter, Loading } from '../components/common';
+import { ActivePosts, DraftPosts } from '../components';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { getDashboadCount } from '../redux/actions';
 
 export const Dashboard = () => {
+  const { countLoading, counts } = useSelector(({ dashboard }) => dashboard);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getDashboadCount());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getDashboadCount]);
   return (
     <Container className='mt-3' fluid>
       <Row>
-        <Col xs={12} md={3} lg={3}>
-          <CardCounter count={17} title='Published' color='success' />
-        </Col>
-        <Col xs={12} md={3} lg={3}>
-          <CardCounter count={4} title='Draft' color='info' />
-        </Col>
-        <Col xs={12} md={3} lg={3}>
-          <CardCounter count={67} title='Videos' color='primary' />
-        </Col>
-        <Col xs={12} md={3} lg={3}>
-          <CardCounter count={71} title='Audios' color='danger' />
-        </Col>
+        {countLoading ? (
+          <Col xs={12} md={12} lg={12}>
+            <Loading />
+          </Col>
+        ) : (
+          <>
+            <Col xs={12} md={3} lg={3}>
+              <CardCounter
+                count={counts.published | 0}
+                title='Published'
+                color='success'
+              />
+            </Col>
+            <Col xs={12} md={3} lg={3}>
+              <CardCounter
+                count={counts.unPublished | 0}
+                title='Draft'
+                color='info'
+              />
+            </Col>
+            <Col xs={12} md={3} lg={3}>
+              <CardCounter
+                count={counts.videos | 0}
+                title='Videos'
+                color='primary'
+              />
+            </Col>
+            <Col xs={12} md={3} lg={3}>
+              <CardCounter
+                count={counts.audios | 0}
+                title='Audios'
+                color='danger'
+              />
+            </Col>
+          </>
+        )}
       </Row>
       <Row>
         <Col xs={12} md={6} lg={6}>
-          <AdminPosts isPublished />
+          <ActivePosts />
         </Col>
         <Col xs={12} md={6} lg={6}>
           <Container fluid className='mt-3'>
@@ -32,7 +64,7 @@ export const Dashboard = () => {
             </Link>
             <Button>Add media</Button>
             <Card className='mt-2'>
-              <AdminPosts />
+              <DraftPosts />
             </Card>
           </Container>
         </Col>

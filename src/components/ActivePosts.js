@@ -1,39 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import HtmlParser from 'react-html-parser';
 import { Card, Media } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getDashboardTopics } from '../redux/actions/topics';
 import { Loading } from './common';
 import { truncate } from '../utils/constants';
 
-export const DraftPosts = () => {
+export const ActivePosts = () => {
   const dispatch = useDispatch();
-  const topicType = 'unPublished';
-  const pageSize = 2;
-  const { unPublished, unPublishedLoading } = useSelector(
+  const topicType = 'published';
+  const pageSize = 3;
+  const { published, publishedLoading } = useSelector(
     ({ dashboard }) => dashboard
   );
   const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
     dispatch(getDashboardTopics(topicType, currentPage, pageSize));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, getDashboardTopics]);
+
   const onChangePaginate = (action) => {
     let currentLocation = action === 'next' ? currentPage + 1 : currentPage - 1;
     setCurrentPage(currentLocation);
   };
   const prevDisabled = currentPage === 1 ? 'disabled' : '';
-  const nextDisabled = !unPublished.length ? 'disabled' : '';
+  const nextDisabled = !published.length ? 'disabled' : '';
   return (
     <Card>
       <Card.Header>
-        <Card.Title>UNPUBLISHED POST</Card.Title>
+        <Card.Title>ACTIVE POST</Card.Title>
       </Card.Header>
       <Card.Body>
-        {unPublishedLoading ? (
+        {publishedLoading ? (
           <Loading />
-        ) : unPublished.length ? (
-          unPublished.map((topic, indexTopic) => (
+        ) : published.length ? (
+          published.map((topic, indexTopic) => (
             <Media key={indexTopic}>
               <img
                 width={64}
@@ -54,7 +56,7 @@ export const DraftPosts = () => {
         )}
       </Card.Body>
       <Card.Footer>
-        {unPublished.length ? (
+        {published.length ? (
           <nav aria-label='Page navigation example'>
             <ul className='pagination justify-content-end'>
               <li

@@ -6,6 +6,7 @@ import {
   ADD_NEW_TOPIC,
   GET_PUBLISHED_TOPICS,
   GET_UNPUBLISHED_TOPICS,
+  GET_DASHBOARD_COUNTS,
 } from './actionTypes';
 import { http } from '../../helpers';
 
@@ -47,5 +48,11 @@ export const getDashboardTopics = (topicStatus, page, pageSize) => {
   return {
     type: topicActionType,
     payload: http.get(`/user/topics/${topicStatus}?${params}`),
+  };
+};
+export const getDashboadCount = () => {
+  return {
+    type: GET_DASHBOARD_COUNTS,
+    payload: http.get('/user/dashboard'),
   };
 };

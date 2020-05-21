@@ -27,7 +27,11 @@ export const Home = () => {
                 <Radio />
               </Col>
               <Col xs={12} sm={12} md={12}>
-                <VideoPlayer url='' playing={false} width='100%' />
+                <VideoPlayer
+                  url='https://www.youtube.com/watch?v=45KCx3YrSKU'
+                  playing={false}
+                  width='100%'
+                />
               </Col>
             </Row>
           </Col>
@@ -46,7 +50,11 @@ export const Home = () => {
               <Audio />
             </Col>
             <Col xs={12} md={8} lg={8}>
-              <VideoPlayer url='' playing={false} width='100%' />
+              <VideoPlayer
+                url='https://www.youtube.com/watch?v=jvZy1emoFV0'
+                playing={false}
+                width='100%'
+              />
             </Col>
           </Row>
         </Card.Body>

@@ -14,11 +14,6 @@ export const routes = [
     component: AdminMain,
     routes: [
       {
-        path: '/admin/login',
-        exact: true,
-        component: Login,
-      },
-      {
         path: '/admin',
         exact: true,
         component: Dashboard,
@@ -38,6 +33,11 @@ export const routes = [
         path: '/',
         exact: true,
         component: Home,
+      },
+      {
+        path: '/login',
+        exact: true,
+        component: Login,
       },
       {
         path: '/:topicSlug/view',

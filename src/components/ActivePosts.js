@@ -45,8 +45,10 @@ export const ActivePosts = () => {
                 alt='Generic placeholder'
               />
               <Media.Body>
-                <b>{topic.title}</b>
-                <p>{HtmlParser(truncate(topic.content, 150))}</p>
+                <p>
+                  <b>{topic.title}</b>
+                </p>
+                {HtmlParser(truncate(topic.content, 150))}
                 <hr />
               </Media.Body>
             </Media>

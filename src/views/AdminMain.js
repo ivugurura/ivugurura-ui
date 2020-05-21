@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react';
 import { renderRoutes } from 'react-router-config';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, Container, Row, Col } from 'react-bootstrap';
 import { bgStyles, textStyles } from '../utils/styles';
 import { Logo, Footer } from '../components/common';
 import { useSelector } from 'react-redux';
+import { NotFound } from '../components';
 
 export const AdminMain = ({ route }) => {
-  const { info, isAuthenticated } = useSelector(({ user }) => user);
+  const { isAuthenticated } = useSelector(({ user }) => user);
   return (
     <Fragment>
       <Navbar style={bgStyles.bgPrimary}>
@@ -20,7 +21,15 @@ export const AdminMain = ({ route }) => {
       {isAuthenticated ? (
         renderRoutes(route.routes)
       ) : (
-        <h4>Sorry you are not authorised</h4>
+        <Container>
+          <Row>
+            <Col></Col>
+            <Col>
+              <NotFound />
+            </Col>
+            <Col></Col>
+          </Row>
+        </Container>
       )}
       <Footer />
     </Fragment>

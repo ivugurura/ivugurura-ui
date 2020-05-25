@@ -5,9 +5,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getDashboardTopics } from '../redux/actions/topics';
 import { Loading, ActionButtons } from './common';
 import { truncate } from '../utils/constants';
+import { ActionConfirm } from './models';
 
 export const ActivePosts = () => {
   const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+  const [currentTopic, setCurrentTopic] = useState({ title: 'title' });
+  const [btnAction, setBtnAction] = useState('');
   const topicType = 'published';
   const pageSize = 3;
   const { published, publishedLoading } = useSelector(
@@ -26,8 +30,20 @@ export const ActivePosts = () => {
   };
   const prevDisabled = currentPage === 1 ? 'disabled' : '';
   const nextDisabled = !published.length ? 'disabled' : '';
+  const onTopicSetCurrent = (theTopic, action) => {
+    setCurrentTopic(theTopic);
+    setBtnAction(action);
+    setShow(true);
+  };
   return (
     <Card>
+      <ActionConfirm
+        title='Action modal'
+        description={currentTopic.title}
+        show={show}
+        action={btnAction}
+        onHide={() => setShow(false)}
+      />
       <Card.Header>
         <Card.Title>ACTIVE POST</Card.Title>
       </Card.Header>
@@ -49,7 +65,10 @@ export const ActivePosts = () => {
                   <b>{topic.title}</b>
                 </p>
                 {HtmlParser(truncate(topic.content, 150))}
-                <ActionButtons isTopic />
+                <ActionButtons
+                  onDelete={() => onTopicSetCurrent(topic, 'delete')}
+                  isTopic
+                />
                 <hr />
               </Media.Body>
             </Media>

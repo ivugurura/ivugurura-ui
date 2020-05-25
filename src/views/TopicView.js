@@ -1,19 +1,12 @@
 import React, { Fragment, useEffect } from 'react';
-import {
-  Row,
-  Col,
-  Container,
-  Card,
-  Form,
-  ButtonGroup,
-  Button,
-} from 'react-bootstrap';
+import { Row, Col, Container, Card, Form } from 'react-bootstrap';
 import HtmlParser from 'react-html-parser';
 import {
   RecentTopics,
   SampleTopics,
   Communique,
   Loading,
+  ActionButtons,
 } from '../components/common';
 import { bgStyles } from '../utils/styles';
 import { useSelector, useDispatch } from 'react-redux';
@@ -56,17 +49,7 @@ export const TopicView = ({ match, history }) => {
                   />
                   <Card.Body>
                     {HtmlParser(topic.content)}
-                    <ButtonGroup>
-                      <Button variant='success'>Publish</Button>
-                      <Button
-                        onClick={() =>
-                          history.push(`/admin/edit-topic/${topic.slug}`)
-                        }
-                      >
-                        Edit
-                      </Button>
-                      <Button variant='danger'>Delete</Button>
-                    </ButtonGroup>
+                    {isAuthenticated ? <ActionButtons isTopic /> : null}
                   </Card.Body>
                   <Card.Footer>
                     <Form.Control as='textarea' rows='3' />

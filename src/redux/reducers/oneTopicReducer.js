@@ -1,6 +1,6 @@
 import { initialOneTopicState } from '../initialStates';
 import { pending, fulfilled, rejected } from '../../utils/actions';
-import { VIEW_TOPIC_DETAIL, ADD_NEW_TOPIC } from '../actions';
+import { VIEW_TOPIC_DETAIL, ADD_NEW_TOPIC, UPDATE_TOPIC } from '../actions';
 
 export const oneTopicReducer = (state = initialOneTopicState, action) => {
   switch (action.type) {
@@ -13,12 +13,8 @@ export const oneTopicReducer = (state = initialOneTopicState, action) => {
       return {
         ...state,
         topicLoading: false,
+        topicFetched: true,
         topic: action.payload.data.data,
-      };
-    case rejected(VIEW_TOPIC_DETAIL):
-      return {
-        ...state,
-        topicLoading: false,
       };
     case pending(ADD_NEW_TOPIC):
       return {
@@ -31,11 +27,20 @@ export const oneTopicReducer = (state = initialOneTopicState, action) => {
         newTopicLoading: false,
         newTopicAdded: true,
       };
-    case rejected(ADD_NEW_TOPIC):
+    case pending(UPDATE_TOPIC):
       return {
         ...state,
-        newTopicLoading: false,
+        topicUpdating: true,
       };
+    case fulfilled(UPDATE_TOPIC):
+      return {
+        ...state,
+        topicUpdating: false,
+        topicUpdated: true,
+      };
+    case rejected(VIEW_TOPIC_DETAIL):
+    case rejected(ADD_NEW_TOPIC):
+    case rejected(UPDATE_TOPIC):
     default:
       return state;
   }

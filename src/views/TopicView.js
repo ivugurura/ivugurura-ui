@@ -1,5 +1,13 @@
 import React, { Fragment, useEffect } from 'react';
-import { Row, Col, Container, Card, Form } from 'react-bootstrap';
+import {
+  Row,
+  Col,
+  Container,
+  Card,
+  Form,
+  ButtonGroup,
+  Button,
+} from 'react-bootstrap';
 import HtmlParser from 'react-html-parser';
 import {
   RecentTopics,
@@ -12,9 +20,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getTopicDetail } from '../redux/actions/topics';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
-export const TopicView = ({ match }) => {
+export const TopicView = ({ match, history }) => {
   const { topicSlug } = match.params;
-  const { topic, topicLoading } = useSelector(({ oneTopic }) => oneTopic);
+  const { oneTopic, user } = useSelector(({ oneTopic, user }) => ({
+    oneTopic,
+    user,
+  }));
+  const { topic, topicLoading } = oneTopic;
+  const { isAuthenticated } = user;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTopicDetail(topicSlug));
@@ -39,8 +52,22 @@ export const TopicView = ({ match }) => {
                   <Card.Img
                     variant='top'
                     src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
+                    alt={topic.description}
                   />
-                  <Card.Body>{HtmlParser(topic.content)}</Card.Body>
+                  <Card.Body>
+                    {HtmlParser(topic.content)}
+                    <ButtonGroup>
+                      <Button variant='success'>Publish</Button>
+                      <Button
+                        onClick={() =>
+                          history.push(`/admin/edit-topic/${topic.slug}`)
+                        }
+                      >
+                        Edit
+                      </Button>
+                      <Button variant='danger'>Delete</Button>
+                    </ButtonGroup>
+                  </Card.Body>
                   <Card.Footer>
                     <Form.Control as='textarea' rows='3' />
                     <Form.Row className='mt-2'>

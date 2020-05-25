@@ -3,7 +3,7 @@ import HtmlParser from 'react-html-parser';
 import { Card, Media } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDashboardTopics } from '../redux/actions/topics';
-import { Loading } from './common';
+import { Loading, ActionButtons } from './common';
 import { truncate } from '../utils/constants';
 
 export const DraftPosts = () => {
@@ -47,6 +47,7 @@ export const DraftPosts = () => {
                   <b>{topic.title}</b>
                 </p>
                 {HtmlParser(truncate(topic.content, 150))}
+                <ActionButtons isTopic />
                 <hr />
               </Media.Body>
             </Media>

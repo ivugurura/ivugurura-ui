@@ -7,6 +7,7 @@ import {
   GET_PUBLISHED_TOPICS,
   GET_UNPUBLISHED_TOPICS,
   GET_DASHBOARD_COUNTS,
+  UPDATE_TOPIC,
 } from './actionTypes';
 import { http } from '../../helpers';
 
@@ -54,5 +55,11 @@ export const getDashboadCount = () => {
   return {
     type: GET_DASHBOARD_COUNTS,
     payload: http.get('/user/dashboard'),
+  };
+};
+export const updateTopic = (updatedTopic, topicSlug) => {
+  return {
+    type: UPDATE_TOPIC,
+    payload: http.patch(`/topics/${topicSlug}`, updatedTopic),
   };
 };

@@ -23,6 +23,12 @@ export const routes = [
         exact: true,
         component: AddEditTopic,
       },
+      ,
+      {
+        path: '/admin/edit-topic/:topicSlug',
+        exact: true,
+        component: AddEditTopic,
+      },
     ],
   },
   {

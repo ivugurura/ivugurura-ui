@@ -22,9 +22,12 @@ export const initialLangState = {
 };
 export const initialOneTopicState = {
   topic: {},
+  topicFetched: false,
   topicLoading: false,
   newTopicLoading: false,
   newTopicAdded: false,
+  topicUpdating: false,
+  topicUpdated: false,
 };
 export const initialFilerState = {
   uploadLoading: false,

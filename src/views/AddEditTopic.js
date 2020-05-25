@@ -12,10 +12,11 @@ import { topicEditorButtons } from '../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../redux/actions';
 import { FileUploader } from '../components';
-import { addTopic } from '../redux/actions/topics';
+import { addTopic, getTopicDetail } from '../redux/actions/topics';
 import { toast } from 'react-toastify';
 
-export const AddEditTopic = ({ history }) => {
+export const AddEditTopic = ({ history, match }) => {
+  const { topicSlug } = match.params;
   const dispatch = useDispatch();
   const { category, filer, oneTopic } = useSelector(
     ({ category, filer, oneTopic }) => ({
@@ -38,8 +39,14 @@ export const AddEditTopic = ({ history }) => {
         history.goBack();
       }, 5000);
     }
+    if (topicSlug) {
+      dispatch(getTopicDetail(topicSlug));
+    }
+    if (topicSlug && oneTopic.topicFetched) {
+      console.log('topic fetched');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getCategories, oneTopic]);
+  }, [getCategories, oneTopic.topicFetched, topicSlug]);
   const onInputChange = (event) => {
     const theTopic = { ...topic };
     const theKey = event.target ? event.target.name : 'content';
@@ -53,7 +60,9 @@ export const AddEditTopic = ({ history }) => {
 
   return (
     <Container fluid className='mt-2'>
-      <h4 className='text-center'>Add topic or PAST IT HERE</h4>
+      <h4 className='text-center'>
+        {topicSlug ? `topic title` : `Add topic or PAST IT HERE`}
+      </h4>
       <Card>
         <Card.Header>
           <Card.Title>

@@ -7,7 +7,7 @@ import { Loading, ActionButtons } from './common';
 import { truncate } from '../utils/constants';
 import { ActionConfirm } from './models';
 
-export const ActivePosts = () => {
+export const ActivePosts = ({ history }) => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [currentTopic, setCurrentTopic] = useState({ title: 'title' });
@@ -67,6 +67,7 @@ export const ActivePosts = () => {
                 {HtmlParser(truncate(topic.content, 150))}
                 <ActionButtons
                   onDelete={() => onTopicSetCurrent(topic, 'delete')}
+                  onEdit={() => history.push(`/admin/edit-topic/${topic.slug}`)}
                   isTopic
                 />
                 <hr />

@@ -42,6 +42,6 @@ export const oneTopicReducer = (state = initialOneTopicState, action) => {
     case rejected(ADD_NEW_TOPIC):
     case rejected(UPDATE_TOPIC):
     default:
-      return state;
+      return initialOneTopicState;
   }
 };

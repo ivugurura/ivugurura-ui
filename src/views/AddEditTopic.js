@@ -12,11 +12,18 @@ import { topicEditorButtons } from '../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../redux/actions';
 import { FileUploader } from '../components';
-import { addTopic, getTopicDetail } from '../redux/actions/topics';
+import { addTopic, getTopicDetail, updateTopic } from '../redux/actions/topics';
 import { toast } from 'react-toastify';
 
 export const AddEditTopic = ({ history, match }) => {
   const { topicSlug } = match.params;
+  const [topic, setTopic] = useState({
+    title: '',
+    categoryId: '',
+    description: '',
+    coverImage: '',
+  });
+  const [sunEdContent, setSunEdContent] = useState('');
   const dispatch = useDispatch();
   const { category, filer, oneTopic } = useSelector(
     ({ category, filer, oneTopic }) => ({
@@ -25,43 +32,59 @@ export const AddEditTopic = ({ history, match }) => {
       oneTopic,
     })
   );
-  const [topic, setTopic] = useState({
-    title: '',
-    categoryId: '',
-    content: '',
-    description: '',
-  });
   useEffect(() => {
     dispatch(getCategories('/'));
-    if (oneTopic.newTopicAdded) {
-      toast(`${topic.title.toUpperCase()} has added`);
+    if (oneTopic.newTopicAdded || oneTopic.topicUpdated) {
+      toast(`${topic.title.toUpperCase()} has saved`);
       setTimeout(() => {
         history.goBack();
-      }, 5000);
+      }, 3000);
     }
     if (topicSlug) {
       dispatch(getTopicDetail(topicSlug));
     }
-    if (topicSlug && oneTopic.topicFetched) {
-      console.log('topic fetched');
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getCategories, oneTopic.topicFetched, topicSlug]);
-  const onInputChange = (event) => {
-    const theTopic = { ...topic };
-    const theKey = event.target ? event.target.name : 'content';
-    theTopic[theKey] = event.target ? event.target.value : event;
-    setTopic(theTopic);
+  }, [
+    getCategories,
+    getTopicDetail,
+    topicSlug,
+    oneTopic.newTopicAdded,
+    oneTopic.topicUpdated,
+  ]);
+  useEffect(() => {
+    if (topicSlug && oneTopic.topicFetched) {
+      const {
+        title,
+        description,
+        categoryId,
+        content,
+        coverImage,
+      } = oneTopic.topic;
+      setTopic({ title, description, categoryId, coverImage });
+      setSunEdContent(content);
+    }
+  }, [topicSlug, oneTopic.topicFetched, oneTopic.topic.coverImage]);
+  const onInputChange = ({ target }) => {
+    setTopic({ ...topic, [target.name]: target.value });
   };
   const onSaveChange = () => {
-    topic.coverImage = filer.coverImagePath;
-    dispatch(addTopic(topic));
+    topic.content = sunEdContent;
+    if (topicSlug) {
+      dispatch(updateTopic(topic, topicSlug));
+    } else {
+      topic.coverImage = filer.coverImagePath;
+      dispatch(addTopic(topic));
+    }
+    console.log(topic);
   };
-
   return (
     <Container fluid className='mt-2'>
       <h4 className='text-center'>
-        {topicSlug ? `topic title` : `Add topic or PAST IT HERE`}
+        {topicSlug
+          ? oneTopic.topicLoading
+            ? 'LOADING...'
+            : `Update ${oneTopic.topic.title}`
+          : `Add topic or PAST IT HERE`}
       </h4>
       <Card>
         <Card.Header>
@@ -117,12 +140,13 @@ export const AddEditTopic = ({ history, match }) => {
                 }}
                 name='content'
                 value={topic.content}
+                setContents={sunEdContent}
                 placeholder='Please type here...'
-                onChange={onInputChange}
+                onChange={(content) => setSunEdContent(content)}
               />
             </Col>
             <Col xs={12} md={3} lg={3}>
-              <FileUploader />
+              <FileUploader coverImage={topic.coverImage} />
             </Col>
           </Row>
         </Card.Body>
@@ -130,13 +154,27 @@ export const AddEditTopic = ({ history, match }) => {
           <Button variant='outline-secondary' onClick={() => history.goBack()}>
             Cancel
           </Button>
-          <Button
-            variant='primary'
-            onClick={onSaveChange}
-            disabled={oneTopic.newTopicLoading}
-          >
-            {oneTopic.newTopicLoading ? 'Saving... Please wait' : 'Save topic'}
-          </Button>
+          {topicSlug ? (
+            <Button
+              variant='primary'
+              onClick={onSaveChange}
+              disabled={oneTopic.topicUpdating}
+            >
+              {oneTopic.topicUpdating
+                ? 'Saving... Please wait'
+                : `Update ${oneTopic.topic.title}`}
+            </Button>
+          ) : (
+            <Button
+              variant='primary'
+              onClick={onSaveChange}
+              disabled={oneTopic.newTopicLoading}
+            >
+              {oneTopic.newTopicLoading
+                ? 'Saving... Please wait'
+                : 'Save topic'}
+            </Button>
+          )}
         </Card.Footer>
       </Card>
     </Container>

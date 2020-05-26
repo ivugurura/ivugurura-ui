@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getDashboardTopics } from '../redux/actions/topics';
 import { Loading, ActionButtons } from './common';
 import { truncate } from '../utils/constants';
+import { ActionConfirm } from './models';
 
-export const DraftPosts = () => {
+export const DraftPosts = ({ history }) => {
   const dispatch = useDispatch();
   const topicType = 'unPublished';
   const pageSize = 2;
@@ -14,6 +15,9 @@ export const DraftPosts = () => {
     ({ dashboard }) => dashboard
   );
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentTopic, setCurrentTopic] = useState({ title: 'title' });
+  const [btnAction, setBtnAction] = useState('');
+  const [show, setShow] = useState(false);
   useEffect(() => {
     dispatch(getDashboardTopics(topicType, currentPage, pageSize));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -22,10 +26,22 @@ export const DraftPosts = () => {
     let currentLocation = action === 'next' ? currentPage + 1 : currentPage - 1;
     setCurrentPage(currentLocation);
   };
+  const onTopicSetCurrent = (theTopic, action) => {
+    setCurrentTopic(theTopic);
+    setBtnAction(action);
+    setShow(true);
+  };
   const prevDisabled = currentPage === 1 ? 'disabled' : '';
   const nextDisabled = !unPublished.length ? 'disabled' : '';
   return (
     <Card>
+      <ActionConfirm
+        title='Action modal'
+        description={currentTopic.title}
+        show={show}
+        action={btnAction}
+        onHide={() => setShow(false)}
+      />
       <Card.Header>
         <Card.Title>UNPUBLISHED POST</Card.Title>
       </Card.Header>
@@ -47,7 +63,11 @@ export const DraftPosts = () => {
                   <b>{topic.title}</b>
                 </p>
                 {HtmlParser(truncate(topic.content, 150))}
-                <ActionButtons isTopic />
+                <ActionButtons
+                  onDelete={() => onTopicSetCurrent(topic, 'delete')}
+                  onEdit={() => history.push(`/admin/edit-topic/${topic.slug}`)}
+                  isTopic
+                />
                 <hr />
               </Media.Body>
             </Media>

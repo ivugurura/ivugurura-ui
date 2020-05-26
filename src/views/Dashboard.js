@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDashboadCount } from '../redux/actions';
 
-export const Dashboard = () => {
+export const Dashboard = ({ history }) => {
   const { countLoading, counts } = useSelector(({ dashboard }) => dashboard);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -55,7 +55,7 @@ export const Dashboard = () => {
       </Row>
       <Row>
         <Col xs={12} md={6} lg={6}>
-          <ActivePosts />
+          <ActivePosts history={history} />
         </Col>
         <Col xs={12} md={6} lg={6}>
           <Container fluid className='mt-3'>
@@ -64,7 +64,7 @@ export const Dashboard = () => {
             </Link>
             <Button>Add media</Button>
             <Card className='mt-2'>
-              <DraftPosts />
+              <DraftPosts history={history} />
             </Card>
           </Container>
         </Col>

@@ -4,8 +4,9 @@ import { uploadFile, deleteFile } from '../redux/actions';
 import { truncate } from '../utils/constants';
 import { Form, Button, ButtonGroup } from 'react-bootstrap';
 
-export const FileUploader = ({ fileType }) => {
+export const FileUploader = ({ coverImage }) => {
   const dispatch = useDispatch();
+  const [isDeleted, setIsDeleted] = useState(false);
   const {
     uploadLoading,
     coverImagePath,
@@ -31,36 +32,51 @@ export const FileUploader = ({ fileType }) => {
       setFile('');
       setFileName('Select cover image');
     }
-  }, [uploadLoading, coverImagePath, delLoading, deleteSuccess]);
+  }, [uploadLoading, coverImagePath, delLoading, deleteSuccess, coverImage]);
+  useEffect(() => {
+    if (coverImage) {
+      const imagePath = `${process.env.REACT_APP_API_URL}/images/${coverImage}`;
+      setFileSrc(imagePath);
+    }
+  }, [coverImage]);
+
   return (
     <div className='custom-file mb-4'>
-      <Form.File
-        id='customFile'
-        label={truncate(fileName, 18)}
-        onChange={onChange}
-        custom
-      />
+      {!coverImage ? (
+        <Form.File
+          id='customFile'
+          label={truncate(fileName, 18)}
+          onChange={onChange}
+          custom
+        />
+      ) : null}
       <div className='text-center'>
-        <img src={fileSrc} className='img-fluid img-thumbnail' alt='' />
+        <img
+          src={fileSrc}
+          className='img-fluid img-thumbnail'
+          alt='Cover image'
+        />
       </div>
-      <ButtonGroup>
-        {coverImagePath ? (
-          <Button
-            variant='outline-warning'
-            onClick={() => dispatch(deleteFile('image', coverImagePath))}
-          >
-            {delLoading ? 'Deleting...' : 'Delete image'}
-          </Button>
-        ) : (
-          <Button variant='outline-primary' onClick={onUpload}>
-            {uploadLoading
-              ? 'Uploading...'
-              : coverImagePath
-              ? 'Has uploaded'
-              : 'Upload'}
-          </Button>
-        )}
-      </ButtonGroup>
+      {!coverImage ? (
+        <ButtonGroup>
+          {coverImagePath ? (
+            <Button
+              variant='outline-warning'
+              onClick={() => dispatch(deleteFile('image', coverImagePath))}
+            >
+              {delLoading ? 'Deleting...' : 'Delete image'}
+            </Button>
+          ) : (
+            <Button variant='outline-primary' onClick={onUpload}>
+              {uploadLoading
+                ? 'Uploading...'
+                : coverImagePath
+                ? 'Has uploaded'
+                : 'Upload'}
+            </Button>
+          )}
+        </ButtonGroup>
+      ) : null}
     </div>
   );
 };

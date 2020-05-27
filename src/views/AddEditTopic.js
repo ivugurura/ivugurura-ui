@@ -63,7 +63,7 @@ export const AddEditTopic = ({ history, match }) => {
       setTopic({ title, description, categoryId, coverImage });
       setSunEdContent(content);
     }
-  }, [topicSlug, oneTopic.topicFetched, oneTopic.topic.coverImage]);
+  }, [topicSlug, oneTopic.topicFetched, oneTopic.topic]);
   const onInputChange = ({ target }) => {
     setTopic({ ...topic, [target.name]: target.value });
   };

@@ -5,3 +5,4 @@ export * from './LangProvider';
 export * from './TopicsCarousel';
 export * from './FileUploader';
 export * from './NotFound';
+export * from './CommentaryForm';

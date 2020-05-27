@@ -6,7 +6,6 @@ import { Form, Button, ButtonGroup } from 'react-bootstrap';
 
 export const FileUploader = ({ coverImage }) => {
   const dispatch = useDispatch();
-  const [isDeleted, setIsDeleted] = useState(false);
   const {
     uploadLoading,
     coverImagePath,
@@ -54,7 +53,7 @@ export const FileUploader = ({ coverImage }) => {
         <img
           src={fileSrc}
           className='img-fluid img-thumbnail'
-          alt='Cover image'
+          alt='Topic cover'
         />
       </div>
       {!coverImage ? (

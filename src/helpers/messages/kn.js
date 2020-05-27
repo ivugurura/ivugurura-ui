@@ -9,4 +9,7 @@ export const kn = {
   recentTopics: 'Ibyigisho biheruka',
   relatedTopics: 'Ibyigisho bijyanye',
   writingsCat: 'Inyandiko',
+  leaveComment: 'Siga igitekerezo kuri iki kigisho',
+  notEmailPublish: 'Email yanyu ntawe izerekwa',
+  createdAt: 'Cyateguwe kuri ',
 };

@@ -1,16 +1,18 @@
 import React, { Fragment, useEffect } from 'react';
-import { Row, Col, Container, Card, Form } from 'react-bootstrap';
+import { Row, Col, Container, Card } from 'react-bootstrap';
 import HtmlParser from 'react-html-parser';
 import {
   RecentTopics,
   SampleTopics,
   Communique,
   Loading,
-  ActionButtons,
 } from '../components/common';
 import { bgStyles } from '../utils/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTopicDetail } from '../redux/actions/topics';
+import { CommentaryForm } from '../components';
+import { formatDate } from '../utils/constants';
+import { translate } from '../components/utils';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const TopicView = ({ match, history }) => {
@@ -39,7 +41,9 @@ export const TopicView = ({ match, history }) => {
               <>
                 <Card.Title>{topic.title}</Card.Title>
                 <Card.Subtitle className='mb-2 text-muted'>
-                  {topic.createdAt}
+                  <h6>
+                    {translate('createdAt')} {`${formatDate(topic.createdAt)}`}
+                  </h6>
                 </Card.Subtitle>
                 <Card>
                   <Card.Img
@@ -49,47 +53,10 @@ export const TopicView = ({ match, history }) => {
                   />
                   <Card.Body>
                     {HtmlParser(topic.content)}
-                    {isAuthenticated ? <ActionButtons isTopic /> : null}
+                    {isAuthenticated ? null : null}
                   </Card.Body>
                   <Card.Footer>
-                    <Form.Control as='textarea' rows='3' />
-                    <Form.Row className='mt-2'>
-                      <Form.Group
-                        as={Col}
-                        md='4'
-                        controlId='validationFormik01'
-                      >
-                        <Form.Control type='text' name='firstName' />
-                        <Form.Control.Feedback>
-                          Looks good!
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                      <Form.Group
-                        as={Col}
-                        md='4'
-                        controlId='validationFormik02'
-                      >
-                        <Form.Control type='text' name='lastName' />
-                        <Form.Control.Feedback>
-                          Looks good!
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                      <Form.Group
-                        as={Col}
-                        md='4'
-                        controlId='validationFormikUsername'
-                      >
-                        <Form.Control
-                          type='text'
-                          placeholder='Username'
-                          aria-describedby='inputGroupPrepend'
-                          name='username'
-                        />
-                        <Form.Control.Feedback type='invalid'>
-                          Error
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                    </Form.Row>
+                    <CommentaryForm />
                   </Card.Footer>
                 </Card>
               </>

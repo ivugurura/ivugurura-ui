@@ -12,6 +12,7 @@ export const routes = [
   {
     path: '/admin',
     component: AdminMain,
+    // eslint-disable-next-line no-sparse-arrays
     routes: [
       {
         path: '/admin',
@@ -50,7 +51,6 @@ export const routes = [
         exact: true,
         component: TopicView,
       },
-      AdminMain,
     ],
   },
 ];

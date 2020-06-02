@@ -12,4 +12,5 @@ export const kn = {
   leaveComment: 'Siga igitekerezo kuri iki kigisho',
   notEmailPublish: 'Email yanyu ntawe izerekwa',
   createdAt: 'Cyateguwe kuri ',
+  commentSuccess: 'Igitekerezo cyanyu twacyakiriye. Murakoze',
 };

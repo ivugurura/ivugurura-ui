@@ -56,7 +56,7 @@ export const TopicView = ({ match, history }) => {
                     {isAuthenticated ? null : null}
                   </Card.Body>
                   <Card.Footer>
-                    <CommentaryForm />
+                    <CommentaryForm slug={topicSlug} />
                   </Card.Footer>
                 </Card>
               </>

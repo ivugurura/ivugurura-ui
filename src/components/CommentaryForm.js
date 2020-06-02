@@ -1,15 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik } from 'formik';
 import { Form, Col, Button } from 'react-bootstrap';
 import { commentSchema, commentInitialValues } from '../utils/formikUtil';
 import { translate } from './utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTopicComment } from '../redux/actions';
+import { toast } from 'react-toastify';
 
-export const CommentaryForm = () => {
+export const CommentaryForm = ({ slug }) => {
+  const dispatch = useDispatch();
+  const { commentLoading, commentAdded } = useSelector(
+    ({ comment }) => comment
+  );
+  useEffect(() => {
+    if (commentAdded) {
+      toast(translate('commentSuccess'));
+    }
+  }, [commentLoading, commentAdded]);
   return (
     <Formik
       initialValues={commentInitialValues}
       validationSchema={commentSchema}
-      onSubmit={(info) => console.log(info)}
+      onSubmit={(info, { resetForm }) => {
+        dispatch(addTopicComment(info, slug));
+        if (commentAdded) resetForm();
+      }}
     >
       {({ handleSubmit, handleChange, values, errors }) => (
         <Form noValidate onSubmit={handleSubmit}>
@@ -71,8 +86,8 @@ export const CommentaryForm = () => {
               </Form.Control.Feedback>
             </Form.Group>
           </Form.Row>
-          <Button variant='primary' type='submit'>
-            Save
+          <Button variant='primary' type='submit' disabled={commentLoading}>
+            {commentLoading ? 'Saving comment,...' : 'Save'}
           </Button>
         </Form>
       )}

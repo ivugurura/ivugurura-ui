@@ -51,3 +51,7 @@ export const initialDashState = {
   unPublished: [],
   unPublishedLoading: false,
 };
+export const initialCommentState = {
+  commentLoading: false,
+  commentAdded: false,
+};

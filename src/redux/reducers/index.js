@@ -6,6 +6,7 @@ import { oneTopicReducer } from './oneTopicReducer';
 import { filerReducer } from './filerReducer';
 import { useReducer } from './userReducer';
 import { dashboardReducer } from './dashboardReducer';
+import { commentReducer } from './commentReducer';
 
 export default combineReducers({
   category: categoryReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
   filer: filerReducer,
   user: useReducer,
   dashboard: dashboardReducer,
+  comment: commentReducer,
 });

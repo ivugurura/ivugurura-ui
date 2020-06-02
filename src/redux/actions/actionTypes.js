@@ -22,3 +22,5 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const SET_USER = 'SET_USER';
 
 export const GET_DASHBOARD_COUNTS = 'GET_DASHBOARD_COUNTS';
+
+export const ADD_COMMENT = 'ADD_COMMENT';

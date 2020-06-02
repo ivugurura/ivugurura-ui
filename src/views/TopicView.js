@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import { Row, Col, Container, Card } from 'react-bootstrap';
+import { Row, Col, Container, Card, Media } from 'react-bootstrap';
 import HtmlParser from 'react-html-parser';
 import {
   RecentTopics,
@@ -29,6 +29,7 @@ export const TopicView = ({ match, history }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topicSlug, getTopicDetail]);
   const relatedTopics = topic.category ? topic.category.relatedTopics : [];
+  const commentaries = topic.commentaries || [];
   return (
     <Fragment>
       <Communique />
@@ -54,6 +55,20 @@ export const TopicView = ({ match, history }) => {
                   <Card.Body>
                     {HtmlParser(topic.content)}
                     {isAuthenticated ? null : null}
+                    {commentaries.length ? (
+                      <Container>
+                        <h4>Commentaries</h4>
+                        {commentaries.map((commentary, commentaryIndex) => (
+                          <Media key={commentaryIndex}>
+                            <Media.Body>
+                              <h5>{commentary.names}</h5>
+                              <p>{commentary.content}</p>
+                              <hr />
+                            </Media.Body>
+                          </Media>
+                        ))}
+                      </Container>
+                    ) : null}
                   </Card.Body>
                   <Card.Footer>
                     <CommentaryForm slug={topicSlug} />

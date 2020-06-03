@@ -14,9 +14,14 @@ export const commentReducer = (state = initialCommentState, action) => {
         ...state,
         commentLoading: false,
         commentAdded: true,
+        newComment: action.payload.data.data,
       };
     case rejected(ADD_COMMENT):
     default:
-      return initialCommentState;
+      return {
+        ...state,
+        commentLoading: false,
+        commentAdded: false,
+      };
   }
 };

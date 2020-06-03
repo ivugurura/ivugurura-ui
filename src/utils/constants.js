@@ -33,3 +33,4 @@ export const formatDate = (theDate) => {
   const stringDate = moment(theDate).format('YYYY-MM-DD HH:mm');
   return stringDate;
 };
+export const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);

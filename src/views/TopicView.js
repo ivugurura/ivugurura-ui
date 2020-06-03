@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { Row, Col, Container, Card, Media } from 'react-bootstrap';
 import HtmlParser from 'react-html-parser';
 import {
@@ -11,18 +11,19 @@ import { bgStyles } from '../utils/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTopicDetail } from '../redux/actions/topics';
 import { CommentaryForm } from '../components';
-import { formatDate } from '../utils/constants';
+import { formatDate, scrollToRef } from '../utils/constants';
 import { translate } from '../components/utils';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
-export const TopicView = ({ match, history }) => {
+export const TopicView = ({ match }) => {
+  const topicRef = useRef(null);
   const { topicSlug } = match.params;
-  const { oneTopic, user } = useSelector(({ oneTopic, user }) => ({
+  const { oneTopic, comment } = useSelector(({ oneTopic, comment }) => ({
     oneTopic,
-    user,
+    comment,
   }));
   const { topic, topicLoading } = oneTopic;
-  const { isAuthenticated } = user;
+  const { commentAdded } = comment;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTopicDetail(topicSlug));
@@ -30,12 +31,19 @@ export const TopicView = ({ match, history }) => {
   }, [topicSlug, getTopicDetail]);
   const relatedTopics = topic.category ? topic.category.relatedTopics : [];
   const commentaries = topic.commentaries || [];
+  useEffect(() => {
+    if (commentAdded) {
+      dispatch(getTopicDetail(topicSlug));
+      scrollToRef(topicRef);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [commentAdded]);
   return (
     <Fragment>
       <Communique />
       <Container fluid>
         <Row>
-          <Col xs={12} md={9} lg={9}>
+          <Col xs={12} md={9} lg={9} ref={topicRef}>
             {topicLoading ? (
               <Loading />
             ) : (
@@ -54,7 +62,6 @@ export const TopicView = ({ match, history }) => {
                   />
                   <Card.Body>
                     {HtmlParser(topic.content)}
-                    {isAuthenticated ? null : null}
                     {commentaries.length ? (
                       <Container>
                         <h4>Commentaries</h4>

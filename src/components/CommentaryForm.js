@@ -16,15 +16,17 @@ export const CommentaryForm = ({ slug }) => {
     if (commentAdded) {
       toast(translate('commentSuccess'));
     }
-  }, [commentLoading, commentAdded]);
+  }, [commentAdded]);
+  const onSaveComment = (comment) => {
+    console.log(comment);
+
+    dispatch(addTopicComment(comment, slug));
+  };
   return (
     <Formik
       initialValues={commentInitialValues}
       validationSchema={commentSchema}
-      onSubmit={(info, { resetForm }) => {
-        dispatch(addTopicComment(info, slug));
-        if (commentAdded) resetForm();
-      }}
+      onSubmit={onSaveComment}
     >
       {({ handleSubmit, handleChange, values, errors }) => (
         <Form noValidate onSubmit={handleSubmit}>
@@ -86,7 +88,11 @@ export const CommentaryForm = ({ slug }) => {
               </Form.Control.Feedback>
             </Form.Group>
           </Form.Row>
-          <Button variant='primary' type='submit' disabled={commentLoading}>
+          <Button
+            variant='primary'
+            type='submit'
+            disabled={commentLoading || commentAdded}
+          >
             {commentLoading ? 'Saving comment,...' : 'Save'}
           </Button>
         </Form>

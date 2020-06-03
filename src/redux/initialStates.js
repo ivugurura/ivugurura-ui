@@ -21,7 +21,7 @@ export const initialLangState = {
   messages: messages['kn'],
 };
 export const initialOneTopicState = {
-  topic: {},
+  topic: { category: { relatedTopics: [] }, commentaries: [] },
   topicFetched: false,
   topicLoading: false,
   newTopicLoading: false,
@@ -54,4 +54,5 @@ export const initialDashState = {
 export const initialCommentState = {
   commentLoading: false,
   commentAdded: false,
+  newComment: {},
 };

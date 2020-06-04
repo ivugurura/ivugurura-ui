@@ -25,7 +25,7 @@ export const TopicsCarousel = () => {
               <div key={topicIndex}>
                 <img
                   className='d-block w-100'
-                  src={topicImg}
+                  src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
                   alt={`Slider ${topicIndex}`}
                 />
                 <h3>{topic.title}</h3>

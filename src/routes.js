@@ -6,6 +6,7 @@ import {
   AdminMain,
   AddEditTopic,
   Login,
+  CategoryTopics,
 } from './views';
 
 export const routes = [
@@ -47,9 +48,14 @@ export const routes = [
         component: Login,
       },
       {
-        path: '/:topicSlug/view',
+        path: '/topics/:topicSlug',
         exact: true,
         component: TopicView,
+      },
+      {
+        path: '/topics/categories/:categorySlug',
+        exact: true,
+        component: CategoryTopics,
       },
     ],
   },

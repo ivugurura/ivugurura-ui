@@ -1,4 +1,8 @@
-import { GET_NAVS_CATEGORIES, GET_CATEGORIES } from './actionTypes';
+import {
+  GET_NAVS_CATEGORIES,
+  GET_CATEGORIES,
+  GET_CATEGORY_DETAIL,
+} from './actionTypes';
 import { http } from '../../helpers';
 
 export const getCategories = (categoryType) => {
@@ -7,5 +11,11 @@ export const getCategories = (categoryType) => {
   return {
     type: actionType,
     payload: http.get(`/categories${categoryType}`),
+  };
+};
+export const getCategoryDetail = (categorySlug) => {
+  return {
+    type: GET_CATEGORY_DETAIL,
+    payload: http.get(`/categories/${categorySlug}`),
   };
 };

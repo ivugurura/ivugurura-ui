@@ -56,3 +56,8 @@ export const initialCommentState = {
   commentAdded: false,
   newComment: {},
 };
+export const aCategoryState = {
+  categoryFetched: false,
+  categoryFetching: false,
+  category: { parent: {} },
+};

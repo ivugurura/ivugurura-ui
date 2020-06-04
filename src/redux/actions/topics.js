@@ -1,6 +1,5 @@
 import {
   GET_CARSOUL_TOPICS,
-  GET_ALL_TOPICS,
   GET_RECENT_TOPICS,
   VIEW_TOPIC_DETAIL,
   ADD_NEW_TOPIC,
@@ -8,11 +7,12 @@ import {
   GET_UNPUBLISHED_TOPICS,
   GET_DASHBOARD_COUNTS,
   UPDATE_TOPIC,
+  GET_CATEGORY_TOPICS,
 } from './actionTypes';
 import { http } from '../../helpers';
 
 export const getTopics = ({ page, pageSize, category }) => {
-  let categoryType = GET_ALL_TOPICS;
+  let categoryType = GET_CATEGORY_TOPICS;
   switch (category) {
     case 'carsoul':
       categoryType = GET_CARSOUL_TOPICS;

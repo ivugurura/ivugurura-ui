@@ -15,6 +15,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCategories, setLanguage } from '../../redux/actions';
 import { systemLanguages } from '../../utils/constants';
 import { translate } from '../utils';
+import { Link } from 'react-router-dom';
 
 export const NavHeader = () => {
   const systemLanguage = localStorage.getItem('lang');
@@ -43,11 +44,7 @@ export const NavHeader = () => {
           </Nav.Link>
           {navCategories.map((nav, navIndex) =>
             !nav.categories.length ? (
-              <Nav.Link
-                href={`/${nav.slug}`}
-                style={textStyles.textTransparent}
-                key={navIndex}
-              >
+              <Nav.Link style={textStyles.textTransparent} key={navIndex}>
                 {nav.name}
               </Nav.Link>
             ) : (
@@ -60,8 +57,10 @@ export const NavHeader = () => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {nav.categories.map((subNav, subNavIndex) => (
-                    <Dropdown.Item href={`/${subNav.slug}`} key={subNavIndex}>
-                      {subNav.name}
+                    <Dropdown.Item key={subNavIndex}>
+                      <Link to={`/topics/categories/${subNav.slug}`}>
+                        {subNav.name}
+                      </Link>
                     </Dropdown.Item>
                   ))}
                 </Dropdown.Menu>

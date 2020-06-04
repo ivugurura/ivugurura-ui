@@ -5,3 +5,4 @@ export * from './AdminMain';
 export * from './Dashboard';
 export * from './AddEditTopic';
 export * from './Login';
+export * from './CategoryTopics';

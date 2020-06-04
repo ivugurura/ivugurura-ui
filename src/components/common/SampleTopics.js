@@ -11,7 +11,6 @@ import { getTopics } from '../../redux/actions/topics';
 import { Loading } from './Loading';
 import { truncate } from '../../utils/constants';
 
-const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const SampleTopics = ({ isHomePage, topics, loading }) => {
   let componentTopics = topics || [];
   let componentLoading = loading || false;
@@ -67,9 +66,12 @@ export const SampleTopics = ({ isHomePage, topics, loading }) => {
           >
             {componentTopics.map((topic, topicItem) => (
               <Col key={topicItem} xs={12} md={12} lg={12}>
-                <Link to={`/${topic.slug}/view`}>
+                <Link to={`/topics/${topic.slug}`}>
                   <Card>
-                    <Card.Img variant='top' src={topicImg} />
+                    <Card.Img
+                      variant='top'
+                      src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
+                    />
                     <Card.Body>
                       <Card.Title>{topic.title}</Card.Title>
                       <Card.Text>{truncate(topic.description, 80)}</Card.Text>

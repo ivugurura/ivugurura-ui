@@ -1,6 +1,10 @@
 import { initialTopicState } from '../initialStates';
 import { fulfilled, pending, rejected } from '../../utils/actions';
-import { GET_CARSOUL_TOPICS, GET_RECENT_TOPICS } from '../actions';
+import {
+  GET_CARSOUL_TOPICS,
+  GET_RECENT_TOPICS,
+  GET_CATEGORY_TOPICS,
+} from '../actions';
 
 export const topicReducer = (state = initialTopicState, action) => {
   switch (action.type) {
@@ -15,11 +19,6 @@ export const topicReducer = (state = initialTopicState, action) => {
         carsoulLoading: false,
         carsoulTopics: action.payload.data.data,
       };
-    case rejected(GET_CARSOUL_TOPICS):
-      return {
-        ...state,
-        carsoulLoading: false,
-      };
     case pending(GET_RECENT_TOPICS):
       return {
         ...state,
@@ -31,12 +30,27 @@ export const topicReducer = (state = initialTopicState, action) => {
         recentLoading: false,
         recentTopics: action.payload.data.data,
       };
+    case pending(GET_CATEGORY_TOPICS):
+      return {
+        ...state,
+        categoryLoading: true,
+      };
+    case fulfilled(GET_CATEGORY_TOPICS):
+      return {
+        ...state,
+        categoryLoading: false,
+        categoryTopics: action.payload.data.data,
+      };
+
+    case rejected(GET_CARSOUL_TOPICS):
     case rejected(GET_RECENT_TOPICS):
+    case rejected(GET_CATEGORY_TOPICS):
+    default:
       return {
         ...state,
         recentLoading: false,
+        carsoulLoading: false,
+        categoryLoading: false,
       };
-    default:
-      return state;
   }
 };

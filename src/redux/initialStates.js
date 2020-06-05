@@ -61,3 +61,11 @@ export const aCategoryState = {
   categoryFetching: false,
   category: { parent: {} },
 };
+export const searchState = {
+  searching: false,
+  finished: false,
+  results: {
+    topics: [],
+    categories: [],
+  },
+};

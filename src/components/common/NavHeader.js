@@ -16,10 +16,12 @@ import { getCategories, setLanguage } from '../../redux/actions';
 import { systemLanguages } from '../../utils/constants';
 import { translate } from '../utils';
 import { Link } from 'react-router-dom';
+import { SearchBox } from '../models';
 
 export const NavHeader = () => {
   const systemLanguage = localStorage.getItem('lang');
   const [lang, setLang] = useState(systemLanguage);
+  const [showSearch, setShowSearch] = useState(false);
   const navCategories = useSelector(({ category }) => category.navCategories);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -77,6 +79,7 @@ export const NavHeader = () => {
             placeholder='Search'
             className='mr-sm-2'
             size='sm'
+            onInput={() => setShowSearch(true)}
           />
           <Button variant='danger' size='sm'>
             {translate('listenRadio')}
@@ -96,6 +99,7 @@ export const NavHeader = () => {
           </Form.Control>
         </Form>
       </Navbar.Collapse>
+      <SearchBox show={showSearch} onHide={() => setShowSearch(false)} />
     </Navbar>
   );
 };

@@ -25,3 +25,5 @@ export const SET_USER = 'SET_USER';
 export const GET_DASHBOARD_COUNTS = 'GET_DASHBOARD_COUNTS';
 
 export const ADD_COMMENT = 'ADD_COMMENT';
+
+export const SEARCH_QUERY = 'SEARCH_QUERY';

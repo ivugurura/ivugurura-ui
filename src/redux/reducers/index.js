@@ -8,6 +8,7 @@ import { useReducer } from './userReducer';
 import { dashboardReducer } from './dashboardReducer';
 import { commentReducer } from './commentReducer';
 import { oneCategoryReducer } from './oneCategoryReducer';
+import { searchReducer } from './searchReducer';
 
 export default combineReducers({
   category: categoryReducer,
@@ -19,4 +20,5 @@ export default combineReducers({
   dashboard: dashboardReducer,
   comment: commentReducer,
   oneCategory: oneCategoryReducer,
+  search: searchReducer,
 });

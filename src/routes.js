@@ -7,6 +7,7 @@ import {
   AddEditTopic,
   Login,
   CategoryTopics,
+  AdminAudio,
 } from './views';
 
 export const routes = [
@@ -30,7 +31,11 @@ export const routes = [
         exact: true,
         component: AddEditTopic,
       },
-      ,
+      {
+        path: '/admin/audios',
+        exact: true,
+        component: AdminAudio,
+      },
       {
         path: '/admin/edit-topic/:topicSlug',
         exact: true,

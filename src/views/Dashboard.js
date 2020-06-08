@@ -19,12 +19,12 @@ export const Dashboard = ({ history }) => {
         btnTitle='Add topic'
         btnAction={() => history.push('/admin/add-topic')}
       />
-      <section class='dashboard-counts no-padding-bottom'>
-        <div class='container-fluid'>
+      <section className='dashboard-counts no-padding-bottom'>
+        <div className='container-fluid'>
           {countLoading ? (
             <Loading />
           ) : (
-            <div class='row bg-white has-shadow'>
+            <div className='row bg-white has-shadow'>
               <CardCounter
                 title='Published'
                 color='green'

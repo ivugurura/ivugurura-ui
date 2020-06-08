@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Formik } from 'formik';
 import { loginInitialValues, loginSchema } from '../utils/formikUtil';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,7 +25,7 @@ export const Login = ({ history }) => {
         window.location.href = '/admin';
       }, 5000);
     }
-  }, [userLoading, userFetched, info, isAuthenticated]);
+  }, [userLoading, userFetched, info, isAuthenticated, history]);
   return (
     <div className='page login-page'>
       <div className='container d-flex align-items-center'>

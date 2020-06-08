@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const flagUrl = `${process.env.PUBLIC_URL}/img/flags/16`;
 export const AdminHeader = () => {
   return (
     <header className='header'>
@@ -53,28 +54,28 @@ export const AdminHeader = () => {
                   aria-expanded='false'
                   className='nav-link language dropdown-toggle'
                 >
-                  <img src='img/flags/16/GB.png' alt='English' />
-                  <span className='d-none d-sm-inline-block'>English</span>
+                  <img src={`${flagUrl}/RW.png`} alt='Kinyarwanda' />
+                  <span className='d-none d-sm-inline-block'>Kinyarwanda</span>
                 </Link>
                 <ul aria-labelledby='languages' className='dropdown-menu'>
                   <li>
                     <Link rel='nofollow' to='#' className='dropdown-item'>
                       <img
-                        src='img/flags/16/DE.png'
-                        alt='English'
+                        src={`${flagUrl}/RW.png`}
+                        alt='Kinyarwanda'
                         className='mr-2'
                       />
-                      German
+                      Kinyarwanda
                     </Link>
                   </li>
                   <li>
                     <Link rel='nofollow' to='#' className='dropdown-item'>
                       <img
-                        src='img/flags/16/FR.png'
+                        src={`${flagUrl}/GB.png`}
                         alt='English'
                         className='mr-2'
                       />
-                      French
+                      English
                     </Link>
                   </li>
                 </ul>

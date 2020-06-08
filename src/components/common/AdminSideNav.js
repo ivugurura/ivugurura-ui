@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+const profileUrl = `${process.env.PUBLIC_URL}/img/avatar-1.jpg`;
 export const AdminSideNav = () => {
   const { info } = useSelector(({ user }) => user);
   return (
@@ -9,7 +10,7 @@ export const AdminSideNav = () => {
       <div className='sidebar-header d-flex align-items-center'>
         <div className='avatar'>
           <img
-            src='img/avatar-1.jpg'
+            src={profileUrl}
             alt='...'
             className='img-fluid rounded-circle'
           />

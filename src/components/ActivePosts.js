@@ -5,7 +5,6 @@ import { getDashboardTopics, updateTopic } from '../redux/actions/topics';
 import { Loading, ActionButtons } from './common';
 import { truncate, formatDate } from '../utils/constants';
 import { ActionConfirm } from './models';
-import { toast } from 'react-toastify';
 
 export const ActivePosts = ({ history }) => {
   const dispatch = useDispatch();
@@ -59,21 +58,24 @@ export const ActivePosts = ({ history }) => {
           dispatch(updateTopic({ isPublished: false }, currentTopic.slug))
         }
       />
-      <div class='recent-updates card'>
-        <div class='card-header'>
-          <h3 class='h4'>Recent Updates</h3>
+      <div className='recent-updates card'>
+        <div className='card-header'>
+          <h3 className='h4'>Recent Updates</h3>
         </div>
-        <div class='card-body no-padding'>
+        <div className='card-body no-padding'>
           {publishedLoading ? (
             <Loading />
           ) : published.length ? (
             published.map((topic, topicIndex) => (
-              <div class='item d-flex justify-content-between' key={topicIndex}>
-                <div class='info d-flex'>
-                  <div class='icon'>
-                    <i class='icon-rss-feed'></i>
+              <div
+                className='item d-flex justify-content-between'
+                key={topicIndex}
+              >
+                <div className='info d-flex'>
+                  <div className='icon'>
+                    <i className='icon-rss-feed'></i>
                   </div>
-                  <div class='title'>
+                  <div className='title'>
                     <h5>{topic.title}</h5>
                     <p>
                       {truncate(
@@ -92,7 +94,7 @@ export const ActivePosts = ({ history }) => {
                     />
                   </div>
                 </div>
-                <div class='date text-right'>
+                <div className='date text-right'>
                   <span>{formatDate(topic.createdAt)}</span>
                 </div>
               </div>

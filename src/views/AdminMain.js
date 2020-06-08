@@ -17,7 +17,7 @@ export const AdminMain = ({ route, history }) => {
       <AdminHeader />
       <div className='page-content d-flex align-items-stretch'>
         <AdminSideNav />
-        <div class='content-inner'>{renderRoutes(route.routes)}</div>
+        <div className='content-inner'>{renderRoutes(route.routes)}</div>
       </div>
     </div>
   );

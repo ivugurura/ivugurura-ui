@@ -50,7 +50,7 @@ export const Footer = ({ isHomepage }) => {
         </Card>
       ) : null}
 
-      <Card style={bgStyles.bgPrimary} className='mt-2 fixed-bottom'>
+      <Card style={bgStyles.bgPrimary} className='mt-2'>
         <Container fluid style={textStyles.textTransparent}>
           <Row>
             <Col xs={12} md={4} lg={4}>

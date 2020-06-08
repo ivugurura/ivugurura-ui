@@ -1,12 +1,18 @@
 import React from 'react';
 import { ButtonGroup, Button } from 'react-bootstrap';
 
-export const ActionButtons = ({ isTopic, onPublish, onEdit, onDelete }) => {
+export const ActionButtons = ({
+  isTopic,
+  onPublish,
+  status,
+  onEdit,
+  onDelete,
+}) => {
   return (
     <ButtonGroup size='sm'>
       {isTopic ? (
         <Button variant='success' onClick={onPublish}>
-          Publish
+          {status}
         </Button>
       ) : null}
 

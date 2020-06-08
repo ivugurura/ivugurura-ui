@@ -1,37 +1,24 @@
-import React, { Fragment } from 'react';
-import { renderRoutes } from 'react-router-config';
-import { Navbar, Nav, Container, Row, Col } from 'react-bootstrap';
-import { bgStyles, textStyles } from '../utils/styles';
-import { Logo, Footer } from '../components/common';
+import React from 'react';
+import { AdminHeader, AdminSideNav } from '../components/common';
 import { useSelector } from 'react-redux';
-import { NotFound } from '../components';
+import { renderRoutes } from 'react-router-config';
+import { toast } from 'react-toastify';
 
-export const AdminMain = ({ route }) => {
+export const AdminMain = ({ route, history }) => {
   const { isAuthenticated } = useSelector(({ user }) => user);
+  if (!isAuthenticated) {
+    toast('Sorry you are not authenticated');
+    setTimeout(() => {
+      window.location.replace('/login');
+    }, 3000);
+  }
   return (
-    <Fragment>
-      <Navbar style={bgStyles.bgPrimary}>
-        <Logo />
-        <Navbar.Toggle />
-        {/* <Navbar.Collapse className='justify-content-end'></Navbar.Collapse> */}
-        <Nav.Link href='/' style={textStyles.textTransparent}>
-          Home
-        </Nav.Link>
-      </Navbar>
-      {isAuthenticated ? (
-        renderRoutes(route.routes)
-      ) : (
-        <Container>
-          <Row>
-            <Col></Col>
-            <Col>
-              <NotFound />
-            </Col>
-            <Col></Col>
-          </Row>
-        </Container>
-      )}
-      <Footer />
-    </Fragment>
+    <div className='page'>
+      <AdminHeader />
+      <div className='page-content d-flex align-items-stretch'>
+        <AdminSideNav />
+        <div class='content-inner'>{renderRoutes(route.routes)}</div>
+      </div>
+    </div>
   );
 };

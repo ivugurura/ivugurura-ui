@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import { Container, Row, Col, Button, Card } from 'react-bootstrap';
-import { CardCounter, Loading } from '../components/common';
-import { ActivePosts, DraftPosts } from '../components';
-import { Link } from 'react-router-dom';
+import { AdminPageHeader, CardCounter, Loading } from '../components/common';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDashboadCount } from '../redux/actions';
+import { ActivePosts } from '../components/ActivePosts';
+import { DraftPosts } from '../components/DraftPosts';
 
 export const Dashboard = ({ history }) => {
   const { countLoading, counts } = useSelector(({ dashboard }) => dashboard);
@@ -14,61 +13,50 @@ export const Dashboard = ({ history }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getDashboadCount]);
   return (
-    <Container className='mt-3' fluid>
-      <Row>
-        {countLoading ? (
-          <Col xs={12} md={12} lg={12}>
+    <>
+      <AdminPageHeader
+        name='Dashboard'
+        btnTitle='Add topic'
+        btnAction={() => history.push('/admin/add-topic')}
+      />
+      <section class='dashboard-counts no-padding-bottom'>
+        <div class='container-fluid'>
+          {countLoading ? (
             <Loading />
-          </Col>
-        ) : (
-          <>
-            <Col xs={12} md={3} lg={3}>
+          ) : (
+            <div class='row bg-white has-shadow'>
               <CardCounter
-                count={counts.published | 0}
                 title='Published'
-                color='success'
+                color='green'
+                count={counts.published}
               />
-            </Col>
-            <Col xs={12} md={3} lg={3}>
               <CardCounter
-                count={counts.unPublished | 0}
-                title='Draft'
-                color='info'
+                title='Unpublished'
+                color='red'
+                count={counts.unPublished}
               />
-            </Col>
-            <Col xs={12} md={3} lg={3}>
+              <CardCounter title='Audios' color='violet' count={counts.songs} />
               <CardCounter
-                count={counts.videos | 0}
                 title='Videos'
-                color='primary'
+                color='orange'
+                count={counts.videos}
               />
-            </Col>
-            <Col xs={12} md={3} lg={3}>
-              <CardCounter
-                count={counts.audios | 0}
-                title='Audios'
-                color='danger'
-              />
-            </Col>
-          </>
-        )}
-      </Row>
-      <Row>
-        <Col xs={12} md={6} lg={6}>
-          <ActivePosts history={history} />
-        </Col>
-        <Col xs={12} md={6} lg={6}>
-          <Container fluid className='mt-3'>
-            <Link to='/admin/add-topic' className='btn btn-primary'>
-              Add new post
-            </Link>
-            <Button>Add media</Button>
-            <Card className='mt-2'>
+            </div>
+          )}
+        </div>
+      </section>
+      <section className='updates no-padding-top'>
+        <div className='container-fluid'>
+          <div className='row'>
+            <div className='col-lg-6'>
+              <ActivePosts history={history} />
+            </div>
+            <div className='col-lg-6'>
               <DraftPosts history={history} />
-            </Card>
-          </Container>
-        </Col>
-      </Row>
-    </Container>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };

@@ -11,6 +11,11 @@ import {
 
 export const routes = [
   {
+    path: '/login',
+    exact: true,
+    component: Login,
+  },
+  {
     path: '/admin',
     component: AdminMain,
     // eslint-disable-next-line no-sparse-arrays
@@ -41,11 +46,6 @@ export const routes = [
         path: '/',
         exact: true,
         component: Home,
-      },
-      {
-        path: '/login',
-        exact: true,
-        component: Login,
       },
       {
         path: '/topics/:topicSlug',

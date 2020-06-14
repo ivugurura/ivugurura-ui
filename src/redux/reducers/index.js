@@ -9,6 +9,8 @@ import { dashboardReducer } from './dashboardReducer';
 import { commentReducer } from './commentReducer';
 import { oneCategoryReducer } from './oneCategoryReducer';
 import { searchReducer } from './searchReducer';
+import { albumReducer } from './albumReducer';
+import { mediaReducer } from './mediaReducer';
 
 export default combineReducers({
   category: categoryReducer,
@@ -21,4 +23,6 @@ export default combineReducers({
   comment: commentReducer,
   oneCategory: oneCategoryReducer,
   search: searchReducer,
+  album: albumReducer,
+  media: mediaReducer,
 });

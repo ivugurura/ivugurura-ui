@@ -69,3 +69,15 @@ export const searchState = {
     categories: [],
   },
 };
+export const albumState = {
+  albumAdding: false,
+  albumAdded: false,
+  albumsFetching: false,
+  albumsFetched: false,
+  albums: [],
+};
+export const mediaState = {
+  medias: [],
+  mediasFetching: false,
+  mediasFetched: false,
+};

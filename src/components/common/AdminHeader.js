@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { systemLanguages } from '../../utils/constants';
+import { setLanguage } from '../../redux/actions';
 
 const flagUrl = `${process.env.PUBLIC_URL}/img/flags/16`;
 export const AdminHeader = () => {
+  const systemLanguage = localStorage.getItem('lang');
+  const currentLang = systemLanguages.find(
+    (lang) => lang.abbr === systemLanguage
+  );
+  const selectLanguage = (language) => {
+    if (language === currentLang.abbr) return;
+    localStorage.setItem('lang', language);
+    window.location.reload();
+  };
   return (
     <header className='header'>
       <nav className='navbar'>
@@ -54,30 +66,27 @@ export const AdminHeader = () => {
                   aria-expanded='false'
                   className='nav-link language dropdown-toggle'
                 >
-                  <img src={`${flagUrl}/RW.png`} alt='Kinyarwanda' />
-                  <span className='d-none d-sm-inline-block'>Kinyarwanda</span>
+                  <img src={currentLang.flag} alt={currentLang.lang} />
+                  <span className='d-none d-sm-inline-block'>
+                    {currentLang.lang}
+                  </span>
                 </Link>
                 <ul aria-labelledby='languages' className='dropdown-menu'>
-                  <li>
-                    <Link rel='nofollow' to='#' className='dropdown-item'>
-                      <img
-                        src={`${flagUrl}/RW.png`}
-                        alt='Kinyarwanda'
-                        className='mr-2'
-                      />
-                      Kinyarwanda
-                    </Link>
-                  </li>
-                  <li>
-                    <Link rel='nofollow' to='#' className='dropdown-item'>
-                      <img
-                        src={`${flagUrl}/GB.png`}
-                        alt='English'
-                        className='mr-2'
-                      />
-                      English
-                    </Link>
-                  </li>
+                  {systemLanguages.map((language, languageIndex) => (
+                    <li
+                      key={languageIndex}
+                      onClick={() => selectLanguage(language.abbr)}
+                    >
+                      <Link rel='nofollow' to='#' className='dropdown-item'>
+                        <img
+                          src={language.flag}
+                          alt={language.lang}
+                          className='mr-2'
+                        />
+                        {language.lang}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </li>
               <li className='nav-item'>

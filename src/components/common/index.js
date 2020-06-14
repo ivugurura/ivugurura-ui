@@ -12,3 +12,4 @@ export * from './AdminHeader';
 export * from './AdminSideNav';
 export * from './BreadCumb';
 export * from './AdminPageHeader';
+export * from './TableCard';

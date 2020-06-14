@@ -8,6 +8,8 @@ export * from './fileUpload';
 export * from './user';
 export * from './topics';
 export * from './comments';
+export * from './albums';
+export * from './media';
 
 export const searchQuery = (input) => {
   return {

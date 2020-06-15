@@ -1,78 +1,116 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Formik } from 'formik';
+import { loginInitialValues, loginSchema } from '../utils/formikUtil';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/actions';
+import { toast } from 'react-toastify';
 
-export const Login = () => {
+export const Login = ({ history }) => {
   const dispatch = useDispatch();
-  const [user, setUser] = useState({ email: '', password: '' });
-  const { userFetched, info, userLoading } = useSelector(({ user }) => user);
-  const onInputChange = ({ target }) => {
-    const theUser = { ...user };
-    theUser[target.name] = target.value;
-    setUser(theUser);
-  };
-  const onLogin = () => {
-    dispatch(loginUser(user));
-  };
+  const { userFetched, info, userLoading, isAuthenticated } = useSelector(
+    ({ user }) => user
+  );
   useEffect(() => {
+    if (isAuthenticated && !userFetched) {
+      toast('You are going to the Dashboard in 3 seconds');
+      setTimeout(() => {
+        history.replace('/admin');
+      }, 5000);
+    }
     if (userFetched) {
       localStorage.setItem('user', JSON.stringify(info));
-      window.location.href = '/admin';
+      toast(`Welcome ${info.names}`);
+      setTimeout(() => {
+        window.location.href = '/admin';
+      }, 5000);
     }
-  }, [userLoading, userFetched, info]);
+  }, [userLoading, userFetched, info, isAuthenticated, history]);
   return (
-    <Container>
-      <Row>
-        <Col></Col>
-        <Col>
-          <div className='text-center'>
-            <img
-              className='mb-4'
-              src='/docs/4.5/assets/brand/bootstrap-solid.svg'
-              alt=''
-              width='72'
-              height='72'
-            />
-            <h1 className='h3 mb-3 font-weight-normal'>Please sign in</h1>
-            <label htmlFor='inputEmail' className='sr-only'>
-              Email address
-            </label>
-            <input
-              type='email'
-              name='email'
-              value={user.email}
-              className='form-control'
-              placeholder='Email address'
-              autoFocus
-              onChange={onInputChange}
-            />
-            <label htmlFor='inputPassword' className='sr-only'>
-              Password
-            </label>
-            <input
-              type='password'
-              name='password'
-              value={user.password}
-              className='form-control'
-              placeholder='Password'
-              onChange={onInputChange}
-            />
-            <div className='checkbox mb-3'>
-              <label>
-                <input type='checkbox' value='remember-me' /> Remember me
-              </label>
+    <div className='page login-page'>
+      <div className='container d-flex align-items-center'>
+        <div className='form-holder has-shadow'>
+          <div className='row'>
+            <div className='col-lg-6'>
+              <div className='info d-flex align-items-center'>
+                <div className='content'>
+                  <div className='logo'>
+                    <h1>Ijwi ry Ubugorozi</h1>
+                  </div>
+                  <p>This is reserved to the ADMINISTRATOR</p>
+                </div>
+              </div>
             </div>
-            <button
-              className='btn btn-lg btn-primary btn-block'
-              onClick={onLogin}
-            >
-              {userLoading ? 'Loading, please wait,...' : 'Sign in'}
-            </button>
+            <div className='col-lg-6 bg-white'>
+              <div className='form d-flex align-items-center'>
+                <div className='content'>
+                  <Formik
+                    initialValues={loginInitialValues}
+                    validationSchema={loginSchema}
+                    onSubmit={(user) => dispatch(loginUser(user))}
+                  >
+                    {({ handleSubmit, handleChange, values, errors }) => (
+                      <form noValidate onSubmit={handleSubmit}>
+                        <div className='form-group'>
+                          <input
+                            id='login-username'
+                            type='email'
+                            name='email'
+                            className='input-material'
+                            value={values.email}
+                            onChange={handleChange}
+                            isInvalid={!!errors.email}
+                          />
+                          <label
+                            htmlFor='login-username'
+                            className='label-material'
+                          >
+                            Email
+                          </label>
+                        </div>
+                        <div className='form-group'>
+                          <input
+                            id='login-password'
+                            type='password'
+                            name='password'
+                            className='input-material'
+                            value={values.password}
+                            onChange={handleChange}
+                            isInvalid={!!errors.password}
+                          />
+                          <label
+                            htmlFor='login-password'
+                            className='label-material'
+                          >
+                            Type password
+                          </label>
+                        </div>
+                        <button
+                          className='btn btn-primary'
+                          disabled={userLoading}
+                        >
+                          {userLoading ? 'Signing in...' : 'Log in'}
+                        </button>
+                      </form>
+                    )}
+                  </Formik>
+                </div>
+              </div>
+            </div>
           </div>
-        </Col>
-        <Col></Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
+      <div className='copyrights text-center'>
+        <p>
+          Design by{' '}
+          <Link
+            to='https://bootstrapious.com/p/admin-template'
+            className='external'
+          >
+            Bootstrapious
+          </Link>
+        </p>
+      </div>
+    </div>
   );
 };

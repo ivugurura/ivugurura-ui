@@ -45,7 +45,7 @@ export const initialUserState = {
 };
 export const initialDashState = {
   countLoading: false,
-  counts: {},
+  counts: { songs: 0, videos: 0, published: 0, unPublished: 0 },
   published: [],
   publishedLoading: false,
   unPublished: [],
@@ -68,4 +68,18 @@ export const searchState = {
     topics: [],
     categories: [],
   },
+};
+export const albumState = {
+  albumAdding: false,
+  albumAdded: false,
+  albumsFetching: false,
+  albumsFetched: false,
+  albums: [],
+};
+export const mediaState = {
+  medias: [],
+  mediasFetching: false,
+  mediasFetched: false,
+  mediaAdding: false,
+  mediaAdded: false,
 };

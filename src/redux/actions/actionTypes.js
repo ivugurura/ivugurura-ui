@@ -27,3 +27,8 @@ export const GET_DASHBOARD_COUNTS = 'GET_DASHBOARD_COUNTS';
 export const ADD_COMMENT = 'ADD_COMMENT';
 
 export const SEARCH_QUERY = 'SEARCH_QUERY';
+
+export const ADD_ALBUM = 'ADD_ALBUM';
+export const GET_ALBUMS = 'GET_ALBUMS';
+export const GET_MEDIAS = 'GET_MEDIAS';
+export const ADD_NEW_MEDIA = 'ADD_NEW_MEDIA';

@@ -4,13 +4,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { searchQuery } from '../../redux/actions';
 import { Loading } from '../common';
 
-const data = [];
 export const SearchBox = ({ show, onHide }) => {
   const [searchVal, setSearchVal] = useState('');
   const dispatch = useDispatch();
   const { searching, finished, results } = useSelector(({ search }) => search);
   useEffect(() => {
     dispatch(searchQuery(searchVal));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchVal, searchQuery]);
   return (
     <Modal size='lg' show={show} onHide={onHide}>

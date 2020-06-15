@@ -18,7 +18,9 @@ export const ActionConfirm = ({
       </Modal.Body>
       <Modal.Footer>
         <ButtonGroup>
-          <Button variant='danger'>No</Button>
+          <Button variant='danger' onClick={onHide}>
+            No
+          </Button>
           <Button onClick={onAction}>Yes</Button>
         </ButtonGroup>
       </Modal.Footer>

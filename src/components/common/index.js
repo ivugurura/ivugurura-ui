@@ -8,3 +8,8 @@ export * from './audioPlayer/Audio';
 export * from './Communique';
 export * from './Loading';
 export * from './ActionButtons';
+export * from './AdminHeader';
+export * from './AdminSideNav';
+export * from './BreadCumb';
+export * from './AdminPageHeader';
+export * from './TableCard';

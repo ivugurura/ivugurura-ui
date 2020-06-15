@@ -1,5 +1,6 @@
 import moment from 'moment';
 
+const flagUrl = `${process.env.PUBLIC_URL}/img/flags/16`;
 export const topicEditorButtons = [
   ['undo', 'redo'],
   ['font', 'fontSize', 'formatBlock'],
@@ -20,10 +21,12 @@ export const systemLanguages = [
   {
     lang: 'Kinyarwanda',
     abbr: 'kn',
+    flag: `${flagUrl}/RW.png`,
   },
   {
     lang: 'English',
     abbr: 'en',
+    flag: `${flagUrl}/GB.png`,
   },
 ];
 export const truncate = (str, n) => {

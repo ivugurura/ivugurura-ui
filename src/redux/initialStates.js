@@ -80,4 +80,6 @@ export const mediaState = {
   medias: [],
   mediasFetching: false,
   mediasFetched: false,
+  mediaAdding: false,
+  mediaAdded: false,
 };

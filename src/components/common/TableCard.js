@@ -5,16 +5,16 @@ import { getMedias } from '../../redux/actions';
 
 export const TableCard = () => {
   const dispatch = useDispatch();
-  const { medias, mediasFetching } = useSelector(({ media }) => media);
+  const { medias, mediasFetching, mediaAdded } = useSelector(
+    ({ media }) => media
+  );
   useEffect(() => {
     dispatch(getMedias());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getMedias]);
+  }, [getMedias, mediaAdded]);
   return (
     <div className='card'>
-      <div className='card-header d-flex align-items-center'>
-        <h3>Media list</h3>
-      </div>
+      <div className='card-header d-flex align-items-center'>Media list</div>
       <div className='card-body'>
         <div className='table-responsive'>
           {mediasFetching ? (

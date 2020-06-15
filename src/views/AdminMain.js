@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 export const AdminMain = ({ route, history }) => {
   const { isAuthenticated } = useSelector(({ user }) => user);
   if (!isAuthenticated) {
-    toast('Sorry you are not authenticated');
+    toast('Sorry you are not authenticated', { toastId: 41 });
     setTimeout(() => {
       window.location.replace('/login');
     }, 3000);

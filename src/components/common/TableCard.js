@@ -8,6 +8,7 @@ export const TableCard = () => {
   const { medias, mediasFetching } = useSelector(({ media }) => media);
   useEffect(() => {
     dispatch(getMedias());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getMedias]);
   return (
     <div className='card'>

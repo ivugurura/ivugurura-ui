@@ -11,6 +11,7 @@ export const AdminAudio = () => {
   const { albums, albumsFetching } = useSelector(({ album }) => album);
   useEffect(() => {
     dispatch(getAlbums());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getAlbums]);
   return (
     <>

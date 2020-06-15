@@ -1,5 +1,5 @@
 import { mediaState } from '../initialStates';
-import { pending, fulfilled } from '../../utils/actions';
+import { pending, fulfilled, rejected } from '../../utils/actions';
 import { GET_MEDIAS } from '../actions';
 
 export const mediaReducer = (state = mediaState, action) => {
@@ -16,7 +16,7 @@ export const mediaReducer = (state = mediaState, action) => {
         mediasFetched: true,
         medias: action.payload.data.data,
       };
-    case pending(GET_MEDIAS):
+    case rejected(GET_MEDIAS):
     default:
       return {
         ...state,

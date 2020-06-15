@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { systemLanguages } from '../../utils/constants';
-import { setLanguage } from '../../redux/actions';
 
-const flagUrl = `${process.env.PUBLIC_URL}/img/flags/16`;
 export const AdminHeader = () => {
   const systemLanguage = localStorage.getItem('lang');
   const currentLang = systemLanguages.find(

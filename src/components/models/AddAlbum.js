@@ -14,6 +14,7 @@ export const AddAlbum = ({ show, onHide }) => {
       setAlbumName('');
       dispatch(getAlbums());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [albumAdded]);
   return (
     <Modal show={show} onHide={onHide}>

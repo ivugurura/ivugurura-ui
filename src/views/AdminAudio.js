@@ -12,6 +12,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { getAlbums, addNewMedia } from '../redux/actions';
 import { AddAlbum } from '../components/models/AddAlbum';
+import { FileUpload } from '../components/models';
 
 export const AdminAudio = () => {
   const [show, setShow] = useState(false);
@@ -22,12 +23,14 @@ export const AdminAudio = () => {
     mediaLink: '',
   });
   const dispatch = useDispatch();
-  const { album, media } = useSelector(({ album, media }) => ({
+  const { album, media, filer } = useSelector(({ album, media, filer }) => ({
     album,
     media,
+    filer,
   }));
   const { albums, albumsFetching } = album;
   const { mediaAdding, mediaAdded } = media;
+  const { coverImagePath } = filer;
   useEffect(() => {
     dispatch(getAlbums());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -41,7 +44,11 @@ export const AdminAudio = () => {
         mediaLink: '',
       });
     }
-  }, [mediaAdded]);
+    if (coverImagePath) {
+      setNewMedia({ ...newMedia, mediaLink: coverImagePath });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mediaAdded, coverImagePath]);
   const onInputChange = ({ target }) => {
     setNewMedia({ ...newMedia, [target.name]: target.value });
   };
@@ -121,9 +128,7 @@ export const AdminAudio = () => {
                     </Col>
                   </Row>
                   {newMedia.type === 'audio' ? (
-                    <Form.Group>
-                      <Form.File id='audioFile' label='Select audio' />
-                    </Form.Group>
+                    <FileUpload title='Select audio' />
                   ) : null}
                   {newMedia.type === 'video' ? (
                     <Form.Group>

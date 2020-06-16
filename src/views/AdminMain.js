@@ -3,6 +3,7 @@ import { AdminHeader, AdminSideNav } from '../components/common';
 import { useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { toast } from 'react-toastify';
+import { Container } from 'react-bootstrap';
 
 export const AdminMain = ({ route, history }) => {
   const { isAuthenticated } = useSelector(({ user }) => user);
@@ -15,10 +16,16 @@ export const AdminMain = ({ route, history }) => {
   return (
     <div className='page'>
       <AdminHeader />
-      <div className='page-content d-flex align-items-stretch'>
-        <AdminSideNav />
-        <div className='content-inner'>{renderRoutes(route.routes)}</div>
-      </div>
+      {isAuthenticated ? (
+        <div className='page-content d-flex align-items-stretch'>
+          <AdminSideNav />
+          <div className='content-inner'>{renderRoutes(route.routes)}</div>
+        </div>
+      ) : (
+        <Container>
+          <h4 className='text-center'>This page is reseved for administator</h4>
+        </Container>
+      )}
     </div>
   );
 };

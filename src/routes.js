@@ -9,6 +9,7 @@ import {
   CategoryTopics,
   AdminAudio,
   AdminVideo,
+  AdminSetting,
 } from './views';
 
 export const routes = [
@@ -41,6 +42,11 @@ export const routes = [
         path: '/admin/videos',
         exact: true,
         component: AdminVideo,
+      },
+      {
+        path: '/admin/setting',
+        exact: true,
+        component: AdminSetting,
       },
       {
         path: '/admin/edit-topic/:topicSlug',

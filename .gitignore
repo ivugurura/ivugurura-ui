@@ -21,6 +21,7 @@ build.tar.gz
 
 # Local environment
 .env
+.env.prod
 
 npm-debug.log*
 yarn-debug.log*

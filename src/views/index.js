@@ -8,3 +8,4 @@ export * from './Login';
 export * from './CategoryTopics';
 export * from './AdminAudio';
 export * from './AdminVideo';
+export * from './AdminSetting';

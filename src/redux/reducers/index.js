@@ -11,6 +11,12 @@ import { oneCategoryReducer } from './oneCategoryReducer';
 import { searchReducer } from './searchReducer';
 import { albumReducer } from './albumReducer';
 import { mediaReducer } from './mediaReducer';
+import {
+  addCommuniqueReducer,
+  getCommuniquesReducer,
+  getPubCommuniqueReducer,
+  publishCommuniqueReducer,
+} from './communiqueReducer';
 
 export default combineReducers({
   category: categoryReducer,
@@ -25,4 +31,8 @@ export default combineReducers({
   search: searchReducer,
   album: albumReducer,
   media: mediaReducer,
+  communiqueAdd: addCommuniqueReducer,
+  communiqueGet: getCommuniquesReducer,
+  communiquePub: getPubCommuniqueReducer,
+  communiquePublish: publishCommuniqueReducer,
 });

@@ -3,6 +3,7 @@ import { Modal, Button, Media } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { searchQuery } from '../../redux/actions';
 import { Loading } from '../common';
+import { Link } from 'react-router-dom';
 
 export const SearchBox = ({ show, onHide }) => {
   const [searchVal, setSearchVal] = useState('');
@@ -12,6 +13,9 @@ export const SearchBox = ({ show, onHide }) => {
     dispatch(searchQuery(searchVal));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchVal, searchQuery]);
+  const goToCategory = (category) => {
+    show = false;
+  };
   return (
     <Modal size='lg' show={show} onHide={onHide}>
       <Modal.Header closeButton>
@@ -30,29 +34,32 @@ export const SearchBox = ({ show, onHide }) => {
           ) : finished ? (
             <>
               <div>
-                <h4 className='text-center text-info'>Categories</h4>
-                {results.categories.length ? (
-                  results.categories.map((category, categoryIndex) => (
-                    <Media.Body key={categoryIndex}>
-                      <h6>{category.name}</h6>
-                    </Media.Body>
-                  ))
-                ) : (
-                  <h4>No categories found</h4>
-                )}
+                <hr />
+                {results.categories.length
+                  ? results.categories.map((category, categoryIndex) => (
+                      <Media.Body key={categoryIndex}>
+                        <Link
+                          to={`/topics/categories/${category.slug}`}
+                          onClick={goToCategory(category)}
+                        >
+                          <h6>{category.name}</h6>
+                        </Link>
+                      </Media.Body>
+                    ))
+                  : null}
               </div>
               <div>
-                <h4 className='text-center text-info'>Topics</h4>
-                {results.topics.length ? (
-                  results.topics.map((topic, topicIndex) => (
-                    <Media.Body key={topicIndex}>
-                      <h6>{topic.title}</h6>
-                      <p>{topic.description}</p>
-                    </Media.Body>
-                  ))
-                ) : (
-                  <h4>No topics found</h4>
-                )}
+                <hr />
+                {results.topics.length
+                  ? results.topics.map((topic, topicIndex) => (
+                      <Link key={topicIndex} to={`/topics/${topic.slug}`}>
+                        <Media.Body>
+                          <h6>{topic.title}</h6>
+                          <p>{topic.description}</p>
+                        </Media.Body>
+                      </Link>
+                    ))
+                  : null}
               </div>
             </>
           ) : null}

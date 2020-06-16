@@ -4,6 +4,7 @@ import { RecentTopics, Communique, Loading } from '../components/common';
 import { bgStyles } from '../utils/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategoryDetail, getTopics } from '../redux/actions';
+import { Link } from 'react-router-dom';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const CategoryTopics = ({ match }) => {
@@ -49,15 +50,17 @@ export const CategoryTopics = ({ match }) => {
                 <Loading />
               ) : categoryTopics.length ? (
                 categoryTopics.map((topic, topicIndex) => (
-                  <Card>
-                    <Card.Img
-                      src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
-                    />
-                    <Card.Body>
-                      <Card.Title>{topic.title}</Card.Title>
-                      <Card.Text>{topic.description}</Card.Text>
-                    </Card.Body>
-                  </Card>
+                  <Link key={topicIndex} to={`/topics/${topic.slug}`}>
+                    <Card>
+                      <Card.Img
+                        src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
+                      />
+                      <Card.Body>
+                        <Card.Title>{topic.title}</Card.Title>
+                        <Card.Text>{topic.description}</Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Link>
                 ))
               ) : (
                 <h4 className='text-center'>

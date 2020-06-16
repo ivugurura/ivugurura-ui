@@ -83,3 +83,22 @@ export const mediaState = {
   mediaAdding: false,
   mediaAdded: false,
 };
+export const addCommuniqueState = {
+  communiqueAdding: false,
+  communiqueAdded: false,
+  communique: {},
+};
+export const getCommuniquesState = {
+  communiquesFetching: false,
+  communiquesFetched: false,
+  communiques: [],
+};
+export const getPubCommuniquesState = {
+  communiqueFetching: false,
+  communiqueFetched: false,
+  communique: null,
+};
+export const publishCommuniqueState = {
+  publishing: false,
+  published: false,
+};

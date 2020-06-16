@@ -10,6 +10,7 @@ export * from './topics';
 export * from './comments';
 export * from './albums';
 export * from './media';
+export * from './communique';
 
 export const searchQuery = (input) => {
   return {

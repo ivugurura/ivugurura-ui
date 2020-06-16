@@ -52,8 +52,8 @@ export const AdminSideNav = () => {
       <span className='heading'>Extras</span>
       <ul className='list-unstyled'>
         <li>
-          <Link to='#'>
-            <i className='icon-screen'></i>Demo
+          <Link to='/admin/setting'>
+            <i className='icon-screen'></i>Setting
           </Link>
         </li>
       </ul>

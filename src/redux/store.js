@@ -5,8 +5,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import reducers from './reducers';
 import { errorHandler } from './errorHandler';
 
-export const store = createStore(
-  reducers,
-  {},
-  composeWithDevTools(applyMiddleware(errorHandler, thunk, promise))
-);
+const withMiddlware =
+  process.env.NODE_ENV === 'development'
+    ? composeWithDevTools(applyMiddleware(errorHandler, thunk, promise))
+    : applyMiddleware(errorHandler, thunk, promise);
+export const store = createStore(reducers, {}, withMiddlware);

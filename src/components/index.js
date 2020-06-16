@@ -6,3 +6,4 @@ export * from './TopicsCarousel';
 export * from './FileUploader';
 export * from './NotFound';
 export * from './CommentaryForm';
+export * from './AddEditMedia';

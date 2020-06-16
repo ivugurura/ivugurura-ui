@@ -1,10 +1,10 @@
 import { GET_MEDIAS, ADD_NEW_MEDIA } from './actionTypes';
 import { http } from '../../helpers';
 
-export const getMedias = () => {
+export const getMedias = (type = 'all') => {
   return {
     type: GET_MEDIAS,
-    payload: http.get('/albums/medias/all'),
+    payload: http.get(`/albums/medias/${type}`),
   };
 };
 export const addNewMedia = (media) => {

@@ -7,3 +7,4 @@ export * from './AddEditTopic';
 export * from './Login';
 export * from './CategoryTopics';
 export * from './AdminAudio';
+export * from './AdminVideo';

@@ -8,6 +8,7 @@ export const commentReducer = (state = initialCommentState, action) => {
       return {
         ...state,
         commentLoading: true,
+        commentAdded: false,
       };
     case fulfilled(ADD_COMMENT):
       return {
@@ -21,7 +22,6 @@ export const commentReducer = (state = initialCommentState, action) => {
       return {
         ...state,
         commentLoading: false,
-        commentAdded: false,
       };
   }
 };

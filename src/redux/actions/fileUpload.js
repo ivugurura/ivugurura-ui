@@ -7,7 +7,7 @@ export const setUploadedPct = (pct) => {
     payload: pct,
   };
 };
-export const uploadFile = (fileData, type = 'image') => {
+export const uploadFile = (fileData, type = 'image', prevFile = '') => {
   const config = {
     headers: { 'Content-Type': 'multipart/form-data' },
     // onUploadProgess: (progressEvent) => {
@@ -19,9 +19,10 @@ export const uploadFile = (fileData, type = 'image') => {
     //   setTimeout(() => setUploadedPct(0), 10000);
     // },
   };
+  const uploadUrl = `/albums/upload/${type}?prevFile=${prevFile}`;
   return {
     type: UPLOAD_FILE,
-    payload: http.post(`/albums/upload/${type}`, fileData, config),
+    payload: http.post(uploadUrl, fileData, config),
   };
 };
 export const deleteFile = (fileType, fileName) => {

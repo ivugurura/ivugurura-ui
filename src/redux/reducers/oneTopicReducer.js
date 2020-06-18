@@ -30,6 +30,7 @@ export const oneTopicReducer = (state = initialOneTopicState, action) => {
     case pending(UPDATE_TOPIC):
       return {
         ...state,
+        topicFetched: false,
         topicUpdating: true,
       };
     case fulfilled(UPDATE_TOPIC):

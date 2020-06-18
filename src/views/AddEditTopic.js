@@ -32,27 +32,22 @@ export const AddEditTopic = ({ history, match }) => {
       oneTopic,
     })
   );
+  const { topicFetched, newTopicAdded, topicUpdated } = oneTopic;
   useEffect(() => {
     dispatch(getCategories('/'));
-    if (oneTopic.newTopicAdded || oneTopic.topicUpdated) {
+    if (newTopicAdded || topicUpdated) {
       toast(`${topic.title.toUpperCase()} has saved`);
       setTimeout(() => {
         history.goBack();
       }, 3000);
     }
-    if (topicSlug) {
+    if (topicSlug && !topicFetched) {
       dispatch(getTopicDetail(topicSlug));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    getCategories,
-    getTopicDetail,
-    topicSlug,
-    oneTopic.newTopicAdded,
-    oneTopic.topicUpdated,
-  ]);
+  }, [getCategories, getTopicDetail, topicSlug, newTopicAdded, topicUpdated]);
   useEffect(() => {
-    if (topicSlug && oneTopic.topicFetched) {
+    if (topicSlug && topicFetched) {
       const {
         title,
         description,
@@ -63,13 +58,14 @@ export const AddEditTopic = ({ history, match }) => {
       setTopic({ title, description, categoryId, coverImage });
       setSunEdContent(content);
     }
-  }, [topicSlug, oneTopic.topicFetched, oneTopic.topic]);
+  }, [topicSlug, topicFetched, oneTopic.topic]);
   const onInputChange = ({ target }) => {
     setTopic({ ...topic, [target.name]: target.value });
   };
   const onSaveChange = () => {
     topic.content = sunEdContent;
     if (topicSlug) {
+      if (filer.coverImagePath) topic.coverImage = filer.coverImagePath;
       dispatch(updateTopic(topic, topicSlug));
     } else {
       topic.coverImage = filer.coverImagePath;

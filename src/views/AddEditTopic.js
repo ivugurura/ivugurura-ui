@@ -41,11 +41,14 @@ export const AddEditTopic = ({ history, match }) => {
         history.goBack();
       }, 3000);
     }
-    if (topicSlug && !topicFetched) {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getCategories, newTopicAdded, topicUpdated]);
+  useEffect(() => {
+    if (topicSlug) {
       dispatch(getTopicDetail(topicSlug));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getCategories, getTopicDetail, topicSlug, newTopicAdded, topicUpdated]);
+  }, [getTopicDetail, topicSlug]);
   useEffect(() => {
     if (topicSlug && topicFetched) {
       const {

@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useRef } from 'react';
-import { Row, Col, Container, Card, Media } from 'react-bootstrap';
+import { Row, Col, Container, Card } from 'react-bootstrap';
 import HtmlParser from 'react-html-parser';
 import {
   RecentTopics,
@@ -10,7 +10,7 @@ import {
 import { bgStyles } from '../utils/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTopicDetail } from '../redux/actions/topics';
-import { CommentaryForm } from '../components';
+import { CommentaryForm, Comments } from '../components';
 import { formatDate, scrollToRef } from '../utils/constants';
 import { translate } from '../components/utils';
 
@@ -18,26 +18,14 @@ const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const TopicView = ({ match }) => {
   const topicRef = useRef(null);
   const { topicSlug } = match.params;
-  const { oneTopic, comment } = useSelector(({ oneTopic, comment }) => ({
-    oneTopic,
-    comment,
-  }));
-  const { topic, topicLoading } = oneTopic;
-  const { commentAdded } = comment;
+  const { topic, topicLoading } = useSelector(({ oneTopic }) => oneTopic);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTopicDetail(topicSlug));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topicSlug, getTopicDetail]);
   const relatedTopics = topic.category ? topic.category.relatedTopics : [];
-  const commentaries = topic.commentaries || [];
-  useEffect(() => {
-    if (commentAdded) {
-      dispatch(getTopicDetail(topicSlug));
-      scrollToRef(topicRef);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [commentAdded]);
+
   return (
     <Fragment>
       <Communique />
@@ -62,20 +50,7 @@ export const TopicView = ({ match }) => {
                   />
                   <Card.Body>
                     {HtmlParser(topic.content)}
-                    {commentaries.length ? (
-                      <Container>
-                        <h4>Commentaries</h4>
-                        {commentaries.map((commentary, commentaryIndex) => (
-                          <Media key={commentaryIndex}>
-                            <Media.Body>
-                              <h5>{commentary.names}</h5>
-                              <p>{commentary.content}</p>
-                              <hr />
-                            </Media.Body>
-                          </Media>
-                        ))}
-                      </Container>
-                    ) : null}
+                    <Comments slug={topicSlug} />
                   </Card.Body>
                   <Card.Footer>
                     <CommentaryForm slug={topicSlug} />

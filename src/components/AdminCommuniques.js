@@ -64,7 +64,7 @@ export const AdminCommuniques = () => {
                       </OverlayTrigger>
                     </td>
                     <td>{communique.isPublished ? 'Yes' : 'No'}</td>
-                    <td>{communique.languageId}</td>
+                    <td>{communique.language.name}</td>
                     <td>
                       <Button
                         onClick={() => dispatch(publishCommunique(communique))}

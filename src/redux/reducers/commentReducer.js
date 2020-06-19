@@ -1,6 +1,6 @@
-import { initialCommentState } from '../initialStates';
+import { initialCommentState, topicCommentsState } from '../initialStates';
 import { fulfilled, pending, rejected } from '../../utils/actions';
-import { ADD_COMMENT } from '../actions';
+import { ADD_COMMENT, GET_TOPICS_COMMENTS } from '../actions';
 
 export const commentReducer = (state = initialCommentState, action) => {
   switch (action.type) {
@@ -22,6 +22,28 @@ export const commentReducer = (state = initialCommentState, action) => {
       return {
         ...state,
         commentLoading: false,
+      };
+  }
+};
+export const commentsTopicReducer = (state = topicCommentsState, action) => {
+  switch (action.type) {
+    case pending(GET_TOPICS_COMMENTS):
+      return {
+        ...state,
+        commentsFetching: true,
+      };
+    case fulfilled(GET_TOPICS_COMMENTS):
+      return {
+        ...state,
+        commentsFetching: false,
+        commentsFetched: true,
+        comments: action.payload.data.data,
+      };
+    case rejected(GET_TOPICS_COMMENTS):
+    default:
+      return {
+        ...state,
+        commentsFetching: false,
       };
   }
 };

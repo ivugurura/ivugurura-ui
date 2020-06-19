@@ -17,17 +17,18 @@ export const CommentaryForm = ({ slug }) => {
       toast(translate('commentSuccess'));
     }
   }, [commentAdded]);
+  const onSubmitForm = (comment, { resetForm }) => {
+    dispatch(addTopicComment(comment, slug));
+    if (commentAdded) {
+      console.log('Resetting form');
+      resetForm();
+    }
+  };
   return (
     <Formik
       initialValues={commentInitialValues}
       validationSchema={commentSchema}
-      onSubmit={(comment, { resetForm }) => {
-        dispatch(addTopicComment(comment, slug));
-        if (commentAdded) {
-          console.log('Resetting form');
-          resetForm();
-        }
-      }}
+      onSubmit={onSubmitForm}
     >
       {({ handleSubmit, handleChange, values, errors }) => (
         <Form noValidate onSubmit={handleSubmit}>

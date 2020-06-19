@@ -6,7 +6,7 @@ import { oneTopicReducer } from './oneTopicReducer';
 import { filerReducer } from './filerReducer';
 import { useReducer } from './userReducer';
 import { dashboardReducer } from './dashboardReducer';
-import { commentReducer } from './commentReducer';
+import { commentReducer, commentsTopicReducer } from './commentReducer';
 import { oneCategoryReducer } from './oneCategoryReducer';
 import { searchReducer } from './searchReducer';
 import { albumReducer } from './albumReducer';
@@ -35,4 +35,5 @@ export default combineReducers({
   communiqueGet: getCommuniquesReducer,
   communiquePub: getPubCommuniqueReducer,
   communiquePublish: publishCommuniqueReducer,
+  topicComments: commentsTopicReducer,
 });

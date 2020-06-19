@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AdminPageHeader } from '../components/common';
 import { Row, Container, Col } from 'react-bootstrap';
 import { Announcement } from '../components/models';
 import { AdminCommuniques } from '../components';
+import { useSelector } from 'react-redux';
 
 export const AdminSetting = () => {
   const [show, setShow] = useState(false);
+  const { communiqueAdded } = useSelector(({ communiqueAdd }) => communiqueAdd);
+  useEffect(() => {
+    if (communiqueAdded) {
+      setShow(false);
+    }
+  }, [communiqueAdded]);
   return (
     <>
       <Announcement show={show} onHide={() => setShow(false)} />
@@ -14,7 +21,7 @@ export const AdminSetting = () => {
         btnTitle='Add a new communication'
         btnAction={() => setShow(true)}
       />
-      <section className='tables no-padding-top'>
+      <section className='tables'>
         <Container fluid>
           <Row>
             <Col sm={12} md={8}>

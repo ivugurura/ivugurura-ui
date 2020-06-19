@@ -102,3 +102,8 @@ export const publishCommuniqueState = {
   publishing: false,
   published: false,
 };
+export const topicCommentsState = {
+  commentsFetching: false,
+  commentsFetched: false,
+  comments: [],
+};

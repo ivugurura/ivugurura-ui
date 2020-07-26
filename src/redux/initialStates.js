@@ -107,3 +107,7 @@ export const topicCommentsState = {
   commentsFetched: false,
   comments: [],
 };
+export const publishCommentState = {
+  loading: false,
+  loaded: false,
+};

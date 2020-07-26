@@ -9,3 +9,4 @@ export * from './CommentaryForm';
 export * from './AddEditMedia';
 export * from './AdminCommuniques';
 export * from './Comments';
+export * from './Commentaries';

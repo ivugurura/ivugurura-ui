@@ -13,3 +13,11 @@
 ## Create Contact textarea
 
 ## So
+
+## Radio gucika biterwa na network, gusa haribyo tutashobora guhagarika: Kuba network yacika nka maseconda make ibyo birasanzwe,
+
+### Ahubwo twagenzura ibijyaho muri icyo gihe network yacitse
+
+### Ntak emma:
+
+### Gucreate channel: Byavuzwe na Karaha n uri muri amerika

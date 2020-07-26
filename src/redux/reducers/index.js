@@ -6,7 +6,12 @@ import { oneTopicReducer } from './oneTopicReducer';
 import { filerReducer } from './filerReducer';
 import { useReducer } from './userReducer';
 import { dashboardReducer } from './dashboardReducer';
-import { commentReducer, commentsTopicReducer } from './commentReducer';
+import {
+  commentReducer,
+  commentsTopicReducer,
+  adminCommentsReducer,
+  publishCommentReducer,
+} from './commentReducer';
 import { oneCategoryReducer } from './oneCategoryReducer';
 import { searchReducer } from './searchReducer';
 import { albumReducer } from './albumReducer';
@@ -18,7 +23,7 @@ import {
   publishCommuniqueReducer,
 } from './communiqueReducer';
 
-export default combineReducers({
+export const rootReducer = combineReducers({
   category: categoryReducer,
   language: languageReducer,
   topic: topicReducer,
@@ -36,4 +41,6 @@ export default combineReducers({
   communiquePub: getPubCommuniqueReducer,
   communiquePublish: publishCommuniqueReducer,
   topicComments: commentsTopicReducer,
+  adminComments: adminCommentsReducer,
+  publishComment: publishCommentReducer,
 });

@@ -10,6 +10,7 @@ import {
   AdminAudio,
   AdminVideo,
   AdminSetting,
+  AdminCommentaries,
 } from './views';
 
 export const routes = [
@@ -47,6 +48,11 @@ export const routes = [
         path: '/admin/setting',
         exact: true,
         component: AdminSetting,
+      },
+      {
+        path: '/admin/commentaries',
+        exact: true,
+        component: AdminCommentaries,
       },
       {
         path: '/admin/edit-topic/:topicSlug',

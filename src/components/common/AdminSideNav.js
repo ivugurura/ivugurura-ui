@@ -56,6 +56,11 @@ export const AdminSideNav = () => {
             <i className='icon-screen'></i>Setting
           </Link>
         </li>
+        <li>
+          <Link to='/admin/commentaries'>
+            <i className='icon-grid'></i>Commentaries
+          </Link>
+        </li>
       </ul>
     </nav>
   );

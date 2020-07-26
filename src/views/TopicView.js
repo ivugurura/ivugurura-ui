@@ -11,7 +11,7 @@ import { bgStyles } from '../utils/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTopicDetail } from '../redux/actions/topics';
 import { CommentaryForm, Comments } from '../components';
-import { formatDate, scrollToRef } from '../utils/constants';
+import { formatDate } from '../utils/constants';
 import { translate } from '../components/utils';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
@@ -23,7 +23,7 @@ export const TopicView = ({ match }) => {
   useEffect(() => {
     dispatch(getTopicDetail(topicSlug));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topicSlug, getTopicDetail]);
+  }, [topicSlug]);
   const relatedTopics = topic.category ? topic.category.relatedTopics : [];
 
   return (

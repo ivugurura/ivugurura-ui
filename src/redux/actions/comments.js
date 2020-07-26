@@ -1,5 +1,13 @@
-import { ADD_COMMENT, GET_TOPICS_COMMENTS } from './actionTypes';
+import {
+  ADD_COMMENT,
+  GET_TOPICS_COMMENTS,
+  GET_COMMENTS_ADMIN,
+  PUBLISH_COMMENT,
+  RESET_PUBLISH_COMMENT,
+  RESET_ADD_COMMENT,
+} from './actionTypes';
 import { http } from '../../helpers';
+import { store } from '../store';
 
 export const addTopicComment = (commentBody, topicSlug) => {
   const commentUrl = `/topics/${topicSlug}/comments`;
@@ -14,4 +22,26 @@ export const getTopicsComments = (topicSlug) => {
     type: GET_TOPICS_COMMENTS,
     payload: http.get(commentUrl),
   };
+};
+export const getAdminComments = () => {
+  store.dispatch({
+    type: GET_COMMENTS_ADMIN,
+    payload: http.get('/topics/comments/all'),
+  });
+};
+export const publishComment = (commentId) => {
+  store.dispatch({
+    type: PUBLISH_COMMENT,
+    payload: http.put(`/topics/publish/comments/${commentId}`),
+  });
+};
+export const resetPublisheComment = () => {
+  store.dispatch({
+    type: RESET_PUBLISH_COMMENT,
+  });
+};
+export const resetAddComment = () => {
+  store.dispatch({
+    type: RESET_ADD_COMMENT,
+  });
 };

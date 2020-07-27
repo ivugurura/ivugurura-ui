@@ -50,7 +50,25 @@ export const Commentaries = () => {
                 {comments.map((comment, commentIndex) => (
                   <tr key={commentIndex}>
                     <td>{commentIndex + 1}</td>
-                    <td>{comment.names}</td>
+                    <td>
+                      <OverlayTrigger
+                        placement='top'
+                        overlay={
+                          <Popover id={commentIndex}>
+                            <Popover.Title as='h3'>
+                              {comment.names}
+                            </Popover.Title>
+                            <Popover.Content>
+                              Email: {comment.email}
+                              <br />
+                              Website: {comment.website}
+                            </Popover.Content>
+                          </Popover>
+                        }
+                      >
+                        <div>{comment.names}</div>
+                      </OverlayTrigger>
+                    </td>
                     <td>{comment.content}</td>
                     <td>
                       <OverlayTrigger

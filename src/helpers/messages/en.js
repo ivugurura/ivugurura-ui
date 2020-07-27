@@ -12,5 +12,5 @@ export const en = {
   leaveComment: 'Leave a comment about the topic',
   notEmailPublish: 'Your email address will not be published',
   createdAt: 'Created at ',
-  commentSuccess: 'Comment successfully sent',
+  commentSuccess: 'Your comment has been received. Thanks',
 };

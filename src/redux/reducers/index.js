@@ -22,6 +22,7 @@ import {
   getPubCommuniqueReducer,
   publishCommuniqueReducer,
 } from './communiqueReducer';
+import { contactUsReducer } from './utilReducer';
 
 export const rootReducer = combineReducers({
   category: categoryReducer,
@@ -43,4 +44,5 @@ export const rootReducer = combineReducers({
   topicComments: commentsTopicReducer,
   adminComments: adminCommentsReducer,
   publishComment: publishCommentReducer,
+  contactUs: contactUsReducer,
 });

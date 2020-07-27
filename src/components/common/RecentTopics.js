@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getTopics } from '../../redux/actions';
 import { Loading } from './Loading';
 import { formatDate } from '../../utils/constants';
+import { Link } from 'react-router-dom';
 
 export const RecentTopics = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ export const RecentTopics = () => {
   useEffect(() => {
     dispatch(getTopics({ page: 1, pageSize: 3, category: 'recent' }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getTopics]);
+  }, []);
   return (
     <Card.Body style={textStyles.textTransparent}>
       <Card.Title style={textStyles.textFtTitle}>
@@ -24,8 +25,10 @@ export const RecentTopics = () => {
       ) : recentTopics.length ? (
         recentTopics.map((topic, topicIndex) => (
           <Media.Body key={topicIndex}>
-            <h6>{topic.title}</h6>
-            <p>{formatDate(topic.createdAt)}</p>
+            <Link to={`/topics/${topic.slug}`}>
+              <h6>{topic.title}</h6>
+              <p>{formatDate(topic.createdAt)}</p>
+            </Link>
           </Media.Body>
         ))
       ) : (

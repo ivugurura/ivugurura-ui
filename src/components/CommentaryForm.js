@@ -28,10 +28,7 @@ export const CommentaryForm = ({ slug }) => {
     setCommentary({ ...commentary, [name]: value });
   };
   return (
-    <Form
-      noValidate
-      onSubmit={() => dispatch(addTopicComment(commentary, slug))}
-    >
+    <Form>
       <hr />
       <h4 className='text-center text-info'>{translate('leaveComment')}</h4>
       <p className='text-muted'>{translate('notEmailPublish')}</p>
@@ -78,6 +75,7 @@ export const CommentaryForm = ({ slug }) => {
         variant='primary'
         type='submit'
         disabled={commentLoading || commentAdded}
+        onClick={() => dispatch(addTopicComment(commentary, slug))}
       >
         {commentLoading ? 'Saving comment,...' : 'Save'}
       </Button>

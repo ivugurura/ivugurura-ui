@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Row, Col, Container, Card } from 'react-bootstrap';
 import HtmlParser from 'react-html-parser';
 import {
@@ -16,7 +16,6 @@ import { translate } from '../components/utils';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const TopicView = ({ match }) => {
-  const topicRef = useRef(null);
   const { topicSlug } = match.params;
   const { topic, topicLoading } = useSelector(({ oneTopic }) => oneTopic);
   const dispatch = useDispatch();
@@ -31,7 +30,7 @@ export const TopicView = ({ match }) => {
       <Communique />
       <Container fluid>
         <Row>
-          <Col xs={12} md={9} lg={9} ref={topicRef}>
+          <Col xs={12} md={9} lg={9}>
             {topicLoading ? (
               <Loading />
             ) : (

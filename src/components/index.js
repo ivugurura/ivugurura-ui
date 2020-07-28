@@ -11,3 +11,4 @@ export * from './AdminCommuniques';
 export * from './Comments';
 export * from './Commentaries';
 export * from './CommentaryForm';
+export * from './AudioPlayer';

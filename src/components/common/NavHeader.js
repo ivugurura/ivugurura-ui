@@ -16,12 +16,13 @@ import { getCategories, setLanguage } from '../../redux/actions';
 import { systemLanguages } from '../../utils/constants';
 import { translate } from '../utils';
 import { Link } from 'react-router-dom';
-import { SearchBox } from '../models';
+import { SearchBox, ContactUs } from '../models';
 
 export const NavHeader = () => {
   const systemLanguage = localStorage.getItem('lang');
   const [lang, setLang] = useState(systemLanguage);
   const [showSearch, setShowSearch] = useState(false);
+  const [showContactUs, setShowContactUs] = useState(false);
   const navCategories = useSelector(({ category }) => category.navCategories);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -69,7 +70,11 @@ export const NavHeader = () => {
               </Dropdown>
             )
           )}
-          <Nav.Link href='#pricing' style={textStyles.textTransparent}>
+          <Nav.Link
+            href='#'
+            style={textStyles.textTransparent}
+            onClick={() => setShowContactUs(true)}
+          >
             {translate('contactUs')}
           </Nav.Link>
         </Nav>
@@ -100,6 +105,10 @@ export const NavHeader = () => {
         </Form>
       </Navbar.Collapse>
       <SearchBox show={showSearch} onHide={() => setShowSearch(false)} />
+      <ContactUs
+        show={showContactUs}
+        handleClose={() => setShowContactUs(false)}
+      />
     </Navbar>
   );
 };

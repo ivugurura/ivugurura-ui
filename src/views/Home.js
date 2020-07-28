@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import VideoPlayer from 'react-player';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+// import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Container, Row, Card, Col } from 'react-bootstrap';
-import { SampleTopics, Audio, Communique } from '../components/common';
+import { SampleTopics, Communique } from '../components/common';
 import { translate } from '../components/utils';
-import { Radio, TopicsCarousel } from '../components';
+import { Radio, TopicsCarousel, AudioPlayer } from '../components';
 import { textStyles, bgStyles } from '../utils/styles';
 
 // const ytbImg = `${process.env.PUBLIC_URL}/yt-img.png`;
@@ -20,7 +20,7 @@ export const Home = () => {
           <Col md={6} lg={6} xs={12}>
             <Row>
               <Col xs={12} sm={12} md={6}>
-                <h4 className='text-center'>{translate('radioName')}</h4>
+                <h4>{translate('radioName')}</h4>
                 <h6>{translate('listen')}</h6>
               </Col>
               <Col xs={12} sm={12} md={6}>
@@ -31,6 +31,7 @@ export const Home = () => {
                   url='https://www.youtube.com/watch?v=45KCx3YrSKU'
                   playing={false}
                   width='100%'
+                  height='170%'
                 />
               </Col>
             </Row>
@@ -46,10 +47,10 @@ export const Home = () => {
         </Card.Header>
         <Card.Body>
           <Row>
-            <Col xs={12} md={4} lg={4}>
-              <Audio />
+            <Col xs={12} md={3} lg={4}>
+              <AudioPlayer />
             </Col>
-            <Col xs={12} md={8} lg={8}>
+            <Col xs={12} md={9} lg={8}>
               <VideoPlayer
                 url='https://www.youtube.com/watch?v=jvZy1emoFV0'
                 playing={false}

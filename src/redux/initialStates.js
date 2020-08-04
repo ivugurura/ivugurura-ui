@@ -31,6 +31,7 @@ export const initialOneTopicState = {
 };
 export const initialFilerState = {
   uploadLoading: false,
+  uploaded: false,
   delLoading: false,
   deleteSuccess: false,
   coverImagePath: '',

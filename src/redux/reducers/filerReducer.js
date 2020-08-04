@@ -18,6 +18,7 @@ export const filerReducer = (state = initialFilerState, action) => {
       return {
         ...state,
         uploadLoading: false,
+        uploaded: true,
         coverImagePath: action.payload.data.data,
       };
     case rejected(UPLOAD_FILE):

@@ -10,7 +10,7 @@ export const topicEditorButtons = [
   //   ['removeFormat'],
   ['outdent', 'indent'],
   // ['align', 'horizontalRule', 'list', 'lineHeight'],
-  ['table', 'link', 'image'],
+  ['table', 'link'], //'image'
   ['fullScreen'],
   //   ['preview', 'print'],
   // ['save', 'template'],

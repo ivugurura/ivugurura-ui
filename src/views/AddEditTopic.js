@@ -7,7 +7,7 @@ import {
   FormControl,
   Row,
   Col,
-  Container,
+  Container
 } from 'react-bootstrap';
 import ImageUploader from 'react-images-upload';
 import { topicEditorButtons } from '../utils/constants';
@@ -22,7 +22,7 @@ const topicValues = {
   title: '',
   categoryId: '',
   description: '',
-  coverImage: '',
+  coverImage: ''
 };
 export const AddEditTopic = ({ history, match }) => {
   const { topicSlug } = match.params;
@@ -34,7 +34,7 @@ export const AddEditTopic = ({ history, match }) => {
   const dispatch = useDispatch();
   const { category, oneTopic } = useSelector(({ category, oneTopic }) => ({
     category,
-    oneTopic,
+    oneTopic
   }));
   const { topicFetched, newTopicAdded, topicUpdated } = oneTopic;
   useEffect(() => {
@@ -61,7 +61,7 @@ export const AddEditTopic = ({ history, match }) => {
         description,
         categoryId,
         content,
-        coverImage,
+        coverImage
       } = oneTopic.topic;
       setTopic({ title, description, categoryId, coverImage });
       setHasUploaded(true);
@@ -81,6 +81,7 @@ export const AddEditTopic = ({ history, match }) => {
       const imagePath = await uploadedFile(file, prevFile);
       if (imagePath) {
         setHasUploaded(true);
+        setUploading(false);
         topic.coverImage = imagePath;
       }
     }
@@ -149,7 +150,7 @@ export const AddEditTopic = ({ history, match }) => {
               <SunEditor
                 setOptions={{
                   height: 230,
-                  buttonList: topicEditorButtons,
+                  buttonList: topicEditorButtons
                 }}
                 setDefaultStyle='font-size: 16px;'
                 name='content'

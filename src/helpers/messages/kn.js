@@ -5,6 +5,8 @@ export const kn = {
   contactUs: 'Twandikire',
   radioName: 'Radio Ijwi ry Ubugorozi',
   listen: 'Yumve nonaha hano',
+  radioMsg:
+    'Iyi Radio inyuzwaho indirimbo n ibyigisho bitandukanye. Ubuzima, umuryango, ubukristo nyakuri, ubuhanuzi, ndetse n ibindi bitandukanye. ',
   audioVideoTxt: 'Indirimbo na videwo z Abagorozi',
   recentTopics: 'Ibyigisho biheruka',
   relatedTopics: 'Ibyigisho bijyanye',
@@ -13,4 +15,5 @@ export const kn = {
   notEmailPublish: 'Email yanyu ntawe izerekwa',
   createdAt: 'Cyateguwe kuri ',
   commentSuccess: 'Igitekerezo cyanyu twacyakiriye. Murakoze',
+  mostReadTopics: 'Ibyigisho byasomwe cyane'
 };

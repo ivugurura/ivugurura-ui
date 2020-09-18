@@ -1,32 +1,10 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import {
-  getAdminComments,
-  publishComment,
-  resetPublisheComment,
-} from '../redux/actions';
+import React from 'react';
+import { publishComment } from '../redux/actions';
 import { Loading } from './common';
 import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import { truncate } from '../utils/constants';
 
-export const Commentaries = () => {
-  const {
-    adminComments: { loading, comments },
-    publishComment: { loaded },
-  } = useSelector(({ adminComments, publishComment }) => ({
-    adminComments,
-    publishComment,
-  }));
-  useEffect(() => {
-    getAdminComments();
-  }, []);
-  useEffect(() => {
-    if (loaded) {
-      resetPublisheComment();
-      getAdminComments();
-    }
-  }, [loaded]);
-  console.log('Loaded', loaded);
+export const Commentaries = ({ loading = false, comments = [] }) => {
   return (
     <div className='card'>
       <div className='card-header d-flex align-items-center'>All comments</div>
@@ -39,7 +17,7 @@ export const Commentaries = () => {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>User name</th>
+                  <th>User info</th>
                   <th>Content</th>
                   <th>Topic title</th>
                   <th>Has published</th>
@@ -66,7 +44,11 @@ export const Commentaries = () => {
                           </Popover>
                         }
                       >
-                        <div>{comment.names}</div>
+                        <div>
+                          <strong>{comment.names}</strong>
+                          <br />
+                          {comment.email}
+                        </div>
                       </OverlayTrigger>
                     </td>
                     <td>{comment.content}</td>

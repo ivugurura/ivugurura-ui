@@ -5,6 +5,7 @@ import { RecentTopics } from './RecentTopics';
 import { translate } from '../utils';
 import { useSelector } from 'react-redux';
 import { ContactForm } from '../ContactForm';
+import { Link } from 'react-router-dom';
 
 const currentYear = new Date().getFullYear();
 export const Footer = ({ isHomepage }) => {
@@ -37,7 +38,14 @@ export const Footer = ({ isHomepage }) => {
                     ))}
                   </Form.Control>
                   {subCategories.map((item, itemIndex) => (
-                    <Card.Text key={itemIndex}>{item.name}</Card.Text>
+                    <Link
+                      key={itemIndex}
+                      to={`/topics/categories/${item.slug}`}
+                    >
+                      <Card.Text>
+                        <h4>{item.name}</h4>
+                      </Card.Text>
+                    </Link>
                   ))}
                 </Card.Body>
               </Col>

@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { getAdminComments, resetPublisheComment } from '../../redux/actions';
 
 const profileUrl = `${process.env.PUBLIC_URL}/img/avatar-1.jpg`;
 export const AdminSideNav = () => {
-  const { info } = useSelector(({ user }) => user);
+  const {
+    user: { info },
+    adminComments: { comments },
+    publishComment: { loaded }
+  } = useSelector(({ user, adminComments, publishComment }) => ({
+    user,
+    adminComments,
+    publishComment
+  }));
+  useEffect(() => {
+    getAdminComments();
+  }, []);
+  useEffect(() => {
+    if (loaded) {
+      resetPublisheComment();
+      getAdminComments();
+    }
+  }, [loaded]);
   return (
     <nav className='side-navbar'>
       <div className='sidebar-header d-flex align-items-center'>
@@ -58,7 +76,8 @@ export const AdminSideNav = () => {
         </li>
         <li>
           <Link to='/admin/commentaries'>
-            <i className='icon-grid'></i>Commentaries
+            <i className='icon-grid'></i>Commentaries(
+            <strong>{comments.length}</strong>)
           </Link>
         </li>
       </ul>

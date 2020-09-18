@@ -1,35 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Container, Row, Col, Card, Breadcrumb } from 'react-bootstrap';
 import { RecentTopics, Communique, Loading } from '../components/common';
 import { bgStyles } from '../utils/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategoryDetail, getTopics } from '../redux/actions';
 import { Link } from 'react-router-dom';
+import { scrollToRef } from '../utils/constants';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const CategoryTopics = ({ match }) => {
+  const categoriesRef = useRef(null);
   const { categorySlug } = match.params;
   const dispatch = useDispatch();
   const { topic, oneCategory } = useSelector(({ topic, oneCategory }) => ({
     topic,
-    oneCategory,
+    oneCategory
   }));
-  const { categoryLoading, categoryTopics } = topic;
+  const { categoryLoading, categoryTopics, fetched } = topic;
   const { categoryFetched, categoryFetching, category } = oneCategory;
   useEffect(() => {
     dispatch(getCategoryDetail(categorySlug));
     if (categoryFetched) {
-      dispatch(getTopics({ page: 1, pageSize: 10, category: category.id }));
+      dispatch(getTopics({ page: 1, pageSize: 20, category: category.id }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    getCategoryDetail,
-    categorySlug,
-    categoryFetched,
-    getTopics,
-    category.id,
-  ]);
-
+  }, [categorySlug, categoryFetched]);
+  useEffect(() => {
+    if (fetched) {
+      scrollToRef(categoriesRef);
+    }
+  }, [fetched]);
   return (
     <>
       <Communique />
@@ -40,12 +40,12 @@ export const CategoryTopics = ({ match }) => {
               <Loading />
             ) : (
               <Breadcrumb>
-                <Breadcrumb.Item>Home</Breadcrumb.Item>
+                <Breadcrumb.Item href='/'>Home</Breadcrumb.Item>
                 <Breadcrumb.Item>{category.parent.name}</Breadcrumb.Item>
                 <Breadcrumb.Item active>{category.name}</Breadcrumb.Item>
               </Breadcrumb>
             )}
-            <div className='card-columns'>
+            <div className='card-columns' ref={categoriesRef}>
               {categoryLoading ? (
                 <Loading />
               ) : categoryTopics.length ? (

@@ -1,11 +1,10 @@
 import React, { Fragment } from 'react';
 import VideoPlayer from 'react-player';
 // import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { Container, Row, Card, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { SampleTopics, Communique } from '../components/common';
 import { translate } from '../components/utils';
-import { Radio, TopicsCarousel, AudioPlayer } from '../components';
-import { textStyles, bgStyles } from '../utils/styles';
+import { Radio, TopicsCarousel } from '../components';
 
 // const ytbImg = `${process.env.PUBLIC_URL}/yt-img.png`;
 export const Home = () => {
@@ -21,6 +20,7 @@ export const Home = () => {
             <Row>
               <Col xs={12} sm={12} md={6}>
                 <h4>{translate('radioName')}</h4>
+                <i>{translate('radioMsg')}</i>
                 <h6>{translate('listen')}</h6>
               </Col>
               <Col xs={12} sm={12} md={6}>
@@ -39,7 +39,7 @@ export const Home = () => {
         </Row>
       </Container>
       <SampleTopics isHomePage topics={[]} loading={false} />
-      <Card>
+      {/* <Card>
         <Card.Header className='text-center' style={bgStyles.bgPrimary}>
           <h1 style={textStyles.textTransparent}>
             {translate('audioVideoTxt')}
@@ -59,7 +59,7 @@ export const Home = () => {
             </Col>
           </Row>
         </Card.Body>
-      </Card>
+      </Card> */}
     </Fragment>
   );
 };

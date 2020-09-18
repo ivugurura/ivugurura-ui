@@ -7,7 +7,7 @@ import {
   Dropdown,
   NavLink,
   Form,
-  NavItem,
+  NavItem
 } from 'react-bootstrap';
 import { bgStyles, textStyles } from '../../utils/styles';
 import { Logo } from './Logo';
@@ -42,7 +42,7 @@ export const NavHeader = () => {
       <Navbar.Toggle aria-controls='responsive-navbar-nav' />
       <Navbar.Collapse id='responsive-navbar-nav'>
         <Nav className='mr-auto'>
-          <Nav.Link href='#features' style={textStyles.textTransparent}>
+          <Nav.Link href='/' style={textStyles.textTransparent}>
             {translate('home')}
           </Nav.Link>
           {navCategories.map((nav, navIndex) =>

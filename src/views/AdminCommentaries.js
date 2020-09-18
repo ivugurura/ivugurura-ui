@@ -5,7 +5,9 @@ import { Commentaries } from '../components';
 import { useSelector } from 'react-redux';
 
 export const AdminCommentaries = () => {
-  const { comments } = useSelector(({ adminComments }) => adminComments);
+  const { comments, loading } = useSelector(
+    ({ adminComments }) => adminComments
+  );
   return (
     <>
       <AdminPageHeader name='Topics commentaries' />
@@ -13,7 +15,7 @@ export const AdminCommentaries = () => {
         <Container fluid>
           <Row>
             <Col sm={12} md={10}>
-              <Commentaries />
+              <Commentaries loading={loading} comments={comments} />
             </Col>
             <Col sm={12} md={2}>
               <h1 className='display-3'>{comments.length}</h1>

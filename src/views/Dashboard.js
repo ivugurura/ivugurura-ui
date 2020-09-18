@@ -3,7 +3,6 @@ import { AdminPageHeader, CardCounter, Loading } from '../components/common';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDashboadCount } from '../redux/actions';
 import { ActivePosts } from '../components/ActivePosts';
-import { DraftPosts } from '../components/DraftPosts';
 
 export const Dashboard = ({ history }) => {
   const { countLoading, counts } = useSelector(({ dashboard }) => dashboard);
@@ -11,7 +10,7 @@ export const Dashboard = ({ history }) => {
   useEffect(() => {
     dispatch(getDashboadCount());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getDashboadCount]);
+  }, []);
   return (
     <>
       <AdminPageHeader
@@ -48,11 +47,11 @@ export const Dashboard = ({ history }) => {
       <section className='updates no-padding-top'>
         <div className='container-fluid'>
           <div className='row'>
-            <div className='col-lg-6'>
+            <div className='col-lg-10'>
               <ActivePosts history={history} />
             </div>
-            <div className='col-lg-6'>
-              <DraftPosts history={history} />
+            <div className='col-lg-2'>
+              {/* <DraftPosts history={history} /> */}
             </div>
           </div>
         </div>

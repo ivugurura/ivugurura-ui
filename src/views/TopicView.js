@@ -1,29 +1,37 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { Row, Col, Container, Card } from 'react-bootstrap';
 import HtmlParser from 'react-html-parser';
 import {
   RecentTopics,
   SampleTopics,
   Communique,
-  Loading,
+  Loading
 } from '../components/common';
 import { bgStyles } from '../utils/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTopicDetail } from '../redux/actions/topics';
 import { CommentaryForm, Comments } from '../components';
-import { formatDate } from '../utils/constants';
+import { formatDate, scrollToRef } from '../utils/constants';
 import { translate } from '../components/utils';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const TopicView = ({ match }) => {
+  const topicRef = useRef(null);
+
   const { topicSlug } = match.params;
-  const { topic, topicLoading } = useSelector(({ oneTopic }) => oneTopic);
+  const { topic, topicLoading, topicFetched } = useSelector(
+    ({ oneTopic }) => oneTopic
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTopicDetail(topicSlug));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topicSlug]);
-  const relatedTopics = topic.category ? topic.category.relatedTopics : [];
+  useEffect(() => {
+    if (topicFetched) {
+      scrollToRef(topicRef);
+    }
+  }, [topicFetched]);
 
   return (
     <Fragment>
@@ -41,7 +49,7 @@ export const TopicView = ({ match }) => {
                     {translate('createdAt')} {`${formatDate(topic.createdAt)}`}
                   </h6>
                 </Card.Subtitle>
-                <Card>
+                <Card ref={topicRef}>
                   <Card.Img
                     variant='top'
                     src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
@@ -66,7 +74,10 @@ export const TopicView = ({ match }) => {
           </Col>
         </Row>
       </Container>
-      <SampleTopics loading={topicLoading} topics={relatedTopics} />
+      <SampleTopics
+        loading={topicLoading}
+        topics={topic.category.relatedTopics}
+      />
     </Fragment>
   );
 };

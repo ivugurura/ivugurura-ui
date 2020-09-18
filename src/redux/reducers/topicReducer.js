@@ -3,7 +3,7 @@ import { fulfilled, pending, rejected } from '../../utils/actions';
 import {
   GET_CARSOUL_TOPICS,
   GET_RECENT_TOPICS,
-  GET_CATEGORY_TOPICS,
+  GET_CATEGORY_TOPICS
 } from '../actions';
 
 export const topicReducer = (state = initialTopicState, action) => {
@@ -11,35 +11,37 @@ export const topicReducer = (state = initialTopicState, action) => {
     case pending(GET_CARSOUL_TOPICS):
       return {
         ...state,
-        carsoulLoading: true,
+        carsoulLoading: true
       };
     case fulfilled(GET_CARSOUL_TOPICS):
       return {
         ...state,
         carsoulLoading: false,
-        carsoulTopics: action.payload.data.data,
+        carsoulTopics: action.payload.data.data
       };
     case pending(GET_RECENT_TOPICS):
       return {
         ...state,
-        recentLoading: true,
+        recentLoading: true
       };
     case fulfilled(GET_RECENT_TOPICS):
       return {
         ...state,
         recentLoading: false,
-        recentTopics: action.payload.data.data,
+        recentTopics: action.payload.data.data
       };
     case pending(GET_CATEGORY_TOPICS):
       return {
         ...state,
-        categoryLoading: true,
+        fetched: false,
+        categoryLoading: true
       };
     case fulfilled(GET_CATEGORY_TOPICS):
       return {
         ...state,
         categoryLoading: false,
-        categoryTopics: action.payload.data.data,
+        fetched: true,
+        categoryTopics: action.payload.data.data
       };
 
     case rejected(GET_CARSOUL_TOPICS):
@@ -50,7 +52,7 @@ export const topicReducer = (state = initialTopicState, action) => {
         ...state,
         recentLoading: false,
         carsoulLoading: false,
-        categoryLoading: false,
+        categoryLoading: false
       };
   }
 };

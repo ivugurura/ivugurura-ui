@@ -36,16 +36,18 @@ export const SampleTopics = ({ isHomePage, topics, loading }) => {
       arrowLeft: <FaArrowCircleLeft />,
       arrowRight: <FaArrowCircleRight />,
       animationSpeed: 2000,
-      infinite: false,
-    },
+      infinite: false
+    }
   };
   return (
     <Card style={bgStyles.bgAccent}>
       {isHomePage ? (
         <Card.Header style={bgStyles.bgPrimary} className='text-center'>
-          <h1 style={textStyles.textTransparent}>{translate('radioName')}</h1>
+          <h1 style={textStyles.textTransparent}>
+            {translate('mostReadTopics')}
+          </h1>
           <Card.Link style={textStyles.textTransparent}>
-            {translate('listen')}
+            {translate('radioMsg')}
           </Card.Link>
         </Card.Header>
       ) : (

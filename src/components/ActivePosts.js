@@ -11,25 +11,25 @@ export const ActivePosts = ({ history }) => {
   const [show, setShow] = useState(false);
   const [currentTopic, setCurrentTopic] = useState({ title: 'title' });
   const [btnAction, setBtnAction] = useState('');
-  const topicType = 'published';
   const pageSize = 3;
-  const { dashboard, oneTopic } = useSelector(({ dashboard, oneTopic }) => ({
+  const {
+    dashboard: { topicsLoading, topics },
+    oneTopic: { topicUpdated }
+  } = useSelector(({ dashboard, oneTopic }) => ({
     dashboard,
-    oneTopic,
+    oneTopic
   }));
-  const { published, publishedLoading } = dashboard;
-  const { topicUpdated } = oneTopic;
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    dispatch(getDashboardTopics(topicType, currentPage, pageSize));
     if (topicUpdated) {
       setShow(false);
-      dispatch(getDashboardTopics(topicType, currentPage, pageSize));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, getDashboardTopics, topicUpdated]);
-
+  }, [topicUpdated]);
+  useEffect(() => {
+    getDashboardTopics(currentPage, pageSize);
+  }, [currentPage, topicUpdated]);
   const onChangePaginate = (action) => {
     let currentLocation =
       action === 'next'
@@ -40,7 +40,7 @@ export const ActivePosts = ({ history }) => {
     setCurrentPage(currentLocation);
   };
   const prevDisabled = currentPage === 1 ? 'disabled' : '';
-  const nextDisabled = !published.length ? 'disabled' : '';
+  const nextDisabled = !topics.length ? 'disabled' : '';
   const onTopicSetCurrent = (theTopic, action) => {
     setCurrentTopic(theTopic);
     setBtnAction(action);
@@ -49,13 +49,18 @@ export const ActivePosts = ({ history }) => {
   return (
     <>
       <ActionConfirm
-        title='Action modal'
+        title='COnfirm the action'
         description={currentTopic.title}
         show={show}
         action={btnAction}
         onHide={() => setShow(false)}
         onAction={() =>
-          dispatch(updateTopic({ isPublished: false }, currentTopic.slug))
+          dispatch(
+            updateTopic(
+              { isPublished: !currentTopic.isPublished },
+              currentTopic.slug
+            )
+          )
         }
       />
       <div className='recent-updates card'>
@@ -63,10 +68,10 @@ export const ActivePosts = ({ history }) => {
           <h3 className='h4'>Recent Updates</h3>
         </div>
         <div className='card-body no-padding'>
-          {publishedLoading ? (
+          {topicsLoading ? (
             <Loading />
-          ) : published.length ? (
-            published.map((topic, topicIndex) => (
+          ) : topics.length ? (
+            topics.map((topic, topicIndex) => (
               <div
                 className='item d-flex justify-content-between'
                 key={topicIndex}
@@ -79,9 +84,10 @@ export const ActivePosts = ({ history }) => {
                     <h5>{topic.title}</h5>
                     <p>
                       {truncate(
-                        fromString(topic.content, { wordwrap: 70 }),
-                        120
+                        fromString(topic.content, { wordwrap: 130 }),
+                        200
                       )}
+                      <h6>{topic.views.length} views</h6>
                     </p>
                     <ActionButtons
                       onDelete={() => onTopicSetCurrent(topic, 'delete')}
@@ -89,7 +95,12 @@ export const ActivePosts = ({ history }) => {
                       onEdit={() =>
                         history.push(`/admin/edit-topic/${topic.slug}`)
                       }
-                      onPublish={() => onTopicSetCurrent(topic, 'unpublish')}
+                      onPublish={() =>
+                        onTopicSetCurrent(
+                          topic,
+                          topic.isPublished ? 'unpublish' : 'publish'
+                        )
+                      }
                       isTopic
                     />
                   </div>

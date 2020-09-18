@@ -5,6 +5,8 @@ export const en = {
   contactUs: 'Contact us',
   radioName: 'Reformation Voice Radio',
   listen: 'Press here to listen',
+  radioMsg:
+    'The radio broadcast songs and different topics. Health, family, prophecy and other useful topics.',
   audioVideoTxt: 'Reformers audios and videos',
   recentTopics: 'Recent topics',
   relatedTopics: 'Related topics',
@@ -13,4 +15,5 @@ export const en = {
   notEmailPublish: 'Your email address will not be published',
   createdAt: 'Created at ',
   commentSuccess: 'Your comment has been received. Thanks',
+  mostReadTopics: 'Most read posts'
 };

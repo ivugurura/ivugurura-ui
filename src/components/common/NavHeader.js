@@ -20,7 +20,10 @@ import { SearchBox, ContactUs } from '../models';
 
 export const NavHeader = () => {
   const systemLanguage = localStorage.getItem('lang');
-  const [lang, setLang] = useState(systemLanguage);
+  const currentLang = systemLanguages.find(
+    (lang) => lang.abbr === systemLanguage
+  );
+  // const [lang, setLang] = useState(systemLanguage);
   const [showSearch, setShowSearch] = useState(false);
   const [showContactUs, setShowContactUs] = useState(false);
   const navCategories = useSelector(({ category }) => category.navCategories);
@@ -29,10 +32,8 @@ export const NavHeader = () => {
     dispatch(getCategories('/navs'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getCategories, setLanguage]);
-  const selectLanguage = (e) => {
-    const newLang = e.target.value;
+  const selectLanguage = (newLang) => {
     localStorage.setItem('lang', newLang);
-    setLang(newLang);
     dispatch(setLanguage(newLang));
     window.location.href = '/';
   };
@@ -89,7 +90,7 @@ export const NavHeader = () => {
           <Button variant='danger' size='sm'>
             {translate('listenRadio')}
           </Button>
-          <Form.Control
+          {/* <Form.Control
             as='select'
             size='sm'
             name='language'
@@ -101,8 +102,35 @@ export const NavHeader = () => {
                 {language.lang}
               </option>
             ))}
-          </Form.Control>
+          </Form.Control> */}
         </Form>
+        <Link
+          id='languages'
+          rel='nofollow'
+          data-target='#'
+          to='#'
+          data-toggle='dropdown'
+          aria-haspopup='true'
+          aria-expanded='false'
+          className='nav-link language dropdown-toggle'
+          style={textStyles.textTransparent}
+        >
+          <img src={currentLang.flag} alt={currentLang.lang} />
+          <span className='d-none d-sm-inline-block'>{currentLang.lang}</span>
+        </Link>
+        <ul aria-labelledby='languages' className='dropdown-menu'>
+          {systemLanguages.map((language, languageIndex) => (
+            <li
+              key={languageIndex}
+              onClick={() => selectLanguage(language.abbr)}
+            >
+              <Link rel='nofollow' to='#' className='dropdown-item'>
+                <img src={language.flag} alt={language.lang} className='mr-2' />
+                {language.lang}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </Navbar.Collapse>
       <SearchBox show={showSearch} onHide={() => setShowSearch(false)} />
       <ContactUs

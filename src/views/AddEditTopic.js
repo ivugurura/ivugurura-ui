@@ -10,7 +10,7 @@ import {
   Container
 } from 'react-bootstrap';
 import ImageUploader from 'react-images-upload';
-import { topicEditorButtons } from '../utils/constants';
+import { systemLanguages, topicEditorButtons } from '../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../redux/actions';
 // import { FileUploader } from '../components';
@@ -25,6 +25,8 @@ const topicValues = {
   coverImage: ''
 };
 export const AddEditTopic = ({ history, match }) => {
+  const systemLanguage = localStorage.getItem('lang');
+  const { lang } = systemLanguages.find((lang) => lang.abbr === systemLanguage);
   const { topicSlug } = match.params;
   const [topic, setTopic] = useState(topicValues);
   const [sunEdContent, setSunEdContent] = useState('');
@@ -74,8 +76,9 @@ export const AddEditTopic = ({ history, match }) => {
   const onSaveChange = async () => {
     topic.content = sunEdContent;
     if (!hasUploaded) {
-      if (!file)
+      if (!file) {
         return toast('Please select image', { type: toast.TYPE.ERROR });
+      }
       setUploading(true);
       const prevFile = topicSlug ? topic.coverImage : '';
       const imagePath = await uploadedFile(file, prevFile);
@@ -93,13 +96,20 @@ export const AddEditTopic = ({ history, match }) => {
   };
   return (
     <Container fluid className='mt-2'>
-      <h4 className='text-center'>
-        {topicSlug
-          ? oneTopic.topicLoading
-            ? 'LOADING...'
-            : `Update ${oneTopic.topic.title}`
-          : `Add topic or PAST IT HERE`}
-      </h4>
+      <Row>
+        <Col md={8}>
+          <h4 className='text-center'>
+            {topicSlug
+              ? oneTopic.topicLoading
+                ? 'LOADING...'
+                : `Update ${oneTopic.topic.title}`
+              : `Add topic or PAST IT HERE`}
+          </h4>
+        </Col>
+        <Col md={4}>
+          <h4 className='text-info pull-right'>{`=>${lang}`}</h4>
+        </Col>
+      </Row>
       <Card>
         <Card.Header>
           <Card.Title>

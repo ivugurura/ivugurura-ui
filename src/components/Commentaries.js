@@ -76,7 +76,7 @@ export const Commentaries = ({ loading = false, comments = [] }) => {
                         variant={comment.isPublished ? 'danger' : 'primary'}
                         onClick={() => publishComment(comment.id)}
                       >
-                        {comment.isPublished ? 'Unpublish' : 'Publish'}
+                        {comment.isPublished ? 'Publish' : 'Unpublish'}
                       </Button>
                     </td>
                   </tr>

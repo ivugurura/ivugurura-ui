@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { systemLanguages } from '../../utils/constants';
+import { translate } from '../utils';
 
 export const AdminHeader = () => {
   const systemLanguage = localStorage.getItem('lang');
@@ -32,8 +33,7 @@ export const AdminHeader = () => {
             <div className='navbar-header'>
               <Link to='/' className='navbar-brand d-none d-sm-inline-block'>
                 <div className='brand-text d-none d-lg-inline-block'>
-                  <span>Ijwi ry </span>
-                  <strong>Ubugorozi</strong>
+                  {translate('logoTitle')}
                 </div>
                 <div className='brand-text d-none d-sm-inline-block d-lg-none'>
                   <strong>BD</strong>

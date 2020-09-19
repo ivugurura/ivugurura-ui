@@ -1,6 +1,14 @@
+import React from 'react';
+
 export const kn = {
   title: 'Ijwi ry Ubugorozi',
   home: 'Ahabanza',
+  logoTitle: (
+    <>
+      <span>Ijwi ry</span>
+      <strong>Ubugorozi</strong>
+    </>
+  ),
   listenRadio: 'Umva radio',
   contactUs: 'Twandikire',
   radioName: 'Radio Ijwi ry Ubugorozi',

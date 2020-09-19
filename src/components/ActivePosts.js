@@ -5,13 +5,14 @@ import { getDashboardTopics, updateTopic } from '../redux/actions/topics';
 import { Loading, ActionButtons } from './common';
 import { truncate, formatDate } from '../utils/constants';
 import { ActionConfirm } from './models';
+import { Card, Table } from 'react-bootstrap';
 
 export const ActivePosts = ({ history }) => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [currentTopic, setCurrentTopic] = useState({ title: 'title' });
   const [btnAction, setBtnAction] = useState('');
-  const pageSize = 3;
+  const pageSize = 10;
   const {
     dashboard: { topicsLoading, topics },
     oneTopic: { topicUpdated }
@@ -39,8 +40,6 @@ export const ActivePosts = ({ history }) => {
         : currentPage - 1;
     setCurrentPage(currentLocation);
   };
-  const prevDisabled = currentPage === 1 ? 'disabled' : '';
-  const nextDisabled = !topics.length ? 'disabled' : '';
   const onTopicSetCurrent = (theTopic, action) => {
     setCurrentTopic(theTopic);
     setBtnAction(action);
@@ -63,76 +62,78 @@ export const ActivePosts = ({ history }) => {
           )
         }
       />
-      <div className='recent-updates card'>
-        <div className='card-header'>
-          <h3 className='h4'>Recent Updates</h3>
-        </div>
-        <div className='card-body no-padding'>
+      <Card>
+        <Card.Header as='h4'>Recent Updates</Card.Header>
+        <Card.Body>
           {topicsLoading ? (
             <Loading />
           ) : topics.length ? (
-            topics.map((topic, topicIndex) => (
-              <div
-                className='item d-flex justify-content-between'
-                key={topicIndex}
-              >
-                <div className='info d-flex'>
-                  <div className='icon'>
-                    <i className='icon-rss-feed'></i>
-                  </div>
-                  <div className='title'>
-                    <h5>{topic.title}</h5>
-                    <p>
-                      {truncate(
-                        fromString(topic.content, { wordwrap: 130 }),
-                        200
-                      )}
-                      <h6>{topic.views.length} views</h6>
-                    </p>
-                    <ActionButtons
-                      onDelete={() => onTopicSetCurrent(topic, 'delete')}
-                      status={topic.isPublished ? 'Unpublish' : 'Publish'}
-                      onEdit={() =>
-                        history.push(`/admin/edit-topic/${topic.slug}`)
-                      }
-                      onPublish={() =>
-                        onTopicSetCurrent(
-                          topic,
-                          topic.isPublished ? 'unpublish' : 'publish'
-                        )
-                      }
-                      isTopic
-                    />
-                  </div>
-                </div>
-                <div className='date text-right'>
-                  <span>{formatDate(topic.createdAt)}</span>
-                </div>
-              </div>
-            ))
+            <Table responsive='sm'>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Topic title</th>
+                  <th>Simple description</th>
+                  <th>View</th>
+                  <th>Published at</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {topics.map((topic, topicIdx) => (
+                  <tr key={topicIdx}>
+                    <td>
+                      <div className='icon'>
+                        <i className='icon-rss-feed'></i>
+                      </div>
+                    </td>
+                    <td>{topic.title}</td>
+                    <td>{truncate(fromString(topic.content), 200)}</td>
+                    <td>{topic.views.length} views</td>
+                    <td>{formatDate(topic.createdAt)}</td>
+                    <td>
+                      <ActionButtons
+                        onDelete={() => onTopicSetCurrent(topic, 'delete')}
+                        status={topic.isPublished ? 'Unpublish' : 'Publish'}
+                        onEdit={() =>
+                          history.push(`/admin/edit-topic/${topic.slug}`)
+                        }
+                        onPublish={() =>
+                          onTopicSetCurrent(
+                            topic,
+                            topic.isPublished ? 'unpublish' : 'publish'
+                          )
+                        }
+                        isTopic
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
           ) : (
             <h6 className='text-info text-center'>No published topics</h6>
           )}
-        </div>
-        <div className='card-footer no-padding'>
+        </Card.Body>
+        <Card.Footer>
           <nav aria-label='Page navigation example'>
             <ul className='pagination justify-content-end'>
               <li
-                className={`page-item ${prevDisabled}`}
+                className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}
                 onClick={() => onChangePaginate('prev')}
               >
                 <button className='page-link btn-link'>Previous</button>
               </li>
               <li
                 onClick={() => onChangePaginate('next')}
-                className={`page-item ${nextDisabled}`}
+                className={`page-item ${!topics.length ? 'disabled' : ''}`}
               >
                 <button className='page-link btn-link'>Next</button>
               </li>
             </ul>
           </nav>
-        </div>
-      </div>
+        </Card.Footer>
+      </Card>
     </>
   );
 };

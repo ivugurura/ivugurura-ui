@@ -5,12 +5,15 @@ import { getDashboadCount } from '../redux/actions';
 import { ActivePosts } from '../components/ActivePosts';
 
 export const Dashboard = ({ history }) => {
-  const { countLoading, counts } = useSelector(({ dashboard }) => dashboard);
+  const {
+    dashboard: { countLoading, counts },
+    oneTopic: { topicUpdated }
+  } = useSelector(({ dashboard, oneTopic }) => ({ dashboard, oneTopic }));
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getDashboadCount());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [topicUpdated]);
   return (
     <>
       <AdminPageHeader
@@ -18,7 +21,7 @@ export const Dashboard = ({ history }) => {
         btnTitle='Add topic'
         btnAction={() => history.push('/admin/add-topic')}
       />
-      <section className='dashboard-counts no-padding-bottom'>
+      <section className='dashboard-counts no-padding-top'>
         <div className='container-fluid'>
           {countLoading ? (
             <Loading />
@@ -46,14 +49,7 @@ export const Dashboard = ({ history }) => {
       </section>
       <section className='updates no-padding-top'>
         <div className='container-fluid'>
-          <div className='row'>
-            <div className='col-lg-10'>
-              <ActivePosts history={history} />
-            </div>
-            <div className='col-lg-2'>
-              {/* <DraftPosts history={history} /> */}
-            </div>
-          </div>
+          <ActivePosts history={history} />
         </div>
       </section>
     </>

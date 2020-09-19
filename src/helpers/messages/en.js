@@ -1,6 +1,14 @@
+import React from 'react';
+
 export const en = {
   title: 'Reformation Voice',
   home: 'Home',
+  logoTitle: (
+    <>
+      <span>Reformation </span>
+      <strong>Voice</strong>
+    </>
+  ),
   listenRadio: 'Listen radio',
   contactUs: 'Contact us',
   radioName: 'Reformation Voice Radio',

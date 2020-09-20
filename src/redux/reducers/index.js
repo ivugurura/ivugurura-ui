@@ -4,13 +4,13 @@ import { languageReducer } from './languageReducer';
 import { topicReducer } from './topicReducer';
 import { oneTopicReducer } from './oneTopicReducer';
 import { filerReducer } from './filerReducer';
-import { useReducer } from './userReducer';
+import { logoutUserReducer, useReducer } from './userReducer';
 import { dashboardReducer } from './dashboardReducer';
 import {
   commentReducer,
   commentsTopicReducer,
   adminCommentsReducer,
-  publishCommentReducer,
+  publishCommentReducer
 } from './commentReducer';
 import { oneCategoryReducer } from './oneCategoryReducer';
 import { searchReducer } from './searchReducer';
@@ -20,7 +20,7 @@ import {
   addCommuniqueReducer,
   getCommuniquesReducer,
   getPubCommuniqueReducer,
-  publishCommuniqueReducer,
+  publishCommuniqueReducer
 } from './communiqueReducer';
 import { contactUsReducer } from './utilReducer';
 
@@ -31,6 +31,7 @@ export const rootReducer = combineReducers({
   oneTopic: oneTopicReducer,
   filer: filerReducer,
   user: useReducer,
+  lgUser: logoutUserReducer,
   dashboard: dashboardReducer,
   comment: commentReducer,
   oneCategory: oneCategoryReducer,
@@ -44,5 +45,5 @@ export const rootReducer = combineReducers({
   topicComments: commentsTopicReducer,
   adminComments: adminCommentsReducer,
   publishComment: publishCommentReducer,
-  contactUs: contactUsReducer,
+  contactUs: contactUsReducer
 });

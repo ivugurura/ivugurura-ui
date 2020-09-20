@@ -14,9 +14,9 @@ export const SearchBox = ({ show, onHide }) => {
     }
   }, [searchVal]);
   return (
-    <Modal size='lg' show={show} onHide={onHide}>
+    <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
-        Search any thing you want in the website
+        <Modal.Title>Search any thing you want in the website</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <input
@@ -66,12 +66,10 @@ export const SearchBox = ({ show, onHide }) => {
             </>
           ) : null}
         </div>
-      </Modal.Body>
-      <Modal.Footer>
         <Button variant='danger' onClick={onHide}>
           Close
         </Button>
-      </Modal.Footer>
+      </Modal.Body>
     </Modal>
   );
 };

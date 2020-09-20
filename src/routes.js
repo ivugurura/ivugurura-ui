@@ -1,3 +1,5 @@
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 import {
   Main,
   Home,
@@ -11,13 +13,14 @@ import {
   AdminVideo,
   AdminSetting,
   AdminCommentaries,
+  NotFound
 } from './views';
 
 export const routes = [
   {
     path: '/login',
     exact: true,
-    component: Login,
+    component: Login
   },
   {
     path: '/admin',
@@ -27,39 +30,39 @@ export const routes = [
       {
         path: '/admin',
         exact: true,
-        component: Dashboard,
+        component: Dashboard
       },
       {
         path: '/admin/add-topic',
         exact: true,
-        component: AddEditTopic,
+        component: AddEditTopic
       },
       {
         path: '/admin/audios',
         exact: true,
-        component: AdminAudio,
+        component: AdminAudio
       },
       {
         path: '/admin/videos',
         exact: true,
-        component: AdminVideo,
+        component: AdminVideo
       },
       {
         path: '/admin/setting',
         exact: true,
-        component: AdminSetting,
+        component: AdminSetting
       },
       {
         path: '/admin/commentaries',
         exact: true,
-        component: AdminCommentaries,
+        component: AdminCommentaries
       },
       {
         path: '/admin/edit-topic/:topicSlug',
         exact: true,
-        component: AddEditTopic,
-      },
-    ],
+        component: AddEditTopic
+      }
+    ]
   },
   {
     path: '/',
@@ -68,18 +71,26 @@ export const routes = [
       {
         path: '/',
         exact: true,
-        component: Home,
+        component: Home
       },
       {
         path: '/topics/:topicSlug',
         exact: true,
-        component: TopicView,
+        component: TopicView
       },
       {
         path: '/topics/categories/:categorySlug',
         exact: true,
-        component: CategoryTopics,
+        component: CategoryTopics
       },
-    ],
-  },
+      {
+        path: '/errors/error-400',
+        exact: true,
+        component: NotFound
+      },
+      {
+        component: () => <Redirect to='/' />
+      }
+    ]
+  }
 ];

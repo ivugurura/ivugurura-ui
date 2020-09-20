@@ -1,18 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { systemLanguages } from '../../utils/constants';
 import { translate } from '../utils';
+import { logoutUser } from '../../redux/actions/user';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 export const AdminHeader = () => {
   const systemLanguage = localStorage.getItem('lang');
   const currentLang = systemLanguages.find(
     (lang) => lang.abbr === systemLanguage
   );
+  const { done, message } = useSelector(({ lgUser }) => lgUser);
   const selectLanguage = (language) => {
     if (language === currentLang.abbr) return;
     localStorage.setItem('lang', language);
     window.location.reload();
   };
+  useEffect(() => {
+    if (done) {
+      localStorage.removeItem('user');
+      toast(message);
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 5000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [done]);
   return (
     <header className='header'>
       <nav className='navbar'>
@@ -87,10 +101,13 @@ export const AdminHeader = () => {
                 </ul>
               </li>
               <li className='nav-item'>
-                <a href='login.html' className='nav-link logout'>
+                <button
+                  onClick={() => logoutUser()}
+                  className='nav-link logout'
+                >
                   <span className='d-none d-sm-inline'>Logout</span>
                   <i className='fa fa-sign-out'></i>
-                </a>
+                </button>
               </li>
             </ul>
           </div>

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Formik } from 'formik';
 import { loginInitialValues, loginSchema } from '../utils/formikUtil';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,12 +11,15 @@ export const Login = ({ history }) => {
     ({ user }) => user
   );
   useEffect(() => {
-    if (isAuthenticated && !userFetched) {
+    if (isAuthenticated) {
       toast('You are going to the Dashboard in 3 seconds');
       setTimeout(() => {
         history.replace('/admin');
       }, 5000);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated]);
+  useEffect(() => {
     if (userFetched) {
       localStorage.setItem('user', JSON.stringify(info));
       toast(`Welcome ${info.names}`);
@@ -25,7 +27,8 @@ export const Login = ({ history }) => {
         window.location.href = '/admin';
       }, 5000);
     }
-  }, [userLoading, userFetched, info, isAuthenticated, history]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userFetched]);
   return (
     <div className='page login-page'>
       <div className='container d-flex align-items-center'>
@@ -99,17 +102,6 @@ export const Login = ({ history }) => {
             </div>
           </div>
         </div>
-      </div>
-      <div className='copyrights text-center'>
-        <p>
-          Design by{' '}
-          <Link
-            to='https://bootstrapious.com/p/admin-template'
-            className='external'
-          >
-            Bootstrapious
-          </Link>
-        </p>
       </div>
     </div>
   );

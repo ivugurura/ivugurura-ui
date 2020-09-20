@@ -6,6 +6,7 @@ import { translate } from '../utils';
 import { useSelector } from 'react-redux';
 import { ContactForm } from '../ContactForm';
 import { Link } from 'react-router-dom';
+import { systemLanguages } from '../../utils/constants';
 
 const currentYear = new Date().getFullYear();
 export const Footer = ({ isHomepage }) => {
@@ -61,7 +62,7 @@ export const Footer = ({ isHomepage }) => {
       ) : null}
 
       <Card style={bgStyles.bgPrimary} className='mt-2'>
-        <Container fluid style={textStyles.textTransparent}>
+        <Card.Body style={textStyles.textTransparent}>
           <Row>
             <Col xs={12} md={4} lg={4}>
               {`@Copyright 2016-${currentYear}, `}
@@ -71,10 +72,15 @@ export const Footer = ({ isHomepage }) => {
               Tel:+250 788 476 743
             </Col>
             <Col xs={12} md={4} lg={4}>
-              Kinyarwanda | English | French
+              {systemLanguages.map(({ lang }, langIdx) => (
+                <span key={langIdx}>
+                  {lang}
+                  {langIdx !== systemLanguages.length - 1 ? ' |' : null}
+                </span>
+              ))}
             </Col>
           </Row>
-        </Container>
+        </Card.Body>
       </Card>
     </footer>
   );

@@ -10,3 +10,4 @@ export * from './AdminAudio';
 export * from './AdminVideo';
 export * from './AdminSetting';
 export * from './AdminCommentaries';
+export * from './NotFound';

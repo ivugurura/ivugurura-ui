@@ -1,40 +1,57 @@
-import React from 'react';
-import { Container, Row, Col, Button, Card } from 'react-bootstrap';
-import { CardCounter } from '../components/common';
-import { ActivePosts, DraftPosts } from '../components';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { AdminPageHeader, CardCounter, Loading } from '../components/common';
+import { useSelector, useDispatch } from 'react-redux';
+import { getDashboadCount } from '../redux/actions';
+import { ActivePosts } from '../components/ActivePosts';
 
-export const Dashboard = () => {
+export const Dashboard = ({ history }) => {
+  const {
+    dashboard: { countLoading, counts },
+    oneTopic: { topicUpdated }
+  } = useSelector(({ dashboard, oneTopic }) => ({ dashboard, oneTopic }));
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getDashboadCount());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [topicUpdated]);
   return (
-    <Container className='mt-3' fluid>
-      <Row>
-        <Col xs={12} md={3} lg={3}>
-          <CardCounter count={17} title='Published' color='success' />
-        </Col>
-        <Col xs={12} md={3} lg={3}>
-          <CardCounter count={4} title='Draft' color='info' />
-        </Col>
-        <Col xs={12} md={3} lg={3}>
-          <CardCounter count={67} title='Videos' color='primary' />
-        </Col>
-        <Col xs={12} md={3} lg={3}>
-          <CardCounter count={71} title='Audios' color='danger' />
-        </Col>
-      </Row>
-      <Row>
-        <Col xs={12} md={6} lg={6}>
-          <ActivePosts />
-        </Col>
-        <Col xs={12} md={6} lg={6}>
-          <Container fluid className='mt-3'>
-            <Link to='/admin/add-topic'>Add new post</Link>
-            <Button>Add media</Button>
-            <Card className='mt-2'>
-              <DraftPosts />
-            </Card>
-          </Container>
-        </Col>
-      </Row>
-    </Container>
+    <>
+      <AdminPageHeader
+        name='Dashboard'
+        btnTitle='Add topic'
+        btnAction={() => history.push('/admin/add-topic')}
+      />
+      <section className='dashboard-counts no-padding-top'>
+        <div className='container-fluid'>
+          {countLoading ? (
+            <Loading />
+          ) : (
+            <div className='row bg-white has-shadow'>
+              <CardCounter
+                title='Published'
+                color='green'
+                count={counts.published}
+              />
+              <CardCounter
+                title='Unpublished'
+                color='red'
+                count={counts.unPublished}
+              />
+              <CardCounter title='Audios' color='violet' count={counts.songs} />
+              <CardCounter
+                title='Videos'
+                color='orange'
+                count={counts.videos}
+              />
+            </div>
+          )}
+        </div>
+      </section>
+      <section className='updates no-padding-top'>
+        <div className='container-fluid'>
+          <ActivePosts history={history} />
+        </div>
+      </section>
+    </>
   );
 };

@@ -4,7 +4,7 @@ import { Col, Row, Card, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAlbums } from '../redux/actions';
 import { AddAlbum } from '../components/models/AddAlbum';
-import { AddEditMedia } from '../components';
+import { AddEditMedia, Page } from '../components';
 
 export const AdminAudio = () => {
   const [show, setShow] = useState(false);
@@ -15,7 +15,7 @@ export const AdminAudio = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getAlbums]);
   return (
-    <>
+    <Page title='Audio setting'>
       <AddAlbum show={show} onHide={() => setShow(false)} />
       <AdminPageHeader
         name='Media/audio'
@@ -51,6 +51,6 @@ export const AdminAudio = () => {
           </Row>
         </Container>
       </section>
-    </>
+    </Page>
   );
 };

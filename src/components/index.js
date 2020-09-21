@@ -12,3 +12,4 @@ export * from './Comments';
 export * from './Commentaries';
 export * from './CommentaryForm';
 export * from './AudioPlayer';
+export * from './Page';

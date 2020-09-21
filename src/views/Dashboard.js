@@ -3,6 +3,7 @@ import { AdminPageHeader, CardCounter, Loading } from '../components/common';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDashboadCount } from '../redux/actions';
 import { ActivePosts } from '../components/ActivePosts';
+import { Page } from '../components';
 
 export const Dashboard = ({ history }) => {
   const {
@@ -15,7 +16,7 @@ export const Dashboard = ({ history }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topicUpdated]);
   return (
-    <>
+    <Page title='Dashboard'>
       <AdminPageHeader
         name='Dashboard'
         btnTitle='Add topic'
@@ -52,6 +53,6 @@ export const Dashboard = ({ history }) => {
           <ActivePosts history={history} />
         </div>
       </section>
-    </>
+    </Page>
   );
 };

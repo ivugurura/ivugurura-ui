@@ -1,15 +1,15 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import VideoPlayer from 'react-player';
 // import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import { SampleTopics, Communique } from '../components/common';
 import { translate } from '../components/utils';
-import { Radio, TopicsCarousel } from '../components';
+import { Page, Radio, TopicsCarousel } from '../components';
 
 // const ytbImg = `${process.env.PUBLIC_URL}/yt-img.png`;
 export const Home = () => {
   return (
-    <Fragment>
+    <Page title='Home'>
       <Communique />
       <Container fluid>
         <Row>
@@ -60,6 +60,6 @@ export const Home = () => {
           </Row>
         </Card.Body>
       </Card> */}
-    </Fragment>
+    </Page>
   );
 };

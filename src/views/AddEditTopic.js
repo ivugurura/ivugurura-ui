@@ -17,6 +17,7 @@ import { getCategories } from '../redux/actions';
 import { addTopic, getTopicDetail, updateTopic } from '../redux/actions/topics';
 import { toast } from 'react-toastify';
 import { uploadedFile } from '../helpers/utils';
+import { Page } from '../components';
 
 const topicValues = {
   title: '',
@@ -95,144 +96,149 @@ export const AddEditTopic = ({ history, match }) => {
     }
   };
   return (
-    <Container fluid className='mt-2'>
-      <Row>
-        <Col md={8}>
-          <h4 className='text-center'>
-            {topicSlug
-              ? oneTopic.topicLoading
-                ? 'LOADING...'
-                : `Update ${oneTopic.topic.title}`
-              : `Add topic or PAST IT HERE`}
-          </h4>
-        </Col>
-        <Col md={4}>
-          <h4 className='text-info pull-right'>{`=>${lang}`}</h4>
-        </Col>
-      </Row>
-      <Card>
-        <Card.Header>
-          <Card.Title>
+    <Page title='Add/edit post'>
+      <Container fluid className='mt-2'>
+        <Row>
+          <Col md={8}>
+            <h4 className='text-center'>
+              {topicSlug
+                ? oneTopic.topicLoading
+                  ? 'LOADING...'
+                  : `Update ${oneTopic.topic.title}`
+                : `Add topic or PAST IT HERE`}
+            </h4>
+          </Col>
+          <Col md={4}>
+            <h4 className='text-info pull-right'>{`=>${lang}`}</h4>
+          </Col>
+        </Row>
+        <Card>
+          <Card.Header>
+            <Card.Title>
+              <Row>
+                <Col xs={12} md={3} lg={3}>
+                  <FormControl
+                    type='text'
+                    placeholder='Topic title'
+                    name='title'
+                    value={topic.title}
+                    onChange={onInputChange}
+                  />
+                </Col>
+                <Col xs={12} md={3} lg={3}>
+                  <FormControl
+                    as='select'
+                    name='categoryId'
+                    value={topic.categoryId}
+                    onChange={onInputChange}
+                  >
+                    <option>Select category</option>
+                    {category.loading ? (
+                      <option>Loading</option>
+                    ) : (
+                      category.categories.map((category, categoryIndex) => (
+                        <option key={categoryIndex} value={category.id}>
+                          {category.name}
+                        </option>
+                      ))
+                    )}
+                  </FormControl>
+                </Col>
+                <Col xs={12} md={6} lg={6}>
+                  <FormControl
+                    type='text'
+                    placeholder='Topic description'
+                    name='description'
+                    value={topic.description}
+                    onChange={onInputChange}
+                  />
+                </Col>
+              </Row>
+            </Card.Title>
+          </Card.Header>
+          <Card.Body>
             <Row>
-              <Col xs={12} md={3} lg={3}>
-                <FormControl
-                  type='text'
-                  placeholder='Topic title'
-                  name='title'
-                  value={topic.title}
-                  onChange={onInputChange}
+              <Col xs={12} md={9} lg={9}>
+                <SunEditor
+                  setOptions={{
+                    height: 230,
+                    buttonList: topicEditorButtons
+                  }}
+                  setDefaultStyle='font-size: 16px;'
+                  name='content'
+                  value={topic.content}
+                  setContents={sunEdContent}
+                  placeholder='Please type here...'
+                  onChange={(content) => setSunEdContent(content)}
                 />
               </Col>
               <Col xs={12} md={3} lg={3}>
-                <FormControl
-                  as='select'
-                  name='categoryId'
-                  value={topic.categoryId}
-                  onChange={onInputChange}
-                >
-                  <option>Select category</option>
-                  {category.loading ? (
-                    <option>Loading</option>
+                {/* <FileUploader coverImage={topic.coverImage} /> */}
+                <Row>
+                  {!hasUploaded ? (
+                    <Col xs={12} md={12} lg={12}>
+                      <ImageUploader
+                        withIcon
+                        buttonText='Choose images'
+                        imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                        withPreview
+                        withLabel
+                        singleImage
+                        maxFileSize={5242880}
+                        onChange={(images) => setFile(images[0])}
+                      />
+                    </Col>
                   ) : (
-                    category.categories.map((category, categoryIndex) => (
-                      <option key={categoryIndex} value={category.id}>
-                        {category.name}
-                      </option>
-                    ))
+                    <Col xs={12} md={12} lg={12}>
+                      <div className='text-center'>
+                        <Button onClick={() => setHasUploaded(false)}>
+                          Change cover image?
+                        </Button>
+                        <img
+                          src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
+                          className='img-fluid img-thumbnail'
+                          alt='Topic cover'
+                        />
+                      </div>
+                    </Col>
                   )}
-                </FormControl>
-              </Col>
-              <Col xs={12} md={6} lg={6}>
-                <FormControl
-                  type='text'
-                  placeholder='Topic description'
-                  name='description'
-                  value={topic.description}
-                  onChange={onInputChange}
-                />
+                </Row>
               </Col>
             </Row>
-          </Card.Title>
-        </Card.Header>
-        <Card.Body>
-          <Row>
-            <Col xs={12} md={9} lg={9}>
-              <SunEditor
-                setOptions={{
-                  height: 230,
-                  buttonList: topicEditorButtons
-                }}
-                setDefaultStyle='font-size: 16px;'
-                name='content'
-                value={topic.content}
-                setContents={sunEdContent}
-                placeholder='Please type here...'
-                onChange={(content) => setSunEdContent(content)}
-              />
-            </Col>
-            <Col xs={12} md={3} lg={3}>
-              {/* <FileUploader coverImage={topic.coverImage} /> */}
-              <Row>
-                {!hasUploaded ? (
-                  <Col xs={12} md={12} lg={12}>
-                    <ImageUploader
-                      withIcon
-                      buttonText='Choose images'
-                      imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                      withPreview
-                      withLabel
-                      singleImage
-                      maxFileSize={5242880}
-                      onChange={(images) => setFile(images[0])}
-                    />
-                  </Col>
-                ) : (
-                  <Col xs={12} md={12} lg={12}>
-                    <div className='text-center'>
-                      <Button onClick={() => setHasUploaded(false)}>
-                        Change cover image?
-                      </Button>
-                      <img
-                        src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
-                        className='img-fluid img-thumbnail'
-                        alt='Topic cover'
-                      />
-                    </div>
-                  </Col>
-                )}
-              </Row>
-            </Col>
-          </Row>
-        </Card.Body>
-        <Card.Footer>
-          <Button variant='outline-secondary' onClick={() => history.goBack()}>
-            Cancel
-          </Button>
-          {topicSlug ? (
+          </Card.Body>
+          <Card.Footer>
             <Button
-              variant='primary'
-              onClick={onSaveChange}
-              disabled={uploading || oneTopic.topicUpdating}
+              variant='outline-secondary'
+              onClick={() => history.goBack()}
             >
-              {oneTopic.topicUpdating
-                ? 'Saving... Please wait'
-                : `Update ${topic.title}`}
+              Cancel
             </Button>
-          ) : (
-            <Button
-              variant='primary'
-              onClick={onSaveChange}
-              disabled={uploading || oneTopic.newTopicLoading}
-            >
-              {uploading
-                ? 'Uploading cover image,...'
-                : oneTopic.newTopicLoading
-                ? 'Saving... Please wait'
-                : 'Save topic'}
-            </Button>
-          )}
-        </Card.Footer>
-      </Card>
-    </Container>
+            {topicSlug ? (
+              <Button
+                variant='primary'
+                onClick={onSaveChange}
+                disabled={uploading || oneTopic.topicUpdating}
+              >
+                {oneTopic.topicUpdating
+                  ? 'Saving... Please wait'
+                  : `Update ${topic.title}`}
+              </Button>
+            ) : (
+              <Button
+                variant='primary'
+                onClick={onSaveChange}
+                disabled={uploading || oneTopic.newTopicLoading}
+              >
+                {uploading
+                  ? 'Uploading cover image,...'
+                  : oneTopic.newTopicLoading
+                  ? 'Saving... Please wait'
+                  : 'Save topic'}
+              </Button>
+            )}
+          </Card.Footer>
+        </Card>
+      </Container>
+    </Page>
   );
 };

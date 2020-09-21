@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { systemLanguages } from '../../utils/constants';
+import { currentLang, systemLanguages } from '../../utils/constants';
 import { translate } from '../utils';
 import { logoutUser } from '../../redux/actions/user';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 export const AdminHeader = () => {
-  const systemLanguage = localStorage.getItem('lang');
-  const currentLang = systemLanguages.find(
-    (lang) => lang.abbr === systemLanguage
-  );
   const { done, message } = useSelector(({ lgUser }) => lgUser);
   const selectLanguage = (language) => {
     if (language === currentLang.abbr) return;

@@ -1,6 +1,7 @@
 import moment from 'moment';
 
 const flagUrl = `${process.env.PUBLIC_URL}/img/flags/16`;
+const systemLanguage = localStorage.getItem('lang');
 export const topicEditorButtons = [
   ['undo', 'redo'],
   ['font', 'fontSize', 'formatBlock'],
@@ -11,7 +12,7 @@ export const topicEditorButtons = [
   ['outdent', 'indent'],
   // ['align', 'horizontalRule', 'list', 'lineHeight'],
   ['table', 'link'], //'image'
-  ['fullScreen'],
+  ['fullScreen']
   //   ['preview', 'print'],
   // ['save', 'template'],
   // '/', Line break
@@ -21,13 +22,13 @@ export const systemLanguages = [
   {
     lang: 'Kinyarwanda',
     abbr: 'kn',
-    flag: `${flagUrl}/RW.png`,
+    flag: `${flagUrl}/RW.png`
   },
   {
     lang: 'English',
     abbr: 'en',
-    flag: `${flagUrl}/GB.png`,
-  },
+    flag: `${flagUrl}/GB.png`
+  }
 ];
 export const truncate = (str, n) => {
   return str.length > n ? str.substr(0, n - 1) + '...' : str;
@@ -37,3 +38,6 @@ export const formatDate = (theDate) => {
   return stringDate;
 };
 export const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
+export const currentLang = systemLanguages.find(
+  (lang) => lang.abbr === systemLanguage
+);

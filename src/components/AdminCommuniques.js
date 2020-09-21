@@ -11,7 +11,7 @@ export const AdminCommuniques = () => {
     ({ communiqueGet, communiqueAdd, communiquePublish }) => ({
       communiqueAdd,
       communiqueGet,
-      communiquePublish,
+      communiquePublish
     })
   );
   const { communiqueAdded } = communiqueAdd;
@@ -19,7 +19,8 @@ export const AdminCommuniques = () => {
   const { published } = communiquePublish;
   useEffect(() => {
     dispatch(getCommuniques());
-  }, [dispatch, communiqueAdded, published]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [communiqueAdded, published]);
   return (
     <div className='card'>
       <div className='card-header d-flex align-items-center'>

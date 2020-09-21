@@ -13,25 +13,20 @@ import { bgStyles, textStyles } from '../../utils/styles';
 import { Logo } from './Logo';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCategories, setLanguage } from '../../redux/actions';
-import { systemLanguages } from '../../utils/constants';
+import { currentLang, systemLanguages } from '../../utils/constants';
 import { translate } from '../utils';
 import { Link } from 'react-router-dom';
 import { SearchBox, ContactUs } from '../models';
 
 export const NavHeader = () => {
-  const systemLanguage = localStorage.getItem('lang');
-  const currentLang = systemLanguages.find(
-    (lang) => lang.abbr === systemLanguage
-  );
-  // const [lang, setLang] = useState(systemLanguage);
   const [showSearch, setShowSearch] = useState(false);
   const [showContactUs, setShowContactUs] = useState(false);
-  const navCategories = useSelector(({ category }) => category.navCategories);
+  const { navCategories } = useSelector(({ category }) => category);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getCategories('/navs'));
+    getCategories('/navs');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getCategories, setLanguage]);
+  }, [setLanguage]);
   const selectLanguage = (newLang) => {
     localStorage.setItem('lang', newLang);
     dispatch(setLanguage(newLang));

@@ -41,7 +41,9 @@ export const AddEditTopic = ({ history, match }) => {
   }));
   const { topicFetched, newTopicAdded, topicUpdated } = oneTopic;
   useEffect(() => {
-    dispatch(getCategories('/'));
+    getCategories('/');
+  }, []);
+  useEffect(() => {
     if (newTopicAdded || topicUpdated) {
       setSunEdContent('');
       toast(`${topic.title.toUpperCase()} has saved`);

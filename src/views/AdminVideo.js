@@ -4,7 +4,7 @@ import { AdminPageHeader, Loading } from '../components/common';
 import { Col, Row, Card, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAlbums, getMedias } from '../redux/actions';
-import { AddEditMedia } from '../components';
+import { AddEditMedia, Page } from '../components';
 import { AddVideo } from '../components/models';
 
 export const AdminVideo = () => {
@@ -19,7 +19,7 @@ export const AdminVideo = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getMedias, getMedias, mediaAdded]);
   return (
-    <>
+    <Page title='Video setting'>
       <AddVideo show={show} onHide={() => setShow(false)}>
         <AddEditMedia />
       </AddVideo>
@@ -52,6 +52,6 @@ export const AdminVideo = () => {
           </Row>
         </Container>
       </section>
-    </>
+    </Page>
   );
 };

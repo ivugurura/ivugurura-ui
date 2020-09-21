@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCategoryDetail, getTopics } from '../redux/actions';
 import { Link } from 'react-router-dom';
 import { scrollToRef } from '../utils/constants';
+import { Page } from '../components';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const CategoryTopics = ({ match }) => {
@@ -31,7 +32,7 @@ export const CategoryTopics = ({ match }) => {
     }
   }, [fetched]);
   return (
-    <>
+    <Page title={category.name || ''}>
       <Communique />
       <Container fluid>
         <Row>
@@ -77,6 +78,6 @@ export const CategoryTopics = ({ match }) => {
           </Col>
         </Row>
       </Container>
-    </>
+    </Page>
   );
 };

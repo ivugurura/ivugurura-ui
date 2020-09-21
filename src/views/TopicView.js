@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Row, Col, Container, Card } from 'react-bootstrap';
 import HtmlParser from 'react-html-parser';
 import {
@@ -10,7 +10,7 @@ import {
 import { bgStyles } from '../utils/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTopicDetail } from '../redux/actions/topics';
-import { CommentaryForm, Comments } from '../components';
+import { CommentaryForm, Comments, Page } from '../components';
 import { formatDate, scrollToRef } from '../utils/constants';
 import { translate } from '../components/utils';
 
@@ -34,7 +34,7 @@ export const TopicView = ({ match }) => {
   }, [topicFetched]);
 
   return (
-    <Fragment>
+    <Page title={topic.title || ''}>
       <Communique />
       <Container fluid>
         <Row>
@@ -78,6 +78,6 @@ export const TopicView = ({ match }) => {
         loading={topicLoading}
         topics={topic.category.relatedTopics}
       />
-    </Fragment>
+    </Page>
   );
 };

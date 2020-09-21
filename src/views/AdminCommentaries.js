@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { AdminPageHeader } from '../components/common';
-import { Commentaries } from '../components';
+import { Commentaries, Page } from '../components';
 import { useSelector } from 'react-redux';
 
 export const AdminCommentaries = () => {
@@ -9,7 +9,7 @@ export const AdminCommentaries = () => {
     ({ adminComments }) => adminComments
   );
   return (
-    <>
+    <Page title='Topics commentaries'>
       <AdminPageHeader name='Topics commentaries' />
       <section className='tables'>
         <Container fluid>
@@ -24,7 +24,7 @@ export const AdminCommentaries = () => {
           </Row>
         </Container>
       </section>
-    </>
+    </Page>
   );
 };
 

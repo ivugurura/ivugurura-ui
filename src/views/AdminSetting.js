@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AdminPageHeader } from '../components/common';
 import { Row, Container, Col } from 'react-bootstrap';
 import { Announcement } from '../components/models';
-import { AdminCommuniques } from '../components';
+import { AdminCommuniques, Page } from '../components';
 import { useSelector } from 'react-redux';
 
 export const AdminSetting = () => {
@@ -14,7 +14,7 @@ export const AdminSetting = () => {
     }
   }, [communiqueAdded]);
   return (
-    <>
+    <Page title='Setting'>
       <Announcement show={show} onHide={() => setShow(false)} />
       <AdminPageHeader
         name='Site setting'
@@ -31,6 +31,6 @@ export const AdminSetting = () => {
           </Row>
         </Container>
       </section>
-    </>
+    </Page>
   );
 };

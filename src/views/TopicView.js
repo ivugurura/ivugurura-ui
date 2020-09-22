@@ -8,7 +8,7 @@ import {
   Loading
 } from '../components/common';
 import { bgStyles } from '../utils/styles';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getTopicDetail } from '../redux/actions/topics';
 import { CommentaryForm, Comments, Page } from '../components';
 import { formatDate, scrollToRef } from '../utils/constants';
@@ -19,19 +19,12 @@ export const TopicView = ({ match }) => {
   const topicRef = useRef(null);
 
   const { topicSlug } = match.params;
-  const { topic, topicLoading, topicFetched } = useSelector(
-    ({ oneTopic }) => oneTopic
-  );
-  const dispatch = useDispatch();
+  const { topic, topicLoading } = useSelector(({ oneTopic }) => oneTopic);
   useEffect(() => {
-    dispatch(getTopicDetail(topicSlug));
+    getTopicDetail(topicSlug);
+    scrollToRef(topicRef);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topicSlug]);
-  useEffect(() => {
-    if (topicFetched) {
-      scrollToRef(topicRef);
-    }
-  }, [topicFetched]);
 
   return (
     <Page title={topic.title || ''}>

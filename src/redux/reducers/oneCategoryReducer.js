@@ -7,20 +7,21 @@ export const oneCategoryReducer = (state = aCategoryState, action) => {
     case pending(GET_CATEGORY_DETAIL):
       return {
         ...state,
-        categoryFetching: true,
+        categoryFetched: false,
+        categoryFetching: true
       };
     case fulfilled(GET_CATEGORY_DETAIL):
       return {
         ...state,
         categoryFetching: false,
         categoryFetched: true,
-        category: action.payload.data.data,
+        category: action.payload.data.data
       };
     case rejected(GET_CATEGORY_DETAIL):
     default:
       return {
         ...state,
-        categoryFetching: false,
+        categoryFetching: false
       };
   }
 };

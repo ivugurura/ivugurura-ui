@@ -31,10 +31,10 @@ export const getTopics = ({ page, pageSize, category }) => {
 };
 
 export const getTopicDetail = (topicSlug) => {
-  return {
+  store.dispatch({
     type: VIEW_TOPIC_DETAIL,
     payload: http.get(`/topics/${topicSlug}`)
-  };
+  });
 };
 export const addTopic = (newTopic) => {
   return {

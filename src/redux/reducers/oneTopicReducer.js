@@ -7,37 +7,39 @@ export const oneTopicReducer = (state = initialOneTopicState, action) => {
     case pending(VIEW_TOPIC_DETAIL):
       return {
         ...state,
-        topicLoading: true,
+        topicFetched: false,
+        topicLoading: true
       };
     case fulfilled(VIEW_TOPIC_DETAIL):
       return {
         ...state,
         topicLoading: false,
         topicFetched: true,
-        topic: action.payload.data.data,
+        topic: action.payload.data.data
       };
     case pending(ADD_NEW_TOPIC):
       return {
         ...state,
-        newTopicLoading: true,
+        newTopicAdded: false,
+        newTopicLoading: true
       };
     case fulfilled(ADD_NEW_TOPIC):
       return {
         ...state,
         newTopicLoading: false,
-        newTopicAdded: true,
+        newTopicAdded: true
       };
     case pending(UPDATE_TOPIC):
       return {
         ...state,
-        topicFetched: false,
-        topicUpdating: true,
+        topicUpdated: false,
+        topicUpdating: true
       };
     case fulfilled(UPDATE_TOPIC):
       return {
         ...state,
         topicUpdating: false,
-        topicUpdated: true,
+        topicUpdated: true
       };
     case rejected(VIEW_TOPIC_DETAIL):
     case rejected(ADD_NEW_TOPIC):
@@ -46,10 +48,8 @@ export const oneTopicReducer = (state = initialOneTopicState, action) => {
       return {
         ...state,
         topicLoading: false,
-        topicUpdated: false,
-        newTopicAdded: false,
-        topicFetched: false,
-        newTopicLoading: false,
+        topicUpdating: false,
+        newTopicLoading: false
       };
   }
 };

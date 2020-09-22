@@ -80,7 +80,7 @@ export const NavHeader = () => {
             placeholder='Search'
             className='mr-sm-2'
             size='sm'
-            onPointerEnter={() => setShowSearch(true)}
+            onClick={() => setShowSearch(true)}
           />
           <Button variant='danger' size='sm'>
             {translate('listenRadio')}

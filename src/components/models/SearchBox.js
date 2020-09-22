@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Media } from 'react-bootstrap';
+import { Modal, Media, Form } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { searchQuery } from '../../redux/actions';
 import { Loading } from '../common';
@@ -19,12 +19,9 @@ export const SearchBox = ({ show, onHide }) => {
         <Modal.Title>Search any thing you want in the website</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <input
-          type='text'
-          className='form-control'
+        <Form.Control
           value={searchVal}
-          onFocus
-          onChange={(e) => setSearchVal(e.target.value)}
+          onChange={({ target }) => setSearchVal(target.value)}
         />
         <div>
           {searching ? (
@@ -66,9 +63,6 @@ export const SearchBox = ({ show, onHide }) => {
             </>
           ) : null}
         </div>
-        <Button variant='danger' onClick={onHide}>
-          Close
-        </Button>
       </Modal.Body>
     </Modal>
   );

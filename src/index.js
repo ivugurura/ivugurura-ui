@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
 
+// const isDev = process.env.NODE_ENV === 'development';
 ReactDOM.render(
   <React.StrictMode>
     <App />
@@ -18,3 +19,8 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+// if (isDev) {
+//   serviceWorker.unregister();
+// } else {
+//   serviceWorker.register();
+// }

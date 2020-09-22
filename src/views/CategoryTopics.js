@@ -17,20 +17,19 @@ export const CategoryTopics = ({ match }) => {
     topic,
     oneCategory
   }));
-  const { categoryLoading, categoryTopics, fetched } = topic;
+  const { categoryLoading, categoryTopics } = topic;
   const { categoryFetched, categoryFetching, category } = oneCategory;
   useEffect(() => {
+    scrollToRef(categoriesRef);
     dispatch(getCategoryDetail(categorySlug));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categorySlug]);
+  useEffect(() => {
     if (categoryFetched) {
       dispatch(getTopics({ page: 1, pageSize: 20, category: category.id }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categorySlug, categoryFetched]);
-  useEffect(() => {
-    if (fetched) {
-      scrollToRef(categoriesRef);
-    }
-  }, [fetched]);
+  }, [categoryFetched]);
   return (
     <Page title={category.name || ''}>
       <Communique />

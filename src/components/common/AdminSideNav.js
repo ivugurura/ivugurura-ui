@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getAdminComments, resetPublisheComment } from '../../redux/actions';
 
-const profileUrl = `${process.env.PUBLIC_URL}/img/avatar-1.jpg`;
+const profileUrl = `${process.env.PUBLIC_URL}/img/admin.jpeg`;
 export const AdminSideNav = () => {
   const {
     user: { info },

@@ -55,7 +55,7 @@ export const AdminSideNav = () => {
             </li>
           </ul>
         </li>
-        <li>
+        {/* <li>
           <a href='#media' aria-expanded='false' data-toggle='collapse'>
             <i className='icon-grid'></i>Media
           </a>
@@ -65,7 +65,7 @@ export const AdminSideNav = () => {
               <Link to='/admin/videos'>Videos</Link>
             </li>
           </ul>
-        </li>
+        </li> */}
       </ul>
       <span className='heading'>Extras</span>
       <ul className='list-unstyled'>

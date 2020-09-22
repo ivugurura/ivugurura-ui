@@ -1,19 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Accordion, Button, Card } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../redux/actions';
 import { currentLang } from '../utils/constants';
+import { AddMenu } from './models';
 
-export const MenuSetting = ({ props }) => {
-  const { navCategories } = useSelector(({ category }) => category);
+export const MenuSetting = () => {
+  const [openAddMenu, setOpenAddMenu] = useState(false);
+  const {
+    category: { navCategories },
+    categoryAdd: { done }
+  } = useSelector(({ category, categoryAdd }) => ({ category, categoryAdd }));
   useEffect(() => {
     getCategories('/navs');
-  }, []);
+  }, [done]);
   return (
     <Card>
+      <AddMenu show={openAddMenu} onHide={() => setOpenAddMenu(false)} />
       <Card.Header>
         <Card.Title>Setting menu=&gt;{currentLang.lang}</Card.Title>
-        <Button variant='primary' size='sm'>
+        <Button
+          variant='primary'
+          size='sm'
+          onClick={() => setOpenAddMenu(true)}
+        >
           Add
         </Button>
       </Card.Header>

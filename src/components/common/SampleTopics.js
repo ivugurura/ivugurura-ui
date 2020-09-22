@@ -35,7 +35,7 @@ export const SampleTopics = ({ isHomePage, topics, loading }) => {
       centered: false,
       arrowLeft: <FaArrowCircleLeft />,
       arrowRight: <FaArrowCircleRight />,
-      animationSpeed: 2000,
+      animationSpeed: 3000,
       infinite: false
     }
   };
@@ -56,7 +56,7 @@ export const SampleTopics = ({ isHomePage, topics, loading }) => {
       <Card.Body>
         {componentLoading ? (
           <Loading message='Please wait' />
-        ) : (
+        ) : componentTopics.length ? (
           <Carousel
             slidesPerPage={3}
             autoPlay={5000}
@@ -83,7 +83,7 @@ export const SampleTopics = ({ isHomePage, topics, loading }) => {
               </Col>
             ))}
           </Carousel>
-        )}
+        ) : null}
       </Card.Body>
     </Card>
   );

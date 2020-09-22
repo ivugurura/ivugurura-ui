@@ -56,7 +56,7 @@ export const ContactForm = () => {
         disabled={loading || loaded}
         onClick={() => sendContactUs(formValues)}
       >
-        {loading ? 'Sending message' : loaded ? 'Message sent' : 'Sand'}
+        {loading ? 'Sending message' : loaded ? 'Message sent' : 'Send'}
       </Button>
     </Card.Body>
   );

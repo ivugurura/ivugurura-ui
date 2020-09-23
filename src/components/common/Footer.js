@@ -39,14 +39,14 @@ export const Footer = ({ isHomepage }) => {
                     ))}
                   </Form.Control>
                   {subCategories.map((item, itemIndex) => (
-                    <Link
-                      key={itemIndex}
-                      to={`/topics/categories/${item.slug}`}
-                    >
-                      <Card.Text>
+                    <Card.Header>
+                      <Link
+                        key={itemIndex}
+                        to={`/topics/categories/${item.slug}`}
+                      >
                         <h4>{item.name}</h4>
-                      </Card.Text>
-                    </Link>
+                      </Link>
+                    </Card.Header>
                   ))}
                 </Card.Body>
               </Col>

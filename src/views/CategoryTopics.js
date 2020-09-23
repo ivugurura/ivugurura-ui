@@ -63,9 +63,7 @@ export const CategoryTopics = ({ match }) => {
                   </Link>
                 ))
               ) : (
-                <h4 className='text-center'>
-                  No topics for category {category.name}!
-                </h4>
+                <h4 className='text-center'>{category.name}!</h4>
               )}
             </div>
           </Col>

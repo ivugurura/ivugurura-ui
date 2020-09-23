@@ -106,12 +106,12 @@ export const NavHeader = () => {
           to='#'
           data-toggle='dropdown'
           aria-haspopup='true'
-          aria-expanded='false'
+          aria-expanded='true'
           className='nav-link language dropdown-toggle'
           style={textStyles.textTransparent}
         >
           <img src={currentLang.flag} alt={currentLang.lang} />
-          <span className='d-none d-sm-inline-block'>{currentLang.lang}</span>
+          <span className='d-sm-inline-block'>{currentLang.lang}</span>
         </Link>
         <ul aria-labelledby='languages' className='dropdown-menu'>
           {systemLanguages.map((language, languageIndex) => (

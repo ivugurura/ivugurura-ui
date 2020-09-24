@@ -53,7 +53,7 @@ export const CategoryTopics = ({ match }) => {
                   <Link key={topicIndex} to={`/topics/${topic.slug}`}>
                     <Card>
                       <Card.Img
-                        src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
+                        src={`${process.env.REACT_APP_API_URL}/api/images/${topic.coverImage}`}
                       />
                       <Card.Body>
                         <Card.Title>{topic.title}</Card.Title>

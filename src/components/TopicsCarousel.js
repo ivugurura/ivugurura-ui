@@ -29,7 +29,7 @@ export const TopicsCarousel = () => {
               <Carousel.Item key={topicIndex}>
                 <img
                   className='d-block w-100'
-                  src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
+                  src={`${process.env.REACT_APP_API_URL}/api/images/${topic.coverImage}`}
                   alt={`Slider ${topicIndex}`}
                 />
                 <Carousel.Caption>

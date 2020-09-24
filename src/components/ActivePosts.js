@@ -93,7 +93,7 @@ export const ActivePosts = ({ history }) => {
                     <td>{formatDate(topic.createdAt)}</td>
                     <td>
                       <ActionButtons
-                        onDelete={() => onTopicSetCurrent(topic, 'delete')}
+                        onDelete={() => {}}
                         status={topic.isPublished ? 'Unpublish' : 'Publish'}
                         onEdit={() =>
                           history.push(`/admin/edit-topic/${topic.slug}`)

@@ -28,7 +28,7 @@ export const MenuSetting = () => {
         </Button>
       </Card.Header>
       <Card.Body>
-        <Accordion defaultActiveKey='0'>
+        <Accordion defaultActiveKey={0}>
           {navCategories.map(({ categories, name }, navIdx) =>
             categories.length ? (
               <Card key={navIdx}>

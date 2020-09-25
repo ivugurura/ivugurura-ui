@@ -85,7 +85,7 @@ export const AddEditTopic = ({ history, match }) => {
       setSunEdContent(content);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topicSlug]);
+  }, [topicSlug, topicGet.done]);
   const onInputChange = ({ target }) => {
     setTopic({ ...topic, [target.name]: target.value });
   };

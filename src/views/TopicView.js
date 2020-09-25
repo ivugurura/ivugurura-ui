@@ -19,7 +19,7 @@ export const TopicView = ({ match }) => {
   const topicRef = useRef(null);
 
   const { topicSlug } = match.params;
-  const { topic, topicLoading } = useSelector(({ oneTopic }) => oneTopic);
+  const { topic, loading } = useSelector(({ topicGet }) => topicGet);
   useEffect(() => {
     getTopicDetail(topicSlug);
     scrollToRef(topicRef);
@@ -32,7 +32,7 @@ export const TopicView = ({ match }) => {
       <Container fluid>
         <Row>
           <Col xs={12} md={9} lg={9}>
-            {topicLoading ? (
+            {loading ? (
               <Loading />
             ) : (
               <>
@@ -67,10 +67,7 @@ export const TopicView = ({ match }) => {
           </Col>
         </Row>
       </Container>
-      <SampleTopics
-        loading={topicLoading}
-        topics={topic.category.relatedTopics}
-      />
+      <SampleTopics loading={loading} topics={topic.category.relatedTopics} />
     </Page>
   );
 };

@@ -8,6 +8,7 @@ export const ActionConfirm = ({
   show,
   action,
   onHide,
+  loading = false
 }) => {
   return (
     <Modal show={show} onHide={onHide}>
@@ -21,7 +22,9 @@ export const ActionConfirm = ({
           <Button variant='danger' onClick={onHide}>
             No
           </Button>
-          <Button onClick={onAction}>Yes</Button>
+          <Button onClick={onAction} disabled={loading}>
+            {loading ? 'Loading,...' : 'Yes'}
+          </Button>
         </ButtonGroup>
       </Modal.Footer>
     </Modal>

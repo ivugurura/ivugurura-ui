@@ -11,10 +11,15 @@ import {
 } from 'react-bootstrap';
 import ImageUploader from 'react-images-upload';
 import { systemLanguages, topicEditorButtons } from '../utils/constants';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getCategories } from '../redux/actions';
 // import { FileUploader } from '../components';
-import { addTopic, getTopicDetail, updateTopic } from '../redux/actions/topics';
+import {
+  addTopic,
+  getTopicDetail,
+  resetTopicAction,
+  updateTopic
+} from '../redux/actions/topics';
 import { toast } from 'react-toastify';
 import { uploadedFile } from '../helpers/utils';
 import { Page } from '../components';
@@ -34,45 +39,53 @@ export const AddEditTopic = ({ history, match }) => {
   const [uploading, setUploading] = useState(false);
   const [hasUploaded, setHasUploaded] = useState(false);
   const [file, setFile] = useState(null);
-  const dispatch = useDispatch();
-  const { category, oneTopic } = useSelector(({ category, oneTopic }) => ({
-    category,
-    oneTopic
-  }));
-  const { topicFetched, newTopicAdded, topicUpdated } = oneTopic;
+  const { category, topicGet, topicAdd, topicEdit } = useSelector(
+    ({ category, topicGet, topicAdd, topicEdit }) => ({
+      category,
+      topicGet,
+      topicAdd,
+      topicEdit
+    })
+  );
+
   useEffect(() => {
     getCategories('/');
   }, []);
   useEffect(() => {
-    if (newTopicAdded || topicUpdated) {
+    if (topicAdd.done || topicEdit.done) {
       setSunEdContent('');
+      setTopic(topicValues);
       toast(`${topic.title.toUpperCase()} has saved`);
+
+      const actionType = topicAdd.done ? 'add' : 'edit';
+      resetTopicAction(actionType);
+
       setTimeout(() => {
         history.goBack();
       }, 3000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [newTopicAdded, topicUpdated]);
+  }, [topicAdd.done, topicEdit.done]);
   useEffect(() => {
     if (topicSlug) {
-      dispatch(getTopicDetail(topicSlug));
+      getTopicDetail(topicSlug);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topicSlug]);
   useEffect(() => {
-    if (topicSlug && topicFetched) {
+    if (topicSlug && topicGet.done) {
       const {
         title,
         description,
         categoryId,
         content,
         coverImage
-      } = oneTopic.topic;
+      } = topicGet.topic;
       setTopic({ title, description, categoryId, coverImage });
       setHasUploaded(true);
       setSunEdContent(content);
     }
-  }, [topicSlug, topicFetched, oneTopic.topic]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [topicSlug]);
   const onInputChange = ({ target }) => {
     setTopic({ ...topic, [target.name]: target.value });
   };
@@ -92,9 +105,9 @@ export const AddEditTopic = ({ history, match }) => {
       }
     }
     if (topicSlug) {
-      dispatch(updateTopic(topic, topicSlug));
+      updateTopic(topic, topicSlug);
     } else {
-      dispatch(addTopic(topic));
+      addTopic(topic);
     }
   };
   return (
@@ -104,9 +117,9 @@ export const AddEditTopic = ({ history, match }) => {
           <Col md={8}>
             <h4 className='text-center'>
               {topicSlug
-                ? oneTopic.topicLoading
+                ? topicGet.loading
                   ? 'LOADING...'
-                  : `Update ${oneTopic.topic.title}`
+                  : `Update ${topicGet.topic.title}`
                 : `Add topic or PAST IT HERE`}
             </h4>
           </Col>
@@ -219,9 +232,9 @@ export const AddEditTopic = ({ history, match }) => {
               <Button
                 variant='primary'
                 onClick={onSaveChange}
-                disabled={uploading || oneTopic.topicUpdating}
+                disabled={uploading || topicEdit.loading}
               >
-                {oneTopic.topicUpdating
+                {topicEdit.loading
                   ? 'Saving... Please wait'
                   : `Update ${topic.title}`}
               </Button>
@@ -229,11 +242,11 @@ export const AddEditTopic = ({ history, match }) => {
               <Button
                 variant='primary'
                 onClick={onSaveChange}
-                disabled={uploading || oneTopic.newTopicLoading}
+                disabled={uploading || topicAdd.loading}
               >
                 {uploading
                   ? 'Uploading cover image,...'
-                  : oneTopic.newTopicLoading
+                  : topicAdd.loading
                   ? 'Saving... Please wait'
                   : 'Save topic'}
               </Button>

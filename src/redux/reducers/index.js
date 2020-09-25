@@ -2,7 +2,11 @@ import { combineReducers } from 'redux';
 import { categoryAddReducer, categoryReducer } from './categoryReducer';
 import { languageReducer } from './languageReducer';
 import { topicReducer } from './topicReducer';
-import { oneTopicReducer } from './oneTopicReducer';
+import {
+  topicAddReducer,
+  topicEditReducer,
+  topicGetReducer
+} from './oneTopicReducer';
 import { filerReducer } from './filerReducer';
 import { logoutUserReducer, useReducer } from './userReducer';
 import { dashboardReducer } from './dashboardReducer';
@@ -28,7 +32,9 @@ export const rootReducer = combineReducers({
   category: categoryReducer,
   language: languageReducer,
   topic: topicReducer,
-  oneTopic: oneTopicReducer,
+  topicGet: topicGetReducer,
+  topicAdd: topicAddReducer,
+  topicEdit: topicEditReducer,
   filer: filerReducer,
   user: useReducer,
   lgUser: logoutUserReducer,

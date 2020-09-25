@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getTopics } from '../redux/actions/topics';
 import { Loading } from './common';
 import { Carousel } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const TopicsCarousel = () => {
@@ -16,7 +17,7 @@ export const TopicsCarousel = () => {
   useEffect(() => {
     dispatch(getTopics({ page: 1, pageSize: 3, category: 'carsoul' }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getTopics]);
+  }, []);
   const { carsoulLoading, carsoulTopics } = topic;
   return (
     <>
@@ -26,9 +27,13 @@ export const TopicsCarousel = () => {
         <Carousel activeIndex={index} onSelect={handleSelect}>
           {carsoulTopics.length ? (
             carsoulTopics.map((topic, topicIndex) => (
-              <Carousel.Item key={topicIndex}>
+              <Carousel.Item
+                key={topicIndex}
+                as={Link}
+                to={`/topics/${topic.slug}`}
+              >
                 <img
-                  className='d-block w-100'
+                  className='d-block w-100 h-25'
                   src={`${process.env.REACT_APP_API_URL}/api/images/${topic.coverImage}`}
                   alt={`Slider ${topicIndex}`}
                 />

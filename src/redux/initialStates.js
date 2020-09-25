@@ -1,5 +1,12 @@
 import { messages } from '../helpers/messages';
 
+export const baseState = (key = 'data', value = null) => {
+  return {
+    loading: true,
+    done: false,
+    [key]: value
+  };
+};
 export const initialCategoryState = {
   navCategories: [],
   navLoading: false,

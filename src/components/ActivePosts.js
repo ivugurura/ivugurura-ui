@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fromString } from 'html-to-text';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getDashboardTopics, updateTopic } from '../redux/actions/topics';
 import { Loading, ActionButtons } from './common';
 import { truncate, formatDate } from '../utils/constants';
@@ -8,29 +8,27 @@ import { ActionConfirm } from './models';
 import { Card, Table } from 'react-bootstrap';
 
 export const ActivePosts = ({ history }) => {
-  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [currentTopic, setCurrentTopic] = useState({ title: 'title' });
   const [btnAction, setBtnAction] = useState('');
   const pageSize = 10;
   const {
     dashboard: { topicsLoading, topics },
-    oneTopic: { topicUpdated }
-  } = useSelector(({ dashboard, oneTopic }) => ({
+    topicEdit: { done, loading }
+  } = useSelector(({ dashboard, topicEdit }) => ({
     dashboard,
-    oneTopic
+    topicEdit
   }));
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    if (topicUpdated) {
+    if (done) {
       setShow(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topicUpdated]);
+  }, [done]);
   useEffect(() => {
     getDashboardTopics(currentPage, pageSize);
-  }, [currentPage, topicUpdated]);
+  }, [currentPage, done]);
   const onChangePaginate = (action) => {
     let currentLocation =
       action === 'next'
@@ -48,17 +46,16 @@ export const ActivePosts = ({ history }) => {
   return (
     <>
       <ActionConfirm
-        title='COnfirm the action'
+        title='Confirm the action'
         description={currentTopic.title}
         show={show}
         action={btnAction}
         onHide={() => setShow(false)}
+        loading={loading}
         onAction={() =>
-          dispatch(
-            updateTopic(
-              { isPublished: !currentTopic.isPublished },
-              currentTopic.slug
-            )
+          updateTopic(
+            { isPublished: !currentTopic.isPublished },
+            currentTopic.slug
           )
         }
       />

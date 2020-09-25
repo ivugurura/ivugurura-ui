@@ -6,7 +6,9 @@ import {
   GET_DASHBOARD_COUNTS,
   UPDATE_TOPIC,
   GET_CATEGORY_TOPICS,
-  GET_ADMIN_TOPICS
+  GET_ADMIN_TOPICS,
+  RESET_ADD_TOPIC,
+  RESET_UPDATE_TOPIC
 } from './actionTypes';
 import { http } from '../../helpers';
 import { store } from '../store';
@@ -37,10 +39,10 @@ export const getTopicDetail = (topicSlug) => {
   });
 };
 export const addTopic = (newTopic) => {
-  return {
+  store.dispatch({
     type: ADD_NEW_TOPIC,
     payload: http.post('/topics', newTopic)
-  };
+  });
 };
 export const getDashboardTopics = (page = 1, pageSize = 20) => {
   const params = `page=${page}&pageSize=${pageSize}`;
@@ -50,14 +52,20 @@ export const getDashboardTopics = (page = 1, pageSize = 20) => {
   });
 };
 export const getDashboadCount = () => {
-  return {
+  store.dispatch({
     type: GET_DASHBOARD_COUNTS,
     payload: http.get('/user/dashboard')
-  };
+  });
 };
 export const updateTopic = (updatedTopic, topicSlug) => {
-  return {
+  store.dispatch({
     type: UPDATE_TOPIC,
     payload: http.patch(`/topics/${topicSlug}`, updatedTopic)
-  };
+  });
+};
+export const resetTopicAction = (type = 'add') => {
+  const actionType = type === 'add' ? RESET_ADD_TOPIC : RESET_UPDATE_TOPIC;
+  store.dispatch({
+    type: actionType
+  });
 };

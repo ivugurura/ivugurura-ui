@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { AdminPageHeader, CardCounter, Loading } from '../components/common';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getDashboadCount } from '../redux/actions';
 import { ActivePosts } from '../components/ActivePosts';
 import { Page } from '../components';
@@ -8,13 +8,11 @@ import { Page } from '../components';
 export const Dashboard = ({ history }) => {
   const {
     dashboard: { countLoading, counts },
-    oneTopic: { topicUpdated }
-  } = useSelector(({ dashboard, oneTopic }) => ({ dashboard, oneTopic }));
-  const dispatch = useDispatch();
+    topicEdit: { done }
+  } = useSelector(({ dashboard, topicEdit }) => ({ dashboard, topicEdit }));
   useEffect(() => {
-    dispatch(getDashboadCount());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topicUpdated]);
+    getDashboadCount();
+  }, [done]);
   return (
     <Page title='Dashboard'>
       <AdminPageHeader

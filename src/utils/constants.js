@@ -51,4 +51,5 @@ export const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 export const currentLang = systemLanguages.find(
   (lang) => lang.abbr === systemLanguage
 );
-export const userListener = 'user-listener';
+export const USER_LISTENER = 'user-listener';
+export const CHAT_ROOM = '';

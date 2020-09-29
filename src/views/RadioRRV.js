@@ -16,31 +16,55 @@ import { Page, Radio } from '../components';
 import { Communique } from '../components/common';
 import { ChatInput, Messages } from '../components/Chat';
 import { USER_LISTENER } from '../utils/constants';
+import { getMessages } from '../redux/actions';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 let socket = socketIo(process.env.REACT_APP_API_URL);
 export const RadioRRV = () => {
   const localUser = localStorage.getItem(USER_LISTENER);
+  const {
+    chatGet: { loaded, messages: chats },
+    user: { isAuthenticated, info }
+  } = useSelector(({ chatGet, user }) => ({ chatGet, user }));
   const [user, setUser] = useState({});
   const [listener, setListener] = useState({ userId: '', name: '' });
   const [users, setUsers] = useState([]);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
+  const [joinMessages, setJoinMessages] = useState([]);
 
   useEffect(() => {
     if (localUser) {
       setUser(JSON.parse(localUser));
     }
-  }, [localUser]);
+    if (isAuthenticated) {
+      setUser({ userId: info.email, name: info.names });
+    }
+  }, [localUser, isAuthenticated]);
+
   useEffect(() => {
     if (user.userId) {
+      const msgParams = isAuthenticated ? null : user.userId;
       socket.emit('join', user, (error) => {
         if (error) console.log('Error', error);
       });
+      getMessages(msgParams);
     }
-  }, [user]);
+  }, [user, isAuthenticated]);
+  useEffect(() => {
+    if (isAuthenticated) {
+      getMessages();
+    }
+  }, [isAuthenticated]);
+  useEffect(() => {
+    if (loaded) {
+      setMessages(chats);
+    }
+  }, [loaded, chats]);
   useEffect(() => {
     socket.on('join-message', (joinMessage) => {
-      setMessages((msgs) => [...msgs, joinMessage]);
+      toast(joinMessage.content);
     });
     socket.on('users-list', ({ users: listeners }) => {
       setUsers(listeners);
@@ -73,11 +97,22 @@ export const RadioRRV = () => {
             <Radio />
           </Col>
           <Col xs={12} md={4} lg={4}>
-            <ListGroup variant='flush'>
-              {users.map((user, userIdx) => (
-                <ListGroup.Item key={userIdx}>{user.name}</ListGroup.Item>
-              ))}
-            </ListGroup>
+            <Row>
+              <Col xs={12} md={12} lg={12}>
+                <ListGroup variant='flush'>
+                  {users.map((user, userIdx) => (
+                    <ListGroup.Item key={userIdx}>{user.name}</ListGroup.Item>
+                  ))}
+                </ListGroup>
+              </Col>
+              <Col xs={12} md={12} lg={12}>
+                <ListGroup variant='flush'>
+                  {joinMessages.map((msg, msgIdx) => (
+                    <ListGroup.Item key={msgIdx}>{msg.content}</ListGroup.Item>
+                  ))}
+                </ListGroup>
+              </Col>
+            </Row>
           </Col>
           <Col xs={12} md={5} lg={5}>
             <Card>

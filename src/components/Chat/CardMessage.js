@@ -4,10 +4,10 @@ import ReactEmoji from 'react-emoji';
 
 import './styles/cardMessage.css';
 
-export const CardMessage = ({ message: { user, content }, name }) => {
+export const CardMessage = ({ message: { senderName, content }, name }) => {
   let isSentByCurrentUser = false;
 
-  if (user === name) {
+  if (senderName === name) {
     isSentByCurrentUser = true;
   }
 
@@ -23,7 +23,7 @@ export const CardMessage = ({ message: { user, content }, name }) => {
       <div className='messageBox backgroundLight'>
         <p className='messageText colorDark'>{content}</p>
       </div>
-      <p className='sentText pl-10'>{user}</p>
+      <p className='sentText pl-10'>{senderName}</p>
     </div>
   );
 };

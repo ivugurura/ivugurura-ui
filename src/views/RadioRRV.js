@@ -31,50 +31,62 @@ export const RadioRRV = () => {
   const [listener, setListener] = useState({ userId: '', name: '' });
   const [users, setUsers] = useState([]);
   const [message, setMessage] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
   const [messages, setMessages] = useState([]);
-  const [joinMessages, setJoinMessages] = useState([]);
 
   useEffect(() => {
-    if (localUser) {
+    if (localUser && !isAuthenticated) {
       setUser(JSON.parse(localUser));
     }
     if (isAuthenticated) {
       setUser({ userId: info.email, name: info.names });
     }
-  }, [localUser, isAuthenticated]);
-
+  }, [localUser, isAuthenticated, info]);
   useEffect(() => {
     if (user.userId) {
-      const msgParams = isAuthenticated ? null : user.userId;
-      socket.emit('join', user, (error) => {
-        if (error) console.log('Error', error);
-      });
+      const msgParams = isAuthenticated ? 'all' : user.userId;
+      socket.emit('join', user, (error) => {});
       getMessages(msgParams);
     }
-  }, [user, isAuthenticated]);
-  useEffect(() => {
-    if (isAuthenticated) {
-      getMessages();
-    }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user]);
   useEffect(() => {
     if (loaded) {
       setMessages(chats);
     }
   }, [loaded, chats]);
   useEffect(() => {
+    const notAuthUser = JSON.parse(localUser);
     socket.on('join-message', (joinMessage) => {
-      toast(joinMessage.content);
+      if (isAuthenticated) {
+        toast(joinMessage.content);
+      } else if (
+        !isAuthenticated &&
+        joinMessage.senderId === notAuthUser.userId
+      ) {
+        toast(joinMessage.content);
+      }
     });
+
     socket.on('users-list', ({ users: listeners }) => {
-      setUsers(listeners);
+      if (isAuthenticated) {
+        setUsers(listeners);
+      }
     });
     socket.on('new-message', (newMessage) => {
-      setMessages((msgs) => [...msgs, newMessage]);
+      if (isAuthenticated) {
+        setMessages((msgs) => [...msgs, newMessage]);
+      } else if (
+        !isAuthenticated &&
+        (newMessage.senderId === notAuthUser.userId ||
+          newMessage.receiverId === notAuthUser.userId)
+      ) {
+        setMessages((msgs) => [...msgs, newMessage]);
+      }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const saveListener = () => {
-    if (listener.name) {
+    if (!isAuthenticated && listener.name) {
       listener.userId = v4();
       localStorage.setItem(USER_LISTENER, JSON.stringify(listener));
       setListener({ userId: '', name: '' });
@@ -88,6 +100,10 @@ export const RadioRRV = () => {
       );
     }
   };
+  const activateUser = (thisUser) => {
+    setCurrentUser(thisUser);
+    getMessages(thisUser.userId);
+  };
   return (
     <Page title='Ijwi ry Ubugorozi'>
       <Communique />
@@ -99,24 +115,31 @@ export const RadioRRV = () => {
           <Col xs={12} md={4} lg={4}>
             <Row>
               <Col xs={12} md={12} lg={12}>
-                <ListGroup variant='flush'>
-                  {users.map((user, userIdx) => (
-                    <ListGroup.Item key={userIdx}>{user.name}</ListGroup.Item>
+                <ListGroup as='ul'>
+                  {users.map((usr, userIdx) => (
+                    <ListGroup.Item
+                      key={userIdx}
+                      active={usr.userId === currentUser.userId}
+                      disabled={usr.userId === user.userId}
+                      onClick={() => activateUser(usr)}
+                    >
+                      {usr.name}
+                    </ListGroup.Item>
                   ))}
                 </ListGroup>
               </Col>
-              <Col xs={12} md={12} lg={12}>
-                <ListGroup variant='flush'>
-                  {joinMessages.map((msg, msgIdx) => (
-                    <ListGroup.Item key={msgIdx}>{msg.content}</ListGroup.Item>
-                  ))}
-                </ListGroup>
-              </Col>
+              <Col xs={12} md={12} lg={12}></Col>
             </Row>
           </Col>
           <Col xs={12} md={5} lg={5}>
             <Card>
-              <Card.Header>Reformation voice</Card.Header>
+              <Card.Header>
+                {!isAuthenticated
+                  ? 'Reformation voice'
+                  : currentUser.userId
+                  ? `Message to ${currentUser.name.toUpperCase()}`
+                  : 'Reformation voice'}
+              </Card.Header>
               {user.name ? (
                 <>
                   <Card.Body>
@@ -126,13 +149,15 @@ export const RadioRRV = () => {
                       </div>
                     </div>
                   </Card.Body>
-                  <Card.Footer>
-                    <ChatInput
-                      message={message}
-                      setMessage={setMessage}
-                      sendMessage={sendMessage}
-                    />
-                  </Card.Footer>
+                  {!isAuthenticated || currentUser.userId ? (
+                    <Card.Footer>
+                      <ChatInput
+                        message={message}
+                        setMessage={setMessage}
+                        sendMessage={sendMessage}
+                      />
+                    </Card.Footer>
+                  ) : null}
                 </>
               ) : (
                 <InputGroup size='lg' className='mb-4 mt-4'>

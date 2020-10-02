@@ -55,14 +55,10 @@ export const RadioRRV = () => {
     }
   }, [loaded, chats]);
   useEffect(() => {
-    const notAuthUser = JSON.parse(localUser);
     socket.on('join-message', (joinMessage) => {
       if (isAuthenticated) {
         toast(joinMessage.content);
-      } else if (
-        !isAuthenticated &&
-        joinMessage.senderId === notAuthUser.userId
-      ) {
+      } else if (!isAuthenticated && joinMessage.senderId === user.userId) {
         toast(joinMessage.content);
       }
     });
@@ -77,8 +73,8 @@ export const RadioRRV = () => {
         setMessages((msgs) => [...msgs, newMessage]);
       } else if (
         !isAuthenticated &&
-        (newMessage.senderId === notAuthUser.userId ||
-          newMessage.receiverId === notAuthUser.userId)
+        (newMessage.senderId === user.userId ||
+          newMessage.receiverId === user.userId)
       ) {
         setMessages((msgs) => [...msgs, newMessage]);
       }
@@ -89,20 +85,28 @@ export const RadioRRV = () => {
     if (!isAuthenticated && listener.name) {
       listener.userId = v4();
       localStorage.setItem(USER_LISTENER, JSON.stringify(listener));
+      setUser(listener);
       setListener({ userId: '', name: '' });
     }
   };
   const sendMessage = (event) => {
     event.preventDefault();
+    const receiverId = isAuthenticated ? currentUser.userId : null;
     if (message) {
-      socket.emit('send-message', { userId: user.userId, message }, () =>
-        setMessage('')
+      socket.emit(
+        'send-message',
+        { senderId: user.userId, message, receiverId },
+        () => setMessage('')
       );
     }
   };
   const activateUser = (thisUser) => {
     setCurrentUser(thisUser);
     getMessages(thisUser.userId);
+  };
+  const closeActiveUser = () => {
+    setCurrentUser({});
+    getMessages('all');
   };
   return (
     <Page title='Ijwi ry Ubugorozi'>
@@ -134,18 +138,26 @@ export const RadioRRV = () => {
           <Col xs={12} md={5} lg={5}>
             <Card>
               <Card.Header>
-                {!isAuthenticated
-                  ? 'Reformation voice'
-                  : currentUser.userId
-                  ? `Message to ${currentUser.name.toUpperCase()}`
-                  : 'Reformation voice'}
+                {!isAuthenticated ? (
+                  'Reformation voice'
+                ) : currentUser.userId ? (
+                  <div>
+                    {`Message to ${currentUser.name.toUpperCase()}`}{' '}
+                    <i
+                      className='fa fa-window-close'
+                      onClick={() => closeActiveUser()}
+                    ></i>
+                  </div>
+                ) : (
+                  'Reformation voice'
+                )}
               </Card.Header>
               {user.name ? (
                 <>
                   <Card.Body>
                     <div className='outerContainer'>
                       <div className='chatContainer'>
-                        <Messages messages={messages} name={user.name} />
+                        <Messages messages={messages} userId={user.userId} />
                       </div>
                     </div>
                   </Card.Body>

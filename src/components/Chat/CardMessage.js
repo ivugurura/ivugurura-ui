@@ -4,16 +4,19 @@ import ReactEmoji from 'react-emoji';
 
 import './styles/cardMessage.css';
 
-export const CardMessage = ({ message: { senderName, content }, name }) => {
+export const CardMessage = ({
+  message: { senderId, senderName, content },
+  userId
+}) => {
   let isSentByCurrentUser = false;
 
-  if (senderName === name) {
+  if (senderId === userId) {
     isSentByCurrentUser = true;
   }
 
   return isSentByCurrentUser ? (
     <div className='messageContainer justifyEnd'>
-      <p className='sentText pr-10'>{name}</p>
+      <p className='sentText pr-10'>You</p>
       <div className='messageBox backgroundBlue'>
         <p className='messageText colorWhite'>{ReactEmoji.emojify(content)}</p>
       </div>

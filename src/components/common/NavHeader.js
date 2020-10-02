@@ -82,7 +82,7 @@ export const NavHeader = () => {
             size='sm'
             onClick={() => setShowSearch(true)}
           />
-          <Button variant='danger' size='sm'>
+          <Button variant='danger' size='sm' as={Link} to='/radio'>
             {translate('listenRadio')}
           </Button>
           {/* <Form.Control

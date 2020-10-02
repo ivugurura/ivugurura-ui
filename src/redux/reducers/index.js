@@ -26,7 +26,7 @@ import {
   getPubCommuniqueReducer,
   publishCommuniqueReducer
 } from './communiqueReducer';
-import { contactUsReducer } from './utilReducer';
+import { chatGetReducer, contactUsReducer } from './utilReducer';
 
 export const rootReducer = combineReducers({
   category: categoryReducer,
@@ -52,5 +52,6 @@ export const rootReducer = combineReducers({
   adminComments: adminCommentsReducer,
   publishComment: publishCommentReducer,
   contactUs: contactUsReducer,
-  categoryAdd: categoryAddReducer
+  categoryAdd: categoryAddReducer,
+  chatGet: chatGetReducer
 });

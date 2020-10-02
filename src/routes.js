@@ -13,7 +13,8 @@ import {
   AdminVideo,
   AdminSetting,
   AdminCommentaries,
-  NotFound
+  NotFound,
+  RadioRRV
 } from './views';
 
 export const routes = [
@@ -82,6 +83,11 @@ export const routes = [
         path: '/topics/categories/:categorySlug',
         exact: true,
         component: CategoryTopics
+      },
+      {
+        path: '/radio',
+        exact: true,
+        component: RadioRRV
       },
       {
         path: '/errors/error-400',

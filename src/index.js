@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+// import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'suneditor/dist/css/suneditor.min.css';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-chat-widget/lib/styles.css';
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
 

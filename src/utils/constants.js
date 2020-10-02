@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 const flagUrl = `${process.env.PUBLIC_URL}/img/flags/16`;
-const systemLanguage = localStorage.getItem('lang');
+const systemLanguage = localStorage.getItem('lang') || 'kn';
 export const topicEditorButtons = [
   ['undo', 'redo'],
   ['font', 'fontSize', 'formatBlock'],
@@ -51,3 +51,5 @@ export const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 export const currentLang = systemLanguages.find(
   (lang) => lang.abbr === systemLanguage
 );
+export const USER_LISTENER = 'user-listener';
+export const CHAT_ROOM = '';

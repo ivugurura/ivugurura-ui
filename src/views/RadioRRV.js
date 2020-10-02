@@ -46,6 +46,7 @@ export const RadioRRV = () => {
     if (user.userId) {
       const msgParams = isAuthenticated ? 'all' : user.userId;
       socket.emit('join', user, (error) => {});
+      setUser(user);
       getMessages(msgParams);
     }
   }, [isAuthenticated, user]);
@@ -69,15 +70,21 @@ export const RadioRRV = () => {
       }
     });
     socket.on('new-message', (newMessage) => {
+      const notAuthUser = JSON.parse(localUser);
+      const notAuthUserId = notAuthUser ? notAuthUser.userId : null;
       if (isAuthenticated) {
         setMessages((msgs) => [...msgs, newMessage]);
       } else if (
         !isAuthenticated &&
-        (newMessage.senderId === user.userId ||
-          newMessage.receiverId === user.userId)
+        (newMessage.senderId === notAuthUserId ||
+          newMessage.receiverId === notAuthUserId ||
+          newMessage.fromAdmin)
       ) {
         setMessages((msgs) => [...msgs, newMessage]);
       }
+    });
+    socket.on('send-message-error', (errorMessage) => {
+      toast(errorMessage.message);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -91,11 +98,17 @@ export const RadioRRV = () => {
   };
   const sendMessage = (event) => {
     event.preventDefault();
-    const receiverId = isAuthenticated ? currentUser.userId : null;
+    let receiverId = null;
+    let fromAdmin = false;
+    if (isAuthenticated && currentUser.userId) {
+      receiverId = currentUser.userId;
+    } else if (isAuthenticated && !currentUser.userId) {
+      fromAdmin = true;
+    }
     if (message) {
       socket.emit(
         'send-message',
-        { senderId: user.userId, message, receiverId },
+        { senderId: user.userId, message, receiverId, fromAdmin },
         () => setMessage('')
       );
     }
@@ -152,43 +165,41 @@ export const RadioRRV = () => {
                   'Reformation voice'
                 )}
               </Card.Header>
-              {user.name ? (
-                <>
-                  <Card.Body>
-                    <div className='outerContainer'>
-                      <div className='chatContainer'>
-                        <Messages messages={messages} userId={user.userId} />
-                      </div>
+              <>
+                <Card.Body>
+                  <div className='outerContainer'>
+                    <div className='chatContainer'>
+                      <Messages messages={messages} userId={user.userId} />
                     </div>
-                  </Card.Body>
-                  {!isAuthenticated || currentUser.userId ? (
-                    <Card.Footer>
-                      <ChatInput
-                        message={message}
-                        setMessage={setMessage}
-                        sendMessage={sendMessage}
-                      />
-                    </Card.Footer>
-                  ) : null}
-                </>
-              ) : (
-                <InputGroup size='lg' className='mb-4 mt-4'>
-                  <FormControl
-                    placeholder='To give idea or concern, give your names'
-                    aria-label='To give idea or concern, give your names'
-                    aria-describedby='listener-info'
-                    value={listener.name}
-                    onChange={({ target }) =>
-                      setListener({ ...listener, name: target.value })
-                    }
-                  />
-                  <InputGroup.Append>
-                    <Button variant='outline-secondary' onClick={saveListener}>
-                      Save
-                    </Button>
-                  </InputGroup.Append>
-                </InputGroup>
-              )}
+                  </div>
+                </Card.Body>
+                {isAuthenticated || user.name ? (
+                  <Card.Footer>
+                    <ChatInput
+                      message={message}
+                      setMessage={setMessage}
+                      sendMessage={sendMessage}
+                    />
+                  </Card.Footer>
+                ) : (
+                  <InputGroup size='lg' className='mb-4 mt-4'>
+                    <FormControl
+                      placeholder='Type your names'
+                      aria-label='Type your names'
+                      aria-describedby='listener-info'
+                      value={listener.name}
+                      onChange={({ target }) =>
+                        setListener({ ...listener, name: target.value })
+                      }
+                    />
+                    <InputGroup.Append>
+                      <Button variant='primary' onClick={saveListener}>
+                        Save
+                      </Button>
+                    </InputGroup.Append>
+                  </InputGroup>
+                )}
+              </>
             </Card>
           </Col>
         </Row>

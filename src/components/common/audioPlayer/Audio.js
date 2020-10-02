@@ -7,7 +7,7 @@ import { Pause } from './Pause';
 import { Bar } from './Bar';
 import { useAudioPlayer } from './useAudioPlayer';
 
-const songUrl = `${process.env.PUBLIC_URL}/Yesu-ni-inzira.mp3`;
+const songUrl = `${process.env.PUBLIC_URL}/Mbese-nkore-iki.mp3`;
 export const Audio = () => {
   const {
     curTime,
@@ -23,7 +23,7 @@ export const Audio = () => {
           <source src={songUrl} />
           Your browser does not support the <code>audio</code> element.
         </audio>
-        <Song songName='Yesu n inzira' songArtist='Ndi Hano Mwami' />
+        <Song songName='Mbese nkore iki' songArtist='Itabaza' />
       </Card.Header>
       <Card.Body>
         <Row>

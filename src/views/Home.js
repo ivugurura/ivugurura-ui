@@ -1,71 +1,65 @@
-import React, { Fragment, useState } from 'react';
+import React from 'react';
 import VideoPlayer from 'react-player';
-import { Container, Row, Card, Col, Carousel } from 'react-bootstrap';
-import { SampleTopics, Audio } from '../components/common';
+// import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { Container, Row, Col } from 'react-bootstrap';
+import { SampleTopics, Communique } from '../components/common';
+import { translate } from '../components/utils';
+import { Page, Radio, TopicsCarousel } from '../components';
 
-const ytbImg = `${process.env.PUBLIC_URL}/yt-img.png`;
-const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
+// const ytbImg = `${process.env.PUBLIC_URL}/yt-img.png`;
 export const Home = () => {
-  const [topicIndex, setTopicIndex] = useState(0);
-
-  const handleSelect = (selectedIndex, e) => {
-    setTopicIndex(selectedIndex);
-  };
   return (
-    <Fragment>
+    <Page title='Home'>
+      <Communique />
       <Container fluid>
         <Row>
           <Col md={6} lg={6} xs={12}>
-            <Carousel activeIndex={topicIndex} onSelect={handleSelect}>
-              {[1, 2, 3].map((item) => (
-                <Carousel.Item key={item}>
-                  <img
-                    className='d-block w-100'
-                    src={topicImg}
-                    alt={`Slider ${item}`}
-                  />
-                  <Carousel.Caption>
-                    <h3>Topic title {item}</h3>
-                    <p>
-                      {item} Some quick example text to build on the card title
-                      and make up the bulk of the card's content...
-                    </p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-              ))}
-            </Carousel>
+            <TopicsCarousel />
           </Col>
           <Col md={6} lg={6} xs={12}>
-            <Card>
-              <VideoPlayer
-                url='https://www.youtube.com/watch?v=aMqN62kfTJI'
-                playing={false}
-                width='100%'
-              />
-            </Card>
+            <Row>
+              <Col xs={12} sm={12} md={6}>
+                <h4>{translate('radioName')}</h4>
+                <i>{translate('radioMsg')}</i>
+                <h6>{translate('listen')}</h6>
+              </Col>
+              <Col xs={12} sm={12} md={6}>
+                <Radio />
+              </Col>
+              <Col xs={12} sm={12} md={12}>
+                <VideoPlayer
+                  url='https://www.youtube.com/watch?v=45KCx3YrSKU'
+                  playing={false}
+                  width='100%'
+                  height='170%'
+                />
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>
-      <SampleTopics isHomePage />
-      <Card>
-        <Card.Header className='text-center'>
-          <h1>Indirimbo na video z Abagorozi</h1>
+      <SampleTopics isHomePage topics={[]} loading={false} />
+      {/* <Card>
+        <Card.Header className='text-center' style={bgStyles.bgPrimary}>
+          <h1 style={textStyles.textTransparent}>
+            {translate('audioVideoTxt')}
+          </h1>
         </Card.Header>
         <Card.Body>
           <Row>
-            <Col xs={12} md={4} lg={4}>
-              <Audio />
+            <Col xs={12} md={3} lg={4}>
+              <AudioPlayer />
             </Col>
-            <Col xs={12} md={8} lg={8}>
+            <Col xs={12} md={9} lg={8}>
               <VideoPlayer
-                url='https://www.youtube.com/watch?v=hWAn04AtDZg'
+                url='https://www.youtube.com/watch?v=jvZy1emoFV0'
                 playing={false}
                 width='100%'
               />
             </Col>
           </Row>
         </Card.Body>
-      </Card>
-    </Fragment>
+      </Card> */}
+    </Page>
   );
 };

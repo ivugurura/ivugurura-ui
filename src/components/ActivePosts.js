@@ -1,55 +1,136 @@
-import React from 'react';
-import { Card, Media, Row, Col, Pagination } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { fromString } from 'html-to-text';
+import { useSelector } from 'react-redux';
+import { getDashboardTopics, updateTopic } from '../redux/actions/topics';
+import { Loading, ActionButtons } from './common';
+import { truncate, formatDate } from '../utils/constants';
+import { ActionConfirm } from './models';
+import { Card, Table } from 'react-bootstrap';
 
-const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
-export const ActivePosts = () => {
+export const ActivePosts = ({ history }) => {
+  const [show, setShow] = useState(false);
+  const [currentTopic, setCurrentTopic] = useState({ title: 'title' });
+  const [btnAction, setBtnAction] = useState('');
+  const pageSize = 10;
+  const {
+    dashboard: { topicsLoading, topics },
+    topicEdit: { done, loading }
+  } = useSelector(({ dashboard, topicEdit }) => ({
+    dashboard,
+    topicEdit
+  }));
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    if (done) {
+      setShow(false);
+    }
+  }, [done]);
+  useEffect(() => {
+    getDashboardTopics(currentPage, pageSize);
+  }, [currentPage, done]);
+  const onChangePaginate = (action) => {
+    let currentLocation =
+      action === 'next'
+        ? currentPage + 1
+        : currentPage === 1
+        ? 1
+        : currentPage - 1;
+    setCurrentPage(currentLocation);
+  };
+  const onTopicSetCurrent = (theTopic, action) => {
+    setCurrentTopic(theTopic);
+    setBtnAction(action);
+    setShow(true);
+  };
   return (
-    <Card>
-      <Card.Header>
-        <Card.Title>ACTIVE POSTS</Card.Title>
-      </Card.Header>
-      <Card.Body>
-        {[1, 2, 3].map((topic) => (
-          <Media key={topic}>
-            <img
-              width={64}
-              height={100}
-              className='img-thumbnail'
-              src={topicImg}
-              alt='Generic placeholder'
-            />
-            <Media.Body>
-              <b>{`Media Heading ${topic}`}</b>
-              <p>
-                Donec sed odio dui. Nullam quis risus eget urna mollis ornare
-                vel eu leo. Cum sociis natoque penatibus
-              </p>
-              <hr />
-            </Media.Body>
-          </Media>
-        ))}
-      </Card.Body>
-      <Card.Footer>
-        <Row>
-          <Col xs={12}>
-            <Pagination size='sm'>
-              <Pagination.First />
-              <Pagination.Prev />
-              <Pagination.Item>{1}</Pagination.Item>
-              <Pagination.Ellipsis />
-
-              <Pagination.Item active>{12}</Pagination.Item>
-              <Pagination.Item>{13}</Pagination.Item>
-              <Pagination.Item disabled>{14}</Pagination.Item>
-
-              <Pagination.Ellipsis />
-              <Pagination.Item>{20}</Pagination.Item>
-              <Pagination.Next />
-              <Pagination.Last />
-            </Pagination>
-          </Col>
-        </Row>
-      </Card.Footer>
-    </Card>
+    <>
+      <ActionConfirm
+        title='Confirm the action'
+        description={currentTopic.title}
+        show={show}
+        action={btnAction}
+        onHide={() => setShow(false)}
+        loading={loading}
+        onAction={() =>
+          updateTopic(
+            { isPublished: !currentTopic.isPublished },
+            currentTopic.slug
+          )
+        }
+      />
+      <Card>
+        <Card.Header as='h4'>Recent Updates</Card.Header>
+        <Card.Body>
+          {topicsLoading ? (
+            <Loading />
+          ) : topics.length ? (
+            <Table responsive='sm'>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Topic title</th>
+                  <th>Simple description</th>
+                  <th>View</th>
+                  <th>Published at</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {topics.map((topic, topicIdx) => (
+                  <tr key={topicIdx}>
+                    <td>
+                      <div className='icon'>
+                        <i className='icon-rss-feed'></i>
+                      </div>
+                    </td>
+                    <td>{topic.title}</td>
+                    <td>{truncate(fromString(topic.content), 200)}</td>
+                    <td>{topic.views.length} views</td>
+                    <td>{formatDate(topic.createdAt)}</td>
+                    <td>
+                      <ActionButtons
+                        onDelete={() => {}}
+                        status={topic.isPublished ? 'Unpublish' : 'Publish'}
+                        onEdit={() =>
+                          history.push(`/admin/edit-topic/${topic.slug}`)
+                        }
+                        onPublish={() =>
+                          onTopicSetCurrent(
+                            topic,
+                            topic.isPublished ? 'unpublish' : 'publish'
+                          )
+                        }
+                        isTopic
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          ) : (
+            <h6 className='text-info text-center'>No published topics</h6>
+          )}
+        </Card.Body>
+        <Card.Footer>
+          <nav aria-label='Page navigation example'>
+            <ul className='pagination justify-content-end'>
+              <li
+                className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}
+                onClick={() => onChangePaginate('prev')}
+              >
+                <button className='page-link btn-link'>Previous</button>
+              </li>
+              <li
+                onClick={() => onChangePaginate('next')}
+                className={`page-item ${!topics.length ? 'disabled' : ''}`}
+              >
+                <button className='page-link btn-link'>Next</button>
+              </li>
+            </ul>
+          </nav>
+        </Card.Footer>
+      </Card>
+    </>
   );
 };

@@ -8,7 +8,7 @@ if (localStorage.user) {
 const lang = localStorage.lang || 'kn';
 
 export const http = axios.create({
-  baseURL: `${process.env.REACT_APP_API_URL}/api`,
+  baseURL: `${process.env.REACT_APP_API_URL}/socket.io/`,
   withCredentials: true,
   headers: {
     Authorization: token,

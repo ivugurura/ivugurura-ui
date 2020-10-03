@@ -20,7 +20,7 @@ import { getMessages } from '../redux/actions';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-let socket = socketIo.connect(process.env.REACT_APP_API_URL);
+let socket = socketIo.connect(process.env.REACT_APP_SOCKET_URL);
 
 export const RadioRRV = () => {
   const localUser = localStorage.getItem(USER_LISTENER);
@@ -174,7 +174,7 @@ export const RadioRRV = () => {
                     </div>
                   </div>
                 </Card.Body>
-                {user.name === 'reformation' ? (
+                {isAuthenticated || user.name ? (
                   <Card.Footer>
                     <ChatInput
                       message={message}

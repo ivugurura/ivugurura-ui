@@ -174,7 +174,7 @@ export const RadioRRV = () => {
                     </div>
                   </div>
                 </Card.Body>
-                {isAuthenticated || user.name ? (
+                {user.name === 'reformation' ? (
                   <Card.Footer>
                     <ChatInput
                       message={message}

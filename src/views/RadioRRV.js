@@ -20,7 +20,9 @@ import { getMessages } from '../redux/actions';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-let socket = socketIo.connect(process.env.REACT_APP_API_URL);
+let socket = socketIo.connect(process.env.REACT_APP_API_URL, {
+  transports: ['websocket', 'polling']
+});
 
 export const RadioRRV = () => {
   const localUser = localStorage.getItem(USER_LISTENER);

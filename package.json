@@ -1,6 +1,7 @@
 {
-  "name": "ivugurura-ui",
-  "version": "0.1.0",
+  "name": "ivugurura",
+  "version": "1.0.0",
+  "description": "Reformation and revival",
   "private": true,
   "engines": {
     "node": "12.18.0"
@@ -63,7 +64,8 @@
   "scripts": {
     "start": "babel-node  server.js",
     "dev": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && npm run mv-build",
+    "mv-build": "rm -rf ../ivugururaApi/build && mv build ../ivugururaApi/build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "compress": "tar zcvf build.tar.gz build/",

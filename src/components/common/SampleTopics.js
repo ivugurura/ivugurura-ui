@@ -72,7 +72,7 @@ export const SampleTopics = ({ isHomePage, topics, loading }) => {
                   <Card>
                     <Card.Img
                       variant='top'
-                      src={`${process.env.REACT_APP_API_URL}/api/images/${topic.coverImage}`}
+                      src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
                     />
                     <Card.Body>
                       <Card.Title>{topic.title}</Card.Title>

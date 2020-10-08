@@ -23,5 +23,6 @@ export const sw = {
   notEmailPublish: 'Email yako haita tangazwa',
   createdAt: 'ilitengenezwa ',
   commentSuccess: 'Wazolako limepokelewa. Asante',
-  mostReadTopics: 'Makala zilizo somwa zaidi'
+  mostReadTopics: 'Makala zilizo somwa zaidi',
+  btnSend: 'Tuma'
 };

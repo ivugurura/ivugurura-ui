@@ -9,7 +9,7 @@ export const commentInitialValues = {
   names: '',
   email: '',
   website: '',
-  content: '',
+  content: ''
 };
 export const CommentaryForm = ({ slug }) => {
   const [commentary, setCommentary] = useState(commentInitialValues);
@@ -77,7 +77,7 @@ export const CommentaryForm = ({ slug }) => {
         disabled={commentLoading || commentAdded}
         onClick={() => dispatch(addTopicComment(commentary, slug))}
       >
-        {commentLoading ? 'Saving comment,...' : 'Save'}
+        {commentLoading ? 'Sending comment,...' : translate('btnSend')}
       </Button>
     </Form>
   );

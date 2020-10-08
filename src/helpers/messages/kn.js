@@ -23,5 +23,6 @@ export const kn = {
   notEmailPublish: 'Email yanyu ntawe izerekwa',
   createdAt: 'Cyateguwe kuri ',
   commentSuccess: 'Igitekerezo cyanyu twacyakiriye. Murakoze',
-  mostReadTopics: 'Ibyigisho byasomwe cyane'
+  mostReadTopics: 'Ibyigisho byasomwe cyane',
+  btnSend: 'Mwohereze'
 };

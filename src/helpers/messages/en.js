@@ -23,5 +23,6 @@ export const en = {
   notEmailPublish: 'Your email address will not be published',
   createdAt: 'Created at ',
   commentSuccess: 'Your comment has been received. Thanks',
-  mostReadTopics: 'Most read posts'
+  mostReadTopics: 'Most read posts',
+  btnSend: 'Send'
 };

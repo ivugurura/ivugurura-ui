@@ -7,39 +7,39 @@ import { translate } from '../components/utils';
 import { Page, Radio, TopicsCarousel } from '../components';
 
 // const ytbImg = `${process.env.PUBLIC_URL}/yt-img.png`;
-export const Home = () => {
-  return (
-    <Page title='Home'>
-      <Communique />
-      <Container fluid>
-        <Row>
-          <Col md={6} lg={6} xs={12}>
-            <TopicsCarousel />
-          </Col>
-          <Col md={6} lg={6} xs={12}>
-            <Row>
-              <Col xs={12} sm={12} md={6}>
-                <h4>{translate('radioName')}</h4>
-                <i>{translate('radioMsg')}</i>
-                <h6>{translate('listen')}</h6>
-              </Col>
-              <Col xs={12} sm={12} md={6}>
-                <Radio />
-              </Col>
-              <Col xs={12} sm={12} md={12}>
-                <VideoPlayer
-                  url='https://www.youtube.com/watch?v=45KCx3YrSKU'
-                  playing={false}
-                  width='100%'
-                  height='170%'
-                />
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Container>
-      <SampleTopics isHomePage topics={[]} loading={false} />
-      {/* <Card>
+const Home = () => {
+	return (
+		<Page title='Home'>
+			<Communique />
+			<Container fluid>
+				<Row style={{ height: '60vh' }}>
+					<Col md={6} lg={6} xs={12}>
+						<TopicsCarousel />
+					</Col>
+					<Col md={6} lg={6} xs={12}>
+						<Row>
+							<Col xs={12} sm={12} md={6}>
+								<h4>{translate('radioName')}</h4>
+								<i>{translate('radioMsg')}</i>
+								<h6>{translate('listen')}</h6>
+							</Col>
+							<Col xs={12} sm={12} md={6}>
+								<Radio />
+							</Col>
+							<Col xs={12} sm={12} md={12}>
+								<VideoPlayer
+									url='https://www.youtube.com/watch?v=45KCx3YrSKU'
+									playing={false}
+									width='100%'
+									height='170%'
+								/>
+							</Col>
+						</Row>
+					</Col>
+				</Row>
+			</Container>
+			<SampleTopics isHomePage topics={[]} loading={false} />
+			{/* <Card>
         <Card.Header className='text-center' style={bgStyles.bgPrimary}>
           <h1 style={textStyles.textTransparent}>
             {translate('audioVideoTxt')}
@@ -60,6 +60,7 @@ export const Home = () => {
           </Row>
         </Card.Body>
       </Card> */}
-    </Page>
-  );
+		</Page>
+	);
 };
+export default Home;

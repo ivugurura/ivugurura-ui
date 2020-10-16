@@ -5,7 +5,7 @@ export * from './AdminMain';
 export * from './Dashboard';
 export * from './AddEditTopic';
 export * from './Login';
-export * from './CategoryTopics';
+export * from './ViwTopics';
 export * from './AdminAudio';
 export * from './AdminVideo';
 export * from './AdminSetting';

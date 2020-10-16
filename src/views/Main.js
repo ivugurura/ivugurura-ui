@@ -1,13 +1,16 @@
-import React, { Fragment } from 'react';
+import React, { Suspense } from 'react';
+import { ProgressBar } from 'react-bootstrap';
 import { renderRoutes } from 'react-router-config';
 import { Footer, NavHeader } from '../components/common';
 
 export const Main = ({ route }) => {
-  return (
-    <Fragment>
-      <NavHeader />
-      {renderRoutes(route.routes)}
-      <Footer isHomepage />
-    </Fragment>
-  );
+	return (
+		<>
+			<NavHeader />
+			<Suspense fallback={<ProgressBar now />}>
+				{renderRoutes(route.routes)}
+			</Suspense>
+			<Footer isHomepage />
+		</>
+	);
 };

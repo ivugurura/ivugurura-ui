@@ -6,7 +6,7 @@ import '@brainhubeu/react-carousel/lib/style.css';
 import { bgStyles, textStyles } from '../../utils/styles';
 import { Link } from 'react-router-dom';
 import { translate } from '../utils';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getTopics } from '../../redux/actions/topics';
 import { Loading } from './Loading';
 import { truncate } from '../../utils/constants';
@@ -16,10 +16,9 @@ export const SampleTopics = ({ isHomePage, topics, loading }) => {
 	let componentLoading = loading || false;
 
 	const topic = useSelector(({ topic }) => topic);
-	const dispatch = useDispatch();
 	useEffect(() => {
 		if (isHomePage) {
-			dispatch(getTopics({ page: 1, pageSize: 10, category: 'recent' }));
+			getTopics({ page: 1, pageSize: 10, category: 'recent' });
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [getTopics]);
@@ -84,7 +83,9 @@ export const SampleTopics = ({ isHomePage, topics, loading }) => {
 						))}
 					</Carousel>
 				) : null}
-				{/* <Button>View more</Button> */}
+				<Button as={Link} to='/topics'>
+					View more
+				</Button>
 			</Card.Body>
 		</Card>
 	);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getTopics } from '../redux/actions/topics';
 import { Loading } from './common';
 import { Carousel } from 'react-bootstrap';
@@ -13,9 +13,8 @@ export const TopicsCarousel = () => {
 		setIndex(selectedIndex);
 	};
 	const { carsoulLoading, carsoulTopics } = useSelector(({ topic }) => topic);
-	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(getTopics({ page: 1, pageSize: 3, category: 'carsoul' }));
+		getTopics({ page: 1, pageSize: 3, category: 'carsoul' });
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (

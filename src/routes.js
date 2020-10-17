@@ -59,6 +59,11 @@ export const routes = [
 				component: lazy(() => import('./views/Login'))
 			},
 			{
+				path: '/topics',
+				exact: true,
+				component: lazy(() => import('./views/ViwTopics'))
+			},
+			{
 				path: '/topics/:topicSlug',
 				exact: true,
 				component: lazy(() => import('./views/TopicView'))

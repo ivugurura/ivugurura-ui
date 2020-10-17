@@ -84,7 +84,7 @@ export const SampleTopics = ({ isHomePage, topics, loading }) => {
 						))}
 					</Carousel>
 				) : null}
-				<Button>View more</Button>
+				{/* <Button>View more</Button> */}
 			</Card.Body>
 		</Card>
 	);

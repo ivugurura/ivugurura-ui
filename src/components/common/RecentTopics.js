@@ -1,23 +1,23 @@
 import React, { useEffect } from 'react';
 import { Media, Card } from 'react-bootstrap';
 import { textStyles } from '../../utils/styles';
-import { translate } from '../utils';
 import { useSelector } from 'react-redux';
 import { getTopics } from '../../redux/actions';
 import { Loading } from './Loading';
 import { formatDate } from '../../utils/constants';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export const RecentTopics = () => {
+	const { t } = useTranslation();
 	const { recentLoading, recentTopics } = useSelector(({ topic }) => topic);
 	useEffect(() => {
 		getTopics({ page: 1, pageSize: 4, category: 'recent' });
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (
 		<Card.Body style={textStyles.textTransparent}>
 			<Card.Title style={textStyles.textFtTitle}>
-				{translate('recentTopics')}
+				{t('app:recentTopics')}
 			</Card.Title>
 			{recentLoading ? (
 				<Loading />

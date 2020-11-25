@@ -14,10 +14,12 @@ import { getCategoryDetail, getTopics } from '../redux/actions';
 import { Link } from 'react-router-dom';
 import { scrollToRef } from '../utils/constants';
 import { Page } from '../components';
+import { useTranslation } from 'react-i18next';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const ViwTopics = ({ match }) => {
 	const categoriesRef = useRef(null);
+	const { t } = useTranslation();
 	const { categorySlug } = match.params;
 	const {
 		topic: { categoryLoading, categoryTopics },
@@ -34,12 +36,14 @@ export const ViwTopics = ({ match }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [categorySlug]);
 	useEffect(() => {
-		const categoryType = category.id || null;
-		getTopics({ page: 1, pageSize: 20, category: categoryType });
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [category.id]);
+		if (categorySlug && category.id) {
+			getTopics({ page: 1, pageSize: 20, category: category.id });
+		} else if (!categorySlug) {
+			getTopics({ page: 1, pageSize: 20 });
+		}
+	}, [categorySlug, category.id]);
 	return (
-		<Page title={category.name || ''}>
+		<Page title={category.name || t('app:topics')}>
 			<Communique />
 			<Container fluid>
 				<Row>
@@ -48,14 +52,14 @@ export const ViwTopics = ({ match }) => {
 							<Loading />
 						) : (
 							<Breadcrumb>
-								<Breadcrumb.Item>Home</Breadcrumb.Item>
+								<Breadcrumb.Item>{t('app:topics')}</Breadcrumb.Item>
 								{category.slug ? (
 									<>
 										<Breadcrumb.Item>{category.parent.name}</Breadcrumb.Item>
 										<Breadcrumb.Item active>{category.name}</Breadcrumb.Item>
 									</>
 								) : (
-									<Breadcrumb.Item active>All topics</Breadcrumb.Item>
+									<Breadcrumb.Item active>{t('app:allTopics')}</Breadcrumb.Item>
 								)}
 							</Breadcrumb>
 						)}

@@ -1,6 +1,8 @@
 {
 	"title": "Sauti ya Matengenezo",
 	"home": "Utangurizi",
+	"topics": "Masomo",
+	"allTopics": "Masomo yote",
 	"search": "Tafuta",
 	"logoTitle": "Sauti ya Matengenezo",
 	"searchTitle": "Tafuta somo ukitumia kichwa cha somo na kategoria",
@@ -19,5 +21,6 @@
 	"createdAt": "ilitengenezwa ",
 	"commentSuccess": "Wazolako limepokelewa. Asante",
 	"mostReadTopics": "Makala zilizo somwa zaidi",
-	"btnSend": "Tuma"
+	"btnSend": "Tuma",
+	"viewMore": "Tazama masomo yote"
 }

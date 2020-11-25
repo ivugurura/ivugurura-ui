@@ -1,6 +1,8 @@
 {
   "title": "Ijwi ry Ubugorozi",
   "home": "Ahabanza",
+  "topics": "Ibyigisho",
+  "allTopics": "Ibyigisho byose",
   "search": "Shakisha",
   "searchTitle":"Shaka ibyigisho ukoresheje umutwe w ikigisho",
   "searchPHolder":"Andika umutwe w ikigisho",
@@ -19,5 +21,6 @@
   "createdAt": "Cyateguwe kuri ",
   "commentSuccess": "Igitekerezo cyanyu twacyakiriye. Murakoze",
   "mostReadTopics": "Ibyigisho byasomwe cyane",
-  "btnSend": "Mwohereze"
+  "btnSend": "Mwohereze",
+  "viewMore": "Reba ibyigisho byose"
 }

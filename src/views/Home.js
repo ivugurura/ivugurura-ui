@@ -1,13 +1,13 @@
 import React from 'react';
 import VideoPlayer from 'react-player';
-// import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import { SampleTopics, Communique } from '../components/common';
-import { translate } from '../components/utils';
 import { Page, Radio, TopicsCarousel } from '../components';
+import { useTranslation } from 'react-i18next';
 
 // const ytbImg = `${process.env.PUBLIC_URL}/yt-img.png`;
 const Home = () => {
+	const { t } = useTranslation();
 	return (
 		<Page title='Home'>
 			<Communique />
@@ -19,9 +19,9 @@ const Home = () => {
 					<Col md={6} lg={6} xs={12}>
 						<Row>
 							<Col xs={12} sm={12} md={6}>
-								<h4>{translate('radioName')}</h4>
-								<i>{translate('radioMsg')}</i>
-								<h6>{translate('listen')}</h6>
+								<h4>{t('app:radioName')}</h4>
+								<i>{t('app:radioMsg')}</i>
+								<h6>{t('app:listen')}</h6>
 							</Col>
 							<Col xs={12} sm={12} md={6}>
 								<Radio />

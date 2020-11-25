@@ -1,0 +1,23 @@
+{
+  "title": "Reformation Voice",
+  "home": "Home",
+  "search": "Search",
+  "searchTitle": "Search topics by title and categories",
+  "searchPHolder":"Type topic title or category",
+  "logoTitle": "Reformation Voice",
+  "listenRadio": "Listen radio",
+  "contactUs": "Contact us",
+  "radioName": "Reformation Voice Radio",
+  "listen": "Press here to listen",
+  "radioMsg":"The radio broadcast songs and different topics. Health, family, prophecy and other useful topics.",
+  "audioVideoTxt": "Reformers audios and videos",
+  "recentTopics": "Recent topics",
+  "relatedTopics": "Related topics",
+  "writingsCat": "Topics",
+  "leaveComment": "Leave a comment about the topic",
+  "notEmailPublish": "Your email address will not be published",
+  "createdAt": "Created at ",
+  "commentSuccess": "Your comment has been received. Thanks",
+  "mostReadTopics": "Most read posts",
+  "btnSend": "Send"
+}

@@ -6,7 +6,6 @@ import { renderRoutes } from 'react-router-config';
 import { ToastContainer } from 'react-toastify';
 import { store } from './redux/store';
 import { routes } from './routes';
-import { LangProvider } from './components';
 import { setUser } from './redux/actions';
 import './i18n';
 import { useTranslation } from 'react-i18next';
@@ -28,10 +27,8 @@ export const App = () => {
 	const { t } = useTranslation(['app']);
 	return (
 		<Provider store={store}>
-			<LangProvider>
-				<ToastContainer />
-				<Router>{renderRoutes(routes, { t })}</Router>
-			</LangProvider>
+			<ToastContainer />
+			<Router>{renderRoutes(routes, { t })}</Router>
 		</Provider>
 	);
 };

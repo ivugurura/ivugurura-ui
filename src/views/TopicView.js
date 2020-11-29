@@ -12,10 +12,11 @@ import { useSelector } from 'react-redux';
 import { getTopicDetail } from '../redux/actions/topics';
 import { CommentaryForm, Comments, Page } from '../components';
 import { formatDate, scrollToRef } from '../utils/constants';
-import { translate } from '../components/utils';
+import { useTranslation } from 'react-i18next';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 const TopicView = ({ match }) => {
+	const { t } = useTranslation();
 	const topicRef = useRef(null);
 
 	const { topicSlug } = match.params;
@@ -39,7 +40,7 @@ const TopicView = ({ match }) => {
 								<Card.Title>{topic.title}</Card.Title>
 								<Card.Subtitle className='mb-2 text-muted'>
 									<h6>
-										{translate('createdAt')} {`${formatDate(topic.createdAt)}`}
+										{t('app:createdAt')} {`${formatDate(topic.createdAt)}`}
 									</h6>
 								</Card.Subtitle>
 								<Card ref={topicRef}>

@@ -5,13 +5,14 @@ import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa';
 import '@brainhubeu/react-carousel/lib/style.css';
 import { bgStyles, textStyles } from '../../utils/styles';
 import { Link } from 'react-router-dom';
-import { translate } from '../utils';
 import { useSelector } from 'react-redux';
 import { getTopics } from '../../redux/actions/topics';
 import { Loading } from './Loading';
 import { truncate } from '../../utils/constants';
+import { useTranslation } from 'react-i18next';
 
-export const SampleTopics = ({ isHomePage, topics, loading }) => {
+export const SampleTopics = ({ isHomePage, topics, loading = false }) => {
+	const { t } = useTranslation();
 	let componentTopics = topics || [];
 	let componentLoading = loading || false;
 
@@ -20,8 +21,7 @@ export const SampleTopics = ({ isHomePage, topics, loading }) => {
 		if (isHomePage) {
 			getTopics({ page: 1, pageSize: 10, category: 'recent' });
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [getTopics]);
+	}, [isHomePage]);
 	if (isHomePage) {
 		componentTopics = topic.recentTopics;
 		componentLoading = topic.recentLoading;
@@ -42,15 +42,13 @@ export const SampleTopics = ({ isHomePage, topics, loading }) => {
 		<Card>
 			{isHomePage ? (
 				<Card.Header style={bgStyles.bgPrimary} className='text-center'>
-					<h1 style={textStyles.textTransparent}>
-						{translate('mostReadTopics')}
-					</h1>
+					<h1 style={textStyles.textTransparent}>{t('app:mostReadTopics')}</h1>
 					<Card.Link style={textStyles.textTransparent}>
-						{translate('radioMsg')}
+						{t('app:radioMsg')}
 					</Card.Link>
 				</Card.Header>
 			) : (
-				<h3 className='text-center'>{translate('relatedTopics')}</h3>
+				<h3 className='text-center'>{t('app:relatedTopics')}</h3>
 			)}
 			<Card.Body className='text-center'>
 				{componentLoading ? (
@@ -84,7 +82,7 @@ export const SampleTopics = ({ isHomePage, topics, loading }) => {
 					</Carousel>
 				) : null}
 				<Button as={Link} to='/topics'>
-					View more
+					{t('app:viewMore')}
 				</Button>
 			</Card.Body>
 		</Card>

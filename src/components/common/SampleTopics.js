@@ -81,9 +81,11 @@ export const SampleTopics = ({ isHomePage, topics, loading = false }) => {
 						))}
 					</Carousel>
 				) : null}
-				<Button as={Link} to='/topics'>
-					{t('app:viewMore')}
-				</Button>
+				{componentTopics.length > 5 ? (
+					<Button as={Link} to='/topics'>
+						{t('app:viewMore')}
+					</Button>
+				) : null}
 			</Card.Body>
 		</Card>
 	);

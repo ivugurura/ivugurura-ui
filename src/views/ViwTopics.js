@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
 	Container,
 	Row,
@@ -17,12 +17,14 @@ import { Page } from '../components';
 import { useTranslation } from 'react-i18next';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
+const initialPaginate = { pageSize: 10, pageNumber: 1 };
 export const ViwTopics = ({ match }) => {
 	const categoriesRef = useRef(null);
+	const [paginator, setPaginator] = useState(initialPaginate);
 	const { t } = useTranslation();
 	const { categorySlug } = match.params;
 	const {
-		topic: { categoryLoading, categoryTopics },
+		topic: { categoryLoading, categoryTopics, totalItems },
 		oneCategory: { categoryFetching, category }
 	} = useSelector(({ topic, oneCategory }) => ({
 		topic,
@@ -36,12 +38,21 @@ export const ViwTopics = ({ match }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [categorySlug]);
 	useEffect(() => {
+		const { pageNumber, pageSize } = paginator;
 		if (categorySlug && category.id) {
-			getTopics({ page: 1, pageSize: 20, category: category.id });
+			getTopics({ page: pageNumber, pageSize, category: category.id });
 		} else if (!categorySlug) {
-			getTopics({ page: 1, pageSize: 20 });
+			getTopics({ page: pageNumber, pageSize });
 		}
-	}, [categorySlug, category.id]);
+	}, [categorySlug, category.id, paginator]);
+	const onPageChange = (where = 'prev') => {
+		const isPrev = where === 'prev';
+		setPaginator((p) => ({
+			...p,
+			pageNumber: isPrev ? p.pageNumber - 1 : p.pageNumber + 1
+		}));
+	};
+	const totalPages = Math.ceil(totalItems / paginator.pageSize);
 	return (
 		<Page title={category.name || t('app:topics')}>
 			<Communique />
@@ -86,10 +97,25 @@ export const ViwTopics = ({ match }) => {
 								<h4 className='text-center'>{category.name}</h4>
 							)}
 						</div>
-						<Pagination size='sm'>
-							<Pagination.First>First page</Pagination.First>
-							<Pagination.Prev />
-							<Pagination.Next />
+						<Pagination size='sm' className='center'>
+							<Pagination.First disabled={paginator.pageNumber === 1}>
+								<span onClick={() => setPaginator(initialPaginate)}>First</span>
+							</Pagination.First>
+							<Pagination.Prev disabled={paginator.pageNumber === 1}>
+								<span onClick={() => onPageChange('prev')}>Prev</span>
+							</Pagination.Prev>
+							<Pagination.Next disabled={paginator.pageNumber === totalPages}>
+								<span onClick={() => onPageChange('next')}>Next</span>
+							</Pagination.Next>
+							<Pagination.Last disabled={paginator.pageNumber === totalPages}>
+								<span
+									onClick={() =>
+										setPaginator((p) => ({ ...p, pageNumber: totalPages }))
+									}
+								>
+									Last
+								</span>
+							</Pagination.Last>
 						</Pagination>
 					</Col>
 					<Col xs={12} md={3} lg={3} style={bgStyles.bgPrimary}>

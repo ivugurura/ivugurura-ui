@@ -51,6 +51,7 @@ const TopicView = ({ match }) => {
 									/>
 									<Card.Body>
 										{HtmlParser(topic.content)}
+										<strong>{t('app:title')}</strong>
 										<Comments slug={topicSlug} />
 									</Card.Body>
 									<Card.Footer>

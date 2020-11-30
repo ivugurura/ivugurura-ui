@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { ProgressBar } from 'react-bootstrap';
 import { renderRoutes } from 'react-router-config';
-import { Footer, NavHeader } from '../components/common';
+import { Footer, NavHeader, MainFooter } from '../components/common';
 
 export const Main = ({ route }) => {
 	return (
@@ -10,7 +10,8 @@ export const Main = ({ route }) => {
 			<Suspense fallback={<ProgressBar now />}>
 				{renderRoutes(route.routes)}
 			</Suspense>
-			<Footer isHomepage />
+			{/* <Footer isHomepage /> */}
+			<MainFooter />
 		</>
 	);
 };

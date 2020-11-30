@@ -40,7 +40,12 @@ export const MainFooter = () => {
 							<ul className='social-network social-circle'>
 								{socialMedias.map((social, socialIdx) => (
 									<li key={socialIdx}>
-										<a target='_blank' href={social.url} title={social.name}>
+										<a
+											target='_blank'
+											rel='noreferrer'
+											href={social.url}
+											title={social.name}
+										>
 											<i className={`fa fa-${social.faIcon}`}></i>
 										</a>
 									</li>

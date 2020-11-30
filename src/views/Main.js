@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { ProgressBar } from 'react-bootstrap';
 import { renderRoutes } from 'react-router-config';
-import { Footer, NavHeader, MainFooter } from '../components/common';
+import { NavHeader, MainFooter } from '../components/common';
 
 export const Main = ({ route }) => {
 	return (

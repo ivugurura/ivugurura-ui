@@ -24,16 +24,16 @@ export const systemLanguages = [
 		abbr: 'kn',
 		flag: `${flagUrl}/RW.png`
 	},
-	// {
-	// 	lang: 'English',
-	// 	abbr: 'en',
-	// 	flag: `${flagUrl}/GB.png`
-	// },
-	// {
-	// 	lang: 'French',
-	// 	abbr: 'fr',
-	// 	flag: `${flagUrl}/FR.png`
-	// },
+	{
+		lang: 'English',
+		abbr: 'en',
+		flag: `${flagUrl}/GB.png`
+	},
+	{
+		lang: 'French',
+		abbr: 'fr',
+		flag: `${flagUrl}/FR.png`
+	},
 	{
 		lang: 'Kiswahili',
 		abbr: 'sw',

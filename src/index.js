@@ -23,5 +23,5 @@ ReactDOM.render(
 if (isDev) {
 	serviceWorker.unregister();
 } else {
-	serviceWorker.unregister();
+	serviceWorker.register();
 }

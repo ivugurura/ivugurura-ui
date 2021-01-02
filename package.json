@@ -47,6 +47,7 @@
     "react-i18next": "^11.7.3",
     "react-icons": "^3.10.0",
     "react-images-upload": "^1.2.8",
+    "react-marquee-master": "^1.4.3",
     "react-marquee-text-component": "^1.0.4",
     "react-player": "^1.15.3",
     "react-redux": "^7.2.0",

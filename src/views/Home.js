@@ -1,18 +1,25 @@
-import React from 'react';
-import VideoPlayer from 'react-player';
+import React, { useEffect } from 'react';
+// import VideoPlayer from 'react-player';
 import { Container, Row, Col } from 'react-bootstrap';
 import { SampleTopics, Communique } from '../components/common';
 import { Page, Radio, TopicsCarousel } from '../components';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { getPublishedCommunique } from '../redux/actions';
 
 // const ytbImg = `${process.env.PUBLIC_URL}/yt-img.png`;
 const Home = () => {
 	const { t } = useTranslation();
+	const { communique } = useSelector(({ communiquePub }) => communiquePub);
+	useEffect(() => {
+		getPublishedCommunique();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	return (
 		<Page title='Home'>
 			<Communique />
 			<Container fluid>
-				<Row style={{ height: '60vh' }}>
+				<Row>
 					<Col md={6} lg={6} xs={12}>
 						<TopicsCarousel />
 					</Col>
@@ -27,12 +34,24 @@ const Home = () => {
 								<Radio />
 							</Col>
 							<Col xs={12} sm={12} md={12}>
-								<VideoPlayer
+								<iframe
+									src={
+										communique
+											? communique.content
+											: 'https://www.youtube.com/embed/dVP2oc44Puk'
+									}
+									title='Ubugorozi Youtube'
+									frameborder='0'
+									width='100%'
+									allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+									allowfullscreen
+								></iframe>
+								{/* <VideoPlayer
 									url='https://www.youtube.com/watch?v=45KCx3YrSKU'
 									playing={false}
 									width='100%'
 									height='170%'
-								/>
+								/> */}
 							</Col>
 						</Row>
 					</Col>

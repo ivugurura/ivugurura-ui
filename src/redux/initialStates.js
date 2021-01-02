@@ -104,7 +104,7 @@ export const getCommuniquesState = {
 export const getPubCommuniquesState = {
 	communiqueFetching: false,
 	communiqueFetched: false,
-	communique: null
+	communique: {}
 };
 export const publishCommuniqueState = {
 	publishing: false,

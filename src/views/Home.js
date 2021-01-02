@@ -33,7 +33,7 @@ const Home = () => {
 							<Col xs={12} sm={12} md={6}>
 								<Radio />
 							</Col>
-							<Col xs={12} sm={12} md={12}>
+							<Col xs={12} sm={12} md={12} style={{ height: '40vh' }}>
 								<iframe
 									src={
 										communique
@@ -43,6 +43,7 @@ const Home = () => {
 									title='Ubugorozi Youtube'
 									frameborder='0'
 									width='100%'
+									height='100%'
 									allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
 									allowfullscreen
 								></iframe>

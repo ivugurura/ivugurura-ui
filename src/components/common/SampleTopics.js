@@ -69,11 +69,12 @@ export const SampleTopics = ({ isHomePage, topics, loading = false }) => {
 									<Card style={{ height: '50vh' }}>
 										<Card.Img
 											variant='top'
+											height='60%'
 											src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
 										/>
 										<Card.Body>
 											<Card.Title>{topic.title}</Card.Title>
-											<Card.Text>{truncate(topic.description, 80)}</Card.Text>
+											<Card.Text>{truncate(topic.description, 40)}</Card.Text>
 										</Card.Body>
 									</Card>
 								</Link>

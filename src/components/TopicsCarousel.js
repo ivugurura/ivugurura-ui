@@ -29,9 +29,11 @@ export const TopicsCarousel = () => {
 								key={topicIndex}
 								as={Link}
 								to={`/topics/${topic.slug}`}
+								style={{ height: '64vh' }}
 							>
 								<img
-									className='d-block w-100 h-25'
+									className='d-block w-100'
+									style={{ height: '100%' }}
 									src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
 									alt={`Slider ${topicIndex}`}
 								/>

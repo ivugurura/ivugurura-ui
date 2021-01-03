@@ -13,12 +13,13 @@ import {
 import '../components/Chat/styles/chat.css';
 import socketIo from 'socket.io-client';
 import { Page, Radio } from '../components';
-import { Communique } from '../components/common';
+import { Communique, Loading } from '../components/common';
 import { ChatInput, Messages } from '../components/Chat';
 import { USER_LISTENER } from '../utils/constants';
-import { getMessages } from '../redux/actions';
+import { getChatUsers, getMessages } from '../redux/actions';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { chatUsers } from '../helpers/utils';
 
 let socket = socketIo(process.env.REACT_APP_API_URL);
 
@@ -26,8 +27,13 @@ const RadioRRV = () => {
 	const localUser = localStorage.getItem(USER_LISTENER);
 	const {
 		chatGet: { loaded, messages: chats },
-		user: { isAuthenticated, info }
-	} = useSelector(({ chatGet, user }) => ({ chatGet, user }));
+		user: { isAuthenticated, info },
+		chatUsersGet: { radioUsers, loaded: userFetched, loading: fetchingUsers }
+	} = useSelector(({ chatGet, user, chatUsersGet }) => ({
+		chatGet,
+		user,
+		chatUsersGet
+	}));
 	const [user, setUser] = useState({});
 	const [listener, setListener] = useState({ userId: '', name: '' });
 	const [users, setUsers] = useState([]);
@@ -49,6 +55,9 @@ const RadioRRV = () => {
 			socket.emit('join', user, (error) => {});
 			setUser(user);
 			getMessages(msgParams);
+			if (isAuthenticated) {
+				getChatUsers();
+			}
 		}
 	}, [isAuthenticated, user]);
 	useEffect(() => {
@@ -66,8 +75,9 @@ const RadioRRV = () => {
 		});
 
 		socket.on('users-list', ({ users: listeners }) => {
-			if (isAuthenticated) {
-				setUsers(listeners);
+			if (isAuthenticated && !userFetched) {
+				const totalUsers = chatUsers(radioUsers, listeners);
+				setUsers(totalUsers);
 			}
 		});
 		socket.on('new-message', (newMessage) => {
@@ -133,18 +143,22 @@ const RadioRRV = () => {
 					<Col xs={12} md={4} lg={4}>
 						<Row>
 							<Col xs={12} md={12} lg={12}>
-								<ListGroup as='ul'>
-									{users.map((usr, userIdx) => (
-										<ListGroup.Item
-											key={userIdx}
-											active={usr.userId === currentUser.userId}
-											disabled={usr.userId === user.userId}
-											onClick={() => activateUser(usr)}
-										>
-											{usr.name}
-										</ListGroup.Item>
-									))}
-								</ListGroup>
+								{fetchingUsers ? (
+									<Loading message='Loading, ...' />
+								) : (
+									<ListGroup as='ul'>
+										{users.map((usr, userIdx) => (
+											<ListGroup.Item
+												key={userIdx}
+												active={usr.userId === currentUser.userId}
+												disabled={usr.userId === user.userId}
+												onClick={() => activateUser(usr)}
+											>
+												{usr.name}
+											</ListGroup.Item>
+										))}
+									</ListGroup>
+								)}
 							</Col>
 							<Col xs={12} md={12} lg={12}></Col>
 						</Row>

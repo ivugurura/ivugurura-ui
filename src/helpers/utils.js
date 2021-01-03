@@ -1,9 +1,27 @@
 import { uploadFile } from '../redux/actions';
 
 export const uploadedFile = async (file, prevFile = '') => {
-  const formData = new FormData();
-  formData.append('file', file);
-  const serverResponse = uploadFile(formData, 'image', prevFile);
-  const imagePath = (await serverResponse.payload).data.data;
-  return imagePath;
+	const formData = new FormData();
+	formData.append('file', file);
+	const serverResponse = uploadFile(formData, 'image', prevFile);
+	const imagePath = (await serverResponse.payload).data.data;
+	return imagePath;
+};
+/**
+ *
+ * @param {Array} radioUsers All users
+ * @param {Array} onlineUsers Online users
+ */
+export const chatUsers = (radioUsers, onlineUsers) => {
+	let allUsers = [radioUsers, ...onlineUsers];
+	let users = [];
+	allUsers.forEach((aUsr) => {
+		const userId = aUsr.senderId || aUsr.userId;
+		const userName = aUsr.senderName || aUsr.name;
+		const thisUser = users.find((usr) => usr.userId === userId);
+		if (!thisUser) {
+			users.push({ userId, name: userName });
+		}
+	});
+	return users;
 };

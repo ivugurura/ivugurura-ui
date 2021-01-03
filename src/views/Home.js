@@ -41,11 +41,11 @@ const Home = () => {
 											: 'https://www.youtube.com/embed/dVP2oc44Puk'
 									}
 									title='Ubugorozi Youtube'
-									frameborder='0'
+									frameBorder='0'
 									width='100%'
 									height='100%'
 									allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-									allowfullscreen
+									allowFullScreen
 								></iframe>
 								{/* <VideoPlayer
 									url='https://www.youtube.com/watch?v=45KCx3YrSKU'

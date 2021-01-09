@@ -4,7 +4,6 @@ export * from './TopicsCarousel';
 export * from './FileUploader';
 export * from './NotFound';
 export * from './CommentaryForm';
-export * from './AddEditMedia';
 export * from './AdminCommuniques';
 export * from './Comments';
 export * from './Commentaries';

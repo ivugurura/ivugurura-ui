@@ -4,8 +4,8 @@ import { AdminPageHeader, Loading } from '../components/common';
 import { Col, Row, Card, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAlbums, getMedias } from '../redux/actions';
-import { AddEditMedia, Page } from '../components';
-import { AddVideo } from '../components/models';
+import { Page } from '../components';
+import { AddVideo, AddEditMedia } from '../components/models';
 
 export const AdminVideo = () => {
 	const [show, setShow] = useState(false);

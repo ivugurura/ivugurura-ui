@@ -5,3 +5,5 @@ export * from './AddVideo';
 export * from './Announcement';
 export * from './ContactUs';
 export * from './AddMenu';
+export * from './AddEditMedia';
+export * from './AddAlbum';

@@ -25,3 +25,5 @@ export const chatUsers = (radioUsers, onlineUsers) => {
 	});
 	return users;
 };
+export const audioPath = `${process.env.REACT_APP_API_URL}/songs/`;
+export const imagesPath = `${process.env.REACT_APP_API_URL}/images/`;

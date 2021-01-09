@@ -22,11 +22,11 @@ export const routes = [
 				exact: true,
 				component: lazy(() => import('./views/AdminAudio'))
 			},
-			{
-				path: '/admin/videos',
-				exact: true,
-				component: lazy(() => import('./views/AdminVideo'))
-			},
+			// {
+			// 	path: '/admin/videos',
+			// 	exact: true,
+			// 	component: lazy(() => import('./views/AdminVideo'))
+			// },
 			{
 				path: '/admin/setting',
 				exact: true,
@@ -41,6 +41,9 @@ export const routes = [
 				path: '/admin/edit-topic/:topicSlug',
 				exact: true,
 				component: lazy(() => import('./views/AddEditTopic'))
+			},
+			{
+				component: () => <Redirect to='/' />
 			}
 		]
 	},

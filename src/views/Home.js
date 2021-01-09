@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { getPublishedCommunique } from '../redux/actions';
 import { bgStyles, textStyles } from '../utils/styles';
+import { AudioPlayer } from '../components/AudioPlayer';
 
 // const ytbImg = `${process.env.PUBLIC_URL}/yt-img.png`;
 const Home = () => {
@@ -66,7 +67,9 @@ const Home = () => {
 				</Card.Header>
 				<Card.Body>
 					<Row>
-						<Col xs={12} md={3} lg={4}></Col>
+						<Col xs={12} md={3} lg={4}>
+							<AudioPlayer />
+						</Col>
 						<Col xs={12} md={9} lg={8}>
 							<VideoPlayer
 								url='https://www.youtube.com/watch?v=jvZy1emoFV0'

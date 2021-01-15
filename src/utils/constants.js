@@ -40,7 +40,7 @@ export const systemLanguages = [
 		flag: `${flagUrl}/KE.png`
 	}
 ];
-export const truncate = (str, n) => {
+export const truncate = (str = '', n = 1) => {
 	return str.length > n ? str.substr(0, n - 1) + '...' : str;
 };
 export const formatDate = (theDate) => {

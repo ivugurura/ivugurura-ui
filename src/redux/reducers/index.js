@@ -19,7 +19,7 @@ import {
 import { oneCategoryReducer } from './oneCategoryReducer';
 import { searchReducer } from './searchReducer';
 import { albumReducer } from './albumReducer';
-import { mediaReducer } from './mediaReducer';
+import { mediaReducer, songDlReducer } from './mediaReducer';
 import {
 	addCommuniqueReducer,
 	getCommuniquesReducer,
@@ -58,5 +58,6 @@ export const rootReducer = combineReducers({
 	contactUs: contactUsReducer,
 	categoryAdd: categoryAddReducer,
 	chatGet: chatGetReducer,
-	chatUsersGet: chatUsersGetReducer
+	chatUsersGet: chatUsersGetReducer,
+	songDl: songDlReducer
 });

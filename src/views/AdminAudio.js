@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import AudioPlayer from 'react-h5-audio-player';
+import moment from 'moment';
 import 'react-h5-audio-player/lib/styles.css';
 import { AdminPageHeader, TableCard, Loading } from '../components/common';
 import { Col, Row, Card, Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { getAlbums } from '../redux/actions';
-import { AddAlbum, AddEditMedia } from '../components/models';
+import { deleteSong, getAlbums } from '../redux/actions';
+import { AddAlbum, AddEditMedia, ActionConfirm } from '../components/models';
 import { Page } from '../components';
 import { ListGroup } from 'react-bootstrap';
 import { ListGroupItem } from 'react-bootstrap';
@@ -14,23 +15,61 @@ import { audioPath } from '../helpers/utils';
 export const AdminAudio = () => {
 	const [show, setShow] = useState(false);
 	const [showAddEdit, setShowAddEdit] = useState(false);
-	const [currentAudio, setCurrentAudio] = useState({});
+	const [aeAction, setAeAction] = useState('');
+	const [showActionConf, setShowActionConf] = useState(false);
+	const [currentMedia, setCurrentMedia] = useState(null);
+	const [song, setSong] = useState(null);
 	const {
 		album: { albums, albumsFetching },
-		media: { medias }
-	} = useSelector(({ album, media }) => ({ album, media }));
+		media: { medias },
+		songDel: { loading, loaded }
+	} = useSelector(({ album, media, songDel }) => ({ album, media, songDel }));
 	useEffect(() => {
 		getAlbums();
 	}, []);
 	useEffect(() => {
+		if (loaded) {
+			setShowActionConf(false);
+			getAlbums();
+		}
+	}, [loaded]);
+	useEffect(() => {
 		if (medias.length) {
-			setCurrentAudio(medias[0]);
+			setSong(medias[0]);
 		}
 	}, [medias]);
+	const setActions = (action = '', media = {}) => {
+		setCurrentMedia(media);
+		if (action === 'edit') {
+			setAeAction('edit');
+			setShowAddEdit(true);
+		}
+		if (action === 'del') {
+			setShowActionConf(true);
+		}
+		if (action === 'play') {
+			setSong(media);
+		}
+	};
+
 	return (
 		<Page title='Audio setting'>
 			<AddAlbum show={show} onHide={() => setShow(false)} />
-			<AddEditMedia show={showAddEdit} onHide={() => setShowAddEdit(false)} />
+			<AddEditMedia
+				show={showAddEdit}
+				onHide={() => setShowAddEdit(false)}
+				currentMedia={currentMedia}
+				action={aeAction}
+			/>
+			<ActionConfirm
+				title='Confirm delete'
+				show={showActionConf}
+				onHide={() => setShowActionConf(false)}
+				action='DELETE'
+				description={currentMedia ? currentMedia.title : ''}
+				loading={loading}
+				onAction={() => deleteSong(currentMedia.id)}
+			/>
 			<AdminPageHeader
 				name='Media/audio'
 				btnTitle='Add new album'
@@ -38,7 +77,11 @@ export const AdminAudio = () => {
 			>
 				<button
 					className='btn btn-primary pull-right'
-					onClick={() => setShowAddEdit(true)}
+					onClick={() => {
+						setAeAction('add');
+						setCurrentMedia(null);
+						setShowAddEdit(true);
+					}}
 				>
 					Add new media
 				</button>
@@ -64,25 +107,22 @@ export const AdminAudio = () => {
 				<Container fluid>
 					<Row>
 						<Col xs={12} sm={12} md={8} lg={8}>
-							<TableCard setCurrent={setCurrentAudio} />
+							<TableCard setActions={setActions} />
 						</Col>
 						<Col xs={12} sm={12} md={4} lg={4}>
-							{currentAudio.title ? (
+							{song ? (
 								<Card style={{ width: '18rem' }}>
-									<AudioPlayer
-										autoPlay
-										src={audioPath + currentAudio.mediaLink}
-									/>
+									<AudioPlayer src={audioPath + song.mediaLink} />
 									<Card.Body>
-										<Card.Title>{currentAudio.title}</Card.Title>
-										<Card.Text>{currentAudio.description}</Card.Text>
+										<Card.Title>{song.title}</Card.Title>
+										<Card.Text>{song.description}</Card.Text>
 									</Card.Body>
 									<ListGroup className='list-group-flush'>
-										<ListGroupItem>{currentAudio.language.name}</ListGroupItem>
+										<ListGroupItem>{song.language.name}</ListGroupItem>
+										<ListGroupItem>{song.type.toUpperCase()}</ListGroupItem>
 										<ListGroupItem>
-											{currentAudio.type.toUpperCase()}
+											{moment(song.actionDate).format('dddd, MMM DD, YYYY')}
 										</ListGroupItem>
-										<ListGroupItem>{currentAudio.createdAt}</ListGroupItem>
 									</ListGroup>
 									<Card.Body>
 										<Card.Link href='#'>Click to download</Card.Link>

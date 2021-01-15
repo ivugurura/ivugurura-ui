@@ -1,19 +1,28 @@
 import React, { useEffect } from 'react';
+import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { Loading } from './Loading';
 import { getMedias } from '../../redux/actions';
-import { Button } from 'react-bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap';
 
-export const TableCard = ({ setCurrent }) => {
-	const { medias, mediasFetching, mediaAdded } = useSelector(
-		({ media }) => media
-	);
+export const TableCard = ({ setActions }) => {
+	const {
+		media: { medias, mediasFetching, mediaAdded },
+		songEdit: { loaded }
+	} = useSelector(({ media, songEdit }) => ({ media, songEdit }));
 	useEffect(() => {
 		getMedias();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [mediaAdded]);
+	}, []);
+	useEffect(() => {
+		if (mediaAdded || loaded) {
+			getMedias();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [mediaAdded, loaded]);
 	return (
 		<div className='card'>
+			body
 			<div className='card-header d-flex align-items-center'>Media list</div>
 			<div className='card-body'>
 				<div className='table-responsive'>
@@ -26,8 +35,8 @@ export const TableCard = ({ setCurrent }) => {
 									<th>#</th>
 									<th>Title</th>
 									<th>Type</th>
-									<th>Album</th>
-									<th>Language</th>
+									<th>Author</th>
+									<th>Date</th>
 									<th>Actions</th>
 								</tr>
 							</thead>
@@ -37,14 +46,39 @@ export const TableCard = ({ setCurrent }) => {
 										<th scope='row'>{mediaIndex + 1}</th>
 										<td>{media.title}</td>
 										<td>{media.type}</td>
-										<td>{media.album.name}</td>
-										<td>{media.language.name}</td>
+										<td>{media.author}</td>
 										<td>
-											{media.type === 'audio' ? (
-												<Button size='sm' onClick={() => setCurrent(media)}>
-													Play
-												</Button>
-											) : null}
+											{moment(media.actionDate).format('ddd, MMM DD, YYYY')}
+										</td>
+										<td>
+											<ButtonGroup size='sm'>
+												{media.type === 'audio' ? (
+													<Button
+														size='sm'
+														onClick={() => setActions('play', media)}
+													>
+														<i className='fa fa-step-forward'></i>
+													</Button>
+												) : null}
+												{media.type !== 'image' ? (
+													<>
+														<Button
+															size='sm'
+															variant='success'
+															onClick={() => setActions('edit', media)}
+														>
+															<i className='fa fa-pencil'></i>
+														</Button>
+														<Button
+															size='sm'
+															variant='danger'
+															onClick={() => setActions('del', media)}
+														>
+															<i className='fa fa-trash'></i>
+														</Button>
+													</>
+												) : null}
+											</ButtonGroup>
 										</td>
 									</tr>
 								))}

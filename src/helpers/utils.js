@@ -27,3 +27,8 @@ export const chatUsers = (radioUsers, onlineUsers) => {
 };
 export const audioPath = `${process.env.REACT_APP_API_URL}/songs/`;
 export const imagesPath = `${process.env.REACT_APP_API_URL}/images/`;
+export const toDate = (date = null) => {
+	let curr = date ? new Date(date) : new Date();
+	curr.setDate(curr.getDate());
+	return curr.toISOString().substr(0, 10);
+};

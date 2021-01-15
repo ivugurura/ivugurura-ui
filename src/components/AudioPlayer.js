@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import moment from 'moment';
 import H5AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
-import { ButtonGroup, Card, Button } from 'react-bootstrap';
+import { ButtonGroup, Card, Button, Badge } from 'react-bootstrap';
 import { ListGroup } from 'react-bootstrap';
 import { ListGroupItem } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { getMedias } from '../redux/actions';
 import { Loading } from './common';
 import { audioPath } from '../helpers/utils';
+import { truncate } from '../utils/constants';
 
 export const AudioPlayer = () => {
 	const [currentAudio, setCurrentAudio] = useState({});
@@ -50,12 +52,16 @@ export const AudioPlayer = () => {
 	return (
 		<Card>
 			<H5AudioPlayer
-				autoPlay={false}
 				src={audioPath + currentAudio.mediaLink}
 				customAdditionalControls={customControls}
 			/>
 			<Card.Body>
-				<Card.Text>{currentAudio.title}</Card.Text>
+				<Card.Text>
+					{currentAudio.title} by {currentAudio.author}{' '}
+					<Badge pill variant='info'>
+						{moment(currentAudio.actionDate).format('dddd, MMM DD, YYYY')}
+					</Badge>
+				</Card.Text>
 			</Card.Body>
 			<ListGroup className='list-group-flush'>
 				{mediasFetching ? (
@@ -69,7 +75,9 @@ export const AudioPlayer = () => {
 								}
 								key={mediaIndex}
 							>
-								{media.title}
+								{`${truncate(media.title, 25)} ${
+									media.author !== null ? '--' + truncate(media.author, 12) : ''
+								}`}
 								<ButtonGroup
 									size='sm'
 									aria-label='Actions buttons'

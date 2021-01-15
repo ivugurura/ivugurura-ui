@@ -3,7 +3,7 @@ import AudioPlayer from 'react-h5-audio-player';
 import moment from 'moment';
 import 'react-h5-audio-player/lib/styles.css';
 import { AdminPageHeader, TableCard, Loading } from '../components/common';
-import { Col, Row, Card, Container } from 'react-bootstrap';
+import { Col, Row, Card, Container, Badge } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { deleteSong, getAlbums } from '../redux/actions';
 import { AddAlbum, AddEditMedia, ActionConfirm } from '../components/models';
@@ -114,20 +114,23 @@ export const AdminAudio = () => {
 								<Card style={{ width: '18rem' }}>
 									<AudioPlayer src={audioPath + song.mediaLink} />
 									<Card.Body>
-										<Card.Title>{song.title}</Card.Title>
-										<Card.Text>{song.description}</Card.Text>
+										<Card.Title>
+											{song.title}
+											<h4>
+												<Badge variant='primary'>{song.author}</Badge>
+											</h4>
+										</Card.Title>
 									</Card.Body>
 									<ListGroup className='list-group-flush'>
 										<ListGroupItem>{song.language.name}</ListGroupItem>
-										<ListGroupItem>{song.type.toUpperCase()}</ListGroupItem>
 										<ListGroupItem>
 											{moment(song.actionDate).format('dddd, MMM DD, YYYY')}
 										</ListGroupItem>
 									</ListGroup>
-									<Card.Body>
+									{/* <Card.Body>
 										<Card.Link href='#'>Click to download</Card.Link>
 										<Card.Link href='#'>Link</Card.Link>
-									</Card.Body>
+									</Card.Body> */}
 								</Card>
 							) : null}
 						</Col>

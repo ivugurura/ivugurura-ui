@@ -47,9 +47,7 @@ export const TableCard = ({ setActions }) => {
 										<td>{media.title}</td>
 										<td>{media.type}</td>
 										<td>{media.author}</td>
-										<td>
-											{moment(media.actionDate).format('ddd, MMM DD, YYYY')}
-										</td>
+										<td>{moment(media.actionDate).format('DD/MM/YYYY')}</td>
 										<td>
 											<ButtonGroup size='sm'>
 												{media.type === 'audio' ? (

@@ -1,6 +1,12 @@
 import { baseState, mediaState } from '../initialStates';
 import { pending, fulfilled, rejected } from '../../utils/actions';
-import { GET_MEDIAS, ADD_NEW_MEDIA, DOWNLOAD_SONG } from '../actions';
+import {
+	GET_MEDIAS,
+	ADD_NEW_MEDIA,
+	DOWNLOAD_SONG,
+	DELETE_SONG,
+	EDIT_SONG
+} from '../actions';
 
 export const mediaReducer = (state = mediaState, action) => {
 	switch (action.type) {
@@ -37,24 +43,45 @@ export const mediaReducer = (state = mediaState, action) => {
 			};
 	}
 };
-export const songDlReducer = (state = baseState('message', ''), action) => {
+export const songDelReducer = (state = baseState('message', ''), action) => {
 	switch (action.type) {
-		case pending(DOWNLOAD_SONG):
+		case pending(DELETE_SONG):
 			return {
 				...state,
 				loaded: false,
 				loading: true
 			};
-		case fulfilled(DOWNLOAD_SONG):
+		case fulfilled(DELETE_SONG):
 			return {
 				...state,
 				loading: false,
 				loaded: true,
-				blob: action.payload.data,
-				message: 'Your download is starting'
+				message: action.payload.data.message
 			};
-
-		case rejected(DOWNLOAD_SONG):
+		case rejected(DELETE_SONG):
+		default:
+			return {
+				...state,
+				loading: false
+			};
+	}
+};
+export const songEditReducer = (state = baseState('message', ''), action) => {
+	switch (action.type) {
+		case pending(EDIT_SONG):
+			return {
+				...state,
+				loaded: false,
+				loading: true
+			};
+		case fulfilled(EDIT_SONG):
+			return {
+				...state,
+				loading: false,
+				loaded: true,
+				message: action.payload.data.message
+			};
+		case rejected(EDIT_SONG):
 		default:
 			return {
 				...state,

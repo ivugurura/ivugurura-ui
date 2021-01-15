@@ -41,6 +41,8 @@ export const GET_ALBUMS = 'GET_ALBUMS';
 export const GET_MEDIAS = 'GET_MEDIAS';
 export const ADD_NEW_MEDIA = 'ADD_NEW_MEDIA';
 export const DOWNLOAD_SONG = 'DOWNLOAD_SONG';
+export const EDIT_SONG = 'EDIT_SONG';
+export const DELETE_SONG = 'DELETE_SONG';
 
 export const ADD_COMMUNIQUE = 'ADD_COMMUNIQUE';
 export const GET_COMMUNIQUES = 'GET_COMMUNIQUES';

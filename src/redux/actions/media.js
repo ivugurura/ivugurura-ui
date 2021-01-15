@@ -1,4 +1,10 @@
-import { GET_MEDIAS, ADD_NEW_MEDIA, DOWNLOAD_SONG } from './actionTypes';
+import {
+	GET_MEDIAS,
+	ADD_NEW_MEDIA,
+	DOWNLOAD_SONG,
+	EDIT_SONG,
+	DELETE_SONG
+} from './actionTypes';
 import { http } from '../../helpers';
 import { store } from '../store';
 
@@ -18,5 +24,19 @@ export const downloadSong = (songId = '') => {
 	store.dispatch({
 		type: DOWNLOAD_SONG,
 		payload: http.get(`/albums/download/${songId}`)
+	});
+};
+export const editSong = (songId = '', songBody = {}) => {
+	delete songBody.id;
+	store.dispatch({
+		type: EDIT_SONG,
+		payload: http.patch(`/albums/media/${songId}`, songBody)
+	});
+};
+export const deleteSong = (songId = '') => {
+	delete songBody.id;
+	store.dispatch({
+		type: DELETE_SONG,
+		payload: http.delete(`/albums/media/${songId}`)
 	});
 };

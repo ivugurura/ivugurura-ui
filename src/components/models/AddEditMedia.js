@@ -8,43 +8,81 @@ import {
 	Button,
 	Modal
 } from 'react-bootstrap';
-import { addNewMedia } from '../../redux/actions';
+import { addNewMedia, editSong } from '../../redux/actions';
 import { FileUpload } from '.';
 import { useSelector, useDispatch } from 'react-redux';
+import { toDate } from '../../helpers/utils';
 
-export const AddEditMedia = ({ show, onHide }) => {
+const initials = {
+	title: '',
+	albumId: '',
+	type: 'audio',
+	mediaLink: '',
+	author: '',
+	actionDate: toDate()
+};
+const mediaTypes = ['audio'];
+export const AddEditMedia = ({
+	show,
+	onHide,
+	currentMedia = null,
+	action = ''
+}) => {
 	const dispatch = useDispatch();
-	const [newMedia, setNewMedia] = useState({
-		title: '',
-		albumId: '',
-		type: '',
-		mediaLink: ''
-	});
+	const [newMedia, setNewMedia] = useState(initials);
 	const onInputChange = ({ target }) => {
 		setNewMedia({ ...newMedia, [target.name]: target.value });
 	};
-	const { album, media, filer } = useSelector(({ album, media, filer }) => ({
-		album,
-		media,
-		filer
-	}));
+	const { album, media, filer, songEdit } = useSelector(
+		({ album, media, filer, songEdit }) => ({
+			album,
+			media,
+			filer,
+			songEdit
+		})
+	);
 	const { albums } = album;
 	const { mediaAdding, mediaAdded } = media;
-	const { coverImagePath } = filer;
+	const { coverImagePath, uploadLoading } = filer;
+	const { loaded: updated } = songEdit;
 	useEffect(() => {
-		if (mediaAdded) {
-			setNewMedia({
-				title: '',
-				albumId: '',
-				type: '',
-				mediaLink: ''
-			});
+		if (mediaAdded || updated) {
+			setNewMedia(initials);
+			onHide(true);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [mediaAdded, updated]);
+	useEffect(() => {
 		if (coverImagePath) {
 			setNewMedia({ ...newMedia, mediaLink: coverImagePath });
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [mediaAdded, coverImagePath]);
+	}, [coverImagePath]);
+	useEffect(() => {
+		if (currentMedia) {
+			const {
+				title,
+				album,
+				type,
+				mediaLink,
+				author,
+				actionDate
+			} = currentMedia;
+			setNewMedia({
+				title,
+				albumId: album.id,
+				type,
+				mediaLink,
+				author,
+				actionDate: toDate(actionDate)
+			});
+		}
+	}, [currentMedia]);
+	useEffect(() => {
+		if (action === 'add') {
+			setNewMedia(initials);
+		}
+	}, [action]);
 	return (
 		<Modal show={show} onHide={onHide}>
 			<Card>
@@ -67,10 +105,14 @@ export const AddEditMedia = ({ show, onHide }) => {
 									name='type'
 									value={newMedia.type}
 									onChange={onInputChange}
+									disabled={currentMedia}
 								>
 									<option>--Select type--</option>
-									<option value='audio'>Audio</option>
-									<option value='video'>Video</option>
+									{mediaTypes.map((t, tIndex) => (
+										<option key={tIndex} value={t}>
+											{t.toUpperCase()}
+										</option>
+									))}
 								</Form.Control>
 							</FormGroup>
 						</Col>
@@ -90,9 +132,33 @@ export const AddEditMedia = ({ show, onHide }) => {
 							</Form.Control>
 						</Col>
 					</Row>
-					{newMedia.type === 'audio' ? (
+					<Row>
+						<Col>
+							<Form.Group>
+								<Form.Control
+									type='text'
+									placeholder='Author'
+									name='author'
+									value={newMedia.author}
+									onChange={onInputChange}
+								/>
+							</Form.Group>
+						</Col>
+						<Col>
+							<Form.Group>
+								<Form.Control
+									type='date'
+									placeholder='The date'
+									name='actionDate'
+									value={newMedia.actionDate}
+									onChange={onInputChange}
+								/>
+							</Form.Group>
+						</Col>
+					</Row>
+					{newMedia.type === 'audio' && !currentMedia && (
 						<FileUpload title='Select audio' />
-					) : null}
+					)}
 					{newMedia.type === 'video' ? (
 						<Form.Group>
 							<Form.Control
@@ -104,13 +170,25 @@ export const AddEditMedia = ({ show, onHide }) => {
 							/>
 						</Form.Group>
 					) : null}
-
-					<Button
-						disabled={mediaAdding}
-						onClick={() => dispatch(addNewMedia(newMedia))}
-					>
-						{mediaAdding ? 'Saving new media' : 'Save'}
-					</Button>
+					{currentMedia ? (
+						<Button
+							disabled={mediaAdding}
+							onClick={() => editSong(currentMedia.id, newMedia)}
+						>
+							{mediaAdding ? 'Updating,...' : `Update ${currentMedia.title}`}
+						</Button>
+					) : (
+						<Button
+							disabled={mediaAdding || uploadLoading}
+							onClick={() => addNewMedia(newMedia)}
+						>
+							{uploadLoading
+								? 'Uploading file,...'
+								: mediaAdding
+								? 'Saving new media'
+								: 'Save'}
+						</Button>
+					)}
 				</Card.Body>
 			</Card>
 		</Modal>

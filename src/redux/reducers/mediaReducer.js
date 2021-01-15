@@ -1,12 +1,6 @@
 import { baseState, mediaState } from '../initialStates';
 import { pending, fulfilled, rejected } from '../../utils/actions';
-import {
-	GET_MEDIAS,
-	ADD_NEW_MEDIA,
-	DOWNLOAD_SONG,
-	DELETE_SONG,
-	EDIT_SONG
-} from '../actions';
+import { GET_MEDIAS, ADD_NEW_MEDIA, DELETE_SONG, EDIT_SONG } from '../actions';
 
 export const mediaReducer = (state = mediaState, action) => {
 	switch (action.type) {
@@ -18,7 +12,8 @@ export const mediaReducer = (state = mediaState, action) => {
 		case pending(ADD_NEW_MEDIA):
 			return {
 				...state,
-				mediaAdding: true
+				mediaAdding: true,
+				mediaAdded: false
 			};
 		case fulfilled(GET_MEDIAS):
 			return {

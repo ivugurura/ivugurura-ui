@@ -15,10 +15,10 @@ export const getMedias = (type = 'all') => {
 	});
 };
 export const addNewMedia = (media) => {
-	return {
+	store.dispatch({
 		type: ADD_NEW_MEDIA,
 		payload: http.post('/albums/add', media)
-	};
+	});
 };
 export const downloadSong = (songId = '') => {
 	store.dispatch({
@@ -34,9 +34,8 @@ export const editSong = (songId = '', songBody = {}) => {
 	});
 };
 export const deleteSong = (songId = '') => {
-	delete songBody.id;
 	store.dispatch({
 		type: DELETE_SONG,
-		payload: http.delete(`/albums/media/${songId}`)
+		payload: http.delete(`/albums/media/${songId}/del`)
 	});
 };

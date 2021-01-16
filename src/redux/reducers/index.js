@@ -7,7 +7,7 @@ import {
 	topicEditReducer,
 	topicGetReducer
 } from './oneTopicReducer';
-import { filerReducer } from './filerReducer';
+import { filePathReducer, filerReducer } from './filerReducer';
 import { logoutUserReducer, useReducer } from './userReducer';
 import { dashboardReducer } from './dashboardReducer';
 import {
@@ -60,5 +60,6 @@ export const rootReducer = combineReducers({
 	chatGet: chatGetReducer,
 	chatUsersGet: chatUsersGetReducer,
 	songDel: songDelReducer,
-	songEdit: songEditReducer
+	songEdit: songEditReducer,
+	filePath: filePathReducer
 });

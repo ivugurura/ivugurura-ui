@@ -3,10 +3,10 @@ import { http } from '../../helpers';
 import { store } from '../store';
 
 export const addAlbum = (album) => {
-	return {
+	store.dispatch({
 		type: ADD_ALBUM,
 		payload: http.post('/albums', album)
-	};
+	});
 };
 export const getAlbums = () => {
 	store.dispatch({

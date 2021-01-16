@@ -1,4 +1,5 @@
 import { uploadFile } from '../redux/actions';
+import { http } from './http';
 
 export const uploadedFile = async (file, prevFile = '') => {
 	const formData = new FormData();
@@ -31,4 +32,23 @@ export const toDate = (date = null) => {
 	let curr = date ? new Date(date) : new Date();
 	curr.setDate(curr.getDate());
 	return curr.toISOString().substr(0, 10);
+};
+export const uploadFileWithProgress = (
+	file,
+	prevFile = '',
+	type = '',
+	onUploadProgress
+) => {
+	let formData = new FormData();
+
+	formData.append('file', file);
+
+	const uploadUrl = `/albums/upload/${type}?prevFile=${prevFile}`;
+
+	return http.post(uploadUrl, formData, {
+		headers: {
+			'Content-Type': 'multipart/form-data'
+		},
+		onUploadProgress
+	});
 };

@@ -10,7 +10,7 @@ import {
 } from 'react-bootstrap';
 import { addNewMedia, editSong } from '../../redux/actions';
 import { FileUpload } from '.';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { toDate } from '../../helpers/utils';
 
 const initials = {
@@ -28,22 +28,21 @@ export const AddEditMedia = ({
 	currentMedia = null,
 	action = ''
 }) => {
-	const dispatch = useDispatch();
 	const [newMedia, setNewMedia] = useState(initials);
 	const onInputChange = ({ target }) => {
 		setNewMedia({ ...newMedia, [target.name]: target.value });
 	};
-	const { album, media, filer, songEdit } = useSelector(
-		({ album, media, filer, songEdit }) => ({
+	const { album, media, filePath, songEdit } = useSelector(
+		({ album, media, filePath, songEdit }) => ({
 			album,
 			media,
-			filer,
+			filePath,
 			songEdit
 		})
 	);
 	const { albums } = album;
 	const { mediaAdding, mediaAdded } = media;
-	const { coverImagePath, uploadLoading } = filer;
+	const { hasUploaded, filePathName } = filePath;
 	const { loaded: updated } = songEdit;
 	useEffect(() => {
 		if (mediaAdded || updated) {
@@ -53,11 +52,11 @@ export const AddEditMedia = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [mediaAdded, updated]);
 	useEffect(() => {
-		if (coverImagePath) {
-			setNewMedia({ ...newMedia, mediaLink: coverImagePath });
+		if (hasUploaded) {
+			setNewMedia({ ...newMedia, mediaLink: filePathName });
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [coverImagePath]);
+	}, [hasUploaded]);
 	useEffect(() => {
 		if (currentMedia) {
 			const {
@@ -157,7 +156,11 @@ export const AddEditMedia = ({
 						</Col>
 					</Row>
 					{newMedia.type === 'audio' && !currentMedia && (
-						<FileUpload title='Select audio' />
+						<FileUpload
+							title='Select audio'
+							type='song'
+							previousFile={filePathName}
+						/>
 					)}
 					{newMedia.type === 'video' ? (
 						<Form.Group>
@@ -179,14 +182,10 @@ export const AddEditMedia = ({
 						</Button>
 					) : (
 						<Button
-							disabled={mediaAdding || uploadLoading}
+							disabled={mediaAdding || (!hasUploaded && !currentMedia)}
 							onClick={() => addNewMedia(newMedia)}
 						>
-							{uploadLoading
-								? 'Uploading file,...'
-								: mediaAdding
-								? 'Saving new media'
-								: 'Save'}
+							{mediaAdding ? 'Saving new media' : 'Save'}
 						</Button>
 					)}
 				</Card.Body>

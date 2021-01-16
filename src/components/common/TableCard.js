@@ -22,7 +22,6 @@ export const TableCard = ({ setActions }) => {
 	}, [mediaAdded, loaded]);
 	return (
 		<div className='card'>
-			body
 			<div className='card-header d-flex align-items-center'>Media list</div>
 			<div className='card-body'>
 				<div className='table-responsive'>

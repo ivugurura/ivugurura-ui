@@ -52,6 +52,7 @@ export const AudioPlayer = () => {
 	return (
 		<Card>
 			<H5AudioPlayer
+				muted
 				src={audioPath + currentAudio.mediaLink}
 				customAdditionalControls={customControls}
 			/>

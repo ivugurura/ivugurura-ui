@@ -26,7 +26,7 @@ export const MainFooter = () => {
 														key={subCatIdx}
 														to={`/topics/categories/${subCat.slug}`}
 													>
-														{subCat.name}
+														<p>{subCat.name}</p>
 													</Link>
 												))}
 											</ul>
@@ -51,6 +51,16 @@ export const MainFooter = () => {
 									</li>
 								))}
 							</ul>
+							<address>
+								{t('app:contactUs')}:{' '}
+								<a
+									href='mailto:abagorozi@yahoo.com'
+									rel='noreferrer'
+									target='_blank'
+								>
+									abagorozi@yahoo.com
+								</a>
+							</address>
 						</Col>
 					</Row>
 					<Row>

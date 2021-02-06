@@ -37,6 +37,7 @@
     "popper.js": "^1.16.1",
     "react": "^16.14.0",
     "react-bootstrap": "^1.4.3",
+    "react-bootstrap-4-pagination": "^1.0.4",
     "react-chat-widget": "^3.0.5",
     "react-dom": "^16.14.0",
     "react-emoji": "^0.5.0",

@@ -4,7 +4,8 @@ export const baseState = (key = 'data', value = null) => {
 	return {
 		loading: true,
 		done: false,
-		[key]: value
+		[key]: value,
+		totalItems: 0
 	};
 };
 export const initialCategoryState = {

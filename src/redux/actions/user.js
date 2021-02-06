@@ -1,23 +1,49 @@
-import { LOGIN_USER, LOGOUT_USER, SET_USER } from './actionTypes';
+import {
+	ADD_NEW_USER,
+	GET_USERS,
+	LOGIN_USER,
+	LOGOUT_USER,
+	SET_USER,
+	UPDATE_USER
+} from './actionTypes';
 import { http } from '../../helpers';
 import { store } from '../store';
 
 export const loginUser = (userInfo) => {
-  return {
-    type: LOGIN_USER,
-    payload: http.post('/user/login', userInfo)
-  };
+	return {
+		type: LOGIN_USER,
+		payload: http.post('/users/login', userInfo)
+	};
 };
 
 export const setUser = (userInfo) => {
-  return {
-    type: SET_USER,
-    payload: userInfo
-  };
+	return {
+		type: SET_USER,
+		payload: userInfo
+	};
 };
 export const logoutUser = () => {
-  store.dispatch({
-    type: LOGOUT_USER,
-    payload: http.get('/user/logout')
-  });
+	store.dispatch({
+		type: LOGOUT_USER,
+		payload: http.get('/users/logout')
+	});
+};
+export const getSystemUsers = ({ page = 1, pageSize = 20 }) => {
+	const params = `page=${page}&pageSize=${pageSize}`;
+	store.dispatch({
+		type: GET_USERS,
+		payload: http.get(`/users?${params}`)
+	});
+};
+export const addUser = (userInfo = {}) => {
+	store.dispatch({
+		type: ADD_NEW_USER,
+		payload: http.post(`/users`, userInfo)
+	});
+};
+export const editUser = (userId, userInfo = {}) => {
+	store.dispatch({
+		type: UPDATE_USER,
+		payload: http.patch(`/users/${userId}`, userInfo)
+	});
 };

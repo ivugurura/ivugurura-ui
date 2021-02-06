@@ -47,6 +47,11 @@ export const formatDate = (theDate) => {
 	const stringDate = moment(theDate).format('YYYY-MM-DD HH:mm');
 	return stringDate;
 };
+export const getRole = (accessLevel = '3') => {
+	let role = 'Editor';
+	if (Number(accessLevel) === 2) role = 'Admin';
+	return role;
+};
 export const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 export const currentLang = systemLanguages.find(
 	(lang) => lang.abbr === systemLanguage

@@ -13,3 +13,4 @@ export * from './BreadCumb';
 export * from './AdminPageHeader';
 export * from './TableCard';
 export * from './MainFooter';
+export * from './CustomTable';

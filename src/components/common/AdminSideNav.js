@@ -70,14 +70,19 @@ export const AdminSideNav = () => {
 			<span className='heading'>Extras</span>
 			<ul className='list-unstyled'>
 				<li>
+					<Link to='/admin/commentaries'>
+						<i className='icon-grid'></i>Commentaries(
+						<strong>{comments.length}</strong>)
+					</Link>
+				</li>
+				<li>
 					<Link to='/admin/setting'>
 						<i className='icon-screen'></i>Setting
 					</Link>
 				</li>
 				<li>
-					<Link to='/admin/commentaries'>
-						<i className='icon-grid'></i>Commentaries(
-						<strong>{comments.length}</strong>)
+					<Link to='/admin/users'>
+						<i className='icon-user'></i>System users
 					</Link>
 				</li>
 			</ul>

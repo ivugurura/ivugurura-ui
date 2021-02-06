@@ -48,13 +48,13 @@ export const getDashboardTopics = (page = 1, pageSize = 20) => {
 	const params = `page=${page}&pageSize=${pageSize}`;
 	store.dispatch({
 		type: GET_ADMIN_TOPICS,
-		payload: http.get(`/user/topics?${params}`)
+		payload: http.get(`/users/topics?${params}`)
 	});
 };
 export const getDashboadCount = () => {
 	store.dispatch({
 		type: GET_DASHBOARD_COUNTS,
-		payload: http.get('/user/dashboard')
+		payload: http.get('/users/dashboard')
 	});
 };
 export const updateTopic = (updatedTopic, topicSlug) => {

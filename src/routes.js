@@ -22,11 +22,11 @@ export const routes = [
 				exact: true,
 				component: lazy(() => import('./views/AdminAudio'))
 			},
-			// {
-			// 	path: '/admin/videos',
-			// 	exact: true,
-			// 	component: lazy(() => import('./views/AdminVideo'))
-			// },
+			{
+				path: '/admin/users',
+				exact: true,
+				component: lazy(() => import('./views/SystemUsers'))
+			},
 			{
 				path: '/admin/setting',
 				exact: true,

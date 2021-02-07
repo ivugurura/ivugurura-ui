@@ -41,12 +41,12 @@ export const AddEditUser = ({
 	}, [done, edited]);
 	useEffect(() => {
 		if (currentUser) {
-			const { names, username, email, password, role } = currentUser;
+			const { names, username, email, role } = currentUser;
 			setNewUser({
 				names,
 				username,
 				email,
-				password,
+				password: '',
 				role
 			});
 		}
@@ -59,7 +59,11 @@ export const AddEditUser = ({
 	return (
 		<Modal show={show} onHide={onHide}>
 			<Card>
-				<Card.Header>Add a new user</Card.Header>
+				<Card.Header>
+					{currentUser
+						? `Edit ${currentUser.names.toUpperCase()}`
+						: 'Add a new user'}
+				</Card.Header>
 				<Card.Body>
 					<Form.Group>
 						<Form.Control
@@ -99,7 +103,7 @@ export const AddEditUser = ({
 							<Form.Group>
 								<Form.Control
 									as='select'
-									name='type'
+									name='role'
 									value={newUser.role}
 									onChange={onInputChange}
 								>
@@ -116,7 +120,9 @@ export const AddEditUser = ({
 							<Form.Group>
 								<Form.Control
 									type='text'
-									placeholder='Set user password'
+									placeholder={
+										currentUser ? 'Edit password' : 'Set user password'
+									}
 									name='password'
 									value={newUser.password}
 									onChange={onInputChange}

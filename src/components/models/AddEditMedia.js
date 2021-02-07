@@ -85,7 +85,9 @@ export const AddEditMedia = ({
 	return (
 		<Modal show={show} onHide={onHide}>
 			<Card>
-				<Card.Header>Add media</Card.Header>
+				<Card.Header>
+					{currentMedia ? `Edit ${currentMedia.title}` : 'Add media'}
+				</Card.Header>
 				<Card.Body>
 					<Form.Group>
 						<Form.Control

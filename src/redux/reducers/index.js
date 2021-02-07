@@ -13,6 +13,7 @@ import {
 	userAddReducer,
 	userEditReducer,
 	useReducer,
+	userRmReducer,
 	usersGetReducer
 } from './userReducer';
 import { dashboardReducer } from './dashboardReducer';
@@ -70,5 +71,6 @@ export const rootReducer = combineReducers({
 	filePath: filePathReducer,
 	usersGet: usersGetReducer,
 	userAdd: userAddReducer,
-	userEdit: userEditReducer
+	userEdit: userEditReducer,
+	userRm: userRmReducer
 });

@@ -27,6 +27,7 @@ export const SET_USER = 'SET_USER';
 export const GET_USERS = 'GET_USERS';
 export const ADD_NEW_USER = 'ADD_NEW_USER';
 export const UPDATE_USER = 'UPDATE_USER';
+export const DELETE_USER = 'UPDATE_USER';
 
 export const GET_DASHBOARD_COUNTS = 'GET_DASHBOARD_COUNTS';
 

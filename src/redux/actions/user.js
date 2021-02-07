@@ -1,5 +1,6 @@
 import {
 	ADD_NEW_USER,
+	DELETE_USER,
 	GET_USERS,
 	LOGIN_USER,
 	LOGOUT_USER,
@@ -36,14 +37,24 @@ export const getSystemUsers = ({ page = 1, pageSize = 20 }) => {
 	});
 };
 export const addUser = (userInfo = {}) => {
+	console.log(userInfo);
 	store.dispatch({
 		type: ADD_NEW_USER,
 		payload: http.post(`/users`, userInfo)
 	});
 };
 export const editUser = (userId, userInfo = {}) => {
+	if (userInfo.password === '') {
+		delete userInfo.password;
+	}
 	store.dispatch({
 		type: UPDATE_USER,
 		payload: http.patch(`/users/${userId}`, userInfo)
+	});
+};
+export const deleteUser = (userId) => {
+	store.dispatch({
+		type: DELETE_USER,
+		payload: http.delete(`/users/${userId}`)
 	});
 };

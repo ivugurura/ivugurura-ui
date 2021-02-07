@@ -2,6 +2,7 @@ import { initialUserState, baseState } from '../initialStates';
 import { pending, fulfilled, rejected } from '../../utils/actions';
 import {
 	ADD_NEW_USER,
+	DELETE_USER,
 	GET_USERS,
 	LOGIN_USER,
 	LOGOUT_USER,
@@ -126,6 +127,29 @@ export const userEditReducer = (state = baseState('message', ''), action) => {
 				message: action.payload.data.message
 			};
 		case rejected(UPDATE_USER):
+		default:
+			return {
+				...state,
+				loading: false
+			};
+	}
+};
+export const userRmReducer = (state = baseState('message', ''), action) => {
+	switch (action.type) {
+		case pending(DELETE_USER):
+			return {
+				...state,
+				done: false,
+				loading: true
+			};
+		case fulfilled(DELETE_USER):
+			return {
+				...state,
+				done: true,
+				loading: false,
+				message: action.payload.data.message
+			};
+		case rejected(DELETE_USER):
 		default:
 			return {
 				...state,

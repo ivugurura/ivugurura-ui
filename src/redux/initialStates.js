@@ -56,9 +56,17 @@ export const initialUserState = {
 };
 export const initialDashState = {
 	countLoading: false,
-	counts: { songs: 0, videos: 0, published: 0, unPublished: 0 },
+	counts: {
+		songs: 0,
+		videos: 0,
+		published: 0,
+		unPublished: 0,
+		commentaries: 0,
+		users: 0
+	},
 	topics: [],
-	topicsLoading: false
+	topicsLoading: false,
+	totalItems: 0
 };
 export const initialCommentState = {
 	commentLoading: false,

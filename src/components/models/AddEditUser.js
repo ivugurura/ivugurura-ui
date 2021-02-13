@@ -8,7 +8,8 @@ const initials = {
 	username: '',
 	email: '',
 	password: '',
-	role: 3
+	role: 3,
+	isActive: false
 };
 const userRoles = [
 	{ id: 2, name: 'Admin' },
@@ -21,8 +22,9 @@ export const AddEditUser = ({
 	action = ''
 }) => {
 	const [newUser, setNewUser] = useState(initials);
-	const onInputChange = ({ target }) => {
-		setNewUser({ ...newUser, [target.name]: target.value });
+	const onInputChange = ({ target: { name, value, checked } }) => {
+		const inputValue = name === 'isActive' ? checked : value;
+		setNewUser({ ...newUser, [name]: inputValue });
 	};
 	const {
 		userAdd: { loading, done },
@@ -41,13 +43,14 @@ export const AddEditUser = ({
 	}, [done, edited]);
 	useEffect(() => {
 		if (currentUser) {
-			const { names, username, email, role } = currentUser;
+			const { names, username, email, role, isActive } = currentUser;
 			setNewUser({
 				names,
 				username,
 				email,
 				password: '',
-				role
+				role,
+				isActive
 			});
 		}
 	}, [currentUser]);
@@ -71,6 +74,14 @@ export const AddEditUser = ({
 							placeholder='User full name (First and last name)'
 							name='names'
 							value={newUser.names}
+							onChange={onInputChange}
+						/>
+						<Form.Check
+							type='switch'
+							id='isActive'
+							name='isActive'
+							checked={newUser.isActive}
+							label='Is active'
 							onChange={onInputChange}
 						/>
 					</Form.Group>

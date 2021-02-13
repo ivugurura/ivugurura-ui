@@ -5,7 +5,7 @@ import { Loading } from './Loading';
 import { getMedias } from '../../redux/actions';
 import { Button, ButtonGroup } from 'react-bootstrap';
 
-export const TableCard = ({ setActions }) => {
+export const TableCard = ({ setActions, user = {} }) => {
 	const {
 		media: { medias, mediasFetching, mediaAdded },
 		songEdit: { loaded }
@@ -49,15 +49,15 @@ export const TableCard = ({ setActions }) => {
 										<td>{moment(media.actionDate).format('DD/MM/YYYY')}</td>
 										<td>
 											<ButtonGroup size='sm'>
-												{media.type === 'audio' ? (
+												{media.type === 'audio' && (
 													<Button
 														size='sm'
 														onClick={() => setActions('play', media)}
 													>
 														<i className='fa fa-step-forward'></i>
 													</Button>
-												) : null}
-												{media.type !== 'image' ? (
+												)}
+												{media.type !== 'image' && Number(user.role) < 3 && (
 													<>
 														<Button
 															size='sm'
@@ -74,7 +74,7 @@ export const TableCard = ({ setActions }) => {
 															<i className='fa fa-trash'></i>
 														</Button>
 													</>
-												) : null}
+												)}
 											</ButtonGroup>
 										</td>
 									</tr>

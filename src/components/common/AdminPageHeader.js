@@ -10,10 +10,10 @@ export const AdminPageHeader = ({ name, btnTitle, btnAction, children }) => {
 		<header className='page-header'>
 			<div className='container container-fluid'>
 				<h4 className='no-margin-bottom'>{`${name}:====>${currentLang.lang}`}</h4>
-				{children}
-				<button className='btn btn-primary pull-right' onClick={btnAction}>
+				{/* {children} */}
+				{/* <button className='btn btn-primary pull-right' onClick={btnAction}>
 					{btnTitle}
-				</button>
+				</button> */}
 			</div>
 		</header>
 	);

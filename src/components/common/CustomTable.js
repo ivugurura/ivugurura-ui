@@ -5,6 +5,7 @@ import { Card, Table } from 'react-bootstrap';
 import { Loading } from './Loading';
 
 export const CustomTable = ({
+	title = '',
 	data = [],
 	columns = [],
 	currentPage = 1,
@@ -12,6 +13,8 @@ export const CustomTable = ({
 	dataCount = 0,
 	itemPerPage = 5,
 	loading = false,
+	isBordered = true,
+	size = 'sm',
 	onChangePage
 }) => {
 	const renderCell = (item, column) => {
@@ -21,7 +24,7 @@ export const CustomTable = ({
 	return (
 		<Card>
 			<Card.Header>
-				<Card.Title>List of registered users</Card.Title>
+				<Card.Title>{title}</Card.Title>
 				{dataCount !== 0 && (
 					<Card.Subtitle className='pull-right'>
 						{dataCount} records found, page {currentPage} of {pageCount}
@@ -30,7 +33,7 @@ export const CustomTable = ({
 			</Card.Header>
 			<Card.Body>
 				{dataCount > 0 ? (
-					<Table striped bordered hover size='sm'>
+					<Table striped hover responsive bordered={isBordered} size={size}>
 						<thead>
 							<tr>
 								<th>
@@ -55,7 +58,7 @@ export const CustomTable = ({
 				) : loading ? (
 					<Loading />
 				) : (
-					<h4>No user registered yet</h4>
+					<h4>No data to display yet</h4>
 				)}
 			</Card.Body>
 			<Card.Footer>

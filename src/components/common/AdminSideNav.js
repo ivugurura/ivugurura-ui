@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getAdminComments, resetPublisheComment } from '../../redux/actions';
+import { getRole } from '../../utils/constants';
 
 const profileUrl = `${process.env.PUBLIC_URL}/img/admin.jpeg`;
 export const AdminSideNav = () => {
@@ -35,7 +36,7 @@ export const AdminSideNav = () => {
 				</div>
 				<div className='title'>
 					<h4>{info.names}</h4>
-					<p>Administrator</p>
+					<p>{getRole(info.role)}</p>
 				</div>
 			</div>
 			<span className='heading'>Main</span>
@@ -68,24 +69,26 @@ export const AdminSideNav = () => {
 				</li>
 			</ul>
 			<span className='heading'>Extras</span>
-			<ul className='list-unstyled'>
-				<li>
-					<Link to='/admin/commentaries'>
-						<i className='icon-grid'></i>Commentaries(
-						<strong>{comments.length}</strong>)
-					</Link>
-				</li>
-				<li>
-					<Link to='/admin/setting'>
-						<i className='icon-screen'></i>Setting
-					</Link>
-				</li>
-				<li>
-					<Link to='/admin/users'>
-						<i className='icon-user'></i>System users
-					</Link>
-				</li>
-			</ul>
+			{Number(info.role) < 3 && (
+				<ul className='list-unstyled'>
+					<li>
+						<Link to='/admin/commentaries'>
+							<i className='icon-grid'></i>Commentaries(
+							<strong>{comments.length}</strong>)
+						</Link>
+					</li>
+					<li>
+						<Link to='/admin/setting'>
+							<i className='icon-screen'></i>Setting
+						</Link>
+					</li>
+					<li>
+						<Link to='/admin/users'>
+							<i className='icon-user'></i>System users
+						</Link>
+					</li>
+				</ul>
+			)}
 		</nav>
 	);
 };

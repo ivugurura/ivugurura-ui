@@ -1,18 +1,67 @@
-import React, { useEffect } from 'react';
-import { AdminPageHeader, CardCounter, Loading } from '../components/common';
+import React, { useEffect, useState } from 'react';
+import {
+	AdminPageHeader,
+	CardCounter,
+	CustomTable,
+	Loading
+} from '../components/common';
 import { useSelector } from 'react-redux';
-import { getDashboadCount } from '../redux/actions';
-import { ActivePosts } from '../components/ActivePosts';
-import { Page } from '../components';
+import {
+	getDashboadCount,
+	getDashboardTopics,
+	updateTopic,
+	resetTopicAction
+} from '../redux/actions';
+import { AdminCounts, Page } from '../components';
+import { topicsColumns } from '../components/tableColumns';
+import { ActionConfirm } from '../components/models';
 
+const initialPaginate = { pageSize: 10, pageNumber: 1 };
 export const Dashboard = ({ history }) => {
+	const [currentTopic, setCurrentTopic] = useState(null);
+	const [aeAction, setAeAction] = useState('');
+	const [showActionConf, setShowActionConf] = useState(false);
+	const [paginator, setPaginator] = useState(initialPaginate);
 	const {
-		dashboard: { countLoading, counts },
-		topicEdit: { done }
-	} = useSelector(({ dashboard, topicEdit }) => ({ dashboard, topicEdit }));
+		dashboard,
+		topicEdit: { done, loading },
+		user
+	} = useSelector(({ dashboard, topicEdit, user }) => ({
+		dashboard,
+		topicEdit,
+		user
+	}));
 	useEffect(() => {
+		const { pageNumber, pageSize } = paginator;
+		getDashboardTopics(pageNumber, pageSize);
 		getDashboadCount();
-	}, [done]);
+	}, []);
+	useEffect(() => {
+		if (done) {
+			const { pageNumber, pageSize } = paginator;
+			getDashboardTopics(pageNumber, pageSize);
+			setShowActionConf(false);
+			getDashboadCount();
+			resetTopicAction('edit');
+		}
+	}, [done, paginator]);
+	const setActions = (action = '', topic = {}) => {
+		setCurrentTopic(topic);
+		if (action === 'publish') {
+			setAeAction(topic.isPublished ? 'Unpublish' : 'Publish');
+			setShowActionConf(true);
+		}
+		if (action === 'del') {
+			setAeAction('DELETE');
+			setShowActionConf(true);
+		}
+		if (action === 'edit') {
+			history.push(`/admin/edit-topic/${topic.slug}`);
+		}
+	};
+	const onPageChage = (currentPage) => {
+		setPaginator({ ...paginator, pageNumber: currentPage });
+	};
 	return (
 		<Page title='Dashboard'>
 			<AdminPageHeader
@@ -20,35 +69,45 @@ export const Dashboard = ({ history }) => {
 				btnTitle='Add topic'
 				btnAction={() => history.push('/admin/add-topic')}
 			/>
-			<section className='dashboard-counts no-padding-top'>
-				<div className='container-fluid'>
-					{countLoading ? (
-						<Loading />
-					) : (
-						<div className='row bg-white has-shadow'>
-							<CardCounter
-								title='Published'
-								color='green'
-								count={counts.published}
-							/>
-							<CardCounter
-								title='Unpublished'
-								color='red'
-								count={counts.unPublished}
-							/>
-							<CardCounter title='Audios' color='violet' count={counts.songs} />
-							<CardCounter
-								title='Videos'
-								color='orange'
-								count={counts.videos}
-							/>
-						</div>
-					)}
-				</div>
-			</section>
+			<ActionConfirm
+				title='Confirm the action'
+				show={showActionConf}
+				onHide={() => setShowActionConf(false)}
+				action={aeAction.toUpperCase()}
+				description={currentTopic ? currentTopic.title : ''}
+				onAction={() => {
+					updateTopic(
+						{ isPublished: !currentTopic.isPublished },
+						currentTopic.slug
+					);
+				}}
+				loading={loading}
+			/>
+			{/* <section className='dashboard-counts no-padding-top'>
+			</section> */}
+			<div className='container-fluid '>
+				{dashboard.countLoading ? (
+					<Loading />
+				) : (
+					<AdminCounts count={dashboard.counts} user={user.info} />
+				)}
+			</div>
+
 			<section className='updates no-padding-top'>
 				<div className='container-fluid'>
-					<ActivePosts history={history} />
+					<CustomTable
+						title='Recent topic updates'
+						data={dashboard.topics}
+						columns={topicsColumns(user.info, setActions)}
+						currentPage={paginator.pageNumber}
+						pageCount={Math.ceil(dashboard.totalItems / paginator.pageSize)}
+						itemPerPage={paginator.pageSize}
+						dataCount={dashboard.totalItems}
+						loading={dashboard.topicsLoading}
+						isBordered={false}
+						size='md'
+						onChangePage={onPageChage}
+					/>
 				</div>
 			</section>
 		</Page>

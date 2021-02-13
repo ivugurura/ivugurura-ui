@@ -74,8 +74,8 @@ export const ViwTopics = ({ match }) => {
 								)}
 							</Breadcrumb>
 						)}
-						<div className='card-columns' ref={categoriesRef}>
-							{categoryLoading ? (
+						<div className='' ref={categoriesRef}>
+							{categoryLoading && categoryTopics.length ? (
 								<Loading />
 							) : categoryTopics.length ? (
 								<>

@@ -80,6 +80,7 @@ export const SystemUsers = () => {
 					<Row>
 						<Col sm={12} md={8}>
 							<CustomTable
+								title='List of registered users'
 								data={usersGet.users}
 								columns={usersColumns(user.info, setActions)}
 								currentPage={paginator.pageNumber}

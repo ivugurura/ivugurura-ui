@@ -3,7 +3,15 @@ import AudioPlayer from 'react-h5-audio-player';
 import moment from 'moment';
 import 'react-h5-audio-player/lib/styles.css';
 import { AdminPageHeader, TableCard, Loading } from '../components/common';
-import { Col, Row, Card, Container, Badge } from 'react-bootstrap';
+import {
+	Col,
+	Row,
+	Card,
+	Container,
+	Badge,
+	ButtonGroup,
+	Button
+} from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { deleteSong, getAlbums } from '../redux/actions';
 import { AddAlbum, AddEditMedia, ActionConfirm } from '../components/models';
@@ -22,8 +30,14 @@ export const AdminAudio = () => {
 	const {
 		album: { albums, albumsFetching },
 		media: { medias },
-		songDel: { loading, loaded }
-	} = useSelector(({ album, media, songDel }) => ({ album, media, songDel }));
+		songDel: { loading, loaded },
+		user
+	} = useSelector(({ album, media, songDel, user }) => ({
+		album,
+		media,
+		songDel,
+		user
+	}));
 	useEffect(() => {
 		getAlbums();
 	}, []);
@@ -86,6 +100,25 @@ export const AdminAudio = () => {
 					Add new media
 				</button>
 			</AdminPageHeader>
+			{Number(user.info.role) < 3 && (
+				<Row>
+					<Col xs={12} sm={12} md={12} lg={12}>
+						<ButtonGroup size='sm' className='pull-right'>
+							<Button onClick={() => setShow(true)}>Add a new album</Button>
+							<Button
+								variant='info'
+								onClick={() => {
+									setAeAction('add');
+									setCurrentMedia(null);
+									setShowAddEdit(true);
+								}}
+							>
+								Add new media
+							</Button>
+						</ButtonGroup>
+					</Col>
+				</Row>
+			)}
 			<Row>
 				{albumsFetching ? (
 					<Loading />
@@ -93,9 +126,7 @@ export const AdminAudio = () => {
 					albums.map((album, albumIndex) => (
 						<Col xs={12} sm={12} md={3} lg={3} key={albumIndex}>
 							<Card>
-								<Card.Header>
-									<h4>{album.name}</h4>
-								</Card.Header>
+								<Card.Header>{album.name}</Card.Header>
 							</Card>
 						</Col>
 					))
@@ -107,7 +138,7 @@ export const AdminAudio = () => {
 				<Container fluid>
 					<Row>
 						<Col xs={12} sm={12} md={8} lg={8}>
-							<TableCard setActions={setActions} />
+							<TableCard setActions={setActions} user={user.info} />
 						</Col>
 						<Col xs={12} sm={12} md={4} lg={4}>
 							{song ? (

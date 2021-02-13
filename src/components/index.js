@@ -11,3 +11,4 @@ export * from './CommentaryForm';
 export * from './AudioPlayer';
 export * from './Page';
 export * from './MenuSetting';
+export * from './AdminCounts';

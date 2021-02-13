@@ -15,6 +15,10 @@ export const usersColumns = (user = {}, setActions) => [
 		content: (item) => moment(item.createdAt).format('MMMM Do YYYY')
 	},
 	{
+		label: 'Is Active',
+		content: (item) => (item.isActive ? 'Yes' : 'No')
+	},
+	{
 		label: 'Actions',
 		content: (item) =>
 			item.id !== user.id && Number(user.role) < 3 ? (

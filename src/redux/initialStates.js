@@ -122,7 +122,8 @@ export const publishCommuniqueState = {
 export const topicCommentsState = {
 	commentsFetching: false,
 	commentsFetched: false,
-	comments: []
+	comments: [],
+	totalItems: 0
 };
 export const publishCommentState = {
 	loading: false,

@@ -28,11 +28,14 @@
 	padding-top: 2px;
 }
 
-.mini-stat-info span {
+.stat-count {
 	font-size: 36px;
 	font-weight: 600;
 	margin-bottom: 5px;
 	margin-top: 7px;
+	color: white;
+}
+.stat-info {
 	color: white;
 }
 .bg-published {

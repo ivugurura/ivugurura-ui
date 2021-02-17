@@ -20,7 +20,6 @@ export const AdminSideNav = () => {
 	}, []);
 	useEffect(() => {
 		if (loaded) {
-			resetPublisheComment();
 			getAdminComments();
 		}
 	}, [loaded]);
@@ -74,7 +73,7 @@ export const AdminSideNav = () => {
 					<li>
 						<Link to='/admin/commentaries'>
 							<i className='icon-grid'></i>Commentaries(
-							<strong>{comments.length}</strong>)
+							<strong>{comments.filter((c) => !c.isPublished).length}</strong>)
 						</Link>
 					</li>
 					<li>

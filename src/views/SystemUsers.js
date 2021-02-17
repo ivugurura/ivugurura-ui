@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Container, Col } from 'react-bootstrap';
+import { Row, Container, Col, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { AdminPageHeader, CustomTable } from '../components/common';
 import { AddEditUser, ActionConfirm } from '../components/models';
@@ -78,7 +78,7 @@ export const SystemUsers = () => {
 			<section className='tables'>
 				<Container fluid>
 					<Row>
-						<Col sm={12} md={8}>
+						<Col sm={12} md={9}>
 							<CustomTable
 								title='List of registered users'
 								data={usersGet.users}
@@ -91,8 +91,18 @@ export const SystemUsers = () => {
 								onChangePage={onPageChage}
 							/>
 						</Col>
-						<Col sm={12} md={4}>
-							{/* <MenuSetting /> */}
+						<Col sm={12} md={3}>
+							<Button
+								variant='primary'
+								size='sm'
+								onClick={() => {
+									setAeAction('add');
+									setCurrentUser(null);
+									setShowAddEdit(true);
+								}}
+							>
+								Add a new user
+							</Button>
 						</Col>
 					</Row>
 				</Container>

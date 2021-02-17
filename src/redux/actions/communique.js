@@ -14,10 +14,10 @@ export const addCommunique = (communique = {}) => {
 	};
 };
 export const getCommuniques = () => {
-	return {
+	store.dispatch({
 		type: GET_COMMUNIQUES,
 		payload: http.get('/announcements')
-	};
+	});
 };
 export const getPublishedCommunique = () => {
 	store.dispatch({

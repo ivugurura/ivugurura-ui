@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/admin-count.css';
 
 export const AdminCounts = ({ count = {}, user = {} }) => {
@@ -12,8 +13,8 @@ export const AdminCounts = ({ count = {}, user = {} }) => {
 						<i className='fa fa-map-o fg-icon'></i>
 					</span>
 					<div className='mini-stat-info'>
-						<span>{count.published}</span>
-						Published
+						<span className='stat-count'>{count.published}</span>
+						<span className='stat-info'>Published</span>
 					</div>
 				</div>
 			</div>
@@ -23,8 +24,8 @@ export const AdminCounts = ({ count = {}, user = {} }) => {
 						<i className='fa fa-map-o fg-icon'></i>
 					</span>
 					<div className='mini-stat-info'>
-						<span>{count.unPublished}</span>
-						Unpublished
+						<span className='stat-count'>{count.unPublished}</span>
+						<span className='stat-info'>Unpublished</span>
 					</div>
 				</div>
 			</div>
@@ -34,8 +35,8 @@ export const AdminCounts = ({ count = {}, user = {} }) => {
 						<i className='fa fa-music fg-icon'></i>
 					</span>
 					<div className='mini-stat-info'>
-						<span>{count.songs}</span>
-						Audio
+						<span className='stat-count'>{count.songs}</span>
+						<span className='stat-info'>Audio</span>
 					</div>
 				</div>
 			</div>
@@ -45,8 +46,8 @@ export const AdminCounts = ({ count = {}, user = {} }) => {
 						<i className='fa fa-video-camera fg-icon'></i>
 					</span>
 					<div className='mini-stat-info'>
-						<span>{count.videos}</span>
-						Videos
+						<span className='stat-count'>{count.videos}</span>
+						<span className='stat-info'>Videos</span>
 					</div>
 				</div>
 			</div>
@@ -54,24 +55,28 @@ export const AdminCounts = ({ count = {}, user = {} }) => {
 				<>
 					<div className={`${lgClassName} col-sm-6 col-xs-12`}>
 						<div className='mini-stat clearfix bg-for-action rounded'>
-							<span className='mini-stat-icon'>
-								<i className='fa fa-comments fg-icon'></i>
-							</span>
-							<div className='mini-stat-info'>
-								<span>{count.commentaries}</span>
-								Commentaries
-							</div>
+							<Link to='/admin/commentaries'>
+								<span className='mini-stat-icon'>
+									<i className='fa fa-comments fg-icon'></i>
+								</span>
+								<div className='mini-stat-info'>
+									<span className='stat-count'>{count.commentaries}</span>
+									<span className='stat-info'>Commentaries</span>
+								</div>
+							</Link>
 						</div>
 					</div>
 					<div className={`${lgClassName} col-sm-6 col-xs-12`}>
 						<div className='mini-stat clearfix bg-published rounded'>
-							<span className='mini-stat-icon'>
-								<i className='fa fa-users fg-icon'></i>
-							</span>
-							<div className='mini-stat-info'>
-								<span>{count.users}</span>
-								System Users
-							</div>
+							<Link to='/admin/users'>
+								<span className='mini-stat-icon'>
+									<i className='fa fa-users fg-icon'></i>
+								</span>
+								<div className='mini-stat-info'>
+									<span className='stat-count'>{count.users}</span>
+									<span className='stat-info'>System Users</span>
+								</div>
+							</Link>
 						</div>
 					</div>
 				</>

@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-	AdminPageHeader,
-	CardCounter,
-	CustomTable,
-	Loading
-} from '../components/common';
+import { AdminPageHeader, CustomTable, Loading } from '../components/common';
 import { useSelector } from 'react-redux';
 import {
 	getDashboadCount,
@@ -35,6 +30,7 @@ export const Dashboard = ({ history }) => {
 		const { pageNumber, pageSize } = paginator;
 		getDashboardTopics(pageNumber, pageSize);
 		getDashboadCount();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	useEffect(() => {
 		if (done) {
@@ -44,6 +40,7 @@ export const Dashboard = ({ history }) => {
 			getDashboadCount();
 			resetTopicAction('edit');
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [done, paginator]);
 	const setActions = (action = '', topic = {}) => {
 		setCurrentTopic(topic);

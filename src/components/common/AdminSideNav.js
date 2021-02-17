@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getAdminComments, resetPublisheComment } from '../../redux/actions';
+import { getAdminComments } from '../../redux/actions';
 import { getRole } from '../../utils/constants';
 
 const profileUrl = `${process.env.PUBLIC_URL}/img/admin.jpeg`;

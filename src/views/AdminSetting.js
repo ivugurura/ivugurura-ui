@@ -6,33 +6,34 @@ import { AdminCommuniques, MenuSetting, Page } from '../components';
 import { useSelector } from 'react-redux';
 
 export const AdminSetting = () => {
-  const [show, setShow] = useState(false);
-  const { communiqueAdded } = useSelector(({ communiqueAdd }) => communiqueAdd);
-  useEffect(() => {
-    if (communiqueAdded) {
-      setShow(false);
-    }
-  }, [communiqueAdded]);
-  return (
-    <Page title='Setting'>
-      <Announcement show={show} onHide={() => setShow(false)} />
-      <AdminPageHeader
-        name='Site setting'
-        btnTitle='Add a new communication'
-        btnAction={() => setShow(true)}
-      />
-      <section className='tables'>
-        <Container fluid>
-          <Row>
-            <Col sm={12} md={8}>
-              <AdminCommuniques />
-            </Col>
-            <Col sm={12} md={4}>
-              <MenuSetting />
-            </Col>
-          </Row>
-        </Container>
-      </section>
-    </Page>
-  );
+	const [show, setShow] = useState(false);
+	const { communiqueAdded } = useSelector(({ communiqueAdd }) => communiqueAdd);
+	useEffect(() => {
+		if (communiqueAdded) {
+			setShow(false);
+		}
+	}, [communiqueAdded]);
+	return (
+		<Page title='Setting'>
+			<Announcement show={show} onHide={() => setShow(false)} />
+			<AdminPageHeader
+				name='Site setting'
+				btnTitle='Add a new communication'
+				btnAction={() => setShow(true)}
+			/>
+			<section className='tables'>
+				<Container fluid>
+					<Row>
+						<Col sm={12} md={8}>
+							<AdminCommuniques />
+						</Col>
+						<Col sm={12} md={4}>
+							<MenuSetting />
+						</Col>
+					</Row>
+				</Container>
+			</section>
+		</Page>
+	);
 };
+export default AdminSetting;

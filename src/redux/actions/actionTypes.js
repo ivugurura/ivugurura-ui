@@ -24,6 +24,10 @@ export const DELETE_FILE = 'DELETE_FILE';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const SET_USER = 'SET_USER';
+export const GET_USERS = 'GET_USERS';
+export const ADD_NEW_USER = 'ADD_NEW_USER';
+export const UPDATE_USER = 'UPDATE_USER';
+export const DELETE_USER = 'UPDATE_USER';
 
 export const GET_DASHBOARD_COUNTS = 'GET_DASHBOARD_COUNTS';
 
@@ -40,6 +44,11 @@ export const ADD_ALBUM = 'ADD_ALBUM';
 export const GET_ALBUMS = 'GET_ALBUMS';
 export const GET_MEDIAS = 'GET_MEDIAS';
 export const ADD_NEW_MEDIA = 'ADD_NEW_MEDIA';
+export const DOWNLOAD_SONG = 'DOWNLOAD_SONG';
+export const EDIT_SONG = 'EDIT_SONG';
+export const DELETE_SONG = 'DELETE_SONG';
+export const SET_FILE_PATH = 'SET_FILE_PATH';
+export const RESET_FILE_PATH = 'RESET_FILE_PATH';
 
 export const ADD_COMMUNIQUE = 'ADD_COMMUNIQUE';
 export const GET_COMMUNIQUES = 'GET_COMMUNIQUES';
@@ -49,3 +58,4 @@ export const PUBLISH_COMMUNIQUE = 'PUBLISH_COMMUNIQUE';
 export const SEND_CONTACT_US = 'SEND_CONTACT_US';
 
 export const GET_MESSAGES = 'GET_MESSAGES';
+export const GET_CHAT_MESSAGES = 'GET_CHAT_MESSAGES';

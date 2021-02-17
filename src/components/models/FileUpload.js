@@ -1,21 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../styles/fileUpload.css';
-import { Form } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { uploadFile } from '../../redux/actions';
+import { Form, ProgressBar } from 'react-bootstrap';
+import { uploadFileWithProgress } from '../../helpers/utils';
+import { notifier } from '../../utils/notifier';
+import { setFilePath } from '../../redux/actions';
 
-export const FileUpload = ({ title, previousFile }) => {
-  const dispatch = useDispatch();
-  const onChange = ({ target }) => {
-    const formData = new FormData();
-    formData.append('file', target.files[0]);
-    formData.append('previousFile', previousFile);
-
-    dispatch(uploadFile(formData, 'song'));
-  };
-  return (
-    <Form.Group className='files color'>
-      <Form.File id='audioFile' label={title} onChange={onChange} />
-    </Form.Group>
-  );
+export const FileUpload = ({ title, previousFile = '', type }) => {
+	const [progress, setProgress] = useState(0);
+	const onChange = ({ target }) => {
+		uploadFileWithProgress(target.files[0], previousFile, type, (e) => {
+			setProgress(Math.round((100 * e.loaded) / e.total));
+		})
+			.then((res) => {
+				setProgress(0);
+				setFilePath(res.data.data);
+			})
+			.catch((error) => {
+				setProgress(0);
+				let errorMessage = '';
+				if (error.response) {
+					const { error: message } = error.response.data;
+					errorMessage = message;
+				} else {
+					errorMessage = error.message;
+				}
+				notifier.error(errorMessage);
+			});
+	};
+	return (
+		<Form.Group className='files color'>
+			<Form.File id='audioFile' label={title} onChange={onChange} />
+			{progress ? (
+				<ProgressBar animated now={progress} label={`${progress}%`} />
+			) : null}
+		</Form.Group>
+	);
 };

@@ -16,5 +16,6 @@
   "start_url": ".",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
-  "display": "standalone"
+  "display": "standalone",
+  "content_security_policy": "script-src 'self' https://www.youtube.com/iframe_api; frame-src 'self' https://studio18.radiolize.com/"
 }

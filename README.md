@@ -1,38 +1,37 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Ijwi ry ivugurura n ubugorozi - Frontend
 
-## Available Scripts
+Ijwi ry ivugurura n ubugorozi.
 
-In the project directory, you can run:
+## Technologies
 
-### `npm start`
+- Runtime environment: [Node](https://nodejs.org/)
+- Backend framework: [Express.js](https://expressjs.com/)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Installation
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Before installing, [download and install Node.js](https://nodejs.org/en/download/).
 
-### `npm test`
+## Quick Start
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The quickest way to setup this app is as shown below:
 
-### `npm run build`
+```
+git clone git@github.com:AJAkimana/ivugurura-ui.git
+cd ivugurura-ui
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Install dependencies:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```bash
+$ npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Start the server:
 
-### `npm run eject`
+```bash
+$ npm run start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## The current maintainer:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+[Ijwi ry ubugorozi](http://www.reformationvoice.org)

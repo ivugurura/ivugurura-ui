@@ -38,6 +38,8 @@ export const usersColumns = (user = {}, setActions) => [
 						<i className='fa fa-trash'></i>
 					</Button>
 				</ButtonGroup>
-			) : null
+			) : (
+				<strong>YOU</strong>
+			)
 	}
 ];

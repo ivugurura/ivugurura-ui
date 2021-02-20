@@ -1,12 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-	Container,
-	Row,
-	Col,
-	Card,
-	Breadcrumb,
-	CardDeck
-} from 'react-bootstrap';
+import { Container, Row, Col, Card, Breadcrumb } from 'react-bootstrap';
 import Pagination from 'react-bootstrap-4-pagination';
 import { RecentTopics, Communique, Loading } from '../components/common';
 import { bgStyles } from '../utils/styles';
@@ -86,23 +79,21 @@ export const ViwTopics = ({ match }) => {
 								{categoryLoading && categoryTopics.length ? (
 									<Loading />
 								) : categoryTopics.length ? (
-									<CardDeck>
+									<Row>
 										{categoryTopics.map((topic, topicIndex) => (
-											<Card
-												key={topicIndex}
-												as={Link}
-												to={`/topics/${topic.slug}`}
-											>
-												<Card.Img
-													src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
-												/>
-												<Card.Body>
-													<Card.Title>{topic.title}</Card.Title>
-													<Card.Text>{topic.description}</Card.Text>
-												</Card.Body>
-											</Card>
+											<Col xs={12} sm={6} md={4} lg={4} key={topicIndex}>
+												<Card as={Link} to={`/topics/${topic.slug}`}>
+													<Card.Img
+														src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
+													/>
+													<Card.Body>
+														<Card.Title>{topic.title}</Card.Title>
+														<Card.Text>{topic.description}</Card.Text>
+													</Card.Body>
+												</Card>
+											</Col>
 										))}
-									</CardDeck>
+									</Row>
 								) : (
 									<h4 className='text-center'>{t('app:noData')}</h4>
 								)}

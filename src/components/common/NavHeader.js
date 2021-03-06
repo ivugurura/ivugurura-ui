@@ -65,7 +65,7 @@ export const NavHeader = () => {
 						)
 					)}
 					<Nav.Link to='/audios' as={Link} style={textStyles.textTransparent}>
-						Audios
+						{t('app:audios')}
 					</Nav.Link>
 					<Nav.Link
 						href='#'
@@ -83,9 +83,6 @@ export const NavHeader = () => {
 						size='sm'
 						onClick={() => setShowSearch(true)}
 					/>
-					<Button variant='danger' size='sm' as={Link} to='/radio'>
-						{t('app:listenRadio')}
-					</Button>
 					{/* <Form.Control
             as='select'
             size='sm'

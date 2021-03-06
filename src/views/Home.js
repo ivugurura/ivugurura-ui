@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import VideoPlayer from 'react-player';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { SampleTopics, Communique } from '../components/common';
 import { Page, Radio, TopicsCarousel } from '../components';
 import { useTranslation } from 'react-i18next';
@@ -30,7 +31,12 @@ const Home = () => {
 							<Col xs={12} sm={12} md={6}>
 								<h4>{t('app:radioName')}</h4>
 								<i>{t('app:radioMsg')}</i>
-								<h6>{t('app:listen')}</h6>
+								<h6>
+									{t('app:listen')}{' '}
+									<Button variant='danger' size='sm' as={Link} to='/radio'>
+										{t('app:listenRadio')}
+									</Button>
+								</h6>
 							</Col>
 							<Col xs={12} sm={12} md={6}>
 								<Radio />

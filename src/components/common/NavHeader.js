@@ -9,14 +9,14 @@ import {
 	Form,
 	NavItem
 } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { bgStyles, textStyles } from '../../utils/styles';
 import { Logo } from './Logo';
 import { useSelector } from 'react-redux';
 import { getCategories } from '../../redux/actions';
 import { currentLang, systemLanguages } from '../../utils/constants';
-import { Link } from 'react-router-dom';
 import { SearchBox, ContactUs } from '../models';
-import { useTranslation } from 'react-i18next';
 
 export const NavHeader = () => {
 	const { t } = useTranslation();
@@ -36,7 +36,7 @@ export const NavHeader = () => {
 			<Navbar.Toggle aria-controls='responsive-navbar-nav' />
 			<Navbar.Collapse id='responsive-navbar-nav'>
 				<Nav className='mr-auto'>
-					<Nav.Link href='/' style={textStyles.textTransparent}>
+					<Nav.Link to='/' as={Link} style={textStyles.textTransparent}>
 						{t('app:home')}
 					</Nav.Link>
 					{navCategories.map((nav, navIndex) =>
@@ -64,6 +64,9 @@ export const NavHeader = () => {
 							</Dropdown>
 						)
 					)}
+					<Nav.Link to='/audios' as={Link} style={textStyles.textTransparent}>
+						Audios
+					</Nav.Link>
 					<Nav.Link
 						href='#'
 						style={textStyles.textTransparent}

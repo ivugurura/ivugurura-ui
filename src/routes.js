@@ -82,6 +82,11 @@ export const routes = [
 				component: lazy(() => import('./views/RadioRRV'))
 			},
 			{
+				path: '/audios',
+				exact: true,
+				component: lazy(() => import('./views/Audios'))
+			},
+			{
 				path: '/errors/error-400',
 				exact: true,
 				component: lazy(() => import('./views/NotFound'))

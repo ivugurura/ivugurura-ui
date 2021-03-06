@@ -98,7 +98,8 @@ export const mediaState = {
 	mediasFetching: false,
 	mediasFetched: false,
 	mediaAdding: false,
-	mediaAdded: false
+	mediaAdded: false,
+	totalItems: 0
 };
 export const addCommuniqueState = {
 	communiqueAdding: false,

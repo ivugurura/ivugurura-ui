@@ -10,7 +10,6 @@ export const Main = ({ route }) => {
 			<Suspense fallback={<ProgressBar now />}>
 				{renderRoutes(route.routes)}
 			</Suspense>
-			{/* <Footer isHomepage /> */}
 			<MainFooter />
 		</>
 	);

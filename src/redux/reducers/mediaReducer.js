@@ -20,7 +20,8 @@ export const mediaReducer = (state = mediaState, action) => {
 				...state,
 				mediasFetching: false,
 				mediasFetched: true,
-				medias: action.payload.data.data
+				medias: action.payload.data.data,
+				totalItems: action.payload.data.totalItems
 			};
 		case fulfilled(ADD_NEW_MEDIA):
 			return {

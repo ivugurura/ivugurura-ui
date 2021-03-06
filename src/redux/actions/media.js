@@ -8,10 +8,11 @@ import {
 import { http } from '../../helpers';
 import { store } from '../store';
 
-export const getMedias = (type = 'all') => {
+export const getMedias = (type = 'all', page = 1, pageSize = 5) => {
+	const params = `page=${page}&pageSize=${pageSize}`;
 	store.dispatch({
 		type: GET_MEDIAS,
-		payload: http.get(`/albums/medias/${type}`)
+		payload: http.get(`/albums/medias/${type}?${params}`)
 	});
 };
 export const addNewMedia = (media) => {

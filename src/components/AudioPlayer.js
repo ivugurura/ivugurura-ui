@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
+import Pagination from 'react-bootstrap-4-pagination';
 import H5AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 import { ButtonGroup, Card, Button, Badge } from 'react-bootstrap';
 import { ListGroup } from 'react-bootstrap';
@@ -10,13 +11,23 @@ import { Loading } from './common';
 import { audioPath } from '../helpers/utils';
 import { truncate } from '../utils/constants';
 
-export const AudioPlayer = () => {
+const initialPaginate = { pageSize: 10, pageNumber: 1 };
+export const AudioPlayer = ({
+	trancNumber = 12,
+	notOnlyIcon = false,
+	withPaginations = false
+}) => {
 	const [currentAudio, setCurrentAudio] = useState({});
 	const [currentIndex, setCurrentIndex] = useState(-1);
-	const { medias, mediasFetching } = useSelector(({ media }) => media);
+	const [paginator, setPaginator] = useState(initialPaginate);
+
+	const { medias, mediasFetching, totalItems } = useSelector(
+		({ media }) => media
+	);
 	useEffect(() => {
-		getMedias('audio');
-	}, []);
+		const { pageNumber, pageSize } = paginator;
+		getMedias('audio', pageNumber, pageSize);
+	}, [paginator]);
 	useEffect(() => {
 		if (medias.length) {
 			setCurrentAudio(medias[0]);
@@ -49,6 +60,10 @@ export const AudioPlayer = () => {
 		? `${process.env.REACT_APP_API_URL}`
 		: '';
 	const DL_ROUTE = BASE_DOWNLOAD + '/api/v1/albums/download/';
+
+	const onPageChage = (currentPage) => {
+		setPaginator({ ...paginator, pageNumber: currentPage });
+	};
 	return (
 		<Card>
 			<H5AudioPlayer
@@ -71,13 +86,13 @@ export const AudioPlayer = () => {
 					<div style={{ overflow: 'auto' }}>
 						{medias.map((media, mediaIndex) => (
 							<ListGroupItem
-								variant={
-									media.title === currentAudio.title ? 'primary' : 'danger'
-								}
+								variant={media.id === currentAudio.id ? 'primary' : 'danger'}
 								key={mediaIndex}
 							>
 								{`${truncate(media.title, 25)} ${
-									media.author !== null ? '--' + truncate(media.author, 12) : ''
+									media.author !== null
+										? '--' + truncate(media.author, trancNumber)
+										: ''
 								}`}
 								<ButtonGroup
 									size='sm'
@@ -85,27 +100,35 @@ export const AudioPlayer = () => {
 									className='pull-right'
 								>
 									<Button size='sm' onClick={() => setCurrentAudio(media)}>
-										<i className='fa fa-play'></i>
+										<i className='fa fa-play'></i> {notOnlyIcon && 'Play'}
 									</Button>
 									<a
-										className='btn'
+										className='btn btn-sm btn-info'
 										rel='noreferrer'
 										href={DL_ROUTE + media.id}
 										target='_blank'
 									>
 										<i className='fa fa-download'></i>
+										{notOnlyIcon && 'Download'}
 									</a>
 								</ButtonGroup>
 							</ListGroupItem>
 						))}
 					</div>
 				) : null}
-				{/* <ListGroupItem>{currentAudio.language.name}</ListGroupItem>
-            <ListGroupItem>
-              {currentAudio.type.toUpperCase()}
-            </ListGroupItem>
-            <ListGroupItem>{currentAudio.createdAt}</ListGroupItem> */}
 			</ListGroup>
+			<Card.Footer>
+				{withPaginations && totalItems > 0 && (
+					<Pagination
+						totalPages={Math.ceil(totalItems / paginator.pageSize)}
+						currentPage={paginator.pageNumber}
+						prevNex
+						threeDots
+						size='sm'
+						onClick={onPageChage}
+					/>
+				)}
+			</Card.Footer>
 		</Card>
 	);
 };

@@ -76,7 +76,7 @@ export const ViwTopics = ({ match }) => {
 						</Row>
 						<Row>
 							<Col ref={categoriesRef} xs={12} md={12} lg={12}>
-								{categoryLoading && categoryTopics.length ? (
+								{categoryLoading && !categoryTopics.length ? (
 									<Loading />
 								) : categoryTopics.length ? (
 									<Row>

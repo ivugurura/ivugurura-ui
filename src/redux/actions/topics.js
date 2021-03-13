@@ -44,8 +44,8 @@ export const addTopic = (newTopic) => {
 		payload: http.post('/topics', newTopic)
 	});
 };
-export const getDashboardTopics = (page = 1, pageSize = 20) => {
-	const params = `page=${page}&pageSize=${pageSize}`;
+export const getDashboardTopics = (page = 1, pageSize = 20, search = '') => {
+	const params = `page=${page}&pageSize=${pageSize}&search=${search}`;
 	store.dispatch({
 		type: GET_ADMIN_TOPICS,
 		payload: http.get(`/users/topics?${params}`)

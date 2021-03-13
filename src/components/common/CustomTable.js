@@ -55,7 +55,7 @@ export const CustomTable = ({
 							))}
 						</tbody>
 					</Table>
-				) : loading ? (
+				) : loading && !data.length ? (
 					<Loading />
 				) : (
 					<h4>No data to display yet</h4>
@@ -67,8 +67,8 @@ export const CustomTable = ({
 						totalPages={pageCount}
 						currentPage={currentPage}
 						prevNex
-						threeDots
 						circle
+						showMax={5}
 						size='sm'
 						onClick={onChangePage}
 					/>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Form } from 'react-bootstrap';
 import { AdminPageHeader, CustomTable, Loading } from '../components/common';
 import { useSelector } from 'react-redux';
 import {
@@ -17,6 +18,7 @@ export const Dashboard = ({ history }) => {
 	const [aeAction, setAeAction] = useState('');
 	const [showActionConf, setShowActionConf] = useState(false);
 	const [paginator, setPaginator] = useState(initialPaginate);
+	const [searchValue, setSearchValue] = useState('');
 	const {
 		dashboard,
 		topicEdit: { done, loading },
@@ -27,11 +29,13 @@ export const Dashboard = ({ history }) => {
 		user
 	}));
 	useEffect(() => {
-		const { pageNumber, pageSize } = paginator;
-		getDashboardTopics(pageNumber, pageSize);
 		getDashboadCount();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+	useEffect(() => {
+		const { pageNumber, pageSize } = paginator;
+		getDashboardTopics(pageNumber, pageSize, searchValue);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [paginator, searchValue]);
 	useEffect(() => {
 		if (done) {
 			const { pageNumber, pageSize } = paginator;
@@ -58,6 +62,13 @@ export const Dashboard = ({ history }) => {
 	};
 	const onPageChage = (currentPage) => {
 		setPaginator({ ...paginator, pageNumber: currentPage });
+	};
+	const onSelectPageChage = ({ target }) => {
+		setPaginator({ pageSize: target.value, pageNumber: 1 });
+	};
+	const onSearchChange = ({ target }) => {
+		setSearchValue(target.value);
+		setPaginator({ pageSize: 10, pageNumber: 1 });
 	};
 	return (
 		<Page title='Dashboard'>
@@ -92,6 +103,24 @@ export const Dashboard = ({ history }) => {
 
 			<section className='updates no-padding-top'>
 				<div className='container-fluid'>
+					<Form inline>
+						<Form.Control
+							placeholder='Search anything'
+							value={searchValue}
+							onChange={onSearchChange}
+						/>
+						<Form.Control
+							as='select'
+							value={paginator.pageSize}
+							onChange={onSelectPageChage}
+						>
+							{[5, 10, 20, 25, 50].map((item) => (
+								<option value={item} key={item}>
+									{item}
+								</option>
+							))}
+						</Form.Control>
+					</Form>
 					<CustomTable
 						title='Recent topic updates'
 						data={dashboard.topics}

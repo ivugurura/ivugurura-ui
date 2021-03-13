@@ -11,7 +11,7 @@ import { Loading } from './common';
 import { audioPath } from '../helpers/utils';
 import { truncate } from '../utils/constants';
 
-const initialPaginate = { pageSize: 10, pageNumber: 1 };
+const initialPaginate = { pageSize: 5, pageNumber: 1 };
 export const AudioPlayer = ({
 	trancNumber = 12,
 	notOnlyIcon = false,
@@ -80,7 +80,7 @@ export const AudioPlayer = ({
 				</Card.Text>
 			</Card.Body>
 			<ListGroup className='list-group-flush'>
-				{mediasFetching ? (
+				{mediasFetching && !medias.length ? (
 					<Loading />
 				) : medias.length ? (
 					<div style={{ overflow: 'auto' }}>

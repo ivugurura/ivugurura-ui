@@ -1,22 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Row, Col, Container, Card } from 'react-bootstrap';
-import HtmlParser from 'react-html-parser';
 import { useTranslation } from 'react-i18next';
-import {
-	RecentTopics,
-	SampleTopics,
-	Communique,
-	Loading
-} from '../components/common';
+import { RecentTopics, SampleTopics, Communique } from '../components/common';
 import { bgStyles } from '../utils/styles';
-import { useSelector } from 'react-redux';
-import { getTopicDetail } from '../redux/actions/topics';
-import { CommentaryForm, Comments, Page } from '../components';
-import { formatDate, scrollToRef } from '../utils/constants';
+import { Page } from '../components';
 import { AudioPlayer } from '../components/AudioPlayer';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
-const Audios = ({ match }) => {
+const Audios = () => {
 	const { t } = useTranslation();
 	return (
 		<Page title={t('app:songsAndTopics')}>

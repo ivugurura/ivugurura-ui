@@ -11,7 +11,7 @@ import { Loading } from './common';
 import { audioPath } from '../helpers/utils';
 import { truncate } from '../utils/constants';
 
-const initialPaginate = { pageSize: 5, pageNumber: 1 };
+const initialPaginate = { pageSize: 10, pageNumber: 1 };
 export const AudioPlayer = ({
 	trancNumber = 12,
 	notOnlyIcon = false,
@@ -26,8 +26,9 @@ export const AudioPlayer = ({
 	);
 	useEffect(() => {
 		const { pageNumber, pageSize } = paginator;
-		getMedias('audio', pageNumber, pageSize);
-	}, [paginator]);
+		const pageSz = withPaginations ? pageSize : 5;
+		getMedias('audio', pageNumber, pageSz);
+	}, [paginator, withPaginations]);
 	useEffect(() => {
 		if (medias.length) {
 			setCurrentAudio(medias[0]);

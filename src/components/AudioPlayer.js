@@ -11,7 +11,7 @@ import { Loading } from './common';
 import { audioPath } from '../helpers/utils';
 import { truncate } from '../utils/constants';
 
-const initialPaginate = { pageSize: 10, pageNumber: 1 };
+const initialPaginate = { pageSize: 50, pageNumber: 1 };
 export const AudioPlayer = ({
 	trancNumber = 12,
 	notOnlyIcon = false,

@@ -32,7 +32,10 @@ export const NavHeader = () => {
 	return (
 		<Navbar collapseOnSelect expand='lg' style={bgStyles.bgPrimary}>
 			<Logo />
-			<Navbar.Toggle aria-controls='responsive-navbar-nav' />
+			<Navbar.Toggle
+				aria-controls='responsive-navbar-nav'
+				style={{ backgroundColor: 'white' }}
+			/>
 			<Navbar.Collapse id='responsive-navbar-nav'>
 				<Nav className='mr-auto'>
 					<Nav.Link to='/' as={Link} style={textStyles.textTransparent}>

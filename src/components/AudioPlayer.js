@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import Pagination from 'react-bootstrap-4-pagination';
 import H5AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
-import { ButtonGroup, Card, Button, Badge } from 'react-bootstrap';
+import { ButtonGroup, Card, Button, Badge, Table } from 'react-bootstrap';
 import { ListGroup } from 'react-bootstrap';
 import { ListGroupItem } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { getMedias } from '../redux/actions';
 import { Loading } from './common';
+import { Share } from './Share';
 import { audioPath } from '../helpers/utils';
 import { truncate } from '../utils/constants';
 
@@ -80,44 +81,57 @@ export const AudioPlayer = ({
 					</Badge>
 				</Card.Text>
 			</Card.Body>
-			<ListGroup className='list-group-flush'>
-				{mediasFetching && !medias.length ? (
-					<Loading />
-				) : medias.length ? (
-					<div style={{ overflow: 'auto' }}>
-						{medias.map((media, mediaIndex) => (
-							<ListGroupItem
-								variant={media.id === currentAudio.id ? 'primary' : 'danger'}
+			<Table responsive='sm'>
+				<thead>
+					<tr>
+						<th>Title, Author</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{mediasFetching && !medias.length ? (
+						<Loading />
+					) : medias.length ? (
+						medias.map((media, mediaIndex) => (
+							<tr
+								className={
+									media.id === currentAudio.id
+										? 'table-primary'
+										: 'table-secondary'
+								}
 								key={mediaIndex}
 							>
-								{`${truncate(media.title, 25)} ${
+								<td>{`${truncate(media.title, 25)} ${
 									media.author !== null
 										? '--' + truncate(media.author, trancNumber)
 										: ''
-								}`}
-								<ButtonGroup
-									size='sm'
-									aria-label='Actions buttons'
-									className='pull-right'
-								>
-									<Button size='sm' onClick={() => setCurrentAudio(media)}>
-										<i className='fa fa-play'></i> {notOnlyIcon && 'Play'}
-									</Button>
-									<a
-										className='btn btn-sm btn-info'
-										rel='noreferrer'
-										href={DL_ROUTE + media.id}
-										target='_blank'
-									>
-										<i className='fa fa-download'></i>
-										{notOnlyIcon && 'Download'}
-									</a>
-								</ButtonGroup>
-							</ListGroupItem>
-						))}
-					</div>
-				) : null}
-			</ListGroup>
+								}`}</td>
+								<td>
+									<ButtonGroup size='sm' aria-label='Actions buttons'>
+										<Button size='sm' onClick={() => setCurrentAudio(media)}>
+											<i className='fa fa-play'></i> {notOnlyIcon && 'Play'}
+										</Button>
+										<a
+											className='btn btn-sm btn-info'
+											rel='noreferrer'
+											href={DL_ROUTE + media.id}
+											target='_blank'
+										>
+											<i className='fa fa-download'></i>
+											{notOnlyIcon && 'Download'}
+										</a>
+										<Share
+											title={media.title}
+											href={DL_ROUTE + media.id}
+											onShare={console.log('Click')}
+										/>
+									</ButtonGroup>
+								</td>
+							</tr>
+						))
+					) : null}
+				</tbody>
+			</Table>
 			<Card.Footer>
 				{withPaginations && totalItems > 0 && (
 					<Pagination

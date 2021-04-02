@@ -3,10 +3,8 @@ import moment from 'moment';
 import Pagination from 'react-bootstrap-4-pagination';
 import H5AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 import { ButtonGroup, Card, Button, Badge, Table } from 'react-bootstrap';
-import { ListGroup } from 'react-bootstrap';
-import { ListGroupItem } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { getMedias } from '../redux/actions';
+import { getMedias, shareSong } from '../redux/actions';
 import { Loading } from './common';
 import { Share } from './Share';
 import { audioPath } from '../helpers/utils';
@@ -120,7 +118,7 @@ export const AudioPlayer = ({
 										<Share
 											title={media.title}
 											href={DL_ROUTE + media.slug}
-											onShare={console.log('Click')}
+											onShare={() => shareSong(media.slug)}
 										/>
 									</ButtonGroup>
 								</td>

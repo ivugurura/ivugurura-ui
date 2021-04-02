@@ -26,7 +26,12 @@ import {
 import { oneCategoryReducer } from './oneCategoryReducer';
 import { searchReducer } from './searchReducer';
 import { albumReducer } from './albumReducer';
-import { mediaReducer, songDelReducer, songEditReducer } from './mediaReducer';
+import {
+	mediaReducer,
+	songDelReducer,
+	songEditReducer,
+	songShareReducer
+} from './mediaReducer';
 import {
 	addCommuniqueReducer,
 	getCommuniquesReducer,
@@ -72,5 +77,6 @@ export const rootReducer = combineReducers({
 	usersGet: usersGetReducer,
 	userAdd: userAddReducer,
 	userEdit: userEditReducer,
-	userRm: userRmReducer
+	userRm: userRmReducer,
+	songShare: songShareReducer
 });

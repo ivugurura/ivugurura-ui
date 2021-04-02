@@ -3,7 +3,8 @@ import {
 	ADD_NEW_MEDIA,
 	DOWNLOAD_SONG,
 	EDIT_SONG,
-	DELETE_SONG
+	DELETE_SONG,
+	SHARE_SONG
 } from './actionTypes';
 import { http } from '../../helpers';
 import { store } from '../store';
@@ -38,5 +39,11 @@ export const deleteSong = (songId = '') => {
 	store.dispatch({
 		type: DELETE_SONG,
 		payload: http.delete(`/albums/media/${songId}/del`)
+	});
+};
+export const shareSong = (songId = '') => {
+	store.dispatch({
+		type: SHARE_SONG,
+		payload: http.get(`/albums/share/${songId}`)
 	});
 };

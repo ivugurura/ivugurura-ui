@@ -1,6 +1,12 @@
 import { baseState, mediaState } from '../initialStates';
 import { pending, fulfilled, rejected } from '../../utils/actions';
-import { GET_MEDIAS, ADD_NEW_MEDIA, DELETE_SONG, EDIT_SONG } from '../actions';
+import {
+	GET_MEDIAS,
+	ADD_NEW_MEDIA,
+	DELETE_SONG,
+	EDIT_SONG,
+	SHARE_SONG
+} from '../actions';
 
 export const mediaReducer = (state = mediaState, action) => {
 	switch (action.type) {
@@ -78,6 +84,29 @@ export const songEditReducer = (state = baseState('message', ''), action) => {
 				message: action.payload.data.message
 			};
 		case rejected(EDIT_SONG):
+		default:
+			return {
+				...state,
+				loading: false
+			};
+	}
+};
+export const songShareReducer = (state = baseState('message', ''), action) => {
+	switch (action.type) {
+		case pending(SHARE_SONG):
+			return {
+				...state,
+				loaded: false,
+				loading: true
+			};
+		case fulfilled(SHARE_SONG):
+			return {
+				...state,
+				loading: false,
+				loaded: true,
+				message: action.payload.data.message
+			};
+		case rejected(SHARE_SONG):
 		default:
 			return {
 				...state,

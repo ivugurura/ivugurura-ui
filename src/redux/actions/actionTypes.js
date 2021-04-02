@@ -47,6 +47,7 @@ export const ADD_NEW_MEDIA = 'ADD_NEW_MEDIA';
 export const DOWNLOAD_SONG = 'DOWNLOAD_SONG';
 export const EDIT_SONG = 'EDIT_SONG';
 export const DELETE_SONG = 'DELETE_SONG';
+export const SHARE_SONG = 'SHARE_SONG';
 export const SET_FILE_PATH = 'SET_FILE_PATH';
 export const RESET_FILE_PATH = 'RESET_FILE_PATH';
 

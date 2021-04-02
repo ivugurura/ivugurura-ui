@@ -77,12 +77,6 @@ export const AudioPlayer = ({
 				</Card.Text>
 			</Card.Body>
 			<Table responsive='sm'>
-				<thead>
-					<tr>
-						<th>Title, Author</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
 				<tbody>
 					{mediasFetching && !medias.length ? (
 						<Loading />
@@ -96,11 +90,15 @@ export const AudioPlayer = ({
 								}
 								key={mediaIndex}
 							>
-								<td>{`${truncate(media.title, 25)} ${
-									media.author !== null
-										? '--' + truncate(media.author, trancNumber)
-										: ''
-								}`}</td>
+								<td>
+									<span onClick={() => setCurrentAudio(media)}>
+										{`${truncate(media.title, 25)} ${
+											media.author !== null
+												? '--' + truncate(media.author, trancNumber)
+												: ''
+										}`}
+									</span>
+								</td>
 								<td>
 									<ButtonGroup size='sm' aria-label='Actions buttons'>
 										<Button size='sm' onClick={() => setCurrentAudio(media)}>

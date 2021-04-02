@@ -82,7 +82,7 @@ export const AdminAudio = () => {
 				action='DELETE'
 				description={currentMedia ? currentMedia.title : ''}
 				loading={loading}
-				onAction={() => deleteSong(currentMedia.id)}
+				onAction={() => deleteSong(currentMedia.slug)}
 			/>
 			<AdminPageHeader
 				name='Media/audio'

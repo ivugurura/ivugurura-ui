@@ -36,8 +36,8 @@ export const AudioPlayer = ({
 		}
 	}, [medias]);
 	useEffect(() => {
-		if (currentAudio.id) {
-			const theIndex = medias.findIndex((m) => m.id === currentAudio.id);
+		if (currentAudio.slug) {
+			const theIndex = medias.findIndex((m) => m.slug === currentAudio.slug);
 			setCurrentIndex(theIndex);
 		}
 	}, [currentAudio, medias]);
@@ -95,7 +95,7 @@ export const AudioPlayer = ({
 						medias.map((media, mediaIndex) => (
 							<tr
 								className={
-									media.id === currentAudio.id
+									media.slug === currentAudio.slug
 										? 'table-primary'
 										: 'table-secondary'
 								}
@@ -114,7 +114,7 @@ export const AudioPlayer = ({
 										<a
 											className='btn btn-sm btn-info'
 											rel='noreferrer'
-											href={DL_ROUTE + media.id}
+											href={DL_ROUTE + media.slug}
 											target='_blank'
 										>
 											<i className='fa fa-download'></i>
@@ -122,7 +122,7 @@ export const AudioPlayer = ({
 										</a>
 										<Share
 											title={media.title}
-											href={DL_ROUTE + media.id}
+											href={DL_ROUTE + media.slug}
 											onShare={console.log('Click')}
 										/>
 									</ButtonGroup>

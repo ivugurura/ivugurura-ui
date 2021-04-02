@@ -1,25 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import Pagination from 'react-bootstrap-4-pagination';
 import { Loading } from './Loading';
 import { getMedias } from '../../redux/actions';
 import { Button, ButtonGroup } from 'react-bootstrap';
 
+const initialPaginate = { pageSize: 10, pageNumber: 1 };
 export const TableCard = ({ setActions, user = {} }) => {
+	const [paginator, setPaginator] = useState(initialPaginate);
 	const {
-		media: { medias, mediasFetching, mediaAdded },
-		songEdit: { loaded }
-	} = useSelector(({ media, songEdit }) => ({ media, songEdit }));
+		media: { medias, totalItems, mediasFetching, mediaAdded },
+		songEdit: { loaded },
+		songDel: { loaded: deleted }
+	} = useSelector((actions) => actions);
 	useEffect(() => {
-		getMedias();
+		const { pageNumber, pageSize } = paginator;
+		getMedias('all', pageNumber, pageSize);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [paginator]);
 	useEffect(() => {
-		if (mediaAdded || loaded) {
-			getMedias();
+		if (mediaAdded || loaded || deleted) {
+			getMedias('all', paginator.pageNumber, paginator.pageSize);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [mediaAdded, loaded]);
+	}, [mediaAdded, loaded, deleted]);
+	const onPageChage = (currentPage) => {
+		setPaginator({ ...paginator, pageNumber: currentPage });
+	};
 	return (
 		<div className='card'>
 			<div className='card-header d-flex align-items-center'>Media list</div>
@@ -85,6 +93,18 @@ export const TableCard = ({ setActions, user = {} }) => {
 						<h5 className='text-center'>No media</h5>
 					)}
 				</div>
+			</div>
+			<div className='card-footer'>
+				{totalItems > 0 && (
+					<Pagination
+						totalPages={Math.ceil(totalItems / paginator.pageSize)}
+						currentPage={paginator.pageNumber}
+						prevNex
+						threeDots
+						size='sm'
+						onClick={onPageChage}
+					/>
+				)}
 			</div>
 		</div>
 	);

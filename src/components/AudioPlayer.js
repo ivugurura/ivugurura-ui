@@ -58,10 +58,7 @@ export const AudioPlayer = ({
 			<i className='fa fa-step-forward'></i>
 		</Button>
 	];
-	const BASE_DOWNLOAD = process.env.REACT_APP_API_URL.includes('localhost')
-		? `${process.env.REACT_APP_API_URL}`
-		: '';
-	const DL_ROUTE = BASE_DOWNLOAD + '/api/v1/albums/download/';
+	const DL_ROUTE = process.env.REACT_APP_API_URL + '/api/v1/albums/download/';
 
 	const onPageChage = (currentPage) => {
 		setPaginator({ ...paginator, pageNumber: currentPage });

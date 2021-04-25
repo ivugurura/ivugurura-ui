@@ -93,9 +93,7 @@ export const AudioPlayer = ({
 								<td>
 									<span onClick={() => setCurrentAudio(media)}>
 										{`${truncate(media.title, 25)} ${
-											media.author !== null
-												? '--' + truncate(media.author, trancNumber)
-												: ''
+											media.author && '--' + truncate(media.author, trancNumber)
 										}`}
 									</span>
 								</td>

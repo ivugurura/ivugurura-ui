@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'suneditor/dist/css/suneditor.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-chat-widget/lib/styles.css';
+import 'react-h5-audio-player/lib/styles.css';
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
 import { ProgressBar } from 'react-bootstrap';

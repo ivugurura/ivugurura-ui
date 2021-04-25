@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Container, Row, Col, Card, Breadcrumb } from 'react-bootstrap';
 import Pagination from 'react-bootstrap-4-pagination';
-import { RecentTopics, Communique, Loading } from '../components/common';
-import { bgStyles } from '../utils/styles';
+import { RecentTopics, Communique, Loading } from 'components/common';
+import { bgStyles } from 'utils/styles';
 import { useSelector } from 'react-redux';
-import { getCategoryDetail, getTopics } from '../redux/actions';
+import { getCategoryDetail, getTopics } from 'redux/actions';
 import { Link } from 'react-router-dom';
-import { scrollToRef } from '../utils/constants';
+import { scrollToRef, systemLanguage } from 'utils/constants';
 import { Page } from '../components';
 import { useTranslation } from 'react-i18next';
 
@@ -82,7 +82,10 @@ export const ViwTopics = ({ match }) => {
 									<Row>
 										{categoryTopics.map((topic, topicIndex) => (
 											<Col xs={12} sm={6} md={4} lg={4} key={topicIndex}>
-												<Card as={Link} to={`/topics/${topic.slug}`}>
+												<Card
+													as={Link}
+													to={`/${systemLanguage}/topics/${topic.slug}`}
+												>
 													<Card.Img
 														src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
 													/>

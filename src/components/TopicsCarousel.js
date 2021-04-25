@@ -4,6 +4,7 @@ import { getTopics } from '../redux/actions/topics';
 import { Loading } from './common';
 import { Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { systemLanguage } from 'utils/constants';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const TopicsCarousel = () => {
@@ -28,7 +29,7 @@ export const TopicsCarousel = () => {
 							<Carousel.Item
 								key={topicIndex}
 								as={Link}
-								to={`/topics/${topic.slug}`}
+								to={`/${systemLanguage}/topics/${topic.slug}`}
 								style={{ height: '64vh' }}
 							>
 								<img

@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getTopics } from '../../redux/actions/topics';
 import { Loading } from './Loading';
-import { truncate } from '../../utils/constants';
+import { systemLanguage, truncate } from '../../utils/constants';
 import { useTranslation } from 'react-i18next';
 
 export const SampleTopics = ({ isHomePage, topics, loading = false }) => {
@@ -65,7 +65,7 @@ export const SampleTopics = ({ isHomePage, topics, loading = false }) => {
 					>
 						{componentTopics.map((topic, topicItem) => (
 							<Col key={topicItem} xs={12} md={12} lg={12}>
-								<Link to={`/topics/${topic.slug}`}>
+								<Link to={`/${systemLanguage}/topics/${topic.slug}`}>
 									<Card style={{ height: '50vh' }}>
 										<Card.Img
 											variant='top'
@@ -83,7 +83,7 @@ export const SampleTopics = ({ isHomePage, topics, loading = false }) => {
 					</Carousel>
 				) : null}
 				{componentTopics.length > 5 ? (
-					<Button as={Link} to='/topics'>
+					<Button as={Link} to={`/${systemLanguage}/topics`}>
 						{t('app:viewMore')}
 					</Button>
 				) : null}

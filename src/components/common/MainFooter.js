@@ -3,8 +3,8 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import '../../styles/footer.css';
-import { currentYear, socialMedias } from '../../utils/constants';
+import 'styles/footer.css';
+import { currentYear, socialMedias, systemLanguage } from 'utils/constants';
 
 export const MainFooter = () => {
 	const { t } = useTranslation();
@@ -20,11 +20,11 @@ export const MainFooter = () => {
 									<Col xs={12} sm={12} md={3} lg={3} key={categoryIdx}>
 										<div className='footer-pad'>
 											<h4>{category.name}</h4>
-											<ul className='list-unstyled'>
+											<ul className='list-styled'>
 												{category.categories.map((subCat, subCatIdx) => (
 													<Link
 														key={subCatIdx}
-														to={`/topics/categories/${subCat.slug}`}
+														to={`/${systemLanguage}/topics/categories/${subCat.slug}`}
 													>
 														<p>{subCat.name}</p>
 													</Link>

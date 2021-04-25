@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 const flagUrl = `${process.env.PUBLIC_URL}/img/flags/16`;
-const systemLanguage = localStorage.getItem('lang') || 'kn';
+export const systemLanguage = localStorage.getItem('lang') || 'kn';
 export const topicEditorButtons = [
 	['undo', 'redo'],
 	['font', 'fontSize', 'formatBlock'],

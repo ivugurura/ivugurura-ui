@@ -10,11 +10,11 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { bgStyles, textStyles } from '../../utils/styles';
+import { bgStyles, textStyles } from 'utils/styles';
 import { Logo } from './Logo';
 import { useSelector } from 'react-redux';
-import { getCategories } from '../../redux/actions';
-import { currentLang, systemLanguages } from '../../utils/constants';
+import { getCategories } from 'redux/actions';
+import { currentLang, systemLanguage, systemLanguages } from 'utils/constants';
 import { SearchBox, ContactUs } from '../models';
 
 export const NavHeader = () => {
@@ -27,7 +27,7 @@ export const NavHeader = () => {
 	}, []);
 	const selectLanguage = (newLang) => {
 		localStorage.setItem('lang', newLang);
-		window.location.href = '/';
+		window.location.href = `/${newLang}`;
 	};
 	return (
 		<Navbar collapseOnSelect expand='lg' style={bgStyles.bgPrimary}>
@@ -57,7 +57,9 @@ export const NavHeader = () => {
 								<Dropdown.Menu>
 									{nav.categories.map((subNav, subNavIndex) => (
 										<Dropdown.Item key={subNavIndex}>
-											<Link to={`/topics/categories/${subNav.slug}`}>
+											<Link
+												to={`/${systemLanguage}/topics/categories/${subNav.slug}`}
+											>
 												{subNav.name}
 											</Link>
 										</Dropdown.Item>
@@ -66,7 +68,11 @@ export const NavHeader = () => {
 							</Dropdown>
 						)
 					)}
-					<Nav.Link to='/audios' as={Link} style={textStyles.textTransparent}>
+					<Nav.Link
+						to={`/${systemLanguage}/audios`}
+						as={Link}
+						style={textStyles.textTransparent}
+					>
 						{t('app:audios')}
 					</Nav.Link>
 					<Nav.Link

@@ -4,7 +4,7 @@ import { textStyles } from '../../utils/styles';
 import { useSelector } from 'react-redux';
 import { getTopics } from '../../redux/actions';
 import { Loading } from './Loading';
-import { formatDate } from '../../utils/constants';
+import { formatDate, systemLanguage } from '../../utils/constants';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -24,7 +24,7 @@ export const RecentTopics = () => {
 			) : recentTopics.length ? (
 				recentTopics.map((topic, topicIndex) => (
 					<Media.Body key={topicIndex}>
-						<Link to={`/topics/${topic.slug}`}>
+						<Link to={`/${systemLanguage}/topics/${topic.slug}`}>
 							<h6>{topic.title}</h6>
 							<p>{formatDate(topic.createdAt)}</p>
 						</Link>

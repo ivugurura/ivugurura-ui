@@ -1,8 +1,14 @@
 import React, { lazy } from 'react';
 import { Redirect } from 'react-router-dom';
+import { systemLanguage } from 'utils/constants';
 import { Main, AdminMain } from './layouts';
 
 export const routes = [
+	{
+		path: '/',
+		exact: true,
+		component: () => <Redirect to={`/${systemLanguage}`} />
+	},
 	{
 		path: '/admin',
 		component: AdminMain,
@@ -48,46 +54,46 @@ export const routes = [
 		]
 	},
 	{
-		path: '/',
+		path: '/:language',
 		component: Main,
 		routes: [
 			{
-				path: '/',
+				path: '/:language',
 				exact: true,
 				component: lazy(() => import('views/Home'))
 			},
 			{
-				path: '/login',
+				path: '/:language/login',
 				exact: true,
 				component: lazy(() => import('views/Login'))
 			},
 			{
-				path: '/topics',
+				path: '/:language/topics',
 				exact: true,
 				component: lazy(() => import('views/ViwTopics'))
 			},
 			{
-				path: '/topics/:topicSlug',
+				path: '/:language/topics/:topicSlug',
 				exact: true,
 				component: lazy(() => import('views/TopicView'))
 			},
 			{
-				path: '/topics/categories/:categorySlug',
+				path: '/:language/topics/categories/:categorySlug',
 				exact: true,
 				component: lazy(() => import('views/ViwTopics'))
 			},
 			{
-				path: '/radio',
+				path: '/:language/radio',
 				exact: true,
 				component: lazy(() => import('views/RadioRRV'))
 			},
 			{
-				path: '/audios',
+				path: '/:language/audios',
 				exact: true,
 				component: lazy(() => import('views/Audios'))
 			},
 			{
-				path: '/errors/error-400',
+				path: '/:language/errors/error-400',
 				exact: true,
 				component: lazy(() => import('views/NotFound'))
 			},

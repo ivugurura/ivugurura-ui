@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import '../../styles/fileUpload.css';
+import 'styles/fileUpload.css';
 import { Form, ProgressBar } from 'react-bootstrap';
-import { uploadFileWithProgress } from '../../helpers/utils';
-import { notifier } from '../../utils/notifier';
-import { setFilePath } from '../../redux/actions';
+import { uploadFileWithProgress } from 'helpers/utils';
+import { notifier } from 'utils/notifier';
+import { setFilePath } from 'redux/actions';
 
 export const FileUpload = ({ title, previousFile = '', type }) => {
 	const [progress, setProgress] = useState(0);
@@ -30,9 +30,9 @@ export const FileUpload = ({ title, previousFile = '', type }) => {
 	return (
 		<Form.Group className='files color'>
 			<Form.File id='audioFile' label={title} onChange={onChange} />
-			{progress ? (
+			{progress > 0 && (
 				<ProgressBar animated now={progress} label={`${progress}%`} />
-			) : null}
+			)}
 		</Form.Group>
 	);
 };

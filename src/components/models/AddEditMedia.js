@@ -8,10 +8,10 @@ import {
 	Button,
 	Modal
 } from 'react-bootstrap';
-import { addNewMedia, editSong } from '../../redux/actions';
-import { FileUpload } from '.';
+import { addNewMedia, editSong } from 'redux/actions';
+import { FileUpload } from './FileUpload';
 import { useSelector } from 'react-redux';
-import { toDate } from '../../helpers/utils';
+import { toDate } from 'helpers/utils';
 
 const initials = {
 	title: '',

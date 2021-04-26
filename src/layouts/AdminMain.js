@@ -4,13 +4,14 @@ import { useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { toast } from 'react-toastify';
 import { Container, ProgressBar } from 'react-bootstrap';
+import { systemLanguage } from 'utils/constants';
 
-export const AdminMain = ({ route, history }) => {
+export const AdminMain = ({ route }) => {
 	const { isAuthenticated } = useSelector(({ user }) => user);
 	if (!isAuthenticated) {
 		toast('Sorry you are not authenticated', { toastId: 41 });
 		setTimeout(() => {
-			window.location.replace('/login');
+			window.location.replace(`/${systemLanguage}/login`);
 		}, 3000);
 	}
 	return (

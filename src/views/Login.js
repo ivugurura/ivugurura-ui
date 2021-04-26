@@ -13,9 +13,9 @@ export const Login = ({ history }) => {
 	);
 	useEffect(() => {
 		if (isAuthenticated) {
-			toast('You are going to the Dashboard in 3 seconds');
+			toast('You are going to the Dashboard in 3 seconds', { toastId: 42 });
 			setTimeout(() => {
-				history.replace('/admin');
+				history.replace(`/admin`);
 			}, 5000);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -25,7 +25,7 @@ export const Login = ({ history }) => {
 			localStorage.setItem('user', JSON.stringify(info));
 			toast(`Welcome ${info.names}`);
 			setTimeout(() => {
-				window.location.href = '/admin';
+				window.location.href = `/admin`;
 			}, 5000);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps

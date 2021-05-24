@@ -49,7 +49,7 @@ export const routes = [
 				component: lazy(() => import('views/AddEditTopic'))
 			},
 			{
-				component: () => <Redirect to='/' />
+				component: () => <Redirect to={`/${systemLanguage}`} />
 			}
 		]
 	},
@@ -98,7 +98,7 @@ export const routes = [
 				component: lazy(() => import('views/NotFound'))
 			},
 			{
-				component: () => <Redirect to='/' />
+				component: () => <Redirect to={`/${systemLanguage}`} />
 			}
 		]
 	}

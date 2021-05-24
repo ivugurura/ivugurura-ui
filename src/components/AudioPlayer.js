@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import Pagination from 'react-bootstrap-4-pagination';
 import H5AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
-import { ButtonGroup, Card, Button, Badge, Table } from 'react-bootstrap';
+import { ButtonGroup, Card, Button, Badge, Table, Form } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { getMedias, shareSong } from '../redux/actions';
 import { Loading } from './common';
@@ -19,6 +19,7 @@ export const AudioPlayer = ({
 	const [currentAudio, setCurrentAudio] = useState({});
 	const [currentIndex, setCurrentIndex] = useState(-1);
 	const [paginator, setPaginator] = useState(initialPaginate);
+	const [searchValue, setSearchValue] = useState('');
 
 	const { medias, mediasFetching, totalItems } = useSelector(
 		({ media }) => media
@@ -26,8 +27,8 @@ export const AudioPlayer = ({
 	useEffect(() => {
 		const { pageNumber, pageSize } = paginator;
 		const pageSz = withPaginations ? pageSize : 5;
-		getMedias('audio', pageNumber, pageSz);
-	}, [paginator, withPaginations]);
+		getMedias('audio', pageNumber, pageSz, searchValue);
+	}, [paginator, withPaginations, searchValue]);
 	useEffect(() => {
 		if (medias.length) {
 			setCurrentAudio(medias[0]);
@@ -61,6 +62,13 @@ export const AudioPlayer = ({
 	const onPageChage = (currentPage) => {
 		setPaginator({ ...paginator, pageNumber: currentPage });
 	};
+	// const onSelectPageChage = ({ target }) => {
+	// 	setPaginator({ pageSize: target.value, pageNumber: 1 });
+	// };
+	const onSearchChange = ({ target }) => {
+		setSearchValue(target.value);
+		// setPaginator({ pageSize: 10, pageNumber: 1 });
+	};
 	return (
 		<Card>
 			<H5AudioPlayer
@@ -76,6 +84,24 @@ export const AudioPlayer = ({
 					</Badge>
 				</Card.Text>
 			</Card.Body>
+			<Form inline>
+				<Form.Control
+					placeholder='Search anything'
+					value={searchValue}
+					onChange={onSearchChange}
+				/>
+				{/* <Form.Control
+					as='select'
+					value={paginator.pageSize}
+					onChange={onSelectPageChage}
+				>
+					{[5, 10, 20, 25, 50].map((item) => (
+						<option value={item} key={item}>
+							{item}
+						</option>
+					))}
+				</Form.Control> */}
+			</Form>
 			<Table responsive='sm'>
 				<tbody>
 					{mediasFetching && !medias.length ? (

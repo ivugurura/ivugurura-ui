@@ -9,8 +9,13 @@ import {
 import { http } from '../../helpers';
 import { store } from '../store';
 
-export const getMedias = (type = 'all', page = 1, pageSize = 5) => {
-	const params = `page=${page}&pageSize=${pageSize}`;
+export const getMedias = (
+	type = 'all',
+	page = 1,
+	pageSize = 5,
+	search = ''
+) => {
+	const params = `page=${page}&pageSize=${pageSize}&search=${search}`;
 	store.dispatch({
 		type: GET_MEDIAS,
 		payload: http.get(`/albums/medias/${type}?${params}`)

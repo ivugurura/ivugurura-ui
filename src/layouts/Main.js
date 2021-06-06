@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { ProgressBar } from 'react-bootstrap';
 import { Redirect } from 'react-router';
 import { renderRoutes } from 'react-router-config';
-import { systemLanguages } from 'utils/constants';
+import { systemLanguages, systemLanguage } from 'utils/constants';
 import { NavHeader, MainFooter } from '../components/common';
 
 export const Main = ({ route, match }) => {
@@ -17,6 +17,6 @@ export const Main = ({ route, match }) => {
 			<MainFooter />
 		</>
 	) : (
-		<Redirect to='/kn' />
+		<Redirect to={`/${systemLanguage}`} />
 	);
 };

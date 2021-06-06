@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { getPublishedCommunique } from '../redux/actions';
 import { bgStyles, textStyles } from '../utils/styles';
 import { AudioPlayer } from '../components/AudioPlayer';
+import { systemLanguage } from 'utils/constants';
 
 // const ytbImg = `${process.env.PUBLIC_URL}/yt-img.png`;
 const Home = () => {
@@ -33,7 +34,12 @@ const Home = () => {
 								<i>{t('app:radioMsg')}</i>
 								<h6>
 									{t('app:listen')}{' '}
-									<Button variant='danger' size='sm' as={Link} to='/radio'>
+									<Button
+										variant='danger'
+										size='sm'
+										as={Link}
+										to={`/${systemLanguage}/radio`}
+									>
 										{t('app:listenRadio')}
 									</Button>
 								</h6>

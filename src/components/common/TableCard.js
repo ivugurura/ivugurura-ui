@@ -43,6 +43,10 @@ export const TableCard = ({ setActions, user = {} }) => {
 									<th>Title</th>
 									<th>Type</th>
 									<th>Author</th>
+									<th>
+										<i className='fa fa-download'></i>
+									</th>
+									<th>Shares</th>
 									<th>Date</th>
 									<th>Actions</th>
 								</tr>
@@ -54,6 +58,8 @@ export const TableCard = ({ setActions, user = {} }) => {
 										<td>{media.title}</td>
 										<td>{media.type}</td>
 										<td>{media.author}</td>
+										<td>{media.downloads}</td>
+										<td>{media.shares}</td>
 										<td>{moment(media.actionDate).format('DD/MM/YYYY')}</td>
 										<td>
 											<ButtonGroup size='sm'>

@@ -137,12 +137,12 @@ export const AdminAudio = () => {
 			<section className='tables no-padding-top'>
 				<Container fluid>
 					<Row>
-						<Col xs={12} sm={12} md={8} lg={8}>
+						<Col xs={12} sm={12} md={9} lg={9}>
 							<TableCard setActions={setActions} user={user.info} />
 						</Col>
-						<Col xs={12} sm={12} md={4} lg={4}>
+						<Col xs={12} sm={12} md={3} lg={3}>
 							{song ? (
-								<Card style={{ width: '18rem' }}>
+								<Card>
 									<AudioPlayer src={audioPath + song.mediaLink} />
 									<Card.Body>
 										<Card.Title>

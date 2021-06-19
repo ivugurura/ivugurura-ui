@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import moment from 'moment';
 import 'react-h5-audio-player/lib/styles.css';
-import { AdminPageHeader, TableCard, Loading } from '../components/common';
+import { AdminPageHeader, TableCard } from '../components/common';
 import {
 	Col,
 	Row,
@@ -13,7 +13,7 @@ import {
 	Button
 } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { deleteSong, getAlbums } from '../redux/actions';
+import { deleteSong, getMediaCounts } from '../redux/actions';
 import { AddAlbum, AddEditMedia, ActionConfirm } from '../components/models';
 import { Page } from '../components';
 import { ListGroup } from 'react-bootstrap';
@@ -28,23 +28,22 @@ export const AdminAudio = () => {
 	const [currentMedia, setCurrentMedia] = useState(null);
 	const [song, setSong] = useState(null);
 	const {
-		album: { albums, albumsFetching },
-		media: { medias },
+		media: { medias, totalItems },
 		songDel: { loading, loaded },
-		user
-	} = useSelector(({ album, media, songDel, user }) => ({
-		album,
+		user,
+		mediaCount: { counts }
+	} = useSelector(({ media, songDel, user, mediaCount }) => ({
 		media,
 		songDel,
-		user
+		user,
+		mediaCount
 	}));
 	useEffect(() => {
-		getAlbums();
+		getMediaCounts();
 	}, []);
 	useEffect(() => {
 		if (loaded) {
 			setShowActionConf(false);
-			getAlbums();
 		}
 	}, [loaded]);
 	useEffect(() => {
@@ -120,19 +119,21 @@ export const AdminAudio = () => {
 				</Row>
 			)}
 			<Row>
-				{albumsFetching ? (
-					<Loading />
-				) : albums.length ? (
-					albums.map((album, albumIndex) => (
-						<Col xs={12} sm={12} md={3} lg={3} key={albumIndex}>
-							<Card>
-								<Card.Header>{album.name}</Card.Header>
-							</Card>
-						</Col>
-					))
-				) : (
-					<h4 className='text-center'>No albums</h4>
-				)}
+				<Col xs={12} sm={12} md={3} lg={3}>
+					<h3>
+						Audios <Badge variant='secondary'>{totalItems}</Badge>
+					</h3>
+				</Col>
+				<Col xs={12} sm={12} md={3} lg={3}>
+					<h3>
+						Downloads <Badge variant='primary'>{counts.downloads || 0}</Badge>
+					</h3>
+				</Col>
+				<Col xs={12} sm={12} md={3} lg={3}>
+					<h3>
+						Shares <Badge variant='info'>{counts.shares || 0}</Badge>
+					</h3>
+				</Col>
 			</Row>
 			<section className='tables no-padding-top'>
 				<Container fluid>

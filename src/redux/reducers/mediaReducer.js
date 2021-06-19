@@ -5,7 +5,8 @@ import {
 	ADD_NEW_MEDIA,
 	DELETE_SONG,
 	EDIT_SONG,
-	SHARE_SONG
+	SHARE_SONG,
+	GET_MEDIA_COUNTS
 } from '../actions';
 
 export const mediaReducer = (state = mediaState, action) => {
@@ -107,6 +108,29 @@ export const songShareReducer = (state = baseState('message', ''), action) => {
 				message: action.payload.data.message
 			};
 		case rejected(SHARE_SONG):
+		default:
+			return {
+				...state,
+				loading: false
+			};
+	}
+};
+export const mediaCountReducer = (state = baseState('counts', {}), action) => {
+	switch (action.type) {
+		case pending(GET_MEDIA_COUNTS):
+			return {
+				...state,
+				loaded: false,
+				loading: true
+			};
+		case fulfilled(GET_MEDIA_COUNTS):
+			return {
+				...state,
+				loading: false,
+				loaded: true,
+				counts: action.payload.data.data
+			};
+		case rejected(GET_MEDIA_COUNTS):
 		default:
 			return {
 				...state,

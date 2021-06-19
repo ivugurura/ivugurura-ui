@@ -4,7 +4,8 @@ import {
 	DOWNLOAD_SONG,
 	EDIT_SONG,
 	DELETE_SONG,
-	SHARE_SONG
+	SHARE_SONG,
+	GET_MEDIA_COUNTS
 } from './actionTypes';
 import { http } from '../../helpers';
 import { store } from '../store';
@@ -50,5 +51,11 @@ export const shareSong = (songId = '') => {
 	store.dispatch({
 		type: SHARE_SONG,
 		payload: http.get(`/albums/share/${songId}`)
+	});
+};
+export const getMediaCounts = () => {
+	store.dispatch({
+		type: GET_MEDIA_COUNTS,
+		payload: http.get('/albums/counts/media')
 	});
 };

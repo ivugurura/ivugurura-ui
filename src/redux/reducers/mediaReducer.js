@@ -6,7 +6,8 @@ import {
 	DELETE_SONG,
 	EDIT_SONG,
 	SHARE_SONG,
-	GET_MEDIA_COUNTS
+	GET_MEDIA_COUNTS,
+	GET_COVER_IMAGES
 } from '../actions';
 
 export const mediaReducer = (state = mediaState, action) => {
@@ -131,6 +132,31 @@ export const mediaCountReducer = (state = baseState('counts', {}), action) => {
 				counts: action.payload.data.data
 			};
 		case rejected(GET_MEDIA_COUNTS):
+		default:
+			return {
+				...state,
+				loading: false
+			};
+	}
+};
+export const coverImagesGetReducer = (
+	state = baseState('coverImages', []),
+	action
+) => {
+	switch (action.type) {
+		case pending(GET_COVER_IMAGES):
+			return {
+				...state,
+				loaded: false
+			};
+		case fulfilled(GET_COVER_IMAGES):
+			return {
+				...state,
+				loading: false,
+				loaded: true,
+				coverImages: action.payload.data.data
+			};
+		case rejected(GET_COVER_IMAGES):
 		default:
 			return {
 				...state,

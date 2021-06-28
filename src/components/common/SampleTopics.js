@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getTopics } from '../../redux/actions/topics';
 import { Loading } from './Loading';
-import { systemLanguage, truncate } from '../../utils/constants';
+import { IMAGE_PATH, systemLanguage, truncate } from '../../utils/constants';
 import { useTranslation } from 'react-i18next';
 
 export const SampleTopics = ({ isHomePage, topics, loading = false }) => {
@@ -70,7 +70,7 @@ export const SampleTopics = ({ isHomePage, topics, loading = false }) => {
 										<Card.Img
 											variant='top'
 											height='60%'
-											src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
+											src={`${IMAGE_PATH}/${topic.coverImage}`}
 										/>
 										<Card.Body>
 											<Card.Title>{topic.title}</Card.Title>

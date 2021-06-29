@@ -84,7 +84,7 @@ export const AddEditTopic = ({ history, match }) => {
 	};
 	const onSaveChange = async () => {
 		topic.content = sunEdContent;
-		topic.coverImage = filePath.filePathName;
+		topic.coverImage = filePath.filePathName || topic.coverImage;
 		if (!topic.coverImage) {
 			return toast('Please select cover image', { type: toast.TYPE.ERROR });
 		}
@@ -177,11 +177,16 @@ export const AddEditTopic = ({ history, match }) => {
 									variant='outline-primary'
 									onClick={() => setIsCoverImageOpen(true)}
 								>
-									Select cover image
+									{Boolean(filePath.filePathName) || Boolean(topic.coverImage)
+										? 'Change the image'
+										: 'Select cover image'}
 								</Button>
-								{Boolean(filePath.filePathName) && (
+								{(Boolean(filePath.filePathName) ||
+									Boolean(topic.coverImage)) && (
 									<Image
-										src={`${IMAGE_PATH}/${filePath.filePathName}`}
+										src={`${IMAGE_PATH}/${
+											filePath.filePathName || topic.coverImage
+										}`}
 										thumbnail
 									/>
 								)}

@@ -4,7 +4,7 @@ import { getTopics } from '../redux/actions/topics';
 import { Loading } from './common';
 import { Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { systemLanguage } from 'utils/constants';
+import { IMAGE_PATH, systemLanguage } from 'utils/constants';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 export const TopicsCarousel = () => {
@@ -35,7 +35,7 @@ export const TopicsCarousel = () => {
 								<img
 									className='d-block w-100'
 									style={{ height: '100%' }}
-									src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
+									src={`${IMAGE_PATH}/${topic.coverImage}`}
 									alt={`Slider ${topicIndex}`}
 								/>
 								<Carousel.Caption>

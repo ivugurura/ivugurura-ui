@@ -27,6 +27,7 @@ import { oneCategoryReducer } from './oneCategoryReducer';
 import { searchReducer } from './searchReducer';
 import { albumReducer } from './albumReducer';
 import {
+	coverImagesGetReducer,
 	mediaCountReducer,
 	mediaReducer,
 	songDelReducer,
@@ -80,5 +81,6 @@ export const rootReducer = combineReducers({
 	userEdit: userEditReducer,
 	userRm: userRmReducer,
 	songShare: songShareReducer,
-	mediaCount: mediaCountReducer
+	mediaCount: mediaCountReducer,
+	coverImagesGet: coverImagesGetReducer
 });

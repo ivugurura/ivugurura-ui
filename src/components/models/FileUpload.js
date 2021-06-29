@@ -5,7 +5,7 @@ import { uploadFileWithProgress } from 'helpers/utils';
 import { notifier } from 'utils/notifier';
 import { setFilePath } from 'redux/actions';
 
-export const FileUpload = ({ title, previousFile = '', type }) => {
+export const FileUpload = ({ title = '', previousFile = '', type = '' }) => {
 	const [progress, setProgress] = useState(0);
 	const onChange = ({ target }) => {
 		uploadFileWithProgress(target.files[0], previousFile, type, (e) => {

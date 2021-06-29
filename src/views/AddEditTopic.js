@@ -7,12 +7,16 @@ import {
 	FormControl,
 	Row,
 	Col,
-	Container
+	Container,
+	Image
 } from 'react-bootstrap';
-import ImageUploader from 'react-images-upload';
-import { systemLanguages, topicEditorButtons } from '../utils/constants';
+import {
+	IMAGE_PATH,
+	systemLanguages,
+	topicEditorButtons
+} from '../utils/constants';
 import { useSelector } from 'react-redux';
-import { getCategories } from '../redux/actions';
+import { getCategories, setFilePath } from '../redux/actions';
 // import { FileUploader } from '../components';
 import {
 	addTopic,
@@ -21,8 +25,9 @@ import {
 	updateTopic
 } from '../redux/actions/topics';
 import { toast } from 'react-toastify';
-import { uploadedFile } from '../helpers/utils';
 import { Page } from '../components';
+import { TopicCoverImage } from 'components/TopicCoverImage';
+import { TopicPreview } from 'components/models/TopicPreview';
 
 const topicValues = {
 	title: '',
@@ -35,17 +40,11 @@ export const AddEditTopic = ({ history, match }) => {
 	const { lang } = systemLanguages.find((lang) => lang.abbr === systemLanguage);
 	const { topicSlug } = match.params;
 	const [topic, setTopic] = useState(topicValues);
+	const [isCoverImageOpen, setIsCoverImageOpen] = useState(false);
+	const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 	const [sunEdContent, setSunEdContent] = useState('');
-	const [uploading, setUploading] = useState(false);
-	const [hasUploaded, setHasUploaded] = useState(false);
-	const [file, setFile] = useState(null);
-	const { category, topicGet, topicAdd, topicEdit } = useSelector(
-		({ category, topicGet, topicAdd, topicEdit }) => ({
-			category,
-			topicGet,
-			topicAdd,
-			topicEdit
-		})
+	const { category, topicGet, topicAdd, topicEdit, filePath } = useSelector(
+		(state) => state
 	);
 
 	useEffect(() => {
@@ -73,15 +72,11 @@ export const AddEditTopic = ({ history, match }) => {
 	}, [topicSlug]);
 	useEffect(() => {
 		if (topicSlug && topicGet.done) {
-			const {
-				title,
-				description,
-				categoryId,
-				content,
-				coverImage
-			} = topicGet.topic;
+			const { title, description, categoryId, content, coverImage } =
+				topicGet.topic;
 			setTopic({ title, description, categoryId, coverImage });
-			setHasUploaded(true);
+			// setHasUploaded(true);
+			setFilePath(coverImage);
 			setSunEdContent(content);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -91,27 +86,33 @@ export const AddEditTopic = ({ history, match }) => {
 	};
 	const onSaveChange = async () => {
 		topic.content = sunEdContent;
-		if (!hasUploaded) {
-			if (!file) {
-				return toast('Please select image', { type: toast.TYPE.ERROR });
-			}
-			setUploading(true);
-			const prevFile = topicSlug ? topic.coverImage : '';
-			const imagePath = await uploadedFile(file, prevFile);
-			if (imagePath) {
-				setHasUploaded(true);
-				setUploading(false);
-				topic.coverImage = imagePath;
-			}
+		topic.coverImage = filePath.filePathName || topic.coverImage;
+		if (!topic.coverImage) {
+			return toast('Please select cover image', { type: toast.TYPE.ERROR });
 		}
+
 		if (topicSlug) {
 			updateTopic(topic, topicSlug);
 		} else {
 			addTopic(topic);
 		}
 	};
+	const openOpenPreview = () => {
+		topic.content = sunEdContent;
+		topic.coverImage = filePath.filePathName || topic.coverImage;
+		setIsPreviewOpen(true);
+	};
 	return (
 		<Page title='Add/edit post'>
+			<TopicCoverImage
+				isOpen={isCoverImageOpen}
+				setIsOpen={() => setIsCoverImageOpen(false)}
+			/>
+			<TopicPreview
+				isOpen={isPreviewOpen}
+				setIsOpen={() => setIsPreviewOpen(false)}
+				topic={topic}
+			/>
 			<Container fluid className='mt-2'>
 				<Row>
 					<Col md={8}>
@@ -188,36 +189,23 @@ export const AddEditTopic = ({ history, match }) => {
 								/>
 							</Col>
 							<Col xs={12} md={3} lg={3}>
-								{/* <FileUploader coverImage={topic.coverImage} /> */}
-								<Row>
-									{!hasUploaded ? (
-										<Col xs={12} md={12} lg={12}>
-											<ImageUploader
-												withIcon
-												buttonText='Choose images'
-												imgExtension={['.jpg', '.gif', '.png', '.gif']}
-												withPreview
-												withLabel
-												singleImage
-												maxFileSize={5242880}
-												onChange={(images) => setFile(images[0])}
-											/>
-										</Col>
-									) : (
-										<Col xs={12} md={12} lg={12}>
-											<div className='text-center'>
-												<Button onClick={() => setHasUploaded(false)}>
-													Change cover image?
-												</Button>
-												<img
-													src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
-													className='img-fluid img-thumbnail'
-													alt='Topic cover'
-												/>
-											</div>
-										</Col>
-									)}
-								</Row>
+								<Button
+									variant='outline-primary'
+									onClick={() => setIsCoverImageOpen(true)}
+								>
+									{Boolean(filePath.filePathName) || Boolean(topic.coverImage)
+										? 'Change the image'
+										: 'Select cover image'}
+								</Button>
+								{(Boolean(filePath.filePathName) ||
+									Boolean(topic.coverImage)) && (
+									<Image
+										src={`${IMAGE_PATH}/${
+											filePath.filePathName || topic.coverImage
+										}`}
+										thumbnail
+									/>
+								)}
 							</Col>
 						</Row>
 					</Card.Body>
@@ -232,7 +220,7 @@ export const AddEditTopic = ({ history, match }) => {
 							<Button
 								variant='primary'
 								onClick={onSaveChange}
-								disabled={uploading || topicEdit.loading}
+								disabled={topicEdit.loading}
 							>
 								{topicEdit.loading
 									? 'Saving... Please wait'
@@ -242,15 +230,18 @@ export const AddEditTopic = ({ history, match }) => {
 							<Button
 								variant='primary'
 								onClick={onSaveChange}
-								disabled={uploading || topicAdd.loading}
+								disabled={topicAdd.loading}
 							>
-								{uploading
-									? 'Uploading cover image,...'
-									: topicAdd.loading
-									? 'Saving... Please wait'
-									: 'Save topic'}
+								{topicAdd.loading ? 'Saving... Please wait' : 'Save topic'}
 							</Button>
 						)}
+						<Button
+							variant='outline-info'
+							onClick={() => openOpenPreview()}
+							className='pull-right'
+						>
+							Preview
+						</Button>
 					</Card.Footer>
 				</Card>
 			</Container>

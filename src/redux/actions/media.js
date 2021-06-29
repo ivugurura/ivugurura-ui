@@ -5,7 +5,8 @@ import {
 	EDIT_SONG,
 	DELETE_SONG,
 	SHARE_SONG,
-	GET_MEDIA_COUNTS
+	GET_MEDIA_COUNTS,
+	GET_COVER_IMAGES
 } from './actionTypes';
 import { http } from '../../helpers';
 import { store } from '../store';
@@ -57,5 +58,11 @@ export const getMediaCounts = () => {
 	store.dispatch({
 		type: GET_MEDIA_COUNTS,
 		payload: http.get('/albums/counts/media')
+	});
+};
+export const getCoverImages = () => {
+	store.dispatch({
+		type: GET_COVER_IMAGES,
+		payload: http.get('/albums/images/cover-images')
 	});
 };

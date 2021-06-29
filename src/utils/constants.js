@@ -79,3 +79,4 @@ export const socialMedias = [
 		classeName: 'icoTwitter'
 	}
 ];
+export const IMAGE_PATH = `${process.env.REACT_APP_API_URL}/images`;

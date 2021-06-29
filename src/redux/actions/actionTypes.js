@@ -51,6 +51,7 @@ export const SHARE_SONG = 'SHARE_SONG';
 export const SET_FILE_PATH = 'SET_FILE_PATH';
 export const RESET_FILE_PATH = 'RESET_FILE_PATH';
 export const GET_MEDIA_COUNTS = 'GET_MEDIA_COUNTS';
+export const GET_COVER_IMAGES = 'GET_COVER_IMAGES';
 
 export const ADD_COMMUNIQUE = 'ADD_COMMUNIQUE';
 export const GET_COMMUNIQUES = 'GET_COMMUNIQUES';

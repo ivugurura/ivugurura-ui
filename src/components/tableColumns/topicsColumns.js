@@ -22,7 +22,7 @@ export const topicsColumns = (user = {}, setActions) => [
 			</>
 		)
 	},
-	{ label: 'User views', content: (item) => `${item.views.length} views` },
+	{ label: 'User views', content: (item) => `${item.views} views` },
 	{
 		label: 'Published',
 		content: (item) => moment(item.createdAt).format('MMMM Do YYYY')

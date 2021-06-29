@@ -27,6 +27,7 @@ import {
 import { toast } from 'react-toastify';
 import { Page } from '../components';
 import { TopicCoverImage } from 'components/TopicCoverImage';
+import { TopicPreview } from 'components/models/TopicPreview';
 
 const topicValues = {
 	title: '',
@@ -40,6 +41,7 @@ export const AddEditTopic = ({ history, match }) => {
 	const { topicSlug } = match.params;
 	const [topic, setTopic] = useState(topicValues);
 	const [isCoverImageOpen, setIsCoverImageOpen] = useState(false);
+	const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 	const [sunEdContent, setSunEdContent] = useState('');
 	const { category, topicGet, topicAdd, topicEdit, filePath } = useSelector(
 		(state) => state
@@ -95,8 +97,22 @@ export const AddEditTopic = ({ history, match }) => {
 			addTopic(topic);
 		}
 	};
+	const openOpenPreview = () => {
+		topic.content = sunEdContent;
+		topic.coverImage = filePath.filePathName || topic.coverImage;
+		setIsPreviewOpen(true);
+	};
 	return (
 		<Page title='Add/edit post'>
+			<TopicCoverImage
+				isOpen={isCoverImageOpen}
+				setIsOpen={() => setIsCoverImageOpen(false)}
+			/>
+			<TopicPreview
+				isOpen={isPreviewOpen}
+				setIsOpen={() => setIsPreviewOpen(false)}
+				topic={topic}
+			/>
 			<Container fluid className='mt-2'>
 				<Row>
 					<Col md={8}>
@@ -190,11 +206,6 @@ export const AddEditTopic = ({ history, match }) => {
 										thumbnail
 									/>
 								)}
-
-								<TopicCoverImage
-									isOpen={isCoverImageOpen}
-									setIsOpen={() => setIsCoverImageOpen(false)}
-								/>
 							</Col>
 						</Row>
 					</Card.Body>
@@ -224,6 +235,13 @@ export const AddEditTopic = ({ history, match }) => {
 								{topicAdd.loading ? 'Saving... Please wait' : 'Save topic'}
 							</Button>
 						)}
+						<Button
+							variant='outline-info'
+							onClick={() => openOpenPreview()}
+							className='pull-right'
+						>
+							Preview
+						</Button>
 					</Card.Footer>
 				</Card>
 			</Container>

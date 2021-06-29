@@ -1,22 +1,20 @@
 import React, { useEffect, useRef } from 'react';
 import { Row, Col, Container, Card } from 'react-bootstrap';
-import HtmlParser from 'react-html-parser';
 import {
 	RecentTopics,
 	SampleTopics,
 	Communique,
 	Loading
-} from '../components/common';
-import { bgStyles } from '../utils/styles';
+} from 'components/common';
+import { bgStyles } from 'utils/styles';
 import { useSelector } from 'react-redux';
-import { getTopicDetail } from '../redux/actions/topics';
-import { CommentaryForm, Comments, Page } from '../components';
-import { formatDate, scrollToRef } from '../utils/constants';
-import { useTranslation } from 'react-i18next';
+import { getTopicDetail } from 'redux/actions/topics';
+import { Page } from 'components';
+import { scrollToRef } from 'utils/constants';
+import { TopicOneView } from 'components/TopicOneView';
 
 const topicImg = `${process.env.PUBLIC_URL}/topic-cour-img.png`;
 const TopicView = ({ match }) => {
-	const { t } = useTranslation();
 	const topicRef = useRef(null);
 
 	const { topicSlug } = match.params;
@@ -36,29 +34,12 @@ const TopicView = ({ match }) => {
 						{loading ? (
 							<Loading />
 						) : (
-							<>
-								<Card.Title>{topic.title}</Card.Title>
-								<Card.Subtitle className='mb-2 text-muted'>
-									<h6>
-										{t('app:createdAt')} {`${formatDate(topic.createdAt)}`}
-									</h6>
-								</Card.Subtitle>
-								<Card ref={topicRef}>
-									<Card.Img
-										variant='top'
-										src={`${process.env.REACT_APP_API_URL}/images/${topic.coverImage}`}
-										alt={topic.description}
-									/>
-									<Card.Body>
-										{HtmlParser(topic.content)}
-										<strong>{t('app:title')}</strong>
-										<Comments slug={topicSlug} />
-									</Card.Body>
-									<Card.Footer>
-										<CommentaryForm slug={topicSlug} />
-									</Card.Footer>
-								</Card>
-							</>
+							<TopicOneView
+								topic={topic}
+								topicSlug={topicSlug}
+								topicRef={topicRef}
+								showComments
+							/>
 						)}
 					</Col>
 					<Col xs={12} md={3} lg={3} style={bgStyles.bgPrimary}>

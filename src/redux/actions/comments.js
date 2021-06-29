@@ -11,17 +11,17 @@ import { store } from '../store';
 
 export const addTopicComment = (commentBody, topicSlug) => {
 	const commentUrl = `/topics/${topicSlug}/comments`;
-	return {
+	store.dispatch({
 		type: ADD_COMMENT,
 		payload: http.post(commentUrl, commentBody)
-	};
+	});
 };
 export const getTopicsComments = (topicSlug) => {
 	const commentUrl = `/topics/${topicSlug}/comments`;
-	return {
+	store.dispatch({
 		type: GET_TOPICS_COMMENTS,
 		payload: http.get(commentUrl)
-	};
+	});
 };
 export const getAdminComments = (page = 1, pageSize = 10) => {
 	const params = `page=${page}&pageSize=${pageSize}`;

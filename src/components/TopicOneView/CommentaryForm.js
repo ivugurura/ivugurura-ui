@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Col, Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { addTopicComment, resetAddComment } from '../redux/actions';
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import { addTopicComment, resetAddComment } from 'redux/actions';
 
 export const commentInitialValues = {
 	names: '',
@@ -14,7 +14,6 @@ export const commentInitialValues = {
 export const CommentaryForm = ({ slug }) => {
 	const { t } = useTranslation();
 	const [commentary, setCommentary] = useState(commentInitialValues);
-	const dispatch = useDispatch();
 	const { commentLoading, commentAdded } = useSelector(
 		({ comment }) => comment
 	);
@@ -77,7 +76,7 @@ export const CommentaryForm = ({ slug }) => {
 				variant='primary'
 				type='submit'
 				disabled={commentLoading || commentAdded}
-				onClick={() => dispatch(addTopicComment(commentary, slug))}
+				onClick={() => addTopicComment(commentary, slug)}
 			>
 				{commentLoading ? 'Sending comment,...' : t('app:btnSend')}
 			</Button>

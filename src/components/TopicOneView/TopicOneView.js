@@ -1,6 +1,7 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-// import HtmlParser from 'react-html-parser';
+// import HtmlParser from "react-html-parser";
+import htmlParse from "html-react-parser";
 import { useTranslation } from "react-i18next";
 import { Comments } from "./Comments";
 import { CommentaryForm } from "./CommentaryForm";
@@ -28,7 +29,7 @@ export const TopicOneView = ({
           alt={topic.description}
         />
         <Card.Body>
-          {/* {HtmlParser(topic.content)} */}
+          {htmlParse(topic.content || "")}
           <strong>{t("app:title")}</strong>
           {showComments && <Comments slug={topicSlug} />}
         </Card.Body>

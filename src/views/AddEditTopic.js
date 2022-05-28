@@ -116,141 +116,142 @@ export const AddEditTopic = ({ history, match }) => {
       />
       {topicSlug && topicGet.loading ? (
         <Loading />
-      ) : !topicSlug || topicGet.done ? (
-        <Container fluid className="mt-2">
-          <Row>
-            <Col md={8}>
-              <h4 className="text-center">
-                {topicSlug
-                  ? topicGet.loading
-                    ? "LOADING..."
-                    : `Update ${topicGet.topic.title}`
-                  : `Add topic or PAST IT HERE`}
-              </h4>
-            </Col>
-            <Col md={4}>
-              <h4 className="text-info pull-right">{`=>${lang}`}</h4>
-            </Col>
-          </Row>
-          <Card>
-            <Card.Header>
-              <Card.Title>
+      ) : (
+        (!topicSlug || topicGet.done) && (
+          <Container fluid className="mt-2">
+            <Row>
+              <Col md={8}>
+                <h4 className="text-center">
+                  {topicSlug
+                    ? topicGet.loading
+                      ? "LOADING..."
+                      : `Update ${topicGet.topic.title}`
+                    : `Add topic or PAST IT HERE`}
+                </h4>
+              </Col>
+              <Col md={4}>
+                <h4 className="text-info pull-right">{`=>${lang}`}</h4>
+              </Col>
+            </Row>
+            <Card>
+              <Card.Header>
+                <Card.Title>
+                  <Row>
+                    <Col xs={12} md={3} lg={3}>
+                      <FormControl
+                        type="text"
+                        placeholder="Topic title"
+                        name="title"
+                        value={topic.title}
+                        onChange={onInputChange}
+                      />
+                    </Col>
+                    <Col xs={12} md={3} lg={3}>
+                      <FormControl
+                        as="select"
+                        name="categoryId"
+                        value={topic.categoryId}
+                        onChange={onInputChange}
+                      >
+                        <option>Select category</option>
+                        {category.loading ? (
+                          <option>Loading</option>
+                        ) : (
+                          category.categories.map((category, categoryIndex) => (
+                            <option key={categoryIndex} value={category.id}>
+                              {category.name}
+                            </option>
+                          ))
+                        )}
+                      </FormControl>
+                    </Col>
+                    <Col xs={12} md={6} lg={6}>
+                      <FormControl
+                        type="text"
+                        placeholder="Topic description"
+                        name="description"
+                        value={topic.description}
+                        onChange={onInputChange}
+                      />
+                    </Col>
+                  </Row>
+                </Card.Title>
+              </Card.Header>
+              <Card.Body>
                 <Row>
-                  <Col xs={12} md={3} lg={3}>
-                    <FormControl
-                      type="text"
-                      placeholder="Topic title"
-                      name="title"
-                      value={topic.title}
-                      onChange={onInputChange}
+                  <Col xs={12} md={9} lg={9}>
+                    <SunEditor
+                      setOptions={{
+                        height: 230,
+                        buttonList: topicEditorButtons,
+                      }}
+                      setDefaultStyle="font-size: 16px;"
+                      name="content"
+                      value={topic.content}
+                      setContents={sunEdContent}
+                      placeholder="Please type here..."
+                      onChange={(content) => setSunEdContent(content)}
                     />
                   </Col>
                   <Col xs={12} md={3} lg={3}>
-                    <FormControl
-                      as="select"
-                      name="categoryId"
-                      value={topic.categoryId}
-                      onChange={onInputChange}
+                    <Button
+                      variant="outline-primary"
+                      onClick={() => setIsCoverImageOpen(true)}
                     >
-                      <option>Select category</option>
-                      {category.loading ? (
-                        <option>Loading</option>
-                      ) : (
-                        category.categories.map((category, categoryIndex) => (
-                          <option key={categoryIndex} value={category.id}>
-                            {category.name}
-                          </option>
-                        ))
-                      )}
-                    </FormControl>
-                  </Col>
-                  <Col xs={12} md={6} lg={6}>
-                    <FormControl
-                      type="text"
-                      placeholder="Topic description"
-                      name="description"
-                      value={topic.description}
-                      onChange={onInputChange}
-                    />
+                      {Boolean(filePath.filePathName) ||
+                      Boolean(topic.coverImage)
+                        ? "Change the image"
+                        : "Select cover image"}
+                    </Button>
+                    {(Boolean(filePath.filePathName) ||
+                      Boolean(topic.coverImage)) && (
+                      <Image
+                        src={`${IMAGE_PATH}/${
+                          filePath.filePathName || topic.coverImage
+                        }`}
+                        thumbnail
+                      />
+                    )}
                   </Col>
                 </Row>
-              </Card.Title>
-            </Card.Header>
-            <Card.Body>
-              <Row>
-                <Col xs={12} md={9} lg={9}>
-                  <SunEditor
-                    setOptions={{
-                      height: 230,
-                      buttonList: topicEditorButtons,
-                    }}
-                    setDefaultStyle="font-size: 16px;"
-                    name="content"
-                    value={topic.content}
-                    setContents={sunEdContent}
-                    placeholder="Please type here..."
-                    onChange={(content) => setSunEdContent(content)}
-                  />
-                </Col>
-                <Col xs={12} md={3} lg={3}>
+              </Card.Body>
+              <Card.Footer>
+                <Button
+                  variant="outline-secondary"
+                  onClick={() => history.goBack()}
+                >
+                  Cancel
+                </Button>
+                {topicSlug ? (
                   <Button
-                    variant="outline-primary"
-                    onClick={() => setIsCoverImageOpen(true)}
+                    variant="primary"
+                    onClick={onSaveChange}
+                    disabled={topicEdit.loading}
                   >
-                    {Boolean(filePath.filePathName) || Boolean(topic.coverImage)
-                      ? "Change the image"
-                      : "Select cover image"}
+                    {topicEdit.loading
+                      ? "Saving... Please wait"
+                      : `Update ${topic.title}`}
                   </Button>
-                  {(Boolean(filePath.filePathName) ||
-                    Boolean(topic.coverImage)) && (
-                    <Image
-                      src={`${IMAGE_PATH}/${
-                        filePath.filePathName || topic.coverImage
-                      }`}
-                      thumbnail
-                    />
-                  )}
-                </Col>
-              </Row>
-            </Card.Body>
-            <Card.Footer>
-              <Button
-                variant="outline-secondary"
-                onClick={() => history.goBack()}
-              >
-                Cancel
-              </Button>
-              {topicSlug ? (
+                ) : (
+                  <Button
+                    variant="primary"
+                    onClick={onSaveChange}
+                    disabled={topicAdd.loading}
+                  >
+                    {topicAdd.loading ? "Saving... Please wait" : "Save topic"}
+                  </Button>
+                )}
                 <Button
-                  variant="primary"
-                  onClick={onSaveChange}
-                  disabled={topicEdit.loading}
+                  variant="outline-info"
+                  onClick={() => openOpenPreview()}
+                  className="pull-right"
                 >
-                  {topicEdit.loading
-                    ? "Saving... Please wait"
-                    : `Update ${topic.title}`}
+                  Preview
                 </Button>
-              ) : (
-                <Button
-                  variant="primary"
-                  onClick={onSaveChange}
-                  disabled={topicAdd.loading}
-                >
-                  {topicAdd.loading ? "Saving... Please wait" : "Save topic"}
-                </Button>
-              )}
-              <Button
-                variant="outline-info"
-                onClick={() => openOpenPreview()}
-                className="pull-right"
-              >
-                Preview
-              </Button>
-            </Card.Footer>
-          </Card>
-        </Container>
-      ) : (
-        <h4 className="text-center">Something went wrong</h4>
+              </Card.Footer>
+            </Card>
+          </Container>
+        )
       )}
     </Page>
   );

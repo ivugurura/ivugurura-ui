@@ -182,8 +182,9 @@ export const AddEditTopic = ({ history, match }) => {
                   <Col xs={12} md={9} lg={9}>
                     <SunEditor
                       setOptions={{
-                        height: 230,
                         buttonList: topicEditorButtons,
+                        minHeight: "380px",
+                        defaultTag: "div",
                       }}
                       setDefaultStyle="font-size: 16px;"
                       name="content"

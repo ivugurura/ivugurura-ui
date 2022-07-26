@@ -8,6 +8,7 @@
     "npm": ">=5.0.0 <7.0.0"
   },
   "dependencies": {
+    "@redux-devtools/extension": "^3.2.2",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "i18next": "^21.8.14",
@@ -25,7 +26,6 @@
     "react-scripts": "^5.0.1",
     "react-toastify": "^9.0.7",
     "redux": "^4.2.0",
-    "redux-devtools-extension": "^2.13.8",
     "redux-promise-middleware": "^6.1.2",
     "redux-thunk": "^2.4.1",
     "socket.io-client": "^4.5.1",

@@ -8,9 +8,9 @@ const palette = {
   white,
   primary: {
     contrastText: white,
-    dark: colors.purple[900],
-    main: colors.purple[600],
-    light: colors.purple[100],
+    dark: colors.blue[900],
+    main: colors.blue[600],
+    light: colors.blue[100],
   },
   secondary: {
     contrastText: white,

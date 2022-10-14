@@ -18,7 +18,7 @@ const App = () => {
       <CssBaseline />
       <ToastContainer />
       <Suspense fallback={<LinearProgress />}>
-        <BrowserRouter basename="kn">
+        <BrowserRouter>
           <AppRoutes />
         </BrowserRouter>
       </Suspense>

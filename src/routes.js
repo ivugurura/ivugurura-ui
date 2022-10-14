@@ -1,9 +1,9 @@
 import React from "react";
-import { Link, Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import { MainLayout } from "common/components/layouts";
+import { Route, Routes } from "react-router-dom";
+import { AdminLayout, MainLayout, UserLayout } from "common/components/layouts";
 // import { systemLanguage } from "utils/constants";
 // import { Main, AdminMain } from "./layouts";
-import { PageRoutes } from "./RoutesConstants";
+// import { PageRoutes } from "./RoutesConstants";
 // import Navbar from "common/components/navbar";
 
 // const routes = [
@@ -108,21 +108,12 @@ import { PageRoutes } from "./RoutesConstants";
 //   },
 // ];
 export const AppRoutes = (props) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
     <Routes>
-      <Route element={<MainLayout />}>
-        <Route path={PageRoutes.Index} element={<h2>Landing page</h2>} />
-        <Route path={PageRoutes.Topics} element={<h2>All topics</h2>} />
-        <Route
-          path={PageRoutes.Topic}
-          element={
-            <h2>
-              Topic details <Link to="/">Home</Link>
-            </h2>
-          }
-        />
-        <Route path="*" element={<Navigate to="/kn" />} />
+      <Route path="/" element={<MainLayout />}>
+        <Route path="kn/*" element={<UserLayout />} />
+        <Route path="admin/*" element={<AdminLayout />} />
       </Route>
     </Routes>
   );

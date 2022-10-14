@@ -1,6 +1,8 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import { AdminLayout, MainLayout, UserLayout } from "common/components/layouts";
+import React from 'react';
+
+import { Route, Routes } from 'react-router-dom';
+
+import { AdminLayout, MainLayout, UserLayout } from './common/components/layouts';
 // import { systemLanguage } from "utils/constants";
 // import { Main, AdminMain } from "./layouts";
 // import { PageRoutes } from "./RoutesConstants";
@@ -107,14 +109,11 @@ import { AdminLayout, MainLayout, UserLayout } from "common/components/layouts";
 //     ],
 //   },
 // ];
-export const AppRoutes = (props) => {
-  // const navigate = useNavigate();
-  return (
-    <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route path="kn/*" element={<UserLayout />} />
-        <Route path="admin/*" element={<AdminLayout />} />
-      </Route>
-    </Routes>
-  );
-};
+export const AppRoutes = () => (
+  <Routes>
+    <Route path="/" element={<MainLayout />}>
+      <Route path="kn/*" element={<UserLayout />} />
+      <Route path="admin/*" element={<AdminLayout />} />
+    </Route>
+  </Routes>
+);

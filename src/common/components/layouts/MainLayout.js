@@ -1,12 +1,13 @@
-import { Box } from "@mui/material";
-import { Outlet } from "react-router-dom";
-import { NavBar } from "../navbar";
+import React from 'react';
 
-export const MainLayout = () => {
-  return (
-    <Box>
-      <NavBar />
-      <Outlet />
-    </Box>
-  );
-};
+import { Box } from '@mui/material';
+import { Outlet } from 'react-router-dom';
+
+import { NavBar } from '../navbar';
+
+export const MainLayout = () => (
+  <Box>
+    <NavBar />
+    <Outlet />
+  </Box>
+);

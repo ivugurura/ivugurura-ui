@@ -1,4 +1,4 @@
 export const PageRoutes = {
-  Topics: "topics",
-  Topic: "topic/:topicSlug",
+  Topics: 'topics',
+  Topic: 'topic/:topicSlug',
 };

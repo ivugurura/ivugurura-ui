@@ -12,6 +12,6 @@ export const http = axios.create({
   withCredentials: true,
   headers: {
     Authorization: token,
-    'Accept-Language': lang
-  }
+    'Accept-Language': lang,
+  },
 });

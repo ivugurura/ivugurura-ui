@@ -1,13 +1,13 @@
-import { combineReducers } from "redux";
-import { categoryAddReducer, categoryReducer } from "./categoryReducer";
-import { languageReducer } from "./languageReducer";
-import { topicReducer } from "./topicReducer";
+import { combineReducers } from 'redux';
+import { categoryAddReducer, categoryReducer } from './categoryReducer';
+import { languageReducer } from './languageReducer';
+import { topicReducer } from './topicReducer';
 import {
   topicAddReducer,
   topicEditReducer,
   topicGetReducer,
-} from "./oneTopicReducer";
-import { filePathReducer, filerReducer } from "./filerReducer";
+} from './oneTopicReducer';
+import { filePathReducer, filerReducer } from './filerReducer';
 import {
   logoutUserReducer,
   userAddReducer,
@@ -15,17 +15,17 @@ import {
   useReducer,
   userRmReducer,
   usersGetReducer,
-} from "./userReducer";
-import { dashboardReducer } from "./dashboardReducer";
+} from './userReducer';
+import { dashboardReducer } from './dashboardReducer';
 import {
   commentReducer,
   commentsTopicReducer,
   adminCommentsReducer,
   publishCommentReducer,
-} from "./commentReducer";
-import { oneCategoryReducer } from "./oneCategoryReducer";
-import { searchReducer } from "./searchReducer";
-import { albumReducer } from "./albumReducer";
+} from './commentReducer';
+import { oneCategoryReducer } from './oneCategoryReducer';
+import { searchReducer } from './searchReducer';
+import { albumReducer } from './albumReducer';
 import {
   coverImagesGetReducer,
   mediaCountReducer,
@@ -33,19 +33,19 @@ import {
   songDelReducer,
   songEditReducer,
   songShareReducer,
-} from "./mediaReducer";
+} from './mediaReducer';
 import {
   addCommuniqueReducer,
   getCommuniquesReducer,
   getPubCommuniqueReducer,
   publishCommuniqueReducer,
-} from "./communiqueReducer";
+} from './communiqueReducer';
 import {
   chatGetReducer,
   chatUsersGetReducer,
   contactUsReducer,
   youtubeVideosGetReducer,
-} from "./utilReducer";
+} from './utilReducer';
 
 export const rootReducer = combineReducers({
   category: categoryReducer,

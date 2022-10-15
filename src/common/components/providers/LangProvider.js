@@ -1,17 +1,17 @@
-import { createContext, useCallback, useEffect, useState } from "react";
-import { BrowserRouter, useNavigate } from "react-router-dom";
+import { createContext, useCallback, useEffect, useState } from 'react';
+import { BrowserRouter, useNavigate } from 'react-router-dom';
 
 const LangContext = createContext(undefined);
 
 export const LangProvider = ({ children, match }) => {
-  const [lang, setLang] = useState("kn");
+  const [lang, setLang] = useState('kn');
   // const navigate = useNavigate();
 
   const changeLang = useCallback(
     (newLang) => {
       if (newLang !== lang) {
         setLang(newLang);
-        localStorage.setItem("lang", newLang);
+        localStorage.setItem('lang', newLang);
         window.location.href = `/${newLang}`;
       }
     },

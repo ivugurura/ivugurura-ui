@@ -5,7 +5,7 @@ import {
   ADD_NEW_TOPIC,
   UPDATE_TOPIC,
   RESET_ADD_TOPIC,
-  RESET_UPDATE_TOPIC
+  RESET_UPDATE_TOPIC,
 } from '../actions';
 
 const topicView = { category: { relatedTopics: [] }, commentaries: [] };
@@ -18,20 +18,20 @@ export const topicGetReducer = (
       return {
         ...state,
         done: false,
-        loading: true
+        loading: true,
       };
     case fulfilled(VIEW_TOPIC_DETAIL):
       return {
         ...state,
         loading: false,
         done: true,
-        topic: action.payload.data.data
+        topic: action.payload.data.data,
       };
     case rejected(VIEW_TOPIC_DETAIL):
     default:
       return {
         ...state,
-        loading: false
+        loading: false,
       };
   }
 };
@@ -41,24 +41,24 @@ export const topicAddReducer = (state = baseState(), action) => {
       return {
         ...state,
         done: false,
-        loading: true
+        loading: true,
       };
     case fulfilled(ADD_NEW_TOPIC):
       return {
         ...state,
         loading: false,
-        done: true
+        done: true,
       };
     case RESET_ADD_TOPIC:
       return {
         ...state,
-        done: false
+        done: false,
       };
     case rejected(ADD_NEW_TOPIC):
     default:
       return {
         ...state,
-        loading: false
+        loading: false,
       };
   }
 };
@@ -68,24 +68,24 @@ export const topicEditReducer = (state = baseState(), action) => {
       return {
         ...state,
         done: false,
-        loading: true
+        loading: true,
       };
     case fulfilled(UPDATE_TOPIC):
       return {
         ...state,
         loading: false,
-        done: true
+        done: true,
       };
     case RESET_UPDATE_TOPIC:
       return {
         ...state,
-        done: false
+        done: false,
       };
     case rejected(UPDATE_TOPIC):
     default:
       return {
         ...state,
-        loading: false
+        loading: false,
       };
   }
 };

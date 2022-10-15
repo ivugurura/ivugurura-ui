@@ -8,7 +8,7 @@ export const languageReducer = (state = initialLangState, action) => {
       localStorage.setItem('lang', action.payload);
       return {
         ...state,
-        messages: messages[action.payload]
+        messages: messages[action.payload],
       };
     default:
       return state;

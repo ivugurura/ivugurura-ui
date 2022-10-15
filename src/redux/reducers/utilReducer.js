@@ -1,15 +1,15 @@
-import { pending, rejected, fulfilled } from "../../utils/actions";
+import { pending, rejected, fulfilled } from '../../utils/actions';
 import {
   GET_CHAT_MESSAGES,
   GET_MESSAGES,
   GET_YOUTUBE_VIDEOS,
   SEND_CONTACT_US,
-} from "../actions";
+} from '../actions';
 
 const initialState = {
   loading: false,
   loaded: false,
-  message: "",
+  message: '',
   messages: [],
 };
 const initialUsersState = {
@@ -91,8 +91,8 @@ const initialYoutubeDataState = {
   loaded: false,
   youtubeData: {
     items: [],
-    nextPageToken: "",
-    prevPageToken: "",
+    nextPageToken: '',
+    prevPageToken: '',
     pageInfo: {
       totalResults: 0,
       resultsPerPage: 0,

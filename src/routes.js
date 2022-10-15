@@ -2,7 +2,11 @@ import React from 'react';
 
 import { Route, Routes } from 'react-router-dom';
 
-import { AdminLayout, MainLayout, UserLayout } from './common/components/layouts';
+import {
+  AdminLayout,
+  MainLayout,
+  UserLayout,
+} from './common/components/layouts';
 // import { systemLanguage } from "utils/constants";
 // import { Main, AdminMain } from "./layouts";
 // import { PageRoutes } from "./RoutesConstants";

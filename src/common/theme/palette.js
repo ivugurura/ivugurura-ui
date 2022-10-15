@@ -1,7 +1,7 @@
-import { colors } from "@mui/material";
+import { colors } from '@mui/material';
 
-const white = "#FFFFFF";
-const black = "#000000";
+const white = '#FFFFFF';
+const black = '#000000';
 
 const palette = {
   black,
@@ -14,9 +14,9 @@ const palette = {
   },
   secondary: {
     contrastText: white,
-    dark: colors.purple["A700"],
-    main: colors.purple["A200"],
-    light: colors.purple["A400"],
+    dark: colors.purple.A700,
+    main: colors.purple.A200,
+    light: colors.purple.A400,
   },
   error: {
     contrastText: white,
@@ -32,7 +32,7 @@ const palette = {
   link: colors.blue[800],
   icon: colors.blueGrey[600],
   background: {
-    default: "#EEF0F1",
+    default: '#EEF0F1',
     paper: white,
   },
   divider: colors.grey[200],

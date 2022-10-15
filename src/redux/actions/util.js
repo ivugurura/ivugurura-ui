@@ -1,12 +1,12 @@
-import { store } from "../store";
-import { http } from "../../helpers";
+import { store } from '../store';
+import { http } from '../../helpers';
 import {
   SEND_CONTACT_US,
   SEARCH_QUERY,
   GET_MESSAGES,
   GET_CHAT_MESSAGES,
   GET_YOUTUBE_VIDEOS,
-} from "./actionTypes";
+} from './actionTypes';
 
 export const searchQuery = (input) => {
   store.dispatch({
@@ -18,11 +18,11 @@ export const searchQuery = (input) => {
 export const sendContactUs = (contactInfo) => {
   store.dispatch({
     type: SEND_CONTACT_US,
-    payload: http.post("/manage/contact-us", contactInfo),
+    payload: http.post('/manage/contact-us', contactInfo),
   });
 };
-export const getMessages = (userId = "") => {
-  const params = userId !== "" ? `?listenerId=${userId}` : "";
+export const getMessages = (userId = '') => {
+  const params = userId !== '' ? `?listenerId=${userId}` : '';
   store.dispatch({
     type: GET_MESSAGES,
     payload: http.get(`/manage/messages${params}`),
@@ -31,13 +31,13 @@ export const getMessages = (userId = "") => {
 export const getChatUsers = () => {
   store.dispatch({
     type: GET_CHAT_MESSAGES,
-    payload: http.get("/manage/chat-users"),
+    payload: http.get('/manage/chat-users'),
   });
 };
 
 export const getYoutubeVideos = (params = {}) => {
   store.dispatch({
     type: GET_YOUTUBE_VIDEOS,
-    payload: http.get("/youtube", { params }),
+    payload: http.get('/youtube', { params }),
   });
 };

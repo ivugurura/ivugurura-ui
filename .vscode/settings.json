@@ -1,35 +1,32 @@
 {
-    "search.exclude": {
-        "**/node_modules": true,
-        "dist": true,
-        "**/coverage": true,
-        "**/.nyc_output": true,
-        "**/.eslintcache": true,
-    },
-    "files.exclude": {
-        "**/*.scss.d.ts": true,
-    },
-    "editor.formatOnSave": true,
-    "jest.jestCommandLine": "npm run test",
-    "jest.showCoverageOnLoad": false,
-    "gulp.autoDetect": "off",
-    "npm.packageManager": "npm",
-    "npm.runSilent": true,
-    "eslint.packageManager": "npm",
-    "eslint.lintTask.enable": false,
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-    ],
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true,
-    },
-    "eslint.codeActionsOnSave.mode": "problems",
-    "eslint.options": {
-        "cache": true
-    },
-    "[nix]": {
-        "editor.insertSpaces": true,
-        "editor.tabSize": 2,
-    },
+  "search.exclude": {
+    "**/node_modules": true,
+    "dist": true,
+    "**/coverage": true,
+    "**/.nyc_output": true,
+    "**/.eslintcache": true
+  },
+  "files.exclude": {
+    "**/*.scss.d.ts": true
+  },
+  "editor.formatOnSave": true,
+  "jest.jestCommandLine": "npm run test",
+  "jest.showCoverageOnLoad": false,
+  "gulp.autoDetect": "off",
+  "npm.packageManager": "npm",
+  "npm.runSilent": true,
+  "eslint.packageManager": "npm",
+  "eslint.lintTask.enable": false,
+  "eslint.validate": ["javascript", "javascriptreact"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.codeActionsOnSave.mode": "problems",
+  "eslint.options": {
+    "cache": true
+  },
+  "[nix]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  }
 }

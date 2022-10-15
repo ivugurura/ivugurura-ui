@@ -8,20 +8,20 @@ export const oneCategoryReducer = (state = aCategoryState, action) => {
       return {
         ...state,
         categoryFetched: false,
-        categoryFetching: true
+        categoryFetching: true,
       };
     case fulfilled(GET_CATEGORY_DETAIL):
       return {
         ...state,
         categoryFetching: false,
         categoryFetched: true,
-        category: action.payload.data.data
+        category: action.payload.data.data,
       };
     case rejected(GET_CATEGORY_DETAIL):
     default:
       return {
         ...state,
-        categoryFetching: false
+        categoryFetching: false,
       };
   }
 };

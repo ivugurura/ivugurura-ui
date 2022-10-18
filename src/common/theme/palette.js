@@ -3,7 +3,7 @@ import { colors } from '@mui/material';
 const white = '#FFFFFF';
 const black = '#000000';
 
-const palette = {
+export const palette = {
   black,
   white,
   primary: {
@@ -37,5 +37,3 @@ const palette = {
   },
   divider: colors.grey[200],
 };
-
-export default palette;

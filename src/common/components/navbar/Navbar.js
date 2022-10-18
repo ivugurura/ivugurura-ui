@@ -51,8 +51,8 @@ export const NavBar = () => {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
+            component={Link}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -64,7 +64,7 @@ export const NavBar = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Ubugorozi
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -109,8 +109,8 @@ export const NavBar = () => {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
+            component={Link}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -122,7 +122,7 @@ export const NavBar = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Ubugorozi
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map(({ name, path }) => (

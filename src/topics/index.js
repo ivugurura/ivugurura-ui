@@ -1,3 +1,1 @@
-export const Topics = () => {
-  return <h2>Topics</h2>;
-};
+export const Topics = () => <h2>Topics</h2>;

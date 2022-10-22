@@ -38,6 +38,9 @@ import {
 // import { styles } from '../styles/navStyles';
 
 const useStyles = makeStyles(({ palette, typography }) => ({
+  root: {
+    marginBottom: 0,
+  },
   top: {
     backgroundSize: 'cover',
     overflow: 'hidden',
@@ -96,7 +99,7 @@ const Footer = React.memo(() => {
   const classes = useStyles();
 
   return (
-    <Box width="100%">
+    <Box width="100%" className={classes.root}>
       <Box className={classes.middle} px={2} py={10}>
         <Container disableGutters>
           <Grid container spacing={4}>

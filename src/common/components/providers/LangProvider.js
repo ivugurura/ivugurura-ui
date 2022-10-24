@@ -1,5 +1,8 @@
-import { createContext, useCallback, useEffect, useState } from 'react';
-import { BrowserRouter, useNavigate } from 'react-router-dom';
+import React, {
+  createContext, useCallback, useMemo, useState,
+} from 'react';
+
+import { BrowserRouter } from 'react-router-dom';
 
 const LangContext = createContext(undefined);
 
@@ -15,7 +18,7 @@ export const LangProvider = ({ children, match }) => {
         window.location.href = `/${newLang}`;
       }
     },
-    [lang]
+    [lang],
   );
   console.log({ match });
   // useEffect(() => {
@@ -23,8 +26,9 @@ export const LangProvider = ({ children, match }) => {
   //     return navigate("/");
   //   }
   // }, [LoggedIn]);
+  const values = useMemo(() => ({ lang, changeLang }));
   return (
-    <LangContext.Provider value={{ lang, changeLang }}>
+    <LangContext.Provider value={values}>
       <BrowserRouter basename={lang}>{children}</BrowserRouter>
     </LangContext.Provider>
   );

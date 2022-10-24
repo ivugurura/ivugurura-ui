@@ -3,7 +3,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 
-import { Home } from '../../../app/Home';
+import { Home } from '../../../pages/Home';
 import { PageRoutes } from '../../../RoutesConstants';
 
 export const UserLayout = () => (

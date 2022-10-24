@@ -9,8 +9,12 @@ import { ThemeProvider as ThemeProviderV5 } from '@mui/material/styles';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import { ErrorBoundary } from './common/components/errors';
-import { generateClassName, themeV4, themeV5 } from './common/theme';
+import {
+  generateClassName, themeV4, themeV5,
+} from './common';
+import { ErrorBoundary } from './common/components';
+// import { ErrorBoundary } from './common/components/errors';
+// import { generateClassName, themeV4, themeV5 } from './common/theme';
 import { AppRoutes } from './routes';
 // import { Route } from "react-router";
 

@@ -11,6 +11,8 @@ import { Page } from '../../common/components/wrappers';
 // import { useHomeStyles } from '../styles';
 import TopicItem from '../TopicItem';
 
+import { HomeCarousel } from './components';
+
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
 //   ...theme.typography.body2,
@@ -26,7 +28,7 @@ export const Home = () => {
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={6} lg={6}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={12} md={12} lg={12}><TopicItem /></Grid>
+            <Grid item xs={12} sm={12} md={12} lg={12}><HomeCarousel /></Grid>
           </Grid>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6}>

@@ -45,6 +45,7 @@
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-i18next": "^11.18.1",
+    "react-material-ui-carousel": "^3.4.2",
     "react-redux": "^8.0.2",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.4.2",

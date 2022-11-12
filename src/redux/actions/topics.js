@@ -8,7 +8,8 @@ import {
 	GET_CATEGORY_TOPICS,
 	GET_ADMIN_TOPICS,
 	RESET_ADD_TOPIC,
-	RESET_UPDATE_TOPIC
+	RESET_UPDATE_TOPIC,
+	SET_TOPIC_DISPLAY
 } from './actionTypes';
 import { http } from '../../helpers';
 import { store } from '../store';
@@ -61,6 +62,15 @@ export const updateTopic = (updatedTopic, topicSlug) => {
 	store.dispatch({
 		type: UPDATE_TOPIC,
 		payload: http.patch(`/topics/${topicSlug}`, updatedTopic)
+	});
+};
+export const setOrRemoveTopicDisplay = (topicId) => {
+	store.dispatch({
+		type: SET_TOPIC_DISPLAY,
+		payload: http.patch(`/manage/entity-display/${topicId}`, {
+			type: "topic",
+			displayType: "home"
+		})
 	});
 };
 export const resetTopicAction = (type = 'add') => {

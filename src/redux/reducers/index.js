@@ -16,7 +16,7 @@ import {
   userRmReducer,
   usersGetReducer,
 } from "./userReducer";
-import { dashboardReducer } from "./dashboardReducer";
+import { dashboardReducer, setTopicDisplayReducer } from "./dashboardReducer";
 import {
   commentReducer,
   commentsTopicReducer,
@@ -85,4 +85,5 @@ export const rootReducer = combineReducers({
   mediaCount: mediaCountReducer,
   coverImagesGet: coverImagesGetReducer,
   youtubeVideosGet: youtubeVideosGetReducer,
+  topicDisplay: setTopicDisplayReducer
 });

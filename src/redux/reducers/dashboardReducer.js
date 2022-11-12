@@ -1,6 +1,6 @@
-import { initialDashState } from '../initialStates';
+import { initialDashState, setTopicDisplayState } from '../initialStates';
 import { pending, fulfilled, rejected } from '../../utils/actions';
-import { GET_ADMIN_TOPICS, GET_DASHBOARD_COUNTS } from '../actions';
+import { GET_ADMIN_TOPICS, GET_DASHBOARD_COUNTS, SET_TOPIC_DISPLAY } from '../actions';
 
 export const dashboardReducer = (state = initialDashState, action) => {
 	switch (action.type) {
@@ -34,6 +34,29 @@ export const dashboardReducer = (state = initialDashState, action) => {
 				...state,
 				topicsLoading: false,
 				countLoading: false
+			};
+	}
+};
+
+export const setTopicDisplayReducer = (state = setTopicDisplayState, action) => {
+	switch (action.type) {
+		case pending(SET_TOPIC_DISPLAY):
+			return {
+				...state,
+				loaded: false,
+				loading: true
+			};
+		case fulfilled(SET_TOPIC_DISPLAY):
+			return {
+				...state,
+				loading: false,
+				loaded: true
+			};
+		case rejected(SET_TOPIC_DISPLAY):
+		default:
+			return {
+				...state,
+				loading: false,
 			};
 	}
 };

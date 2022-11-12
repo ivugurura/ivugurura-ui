@@ -130,3 +130,7 @@ export const publishCommentState = {
 	loading: false,
 	loaded: false
 };
+export const setTopicDisplayState = {
+	loading: false,
+	loaded: false
+};

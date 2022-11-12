@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@media screen and (max-width: 400px) {
+  .carousel-home {
+    height: '42vh';
+  }
+}
+
+@media screen and (min-width: 401px) {
+  .carousel-home {
+    height: '64vh';
+  }
+}

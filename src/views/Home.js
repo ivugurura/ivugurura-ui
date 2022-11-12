@@ -26,10 +26,10 @@ const Home = () => {
       <Communique />
       <Container fluid>
         <Row>
-          <Col md={6} lg={6} xs={12}>
+          <Col md={6} lg={6} sm={12} xs={12}>
             <TopicsCarousel />
           </Col>
-          <Col md={6} lg={6} xs={12}>
+          <Col md={6} lg={6} sm={12} xs={12}>
             <Row>
               <Col xs={12} sm={12} md={6}>
                 <h4>{t("app:radioName")}</h4>

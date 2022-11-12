@@ -30,7 +30,7 @@ export const TopicsCarousel = () => {
 								key={topicIndex}
 								as={Link}
 								to={`/${systemLanguage}/topics/${topic.slug}`}
-								style={{ height: '64vh' }}
+								className='carousel-home'
 							>
 								<img
 									className='d-block w-100'

@@ -54,7 +54,6 @@ const Home = () => {
                   <iframe
                     src={`https://www.youtube.com/embed/${youtubeData.items[0]?.id?.videoId}`}
                     title="Ubugorozi Youtube"
-                    frameBorder="0"
                     width="100%"
                     height="100%"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

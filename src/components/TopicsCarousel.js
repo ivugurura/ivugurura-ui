@@ -15,7 +15,7 @@ export const TopicsCarousel = () => {
 	};
 	const { carsoulLoading, carsoulTopics } = useSelector(({ topic }) => topic);
 	useEffect(() => {
-		getTopics({ page: 1, pageSize: 3, category: 'carsoul' });
+		getTopics({ page: 1, pageSize: 6, category: 'carsoul' });
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (

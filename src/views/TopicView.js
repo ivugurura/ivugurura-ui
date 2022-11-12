@@ -50,7 +50,7 @@ const TopicView = ({ match }) => {
           </Col>
         </Row>
       </Container>
-      <SampleTopics loading={loading} topics={topic.category.relatedTopics} />
+      <SampleTopics loading={loading} topics={topic.category?.relatedTopics} />
     </Page>
   );
 };

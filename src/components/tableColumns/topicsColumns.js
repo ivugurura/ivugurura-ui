@@ -34,6 +34,13 @@ export const topicsColumns = (user = {}, setActions) => [
 				<ButtonGroup size='sm'>
 					<Button
 						size='sm'
+						variant={item.entities?.length ? 'primary' : 'info'}
+						onClick={() => setActions('set-home-display', item)}
+					>
+						{`${item.entities?.length ? 'Remove from' : 'Set to'} home`}
+					</Button>
+					<Button
+						size='sm'
 						variant={item.isPublished ? 'primary' : 'info'}
 						onClick={() => setActions('publish', item)}
 					>
@@ -46,14 +53,14 @@ export const topicsColumns = (user = {}, setActions) => [
 					>
 						<i className='fa fa-pencil'></i>
 					</Button>
-					<Button
+					{/* <Button
 						size='sm'
 						variant='danger'
 						disabled
 						onClick={() => setActions('del', item)}
 					>
 						<i className='fa fa-trash'></i>
-					</Button>
+					</Button> */}
 				</ButtonGroup>
 			) : null
 	}

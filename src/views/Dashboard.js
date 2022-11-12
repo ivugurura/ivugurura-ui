@@ -6,7 +6,8 @@ import {
 	getDashboadCount,
 	getDashboardTopics,
 	updateTopic,
-	resetTopicAction
+	resetTopicAction,
+	setOrRemoveTopicDisplay
 } from '../redux/actions';
 import { AdminCounts, Page } from '../components';
 import { topicsColumns } from '../components/tableColumns';
@@ -15,6 +16,7 @@ import { ActionConfirm } from '../components/models';
 const initialPaginate = { pageSize: 10, pageNumber: 1 };
 export const Dashboard = ({ history }) => {
 	const [currentTopic, setCurrentTopic] = useState(null);
+	const [currentAction, setCurrentAction] = useState(null);
 	const [aeAction, setAeAction] = useState('');
 	const [showActionConf, setShowActionConf] = useState(false);
 	const [paginator, setPaginator] = useState(initialPaginate);
@@ -22,11 +24,12 @@ export const Dashboard = ({ history }) => {
 	const {
 		dashboard,
 		topicEdit: { done, loading },
-		user
-	} = useSelector(({ dashboard, topicEdit, user }) => ({
+		user,
+		topicDisplay: { loading: tdLoading, loaded: tdLoaded }
+	} = useSelector(({ dashboard, topicEdit, user, topicDisplay }) => ({
 		dashboard,
 		topicEdit,
-		user
+		user, topicDisplay
 	}));
 	useEffect(() => {
 		getDashboadCount();
@@ -37,7 +40,7 @@ export const Dashboard = ({ history }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [paginator, searchValue]);
 	useEffect(() => {
-		if (done) {
+		if (done || tdLoaded) {
 			const { pageNumber, pageSize } = paginator;
 			getDashboardTopics(pageNumber, pageSize);
 			setShowActionConf(false);
@@ -45,9 +48,10 @@ export const Dashboard = ({ history }) => {
 			resetTopicAction('edit');
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [done, paginator]);
+	}, [done, tdLoaded]);
 	const setActions = (action = '', topic = {}) => {
 		setCurrentTopic(topic);
+		setCurrentAction(action)
 		if (action === 'publish') {
 			setAeAction(topic.isPublished ? 'Unpublish' : 'Publish');
 			setShowActionConf(true);
@@ -56,10 +60,26 @@ export const Dashboard = ({ history }) => {
 			setAeAction('DELETE');
 			setShowActionConf(true);
 		}
+		if (action === 'set-home-display') {
+			setAeAction(`${topic.entities?.length ? 'Remove from' : 'Set to'} home`);
+			setShowActionConf(true);
+		}
 		if (action === 'edit') {
 			history.push(`/admin/edit-topic/${topic.slug}`);
 		}
 	};
+	const handleOnAction = () => {
+		if (!currentTopic) return
+		if (currentAction === 'publish') {
+			updateTopic(
+				{ isPublished: !currentTopic.isPublished },
+				currentTopic.slug
+			);
+		}
+		if (currentAction === 'set-home-display') {
+			setOrRemoveTopicDisplay(currentTopic.id);
+		}
+	}
 	const onPageChage = (currentPage) => {
 		setPaginator({ ...paginator, pageNumber: currentPage });
 	};
@@ -83,13 +103,8 @@ export const Dashboard = ({ history }) => {
 				onHide={() => setShowActionConf(false)}
 				action={aeAction.toUpperCase()}
 				description={currentTopic ? currentTopic.title : ''}
-				onAction={() => {
-					updateTopic(
-						{ isPublished: !currentTopic.isPublished },
-						currentTopic.slug
-					);
-				}}
-				loading={loading}
+				onAction={() => handleOnAction()}
+				loading={loading || tdLoading}
 			/>
 			{/* <section className='dashboard-counts no-padding-top'>
 			</section> */}

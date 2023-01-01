@@ -42,7 +42,7 @@ export class ErrorBoundary extends React.PureComponent {
       if (isWebpackChunkError(error)) {
         return (
           <div className="container">
-            <Typography>A new version of Sourcegraph is available.</Typography>
+            <Typography>A new version of The SITE is available.</Typography>
             <Button onClick={this.onReloadClick} variant="primary">
               Reload to update
             </Button>
@@ -55,8 +55,8 @@ export class ErrorBoundary extends React.PureComponent {
       return (
         <div className="container">
           <Typography>
-            Sourcegraph encountered an unexpected error. If reloading the page does not fix it,
-            contact your site admin or Sourcegraph support.
+            The SITE encountered an unexpected error. If reloading the page does not fix it,
+            contact your site admin or The SITE support.
           </Typography>
           <Typography>
             <Typography className="text-wrap">{error.message}</Typography>

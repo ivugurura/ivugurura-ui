@@ -1,0 +1,40 @@
+name: Ivugurura Client CI/CD
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push events but only for the develop branch
+  push:
+    branches: [develop]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  deploy:
+    needs: [test]
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.17.6]
+
+    steps:
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@master
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Prepare SSH and deploy the app
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd ~/ivugururaUi
+            echo "Pull new changes"
+            git pull origin develop
+            echo "Install new dependencies if any"
+            npm install --omit=dev
+            echo "Build the new changes and replace the old ones"
+            npm run build
+            npm run mv-build
+            echo "Done"

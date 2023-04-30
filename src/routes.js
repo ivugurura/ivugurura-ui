@@ -2,7 +2,9 @@ import React from 'react';
 
 import { Route, Routes } from 'react-router-dom';
 
-import { AdminLayout, MainLayout, UserLayout } from './common/components';
+import {
+  AdminLayout, AdminMainLayout, UserLayout, UserMainLayout,
+} from './common/components';
 
 // import { systemLanguage } from "utils/constants";
 // import { Main, AdminMain } from "./layouts";
@@ -112,9 +114,11 @@ import { AdminLayout, MainLayout, UserLayout } from './common/components';
 // ];
 export const AppRoutes = () => (
   <Routes>
-    <Route path="/" element={<MainLayout />}>
+    <Route path="/" element={<UserMainLayout />}>
       <Route path="kn/*" element={<UserLayout />} />
-      <Route path="admin/*" element={<AdminLayout />} />
+    </Route>
+    <Route path="admin/" element={<AdminMainLayout />}>
+      <Route path="kn/*" element={<AdminLayout />} />
     </Route>
   </Routes>
 );

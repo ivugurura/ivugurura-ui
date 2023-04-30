@@ -4,10 +4,10 @@ import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 
 import { useStyles } from '../../styles';
-import { Footer } from '../Footer';
+// import { Footer } from '../Footer';
 import { NavBar } from '../navbar';
 
-export const MainLayout = () => {
+export const UserMainLayout = () => {
   const classes = useStyles();
   return (
     <Box>
@@ -16,7 +16,7 @@ export const MainLayout = () => {
         <Outlet />
       </main>
       <div style={{ marginTop: 10 }} />
-      <Footer />
+      {/* <Footer /> */}
     </Box>
   );
 };

@@ -12,7 +12,7 @@ export const UserLayout = () => (
     <h2>Users layout</h2>
     <Routes>
       <Route index element={<Home />} />
-      <Route path="topics" element={<TopicsPage />} />
+      <Route path={PageRoutes.Topics} element={<TopicsPage />} />
       <Route path={PageRoutes.Topic} element={<h2>Topic details</h2>} />
     </Routes>
   </Box>

@@ -1,14 +1,15 @@
 import React from 'react';
 
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
+
+import { HomeDashboard } from '../../../pages/admin';
 
 export const AdminLayout = () => (
   <Box>
-    <Typography>Admin routes</Typography>
+    <h2>Admin layout</h2>
     <Routes>
-      <Route index element={<h2>Admin landing page</h2>} />
-      <Route path="topics" element={<h2>All topics</h2>} />
+      <Route index element={<HomeDashboard />} />
     </Routes>
   </Box>
 );

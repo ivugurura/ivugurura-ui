@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Card } from '@material-ui/core';
 import { MusicNote, PlayArrow } from '@mui/icons-material';
 import {
+  Card,
   CardContent,
   CardHeader,
   Divider,

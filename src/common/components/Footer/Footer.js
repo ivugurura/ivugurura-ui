@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
 import { ColumnToRow, Item } from '@mui-treasury/components/flex';
 import {
   CategoryProvider,
@@ -31,6 +30,7 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 // import { usePlainNavigationMenuStyles } from '@mui-treasury/styles/navigationMenu/plain';
 // import { useTranslation } from 'react-i18next';
 // import { Loading } from 'components/Loading';

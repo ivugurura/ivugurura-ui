@@ -1,8 +1,9 @@
-import { colors } from '@material-ui/core';
-import { makeStyles } from '@mui/styles';
+import { colors } from '@mui/material';
+
+import { theme } from '../theme';
 
 const itemHorzPadding = 3;
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = {
   content: {
     // paddingTop: 56,
     // [theme.breakpoints.up('sm')]: {
@@ -157,6 +158,6 @@ export const useStyles = makeStyles((theme) => ({
       },
     },
   },
-}));
+};
 
 export default useStyles;

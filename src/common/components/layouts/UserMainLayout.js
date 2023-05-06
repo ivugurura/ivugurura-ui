@@ -8,7 +8,7 @@ import { useStyles } from '../../styles';
 import { NavBar } from '../navbar';
 
 export const UserMainLayout = () => {
-  const classes = useStyles();
+  const classes = useStyles;
   return (
     <Box>
       <NavBar />

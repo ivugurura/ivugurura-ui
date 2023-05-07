@@ -19,23 +19,23 @@ import {
 
 import { ListItemLink } from './ListItemLink';
 
-const dashboardMenus = [{
+const dashboardMenus = (lang = 'kn') => [{
   type: 'Main',
   routes: [{
     name: 'Home',
-    to: '/',
+    to: lang,
     icon: HomeIcon,
   }, {
     name: 'Add new topic',
-    to: '/add-topic',
+    to: `${lang}/add-topic`,
     icon: AddHomeIcon,
   }, {
     name: 'Media',
-    to: '/audio',
+    to: `${lang}/audio`,
     icon: PlayLessonIcon,
     routes: [{
       name: 'Audio',
-      to: '/audio',
+      to: `${lang}/audio`,
       icon: MusicNoteIcon,
     }],
   }],
@@ -43,15 +43,15 @@ const dashboardMenus = [{
   type: 'Extra',
   routes: [{
     name: 'Commentaries',
-    to: '/commentaries',
+    to: `${lang}/commentaries`,
     icon: ChatBubbleIcon,
   }, {
     name: 'Setting',
-    to: '/setting',
+    to: `${lang}/setting`,
     icon: SettingIcon,
   }, {
     name: 'System users',
-    to: '/users',
+    to: `${lang}/users`,
     icon: PeopleIcon,
   }],
 }];
@@ -63,7 +63,7 @@ export const AdminMenuDrawer = () => {
   return (
     <div>
       <Toolbar />
-      {dashboardMenus.map((menu) => (
+      {dashboardMenus().map((menu) => (
         <React.Fragment key={menu.type}>
           <Divider />
           <Typography variant="body1" mt={1}>{menu.type}</Typography>

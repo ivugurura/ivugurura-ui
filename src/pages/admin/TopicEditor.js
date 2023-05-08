@@ -49,7 +49,7 @@ export const TopicEditor = () => {
         </Grid>
         <Grid
           xs={12}
-          lg={5}
+          lg={7}
         >
           <RRVEditor editorState={editorState} onEditorStateChange={setEditorState} />
         </Grid>

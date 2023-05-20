@@ -4,5 +4,6 @@ export const PageRoutes = {
   admin: {
     AddTopic: 'add-topic',
     EditTopic: 'edit-topic/:topicSlug',
+    Audio: 'audio',
   },
 };

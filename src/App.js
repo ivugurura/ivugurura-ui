@@ -5,7 +5,7 @@ import React, { Suspense } from 'react';
 // import "./i18n";
 // import { ThemeProvider as ThemeProviderV4, StylesProvider } from '@material-ui/core/styles';
 import { CssBaseline, LinearProgress } from '@mui/material';
-import { ThemeProvider as ThemeProviderV5 } from '@mui/material/styles';
+import { StyledEngineProvider, ThemeProvider as ThemeProviderV5 } from '@mui/material/styles';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
@@ -29,12 +29,14 @@ const App = () => {
     <ThemeProviderV5 theme={theme}>
       <ErrorBoundary location={null}>
         <CssBaseline />
-        <ToastContainer />
-        <Suspense fallback={<LinearProgress />}>
-          <BrowserRouter>
-            <AppRoutes />
-          </BrowserRouter>
-        </Suspense>
+        <StyledEngineProvider>
+          <ToastContainer />
+          <Suspense fallback={<LinearProgress />}>
+            <BrowserRouter>
+              <AppRoutes />
+            </BrowserRouter>
+          </Suspense>
+        </StyledEngineProvider>
       </ErrorBoundary>
     </ThemeProviderV5>
   //   </ThemeProviderV4>

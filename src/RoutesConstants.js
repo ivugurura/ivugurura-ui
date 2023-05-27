@@ -5,5 +5,6 @@ export const PageRoutes = {
     AddTopic: 'add-topic',
     EditTopic: 'edit-topic/:topicSlug',
     Audio: 'audio',
+    Commentaries: 'commentaries',
   },
 };

@@ -17,11 +17,6 @@ export const Setting = () => {
   const [currentOpenMenu, setCurrentOpenMenu] = React.useState(null);
   const handleOpenMunu = (menu) => {
     setCurrentOpenMenu((prev) => (prev?.name === menu.name ? null : menu));
-    // if (menu.name === currentOpenMenu?.name) {
-    //   setCurrentOpenMenu(null);
-    // } else {
-    //   setCurrentOpenMenu(menu);
-    // }
   };
   console.log('Commentaries');
   return (
@@ -50,7 +45,7 @@ export const Setting = () => {
                         <ListItemIcon>
                           <SettingsIcon />
                         </ListItemIcon>
-                        <ListItemText primary={<h4>{sMenu.name}</h4>} />
+                        <ListItemText primary={<h3>{sMenu.name}</h3>} />
                       </ListItemButton>
                     ))}
                   </List>

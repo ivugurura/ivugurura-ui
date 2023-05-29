@@ -7,5 +7,6 @@ export const PageRoutes = {
     Audio: 'audio',
     Commentaries: 'commentaries',
     Setting: 'setting',
+    Users: 'users',
   },
 };

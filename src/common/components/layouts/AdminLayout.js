@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 
 import {
-  Commentaries, HomeDashboard, MediaEditor, Setting, TopicEditor,
+  Commentaries, HomeDashboard, MediaEditor, Setting, SystemUsers, TopicEditor,
 } from '../../../pages/admin';
 import { PageRoutes } from '../../../RoutesConstants';
 
@@ -18,6 +18,7 @@ export const AdminLayout = () => (
       <Route path={PageRoutes.admin.Audio} element={<MediaEditor />} />
       <Route path={PageRoutes.admin.Commentaries} element={<Commentaries />} />
       <Route path={PageRoutes.admin.Setting} element={<Setting />} />
+      <Route path={PageRoutes.admin.Users} element={<SystemUsers />} />
     </Routes>
   </Box>
 );

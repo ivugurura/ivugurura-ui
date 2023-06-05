@@ -9,7 +9,7 @@ import { red } from '@mui/material/colors';
 import { TopicsHeader } from '../components';
 import TopicItem from '../TopicItem';
 
-export const TopicsPage = (props) => {
+export const TopicDetailPage = (props) => {
   console.log('TopicsPage', props);
   return (
     <Grid container spacing={2}>
@@ -28,8 +28,8 @@ export const TopicsPage = (props) => {
       <Grid item md={3}>
         <Grid container spacing={1}>
           {[1, 2, 3, 4].map((el) => (
-            <Grid item key={el}>
-              <Card>
+            <Grid item>
+              <Card key={el}>
                 <CardHeader
                   avatar={(
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">

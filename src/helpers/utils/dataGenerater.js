@@ -12,7 +12,7 @@ export const dataGenerator = (schema, len = 1) => Array.from({
       entity[key] = innerGen(anySchema[key]);
       return entity;
     }
-    entity[key] = faker.fake(anySchema[key]);
+    entity[key] = faker.helpers.fake(anySchema[key]);
     return entity;
   }, {});
 

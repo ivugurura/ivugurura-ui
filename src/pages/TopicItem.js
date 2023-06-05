@@ -6,9 +6,9 @@ import {
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
-const TopicItem = ({ className }) => {
+const TopicItem = ({ className = '' }) => {
   console.log('Topic');
 
   return (
@@ -44,8 +44,8 @@ const TopicItem = ({ className }) => {
   );
 };
 
-TopicItem.propTypes = {
-  className: PropTypes.string.isRequired,
-};
+// TopicItem.propTypes = {
+//   className: PropTypes.string.isRequired,
+// };
 
 export default TopicItem;

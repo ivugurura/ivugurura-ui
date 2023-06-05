@@ -4,6 +4,7 @@ import { Box } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 
 import { Home } from '../../../pages/Home';
+import { TopicDetailPage } from '../../../pages/TopicDetails';
 import { TopicsPage } from '../../../pages/TopicsPage';
 import { PageRoutes } from '../../../RoutesConstants';
 
@@ -13,7 +14,7 @@ export const UserLayout = () => (
     <Routes>
       <Route index element={<Home />} />
       <Route path={PageRoutes.Topics} element={<TopicsPage />} />
-      <Route path={PageRoutes.Topic} element={<h2>Topic details</h2>} />
+      <Route path={PageRoutes.Topic} element={<TopicDetailPage />} />
     </Routes>
   </Box>
 );

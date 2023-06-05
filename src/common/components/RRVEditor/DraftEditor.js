@@ -48,7 +48,7 @@ import styles from './DraftEditor.module.scss';
 //     color: theme.palette.text.primary,
 //   },
 // };
-export const DraftEditor = ({ editorState, onEditorStateChange }) => {
+export const DraftEditor = ({ editorState, onEditorStateChange, placeholder }) => {
   const [prevFile, setPrevFile] = useState('');
 
   const onImageUpload = (file) => new Promise((resolve, reject) => {
@@ -100,6 +100,7 @@ export const DraftEditor = ({ editorState, onEditorStateChange }) => {
         },
       }}
       toolbarClassName={styles.toolbar}
+      placeholder={placeholder}
       wrapperClassName={styles.root}
     />
   );

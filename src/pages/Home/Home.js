@@ -15,12 +15,14 @@ import {
   Typography,
 } from '@mui/material';
 import AudioPlayer from 'react-h5-audio-player';
+// import YouTube from 'react-youtube';
 
 import { Page } from '../../common/components/wrappers';
 // import { useHomeStyles } from '../styles';
 import TopicItem from '../TopicItem';
 
-import { HomeCarousel } from './components';
+// HomeCarousel,
+import { HomeCarousel, RadioHome } from './components';
 
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -37,13 +39,25 @@ export const Home = () => {
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={6} lg={6}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={12} md={12} lg={12}><HomeCarousel /></Grid>
+            <Grid item xs={12} sm={12} md={12} lg={12} />
           </Grid>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6}>
           <Grid container spacing={1}>
-            <Grid item xs={12} sm={12} md={6} lg={6}><TopicItem /></Grid>
-            <Grid item xs={12} sm={12} md={6} lg={6}><TopicItem /></Grid>
+            <Grid item xs={12} sm={12} md={6} lg={6}><RadioHome /></Grid>
+            <Grid item xs={12} sm={12} md={6} lg={6}>
+              <Card>
+                <Typography
+                  component="span"
+                  variant="h3"
+                  color="text.primary"
+                >
+                  Evangelists of the Revival and Reformation
+                </Typography>
+                <Typography component="span" variant="h4"> — And this gospel of the kingdom shall be preached in all the world for a witness unto all nations; and then shall the end come.</Typography>
+                <HomeCarousel />
+              </Card>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
@@ -70,8 +84,7 @@ export const Home = () => {
                 />
                 <CardHeader
                   title="to Scott, Alex, Jennifer"
-                  subheader={
-                  (
+                  subheader={(
                     <>
                       <Typography
                         sx={{ display: 'inline' }}
@@ -83,8 +96,7 @@ export const Home = () => {
                       </Typography>
                       {" — Wish I could come, but I'm out of town this…"}
                     </>
-)
-                }
+                  )}
                 />
                 <CardContent>
                   <List>
@@ -111,7 +123,7 @@ export const Home = () => {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} sm={12} md={7}><TopicItem /></Grid>
+            <Grid item xs={12} sm={12} md={7} />
           </Grid>
         </CardContent>
       </Card>

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import { EditorState } from 'draft-js';
 
 import { PageHelmet } from '../../../common/components/PageHelmet';
 
@@ -8,11 +10,12 @@ import { TopicDetails } from './TopicDetails';
 
 export const TopicEditor2 = () => {
   console.log(' Topic editor 2');
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
   return (
     <PageHelmet title="Edit page title">
       <Header />
       <AboutTopic />
-      <TopicDetails />
+      <TopicDetails editorState={editorState} setEditorState={setEditorState} />
     </PageHelmet>
   );
 };

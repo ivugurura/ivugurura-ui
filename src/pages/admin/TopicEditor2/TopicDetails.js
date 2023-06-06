@@ -6,7 +6,7 @@ import {
 
 import { RRVEditor } from '../../../common/components/RRVEditor';
 
-export const TopicDetails = () => {
+export const TopicDetails = ({ editorState, setEditorState }) => {
   console.log('Topic Details');
   return (
     <Card>
@@ -15,6 +15,8 @@ export const TopicDetails = () => {
         <Paper component={Box} mt={3}>
           <RRVEditor
             placeholder="Type topic details here"
+            editorState={editorState}
+            onEditorStateChange={setEditorState}
           />
         </Paper>
       </CardContent>

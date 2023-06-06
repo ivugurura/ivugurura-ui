@@ -77,7 +77,6 @@ export const DraftEditor = ({ editorState, onEditorStateChange, placeholder }) =
   return (
     <Editor
       editorState={editorState}
-      editorClassName={styles.editor}
       onEditorStateChange={onEditorStateChange}
       toolbar={{
         options: [
@@ -88,6 +87,7 @@ export const DraftEditor = ({ editorState, onEditorStateChange, placeholder }) =
           'list',
           'textAlign',
           'image',
+          'colorPicker',
           'history',
         ],
         inline: { inDropdown: true },
@@ -98,10 +98,14 @@ export const DraftEditor = ({ editorState, onEditorStateChange, placeholder }) =
           alt: { present: true, mandatory: true },
           defaultSize: { height: 300, width: 500 },
         },
+        // fontSize: {
+        //   options: [16, 18, 24, 30, 36, 48, 60, 72, 96],
+        // },
       }}
-      toolbarClassName={styles.toolbar}
       placeholder={placeholder}
+      editorClassName={styles.editor}
       wrapperClassName={styles.root}
+      toolbarClassName={styles.toolbar}
     />
   );
 };

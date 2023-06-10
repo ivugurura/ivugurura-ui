@@ -7,6 +7,10 @@ if (localStorage.user) {
 }
 const lang = localStorage.lang || 'kn';
 
+export const VERBS = {
+  get: 'GET', post: 'POST', patch: 'PATCH', delete: 'DELETE',
+};
+
 export const http = axios.create({
   baseURL: `${process.env.REACT_APP_API_URL}/api/v1`,
   withCredentials: true,

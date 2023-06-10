@@ -1,31 +1,21 @@
-import { combineReducers } from 'redux';
+// import { combineReducers } from 'redux';
+import { albumReducer } from './albumReducer';
 import { categoryAddReducer, categoryReducer } from './categoryReducer';
-import { languageReducer } from './languageReducer';
-import { topicReducer } from './topicReducer';
-import {
-  topicAddReducer,
-  topicEditReducer,
-  topicGetReducer,
-} from './oneTopicReducer';
-import { filePathReducer, filerReducer } from './filerReducer';
-import {
-  logoutUserReducer,
-  userAddReducer,
-  userEditReducer,
-  useReducer,
-  userRmReducer,
-  usersGetReducer,
-} from './userReducer';
-import { dashboardReducer } from './dashboardReducer';
 import {
   commentReducer,
   commentsTopicReducer,
   adminCommentsReducer,
   publishCommentReducer,
 } from './commentReducer';
-import { oneCategoryReducer } from './oneCategoryReducer';
-import { searchReducer } from './searchReducer';
-import { albumReducer } from './albumReducer';
+import {
+  addCommuniqueReducer,
+  getCommuniquesReducer,
+  getPubCommuniqueReducer,
+  publishCommuniqueReducer,
+} from './communiqueReducer';
+import { dashboardReducer } from './dashboardReducer';
+import { filePathReducer, filerReducer } from './filerReducer';
+import { languageReducer } from './languageReducer';
 import {
   coverImagesGetReducer,
   mediaCountReducer,
@@ -34,12 +24,22 @@ import {
   songEditReducer,
   songShareReducer,
 } from './mediaReducer';
+import { oneCategoryReducer } from './oneCategoryReducer';
 import {
-  addCommuniqueReducer,
-  getCommuniquesReducer,
-  getPubCommuniqueReducer,
-  publishCommuniqueReducer,
-} from './communiqueReducer';
+  topicAddReducer,
+  topicEditReducer,
+  topicGetReducer,
+} from './oneTopicReducer';
+import { searchReducer } from './searchReducer';
+import { topicReducer } from './topicReducer';
+import {
+  logoutUserReducer,
+  userAddReducer,
+  userEditReducer,
+  useReducer,
+  userRmReducer,
+  usersGetReducer,
+} from './userReducer';
 import {
   chatGetReducer,
   chatUsersGetReducer,
@@ -47,7 +47,7 @@ import {
   youtubeVideosGetReducer,
 } from './utilReducer';
 
-export const rootReducer = combineReducers({
+export const rootReducer = {
   category: categoryReducer,
   language: languageReducer,
   topic: topicReducer,
@@ -85,4 +85,4 @@ export const rootReducer = combineReducers({
   mediaCount: mediaCountReducer,
   coverImagesGet: coverImagesGetReducer,
   youtubeVideosGet: youtubeVideosGetReducer,
-});
+};

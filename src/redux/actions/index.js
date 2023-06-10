@@ -9,3 +9,5 @@ export * from './albums';
 export * from './media';
 export * from './communique';
 export * from './util';
+
+export { actions } from '../apiSliceBuilder';

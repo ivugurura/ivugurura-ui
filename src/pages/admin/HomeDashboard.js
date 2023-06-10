@@ -1,13 +1,15 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import {
   Box,
   Card, CardContent, CardHeader, Container, Grid,
 } from '@mui/material';
+import { useDispatch } from 'react-redux';
 
 import { RRVTable } from '../../common/components/RRVTable';
 import { dataGenerator } from '../../helpers/utils/dataGenerater';
+import { actions } from '../../redux/actions';
 
 import { DashboardContainer } from './components/DashboardContainer';
 import { DashboardCount } from './components/DashboardCount';
@@ -21,6 +23,7 @@ const data = dataGenerator({
 }, 7);
 export const HomeDashboard = () => {
   // const columns = useMemo(dashboardTopicsColumns, []);
+  const { data: topics, isFetching, isSuccess } = actions.useListTopicsQuery({ type: 'Type' });
   const dataCounts = [
     { title: 'Published', counts: 160, difference: 2 },
     { title: 'Unpublished', counts: 1, difference: 1 },
@@ -29,7 +32,10 @@ export const HomeDashboard = () => {
     { title: 'Commentaries', counts: 99, difference: 23 },
     { title: 'System users', counts: 4, difference: 0 },
   ];
-  console.log({ data });
+
+  console.log({
+    data, topics, isFetching, isSuccess,
+  });
   return (
     <DashboardContainer title="Admin dashboard">
       <Grid

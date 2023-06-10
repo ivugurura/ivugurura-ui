@@ -1,13 +1,11 @@
 import { messages } from '../helpers/messages';
 
-export const baseState = (key = 'data', value = null) => {
-  return {
-    loading: true,
-    done: false,
-    [key]: value,
-    totalItems: 0,
-  };
-};
+export const baseState = (key = 'data', value = null) => ({
+  loading: true,
+  done: false,
+  [key]: value,
+  totalItems: 0,
+});
 export const initialCategoryState = {
   navCategories: [],
   navLoading: false,
@@ -28,7 +26,7 @@ export const initialTopicState = {
 };
 export const initialLangState = {
   locale: 'kn',
-  messages: messages['kn'],
+  messages: messages.kn,
 };
 export const initialOneTopicState = {
   topic: { category: { relatedTopics: [] }, commentaries: [] },

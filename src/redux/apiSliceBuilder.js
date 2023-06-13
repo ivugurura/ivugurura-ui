@@ -31,7 +31,6 @@ const buildApiEndPoints = (build, state) => {
       },
     });
   });
-  // console.log({ endpoints });
   return endpoints;
 };
 
@@ -60,5 +59,4 @@ const buildApiSlicers = () => {
 };
 
 const slicers = buildApiSlicers();
-console.log({ actions: slicers.actions });
 export const { actions, reducers, middlewares } = slicers;

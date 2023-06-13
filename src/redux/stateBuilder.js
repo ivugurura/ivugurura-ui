@@ -15,15 +15,6 @@ function startCase(str = '', action = 'toUpperCase') {
   return sentences.join(' ');
 }
 
-// const formatConstantName = (entity = '') => {
-//   if (entity) {
-//     const title = entity.toUpperCase();
-//     const formatted = title.split(' ');
-//     return formatted.join('_');
-//   }
-//   return '';
-// };
-
 export function formatStateName(entity = '') {
   if (entity) {
     const title = startCase(entity.toLowerCase());

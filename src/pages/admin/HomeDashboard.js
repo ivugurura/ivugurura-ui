@@ -23,7 +23,7 @@ const data = dataGenerator({
 }, 7);
 export const HomeDashboard = () => {
   // const columns = useMemo(dashboardTopicsColumns, []);
-  const { data: topics, isFetching, isSuccess } = actions.useListTopicsQuery({ type: 'Type' });
+  const { data: topics, isFetching, isSuccess } = actions.useListTopicsQuery({ page: 1, pageSize: 6, category: 'carsoul' });
   const dataCounts = [
     { title: 'Published', counts: 160, difference: 2 },
     { title: 'Unpublished', counts: 1, difference: 1 },

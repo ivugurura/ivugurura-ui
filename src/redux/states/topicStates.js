@@ -13,7 +13,7 @@ export const TopicState = {
       suffix: 's',
       api: {
         verb: VERBS.get,
-        endpoint: '/topics',
+        endpoint: '/topics?page=:page&pageSize=:pageSize&category=:category',
       },
     },
   },

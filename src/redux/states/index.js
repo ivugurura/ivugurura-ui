@@ -1,4 +1,4 @@
-import { TopicState } from './stateExample';
+import { TopicState } from './topicStates';
 
 export const appStates = [
   TopicState,

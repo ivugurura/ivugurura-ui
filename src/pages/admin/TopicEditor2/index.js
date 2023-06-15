@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { Button } from '@mui/material';
 import { EditorState } from 'draft-js';
 
 import { PageHelmet } from '../../../common/components/PageHelmet';
@@ -16,6 +17,8 @@ export const TopicEditor2 = () => {
       <Header />
       <AboutTopic />
       <TopicDetails editorState={editorState} setEditorState={setEditorState} />
+      <Button>View</Button>
+      <Button>Save</Button>
     </PageHelmet>
   );
 };

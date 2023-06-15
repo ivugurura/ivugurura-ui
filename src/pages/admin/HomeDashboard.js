@@ -23,7 +23,7 @@ const data = dataGenerator({
 }, 7);
 export const HomeDashboard = () => {
   // const columns = useMemo(dashboardTopicsColumns, []);
-  const { data: topics, isFetching, isSuccess } = actions.useListTopicsQuery({ page: 1, pageSize: 6, category: 'carsoul' });
+  const { data: topics, isFetching, isSuccess } = actions.useGetDashboardCountsQuery();
   const dataCounts = [
     { title: 'Published', counts: 160, difference: 2 },
     { title: 'Unpublished', counts: 1, difference: 1 },
@@ -45,12 +45,12 @@ export const HomeDashboard = () => {
         {dataCounts.map((dt) => (
           <Grid
             item
+            key={dt.title}
             xs={12}
             sm={4}
             lg={2}
           >
             <DashboardCount
-              key={dt.title}
               title={dt.title}
               value={dt.counts}
               difference={dt.difference}

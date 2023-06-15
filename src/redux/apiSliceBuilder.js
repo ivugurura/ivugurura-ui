@@ -5,11 +5,12 @@ import { formatParamaterizedUrl, startCase } from '../helpers/utils';
 import { buildAppStates } from './stateBuilder';
 
 const states = buildAppStates();
-
-const baseQueryOptions = {
-  // Fill in your own server starting URL here
-  baseUrl: 'https://reformationvoice.org/api/v1',
-};
+let token = 'null';
+if (localStorage.user) {
+  const user = JSON.parse(localStorage.user);
+  token = user.token;
+}
+const lang = localStorage.lang || 'kn';
 
 const buildApiEndPoints = (build, state) => {
   const { actions } = state;
@@ -36,7 +37,14 @@ const buildApiEndPoints = (build, state) => {
 
 const buildAppApis = () => states.map((state) => createApi({
   reducerPath: `${startCase(state.entity, false)}Api`,
-  baseQuery: fetchBaseQuery(baseQueryOptions),
+  baseQuery: fetchBaseQuery({
+    // Fill in your own server starting URL here
+    baseUrl: `${process.env.REACT_APP_API_URL}/api/v1`,
+    headers: {
+      Authorization: token,
+      'Accept-Language': lang,
+    },
+  }),
   endpoints: (build) => buildApiEndPoints(build, state),
 }));
 

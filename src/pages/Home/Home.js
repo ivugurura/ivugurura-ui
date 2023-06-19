@@ -15,14 +15,13 @@ import {
   Typography,
 } from '@mui/material';
 import AudioPlayer from 'react-h5-audio-player';
-// import YouTube from 'react-youtube';
 
 import { Page } from '../../common/components/wrappers';
 // import { useHomeStyles } from '../styles';
 import TopicItem from '../TopicItem';
 
 // HomeCarousel,
-import { HomeCarousel, RadioHome } from './components';
+import { HomeCarousel, HomeYoutube, RadioHome } from './components';
 
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -32,14 +31,15 @@ import { HomeCarousel, RadioHome } from './components';
 //   color: theme.palette.text.secondary,
 // }));
 export const Home = () => {
-  // const styles = useHomeStyles();
   console.log('Home');
   return (
     <Page title="Home">
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={6} lg={6}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={12} md={12} lg={12} />
+            <Grid item xs={12} sm={12} md={12} lg={12}>
+              <HomeYoutube />
+            </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6}>

@@ -35,16 +35,23 @@ const buildApiEndPoints = (build, state) => {
   return endpoints;
 };
 
+const baseQuery = fetchBaseQuery({
+  // Fill in your own server starting URL here
+  baseUrl: `${process.env.REACT_APP_API_URL}/api/v1`,
+  headers: {
+    Authorization: token,
+    'Accept-Language': lang,
+  },
+});
 const buildAppApis = () => states.map((state) => createApi({
   reducerPath: `${startCase(state.entity, false)}Api`,
-  baseQuery: fetchBaseQuery({
-    // Fill in your own server starting URL here
-    baseUrl: `${process.env.REACT_APP_API_URL}/api/v1`,
-    headers: {
-      Authorization: token,
-      'Accept-Language': lang,
-    },
-  }),
+  baseQuery: async (args, api, extraOptions) => {
+    const result = await baseQuery(args, api, extraOptions);
+    if (result.data) {
+      return result.data;
+    }
+    return result;
+  },
   endpoints: (build) => buildApiEndPoints(build, state),
 }));
 

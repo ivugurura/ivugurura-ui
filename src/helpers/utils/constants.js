@@ -12,7 +12,7 @@ export const topicEditorButtons = [
   //   ['removeFormat'],
   ['outdent', 'indent'],
   // ['align', 'horizontalRule', 'list', 'lineHeight'],
-  ['table', 'link'], //'image'
+  ['table', 'link'], // 'image'
   ['fullScreen'],
   //   ['preview', 'print'],
   // ['save', 'template'],
@@ -41,9 +41,7 @@ export const systemLanguages = [
     flag: `${flagUrl}/KE.png`,
   },
 ];
-export const truncate = (str = '', n = 1) => {
-  return str.length > n ? str.substr(0, n - 1) + '...' : str;
-};
+export const truncate = (str = '', n = 1) => (str.length > n ? `${str.substr(0, n - 1)}...` : str);
 export const formatDate = (theDate) => {
   const stringDate = moment(theDate).format('YYYY-MM-DD HH:mm');
   return stringDate;
@@ -55,7 +53,7 @@ export const getRole = (accessLevel = '3') => {
 };
 export const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 export const currentLang = systemLanguages.find(
-  (lang) => lang.abbr === systemLanguage
+  (lang) => lang.abbr === systemLanguage,
 );
 export const USER_LISTENER = 'user-listener';
 export const CHAT_ROOM = '';
@@ -85,16 +83,14 @@ export const IMAGE_PATH = `${process.env.REACT_APP_API_URL}/images`;
 
 const messageId = 13;
 export const notifier = {
-  error: (msg) =>
-    toast(msg, {
-      type: toast.TYPE.ERROR,
-      position: toast.POSITION.BOTTOM_RIGHT,
-      toastId: messageId,
-    }),
-  success: (msg) =>
-    toast(msg, {
-      type: toast.TYPE.DEFAULT,
-      position: toast.POSITION.BOTTOM_LEFT,
-      toastId: messageId,
-    }),
+  error: (msg) => toast(msg, {
+    type: toast.TYPE.ERROR,
+    position: toast.POSITION.BOTTOM_RIGHT,
+    toastId: messageId,
+  }),
+  success: (msg) => toast(msg, {
+    type: toast.TYPE.DEFAULT,
+    position: toast.POSITION.BOTTOM_LEFT,
+    toastId: messageId,
+  }),
 };

@@ -1,1 +1,1 @@
-export const hooks = '';
+export * from './useWindowSize';

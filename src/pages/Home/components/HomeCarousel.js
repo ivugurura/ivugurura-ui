@@ -10,7 +10,7 @@ import { actions } from '../../../redux/apiSliceBuilder';
 import { CarsoulLoader } from './HomeLoaders';
 
 export const HomeCarousel = () => {
-  const { data: topics, isFetching } = actions.useListTopicsQuery({ page: 1, pageSize: 4, category: 'carsoul' });
+  const { data: topics, isFetching } = actions.useGetCsTopicsQuery({ truncate: 56 });
   return (
     <>
       {isFetching ? <CarsoulLoader /> : topics?.length > 0 && (
@@ -25,7 +25,7 @@ export const HomeCarousel = () => {
             />
             <ImageListItemBar
               title={topic.title}
-              subtitle={topic.title}
+              subtitle={topic.content}
               actionIcon={(
                 <IconButton
                   sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
@@ -39,7 +39,7 @@ export const HomeCarousel = () => {
         ))}
       </RMCarousel>
       )}
-      {!isFetching && topics.length === 0 && (
+      {!isFetching && topics?.length === 0 && (
       <ImageListItem>
         <img
           src="https://reformationvoice.org/topic-cour-img.png?w=248&fit=crop&auto=format"

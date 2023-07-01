@@ -1,27 +1,22 @@
 import React from 'react';
 
-import { MusicNote, PlayArrow } from '@mui/icons-material';
 import {
   Card,
   CardContent,
   CardHeader,
-  Divider,
   Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Typography,
 } from '@mui/material';
-import AudioPlayer from 'react-h5-audio-player';
 
+import { RRVAudioPlayer } from '../../common/components/RRVAudioPlayer';
 import { Page } from '../../common/components/wrappers';
 // import { useHomeStyles } from '../styles';
-import TopicItem from '../TopicItem';
+// import TopicItem from '../TopicItem';
 
 // HomeCarousel,
-import { HomeCarousel, HomeYoutube, RadioHome } from './components';
+import {
+  HomeCarousel, HomeRecentTopics, HomeYoutube, RadioHome,
+} from './components';
 
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -64,11 +59,7 @@ export const Home = () => {
       <Card color="red">
         <CardHeader title="Recent topics" subheader="Recents" />
         <CardContent>
-          <Grid container spacing={1}>
-            {[1, 2, 3, 4].map((item) => (
-              <Grid key={item} item xs={12} sm={12} md={3}><TopicItem /></Grid>
-            ))}
-          </Grid>
+          <HomeRecentTopics />
         </CardContent>
       </Card>
       <Card color="red">
@@ -76,54 +67,11 @@ export const Home = () => {
         <CardContent>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={12} md={5}>
-              <Card>
-                <AudioPlayer
-                  autoPlay
-                  src="http://example.com/audio.mp3"
-                  onPlay={() => console.log('onPlay')}
-                />
-                <CardHeader
-                  title="to Scott, Alex, Jennifer"
-                  subheader={(
-                    <>
-                      <Typography
-                        sx={{ display: 'inline' }}
-                        component="span"
-                        variant="body2"
-                        color="text.primary"
-                      >
-                        by Ivugurura n ubugorozi
-                      </Typography>
-                      {" — Wish I could come, but I'm out of town this…"}
-                    </>
-                  )}
-                />
-                <CardContent>
-                  <List>
-                    {[1, 2, 3].map((item) => (
-                      <>
-                        <ListItem
-                          key={item}
-                          secondaryAction={(
-                            <IconButton edge="end">
-                              <PlayArrow />
-                            </IconButton>
-                          )}
-                          alignItems="flex-start"
-                        >
-                          <ListItemIcon>
-                            <MusicNote />
-                          </ListItemIcon>
-                          <ListItemText primary="Song 1" secondary="Some description" />
-                        </ListItem>
-                        <Divider variant="insert" component="li" />
-                      </>
-                    ))}
-                  </List>
-                </CardContent>
-              </Card>
+              <RRVAudioPlayer />
             </Grid>
-            <Grid item xs={12} sm={12} md={7} />
+            <Grid item xs={12} sm={12} md={7}>
+              <HomeYoutube heightRatio={0.534} widthRatio={0.57} normalHeight={420} randomize />
+            </Grid>
           </Grid>
         </CardContent>
       </Card>

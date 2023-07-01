@@ -9,11 +9,18 @@ export const TopicState = {
         endpoint: '/topics',
       },
     },
-    list: {
+    getCs: {
       suffix: 's',
       api: {
         verb: VERBS.get,
-        endpoint: '/topics?page=:page&pageSize=:pageSize&category=:category',
+        endpoint: '/topics?page=1&pageSize=4&category=carsoul&truncate=:truncate&canTruncate=yes',
+      },
+    },
+    getRecent: {
+      suffix: 's',
+      api: {
+        verb: VERBS.get,
+        endpoint: '/topics?page=1&pageSize=4&truncate=:truncate&canTruncate=yes',
       },
     },
   },

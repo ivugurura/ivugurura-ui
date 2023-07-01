@@ -2,13 +2,16 @@ import * as React from 'react';
 
 import { MoreVert as MoreVertIcon } from '@mui/icons-material';
 import {
-  Avatar, Card, CardContent, CardHeader, CardMedia, IconButton, Typography,
+  Avatar, Button, Card, CardContent, CardHeader, CardMedia, IconButton, Typography,
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 import classNames from 'classnames';
 // import PropTypes from 'prop-types';
+import moment from 'moment';
 
-const TopicItem = ({ className = '' }) => {
+import { IMAGE_PATH, truncate } from '../helpers/utils/constants';
+
+const TopicItem = ({ className = '', topic }) => {
   console.log('Topic');
 
   return (
@@ -24,20 +27,19 @@ const TopicItem = ({ className = '' }) => {
             <MoreVertIcon />
           </IconButton>
         )}
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title={truncate(topic.title, 34)}
+        subheader={`Cyateguwe kuwa ${moment(topic.updatedAt).format('DD.MM.YYYY')}`}
       />
       <CardMedia
         component="img"
         height="194"
-        image="https://reformationvoice.org/topic-cour-img.png"
-        alt="Paella dish"
+        image={`${IMAGE_PATH}/${topic.coverImage}`}
+        alt={topic.title}
       />
       <CardContent>
         <Typography variant="body1" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
+          {topic.content}
+          <Button size="small">More</Button>
         </Typography>
       </CardContent>
     </Card>

@@ -5,3 +5,4 @@ export * from './errors';
 export * from './wrappers';
 export * from './Footer';
 export * from './PageHelmet';
+export * from './RRVAudioPlayer';

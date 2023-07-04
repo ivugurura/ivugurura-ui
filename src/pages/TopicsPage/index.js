@@ -20,7 +20,7 @@ export const TopicsPage = (props) => {
           </Grid>
           <Grid item md={12}>
             <Card>
-              <TopicItem />
+              <TopicItem topic={{}} />
             </Card>
           </Grid>
         </Grid>

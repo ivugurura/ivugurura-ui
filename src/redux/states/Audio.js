@@ -1,6 +1,6 @@
 import { VERBS } from '../../helpers/http';
 
-import { getPaginationParams } from './utils';
+import { getParams } from './utils';
 
 export const AudioState = {
   entity: 'Audio',
@@ -9,7 +9,7 @@ export const AudioState = {
       suffix: 's',
       api: {
         verb: VERBS.get,
-        endpoint: `/albums/medias/audio?${getPaginationParams(['search'])}`,
+        endpoint: `/albums/medias/audio?${getParams(['search'])}`,
       },
     },
   },

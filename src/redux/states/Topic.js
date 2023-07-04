@@ -1,5 +1,7 @@
 import { VERBS } from '../../helpers/http';
 
+import { getParams } from './utils';
+
 export const TopicState = {
   entity: 'Topic',
   actions: {
@@ -9,18 +11,24 @@ export const TopicState = {
         endpoint: '/topics',
       },
     },
+    list: {
+      api: {
+        verb: VERBS.post,
+        endpoint: `/topics?${getParams(['page', 'pageSize', 'category'])}`,
+      },
+    },
     getCs: {
       suffix: 's',
       api: {
         verb: VERBS.get,
-        endpoint: '/topics?page=1&pageSize=4&category=carsoul&truncate=:truncate&canTruncate=yes',
+        endpoint: `/topics?page=1&pageSize=4&category=carsoul&canTruncate=yes${getParams(['truncate'], false)}`,
       },
     },
     getRecent: {
       suffix: 's',
       api: {
         verb: VERBS.get,
-        endpoint: '/topics?page=1&pageSize=4&truncate=:truncate&canTruncate=yes',
+        endpoint: `/topics?page=1&pageSize=4&canTruncate=yes${getParams(['truncate'], false)}`,
       },
     },
   },

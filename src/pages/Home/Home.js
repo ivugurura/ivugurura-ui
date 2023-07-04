@@ -3,7 +3,7 @@ import React from 'react';
 import {
   Card,
   CardContent,
-  CardHeader,
+  // CardHeader,
   Grid,
   Typography,
 } from '@mui/material';
@@ -57,13 +57,13 @@ export const Home = () => {
         </Grid>
       </Grid>
       <Card color="red">
-        <CardHeader title="Recent topics" subheader="Recents" />
+        {/* <CardHeader title="Recent topics" subheader="Recents" /> */}
         <CardContent>
           <HomeRecentTopics />
         </CardContent>
       </Card>
       <Card color="red">
-        <CardHeader title="Audio and video" subheader="Recents" />
+        {/* <CardHeader title="Audio and video" subheader="Recents" /> */}
         <CardContent>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={12} md={5}>

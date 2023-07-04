@@ -1,5 +1,5 @@
-export const getPaginationParams = (additionalParams = []) => {
-  let params = 'page=:page&pageSize=:pageSize';
+export const getParams = (additionalParams = [], withPagination = true) => {
+  let params = withPagination ? 'page=:page&pageSize=:pageSize' : '';
   additionalParams.forEach((param) => {
     params += `&${param}=:${param}`;
   });

@@ -5,12 +5,17 @@ import {
   Avatar, Grid, CardHeader, IconButton, Card,
 } from '@mui/material';
 import { red } from '@mui/material/colors';
+import { useParams } from 'react-router';
 
+import { actions } from '../../redux/apiSliceBuilder';
 import { TopicsHeader } from '../components';
 import TopicItem from '../TopicItem';
 
-export const TopicDetailPage = (props) => {
-  console.log('TopicsPage', props);
+export const TopicDetailPage = () => {
+  const { slug } = useParams();
+  const { data: topic, isFetching } = actions.useViewTopicQuery({ slug });
+  console.log('TopicDetailPage', { topic, isFetching });
+
   return (
     <Grid container spacing={2}>
       <Grid item md={9}>
@@ -20,16 +25,17 @@ export const TopicDetailPage = (props) => {
           </Grid>
           <Grid item md={12}>
             <Card>
-              <TopicItem />
+              {topic && <TopicItem topic={topic} />}
             </Card>
           </Grid>
         </Grid>
       </Grid>
       <Grid item md={3}>
+        {topic && (
         <Grid container spacing={1}>
-          {[1, 2, 3, 4].map((el) => (
+          {topic?.category?.relatedTopics.map((rt) => (
             <Grid item>
-              <Card key={el}>
+              <Card key={rt.slug}>
                 <CardHeader
                   avatar={(
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -41,13 +47,14 @@ export const TopicDetailPage = (props) => {
                       <MoreVertIcon />
                     </IconButton>
                   )}
-                  title="Shrimp and Chorizo Paella and tcella"
+                  title={rt.title}
                   subheader="September 14, 2016"
                 />
               </Card>
             </Grid>
           ))}
         </Grid>
+        )}
       </Grid>
     </Grid>
   );

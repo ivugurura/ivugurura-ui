@@ -15,12 +15,13 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 
+import { systemLanguage } from '../../../helpers/utils/constants';
 import { PageRoutes } from '../../../RoutesConstants';
 
 const pages = [
-  { name: 'Home', path: PageRoutes.Index },
-  { name: 'Topics', path: PageRoutes.Topics },
-  { name: 'Topic', path: PageRoutes.Topic },
+  { name: 'Home', path: `${systemLanguage}/${PageRoutes.Index}` },
+  { name: 'Topics', path: `${systemLanguage}/${PageRoutes.Topics}` },
+  { name: 'Topic', path: `${systemLanguage}/${PageRoutes.Topic}` },
 ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 

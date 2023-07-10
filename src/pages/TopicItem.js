@@ -6,10 +6,11 @@ import {
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 import classNames from 'classnames';
-// import PropTypes from 'prop-types';
+import parse from 'html-react-parser';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
-import { IMAGE_PATH, truncate } from '../helpers/utils/constants';
+import { IMAGE_PATH, toLink, truncate } from '../helpers/utils/constants';
 
 const TopicItem = ({ className = '', topic }) => {
   console.log('Topic');
@@ -38,8 +39,8 @@ const TopicItem = ({ className = '', topic }) => {
       />
       <CardContent>
         <Typography variant="body1" color="text.secondary">
-          {topic.content}
-          <Button size="small">More</Button>
+          {parse(topic.content)}
+          <Button size="small" component={Link} to={toLink(`topics/${topic.slug}`)}>More</Button>
         </Typography>
       </CardContent>
     </Card>

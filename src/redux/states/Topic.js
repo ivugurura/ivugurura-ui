@@ -11,9 +11,15 @@ export const TopicState = {
         endpoint: '/topics',
       },
     },
+    view: {
+      api: {
+        verb: VERBS.get,
+        endpoint: '/topics/:slug',
+      },
+    },
     list: {
       api: {
-        verb: VERBS.post,
+        verb: VERBS.get,
         endpoint: `/topics?${getParams(['page', 'pageSize', 'category'])}`,
       },
     },

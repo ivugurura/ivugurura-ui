@@ -2,7 +2,11 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 
 const flagUrl = `${process.env.PUBLIC_URL}/img/flags/16`;
+
 export const systemLanguage = localStorage.getItem('lang') || 'kn';
+
+export const toLink = (link = '') => `/${systemLanguage}/${link}`;
+
 export const topicEditorButtons = [
   ['undo', 'redo'],
   ['font', 'fontSize', 'formatBlock'],

@@ -1,6 +1,6 @@
 export const PageRoutes = {
   Topics: 'topics',
-  Topic: 'topic/:topicSlug',
+  Topic: 'topics/:slug',
   admin: {
     AddTopic: 'add-topic',
     EditTopic: 'edit-topic/:topicSlug',

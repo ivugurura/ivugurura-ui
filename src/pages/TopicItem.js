@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 import { IMAGE_PATH, toLink, truncate } from '../helpers/utils/constants';
 
-const TopicItem = ({ className = '', topic }) => {
+const TopicItem = ({ className = '', topic, imageHeight = '194' }) => {
   console.log('Topic');
 
   return (
@@ -33,13 +33,13 @@ const TopicItem = ({ className = '', topic }) => {
       />
       <CardMedia
         component="img"
-        height="194"
+        height={imageHeight}
         image={`${IMAGE_PATH}/${topic.coverImage}`}
         alt={topic.title}
       />
       <CardContent>
         <Typography variant="body1" color="text.secondary">
-          {parse(topic.content)}
+          {parse(topic.content || 'No content available')}
           <Button size="small" component={Link} to={toLink(`topics/${topic.slug}`)}>More</Button>
         </Typography>
       </CardContent>

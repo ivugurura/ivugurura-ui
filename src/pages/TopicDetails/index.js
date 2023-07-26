@@ -1,31 +1,57 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { MoreVert as MoreVertIcon } from '@mui/icons-material';
+import {
+  MoreVert as MoreVertIcon,
+  ExpandMore as ExpandMoreIcon,
+  Home as HomeIcon,
+  RssFeed as RssFeedIcon,
+  Category as CategoryIcon,
+} from '@mui/icons-material';
 import {
   Avatar, Grid, CardHeader, IconButton, Card,
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 import { useParams } from 'react-router';
 
+import { RRVBreadcrumbs } from '../../common/components/RRVBreadcrumbs';
 import { actions } from '../../redux/apiSliceBuilder';
-import { TopicsHeader } from '../components';
 import TopicItem from '../TopicItem';
 
+const initialTopicHomeNavs = [{
+  name: 'Topics',
+  route: 'topics',
+  primaryIcon: HomeIcon,
+}];
 export const TopicDetailPage = () => {
   const { slug } = useParams();
   const { data: topic, isFetching } = actions.useViewTopicQuery({ slug });
-  console.log('TopicDetailPage', { topic, isFetching });
+  const [topicNavs, setTopicNavs] = React.useState(initialTopicHomeNavs);
+  useEffect(() => {
+    if (topic?.slug) {
+      const newNavs = [{
+        name: `${topic.category.name}(${topic.category.relatedTopics.length})`,
+        route: `topics/${topic.category?.slug}`,
+        primaryIcon: CategoryIcon,
+        secondaryIcon: ExpandMoreIcon,
+      }, {
+        primaryIcon: RssFeedIcon,
+        name: topic.title,
+      }];
+      setTopicNavs((prev) => prev.concat(newNavs));
+    }
+  }, [topic?.slug]);
+  console.log('TopicDetailPage', { isFetching });
 
   return (
     <Grid container spacing={2}>
       <Grid item md={9}>
         <Grid container>
           <Grid item md={12}>
-            <TopicsHeader />
+            <RRVBreadcrumbs crumbs={topicNavs} />
           </Grid>
           <Grid item md={12}>
             <Card>
-              {topic && <TopicItem topic={topic} />}
+              {topic && <TopicItem topic={topic} imageHeight="380" />}
             </Card>
           </Grid>
         </Grid>
@@ -34,8 +60,8 @@ export const TopicDetailPage = () => {
         {topic && (
         <Grid container spacing={1}>
           {topic?.category?.relatedTopics.map((rt) => (
-            <Grid item>
-              <Card key={rt.slug}>
+            <Grid item key={rt.slug} sx={{ width: '100%' }}>
+              <Card>
                 <CardHeader
                   avatar={(
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">

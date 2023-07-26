@@ -6,11 +6,14 @@ import {
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 
+import { RRVPagination } from '../../common/components/RRVPagination';
+import { actions } from '../../redux/apiSliceBuilder';
 import { TopicsHeader } from '../components';
 import TopicItem from '../TopicItem';
 
-export const TopicsPage = (props) => {
-  console.log('TopicsPage', props);
+export const TopicsPage = () => {
+  const { data: topics, isFetching } = actions.useListTopicsQuery({ truncate: 148 });
+  console.log('TopicsPage', { isFetching });
   return (
     <Grid container spacing={2}>
       <Grid item md={9}>
@@ -19,9 +22,16 @@ export const TopicsPage = (props) => {
             <TopicsHeader />
           </Grid>
           <Grid item md={12}>
-            <Card>
-              <TopicItem topic={{}} />
-            </Card>
+            <Grid container>
+              {topics?.length > 0 && topics.map((topic) => (
+                <Grid item md={3} key={topic.title}>
+                  <TopicItem topic={topic} />
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+          <Grid item md={12}>
+            <RRVPagination />
           </Grid>
         </Grid>
       </Grid>

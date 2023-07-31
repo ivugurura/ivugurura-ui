@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { formatParamaterizedUrl, startCase } from '../helpers/utils';
 
+import * as initialStates from './initialStates';
 import { buildAppStates } from './stateBuilder';
 
 const states = buildAppStates();
@@ -47,9 +48,9 @@ const buildAppApis = () => states.map((state) => createApi({
   reducerPath: `${startCase(state.entity, false)}Api`,
   baseQuery: async (args, api, extraOptions) => {
     const result = await baseQuery(args, api, extraOptions);
-    if (result.data) {
-      return result.data;
-    }
+    // if (result.data?.totalItems) {
+    //   return { data: { ...result.data } };
+    // }
     return result;
   },
   endpoints: (build) => buildApiEndPoints(build, state),
@@ -57,7 +58,9 @@ const buildAppApis = () => states.map((state) => createApi({
 
 const buildApiSlicers = () => {
   const apis = buildAppApis();
-  const utils = { reducers: {}, middlewares: [], actions: {} };
+  const utils = {
+    reducers: {}, middlewares: [], actions: {}, initials: initialStates,
+  };
 
   apis.forEach((api) => {
     utils.reducers[api.reducerPath] = api.reducer;
@@ -74,4 +77,6 @@ const buildApiSlicers = () => {
 };
 
 const slicers = buildApiSlicers();
-export const { actions, reducers, middlewares } = slicers;
+export const {
+  actions, initials, reducers, middlewares,
+} = slicers;

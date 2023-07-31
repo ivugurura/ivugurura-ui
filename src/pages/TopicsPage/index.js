@@ -1,19 +1,23 @@
 import React from 'react';
 
 import { MoreVert as MoreVertIcon } from '@mui/icons-material';
+import { Masonry } from '@mui/lab';
 import {
   Avatar, Grid, CardHeader, IconButton, Card,
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 
 import { RRVPagination } from '../../common/components/RRVPagination';
-import { actions } from '../../redux/apiSliceBuilder';
+import { usePagination } from '../../common/hooks/usePagination';
+import { actions, initials } from '../../redux/apiSliceBuilder';
 import { TopicsHeader } from '../components';
 import TopicItem from '../TopicItem';
 
 export const TopicsPage = () => {
-  const { data: topics, isFetching } = actions.useListTopicsQuery({ truncate: 148 });
-  console.log('TopicsPage', { isFetching });
+  const { pagination: { page, pageSize } } = usePagination(1, 15);
+  const { data, isFetching } = actions.useListTopicsQuery({ truncate: 148, page, pageSize });
+  const { data: topics, totalItems } = data || initials.initialTopics;
+  console.log('TopicsPage', { isFetching, page, pageSize });
   return (
     <Grid container spacing={2}>
       <Grid item md={9}>
@@ -23,15 +27,13 @@ export const TopicsPage = () => {
           </Grid>
           <Grid item md={12}>
             <Grid container>
-              {topics?.length > 0 && topics.map((topic) => (
-                <Grid item md={3} key={topic.title}>
-                  <TopicItem topic={topic} />
-                </Grid>
-              ))}
+              <Masonry columns={3}>
+                {topics?.length > 0 && topics.map((topic) => (
+                  <TopicItem key={topic.slug} topic={topic} />
+                ))}
+              </Masonry>
+              <RRVPagination dataCount={totalItems} />
             </Grid>
-          </Grid>
-          <Grid item md={12}>
-            <RRVPagination />
           </Grid>
         </Grid>
       </Grid>

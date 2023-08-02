@@ -19,11 +19,12 @@ import {
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 
 import { audioPath } from '../../helpers/utils';
-import { actions } from '../../redux/apiSliceBuilder';
+import { actions, initials } from '../../redux/apiSliceBuilder';
 
 export const RRVAudioPlayer = () => {
   const [currentAudio, setCurrentAudio] = useState({ index: -1, audio: null });
-  const { data: audios, isFetching } = actions.useListAudiosQuery({ page: 1, pageSize: 3 });
+  const { data, isFetching } = actions.useListAudiosQuery({ page: 1, pageSize: 3 });
+  const { data: audios } = data || initials.baseStates;
   useEffect(() => {
     if (audios?.length > 0) {
       setCurrentAudio({ index: 0, audio: audios[0] });
@@ -59,6 +60,7 @@ export const RRVAudioPlayer = () => {
     </Button>,
   ];
   //   const DL_ROUTE = `${process.env.REACT_APP_API_URL}/api/v1/albums/download/`;
+  console.log({ audios });
   return isFetching ? 'Loading' : (
     <Card>
       {currentAudio.audio

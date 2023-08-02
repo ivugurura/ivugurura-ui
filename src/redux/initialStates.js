@@ -129,13 +129,9 @@ export const publishCommentState = {
   loaded: false,
 };
 
-const baseInitials = {
+export const baseStates = {
   status: 200,
   message: '',
   totalItems: 0,
-};
-
-export const initialTopics = {
-  ...baseInitials,
   data: [],
 };

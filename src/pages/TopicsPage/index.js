@@ -14,9 +14,13 @@ import { TopicsHeader } from '../components';
 import TopicItem from '../TopicItem';
 
 export const TopicsPage = () => {
-  const { pagination: { page, pageSize } } = usePagination(1, 15);
+  const {
+    pagination: { page, pageSize },
+    handleChangePage,
+    handleChangeRowsPerPage,
+  } = usePagination(1, 15);
   const { data, isFetching } = actions.useListTopicsQuery({ truncate: 148, page, pageSize });
-  const { data: topics, totalItems } = data || initials.initialTopics;
+  const { data: topics, totalItems } = data || initials.baseStates;
   console.log('TopicsPage', { isFetching, page, pageSize });
   return (
     <Grid container spacing={2}>
@@ -32,7 +36,13 @@ export const TopicsPage = () => {
                   <TopicItem key={topic.slug} topic={topic} />
                 ))}
               </Masonry>
-              <RRVPagination dataCount={totalItems} />
+              <RRVPagination
+                handleChangePage={handleChangePage}
+                handleChangeRowsPerPage={handleChangeRowsPerPage}
+                dataCount={totalItems}
+                page={page}
+                pageSize={pageSize}
+              />
             </Grid>
           </Grid>
         </Grid>

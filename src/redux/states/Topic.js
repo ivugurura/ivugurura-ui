@@ -21,7 +21,7 @@ export const TopicState = {
       suffix: 's',
       api: {
         verb: VERBS.get,
-        endpoint: `/topics?${getParams(['page', 'pageSize', 'category', 'truncate'])}&canTruncate=yes`,
+        endpoint: `/topics?${getParams(['category', 'truncate'])}&canTruncate=yes`,
       },
     },
     getCs: {

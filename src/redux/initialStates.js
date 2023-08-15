@@ -129,9 +129,15 @@ export const publishCommentState = {
   loaded: false,
 };
 
-export const baseStates = {
+export const dataArr = {
   status: 200,
   message: '',
   totalItems: 0,
   data: [],
+};
+
+export const dataObj = {
+  status: 200,
+  message: '',
+  data: {},
 };

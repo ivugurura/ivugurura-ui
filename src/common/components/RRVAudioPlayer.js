@@ -24,7 +24,7 @@ import { actions, initials } from '../../redux/apiSliceBuilder';
 export const RRVAudioPlayer = () => {
   const [currentAudio, setCurrentAudio] = useState({ index: -1, audio: null });
   const { data, isFetching } = actions.useListAudiosQuery({ page: 1, pageSize: 3 });
-  const { data: audios } = data || initials.baseStates;
+  const { data: audios } = data || initials.dataArr;
   useEffect(() => {
     if (audios?.length > 0) {
       setCurrentAudio({ index: 0, audio: audios[0] });

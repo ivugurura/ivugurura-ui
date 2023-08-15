@@ -5,12 +5,13 @@ import { IconButton, ImageListItem, ImageListItemBar } from '@mui/material';
 import RMCarousel from 'react-material-ui-carousel';
 
 import { IMAGE_PATH } from '../../../helpers/utils/constants';
-import { actions } from '../../../redux/apiSliceBuilder';
+import { actions, initials } from '../../../redux/apiSliceBuilder';
 
 import { CarsoulLoader } from './HomeLoaders';
 
 export const HomeCarousel = () => {
-  const { data: topics, isFetching } = actions.useGetCsTopicsQuery({ truncate: 56 });
+  const { data, isFetching } = actions.useGetCsTopicsQuery({ truncate: 56 });
+  const { data: topics } = data || initials.dataArr;
   return (
     <>
       {isFetching ? <CarsoulLoader /> : topics?.length > 0 && (

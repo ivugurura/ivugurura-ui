@@ -20,7 +20,7 @@ export const TopicsPage = () => {
     handleChangeRowsPerPage,
   } = usePagination(1, 15);
   const { data, isFetching } = actions.useListTopicsQuery({ truncate: 148, page, pageSize });
-  const { data: topics, totalItems } = data || initials.baseStates;
+  const { data: topics, totalItems } = data || initials.dataArr;
   console.log('TopicsPage', { isFetching, page, pageSize });
   return (
     <Grid container spacing={2}>

@@ -14,7 +14,7 @@ import { red } from '@mui/material/colors';
 import { useParams } from 'react-router';
 
 import { RRVBreadcrumbs } from '../../common/components/RRVBreadcrumbs';
-import { actions } from '../../redux/apiSliceBuilder';
+import { actions, initials } from '../../redux/apiSliceBuilder';
 import TopicItem from '../TopicItem';
 
 const initialTopicHomeNavs = [{
@@ -24,8 +24,10 @@ const initialTopicHomeNavs = [{
 }];
 export const TopicDetailPage = () => {
   const { slug } = useParams();
-  const { data: topic, isFetching } = actions.useViewTopicQuery({ slug });
+  const { data, isFetching } = actions.useViewTopicQuery({ slug });
   const [topicNavs, setTopicNavs] = React.useState(initialTopicHomeNavs);
+
+  const { data: topic } = data || initials.dataObj;
   useEffect(() => {
     if (topic?.slug) {
       const newNavs = [{
@@ -40,7 +42,7 @@ export const TopicDetailPage = () => {
       setTopicNavs((prev) => prev.concat(newNavs));
     }
   }, [topic?.slug]);
-  console.log('TopicDetailPage', { isFetching });
+  console.log('TopicDetailPage', { isFetching, topic });
 
   return (
     <Grid container spacing={2}>

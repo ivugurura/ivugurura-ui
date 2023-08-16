@@ -33,7 +33,7 @@ export const TopicsPage = () => {
             <Grid container>
               <Masonry columns={3}>
                 {topics?.length > 0 && topics.map((topic) => (
-                  <TopicItem key={topic.slug} topic={topic} />
+                  <TopicItem key={topic.slug} topic={topic} hasMore />
                 ))}
               </Masonry>
               <RRVPagination

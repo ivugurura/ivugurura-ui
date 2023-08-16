@@ -12,7 +12,9 @@ import { Link } from 'react-router-dom';
 
 import { IMAGE_PATH, toLink, truncate } from '../helpers/utils/constants';
 
-const TopicItem = ({ className = '', topic, imageHeight = '194' }) => {
+const TopicItem = ({
+  className = '', topic, imageHeight = '194', hasMore = false,
+}) => {
   console.log('Topic');
 
   return (
@@ -40,15 +42,11 @@ const TopicItem = ({ className = '', topic, imageHeight = '194' }) => {
       <CardContent>
         <Typography variant="body1" color="text.secondary">
           {parse(topic.content || 'No content available')}
-          <Button size="small" component={Link} to={toLink(`topics/${topic.slug}`)}>More</Button>
+          {hasMore && <Button size="small" component={Link} to={toLink(`topics/${topic.slug}`)}>More</Button>}
         </Typography>
       </CardContent>
     </Card>
   );
 };
-
-// TopicItem.propTypes = {
-//   className: PropTypes.string.isRequired,
-// };
 
 export default TopicItem;

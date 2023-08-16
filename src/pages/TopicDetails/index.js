@@ -13,13 +13,15 @@ import {
 import { red } from '@mui/material/colors';
 import { useParams } from 'react-router';
 
+import { TopicDetailSkeleton, TopicListItemSkeleton } from '../../common/components/loaders';
 import { RRVBreadcrumbs } from '../../common/components/RRVBreadcrumbs';
+import { toLink } from '../../helpers/utils/constants';
 import { actions, initials } from '../../redux/apiSliceBuilder';
 import TopicItem from '../TopicItem';
 
 const initialTopicHomeNavs = [{
   name: 'Topics',
-  route: 'topics',
+  route: toLink('topics'),
   primaryIcon: HomeIcon,
 }];
 export const TopicDetailPage = () => {
@@ -30,19 +32,19 @@ export const TopicDetailPage = () => {
   const { data: topic } = data || initials.dataObj;
   useEffect(() => {
     if (topic?.slug) {
+      const relatedCount = topic.category.relatedTopics.length;
       const newNavs = [{
-        name: `${topic.category.name}(${topic.category.relatedTopics.length})`,
-        route: `topics/${topic.category?.slug}`,
+        name: `${topic.category.name}(${relatedCount === 10 ? '10+' : relatedCount})`,
+        route: toLink(`topics/${topic.category?.slug}`),
         primaryIcon: CategoryIcon,
         secondaryIcon: ExpandMoreIcon,
       }, {
         primaryIcon: RssFeedIcon,
         name: topic.title,
       }];
-      setTopicNavs((prev) => prev.concat(newNavs));
+      setTopicNavs(initialTopicHomeNavs.concat(newNavs));
     }
   }, [topic?.slug]);
-  console.log('TopicDetailPage', { isFetching, topic });
 
   return (
     <Grid container spacing={2}>
@@ -52,37 +54,34 @@ export const TopicDetailPage = () => {
             <RRVBreadcrumbs crumbs={topicNavs} />
           </Grid>
           <Grid item md={12}>
-            <Card>
-              {topic && <TopicItem topic={topic} imageHeight="380" />}
-            </Card>
+            {isFetching ? <TopicDetailSkeleton /> : topic && <TopicItem topic={topic} imageHeight="380" />}
           </Grid>
         </Grid>
       </Grid>
       <Grid item md={3}>
-        {topic && (
         <Grid container spacing={1}>
-          {topic?.category?.relatedTopics.map((rt) => (
-            <Grid item key={rt.slug} sx={{ width: '100%' }}>
-              <Card>
-                <CardHeader
-                  avatar={(
-                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                      R
-                    </Avatar>
-                  )}
-                  action={(
-                    <IconButton aria-label="settings">
-                      <MoreVertIcon />
-                    </IconButton>
-                  )}
-                  title={rt.title}
-                  subheader="September 14, 2016"
-                />
-              </Card>
-            </Grid>
-          ))}
+          {isFetching ? <TopicListItemSkeleton totalItem={9} />
+            : topic?.category?.relatedTopics.map((rt) => (
+              <Grid item key={rt.slug} sx={{ width: '100%' }}>
+                <Card>
+                  <CardHeader
+                    avatar={(
+                      <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                        R
+                      </Avatar>
+                    )}
+                    action={(
+                      <IconButton aria-label="settings">
+                        <MoreVertIcon />
+                      </IconButton>
+                    )}
+                    title={rt.title}
+                    subheader="September 14, 2016"
+                  />
+                </Card>
+              </Grid>
+            ))}
         </Grid>
-        )}
       </Grid>
     </Grid>
   );

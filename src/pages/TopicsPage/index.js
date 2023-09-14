@@ -1,19 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { MoreVert as MoreVertIcon } from '@mui/icons-material';
+import {
+  Home as HomeIcon, MoreVert as MoreVertIcon, RssFeed as RssFeedIcon,
+} from '@mui/icons-material';
 import { Masonry } from '@mui/lab';
 import {
   Avatar, Grid, CardHeader, IconButton, Card,
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 
+import { RRVBreadcrumbs } from '../../common/components/RRVBreadcrumbs/Breadcrumbs';
 import { RRVPagination } from '../../common/components/RRVPagination';
 import { usePagination } from '../../common/hooks/usePagination';
+import { toLink } from '../../helpers/utils/constants';
 import { actions, initials } from '../../redux/apiSliceBuilder';
-import { TopicsHeader } from '../components';
 import TopicItem from '../TopicItem';
 
+const initialTopicHomeNavs = [{
+  name: 'Topics',
+  route: toLink('topics'),
+  primaryIcon: HomeIcon,
+}];
 export const TopicsPage = () => {
+  const [topicsNavs, setTopicsNavs] = React.useState(initialTopicHomeNavs);
   const {
     pagination: { page, pageSize },
     handleChangePage,
@@ -21,13 +30,21 @@ export const TopicsPage = () => {
   } = usePagination(1, 15);
   const { data, isFetching } = actions.useListTopicsQuery({ truncate: 148, page, pageSize });
   const { data: topics, totalItems } = data || initials.dataArr;
+  useEffect(() => {
+    if (topics.length > 0) {
+      setTopicsNavs(initialTopicHomeNavs.concat([{
+        primaryIcon: RssFeedIcon,
+        name: 'All',
+      }]));
+    }
+  }, [topics.length]);
   console.log('TopicsPage', { isFetching, page, pageSize });
   return (
     <Grid container spacing={2}>
       <Grid item md={9}>
         <Grid container>
           <Grid item md={12}>
-            <TopicsHeader />
+            <RRVBreadcrumbs crumbs={topicsNavs} />
           </Grid>
           <Grid item md={12}>
             <Grid container>
@@ -42,6 +59,7 @@ export const TopicsPage = () => {
                 dataCount={totalItems}
                 page={page}
                 pageSize={pageSize}
+                labelRowsPerPage="N topics per page:"
               />
             </Grid>
           </Grid>

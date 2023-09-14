@@ -3,7 +3,13 @@ import * as React from 'react';
 import { TablePagination } from '@mui/material';
 
 export const RRVPagination = ({
-  handleChangePage, handleChangeRowsPerPage, page = 1, pageSize = 10, dataCount = 0,
+  handleChangePage,
+  handleChangeRowsPerPage,
+  page = 1,
+  pageSize = 10,
+  dataCount = 0,
+  rowsPerPageOptions = [5, 10, 15],
+  ...otherPros
 }) => {
   if (dataCount === 0) return null;
   return (
@@ -14,6 +20,8 @@ export const RRVPagination = ({
       onPageChange={handleChangePage}
       rowsPerPage={pageSize}
       onRowsPerPageChange={handleChangeRowsPerPage}
+      rowsPerPageOptions={rowsPerPageOptions}
+      {...otherPros}
     />
   );
 };

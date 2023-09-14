@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Breadcrumbs, Chip, Typography } from '@mui/material';
 import { emphasize, styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor = theme.palette.mode === 'light'
@@ -22,11 +23,6 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   };
 }); // TypeScript only: need a type cast here because https://github.com/Microsoft/TypeScript/issues/26591
 
-function handleClick(event) {
-  event.preventDefault();
-  console.info('You clicked a breadcrumb.');
-}
-
 export const RRVBreadcrumbs = ({ crumbs = [] }) => (
   <div style={{ width: '100%', backgroundColor: '#f5f5f5' }}>
     <Breadcrumbs separator="›" aria-label="breadcrumb">
@@ -43,9 +39,8 @@ export const RRVBreadcrumbs = ({ crumbs = [] }) => (
           <StyledBreadcrumb
             key={name}
             label={name}
-            component="a"
-            href={route}
-            onClick={handleClick}
+            component={Link}
+            to={route}
             icon={Icon ? <Icon fontSize="small" /> : null}
             deleteIcon={SecondaryIcon ? <SecondaryIcon fontSize="small" /> : null}
           />

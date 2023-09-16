@@ -1,8 +1,12 @@
 import * as React from 'react';
 
-import { Breadcrumbs, Chip, Typography } from '@mui/material';
+import {
+  Breadcrumbs, Button, Chip, Typography,
+} from '@mui/material';
 import { emphasize, styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
+
+// import { BreadcrumbMenu } from './BreadcrumbMenu';
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor = theme.palette.mode === 'light'
@@ -31,8 +35,21 @@ export const RRVBreadcrumbs = ({ crumbs = [] }) => (
           name, route, primaryIcon: Icon, secondaryIcon: SecondaryIcon,
         } = crumb;
         const isLast = index === crumbs.length - 1;
+        let breadcumbMenuProps = {};
+        if (crumb.breadcumbMenu) {
+          const { anchorEl, lebelledBy, ...restProps } = crumb.breadcumbMenu;
+          // eslint-disable-next-line no-unused-vars
+          breadcumbMenuProps = restProps;
+        }
+        const LastComponent = crumb.onClick ? Button : Typography;
         return isLast ? (
-          <Typography key={name} color="textPrimary">
+          <Typography
+            key={name}
+            color="textPrimary"
+            component={LastComponent}
+            onClick={crumb.onClick}
+            // {...breadcumbMenuProps}
+          >
             {name}
           </Typography>
         ) : (

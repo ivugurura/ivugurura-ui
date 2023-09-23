@@ -10,39 +10,31 @@ import { useDispatch } from 'react-redux';
 import { RRVTable } from '../../common/components/RRVTable';
 import { dataGenerator } from '../../helpers/utils/dataGenerater';
 import { actions } from '../../redux/actions';
+import { initials } from '../../redux/apiSliceBuilder';
 
 import { DashboardContainer } from './components/DashboardContainer';
 import { DashboardCount } from './components/DashboardCount';
 import { dashboardTopicsColumns } from './dashboardTopicsColumns';
 
-const data = dataGenerator({
-  title: '{{lorem.sentences}}',
-  description: '{{lorem.sentences}}',
-  views: '{{random.numeric}}',
-  createdAt: '{{date.between}}',
-}, 7);
+const toDataCounts = (counts = {}) => Object.keys(counts).map((key) => ({
+  title: key,
+  counts: counts[key],
+  difference: 0,
+}));
 export const HomeDashboard = () => {
-  // const columns = useMemo(dashboardTopicsColumns, []);
-  const { data: topics, isFetching, isSuccess } = actions.useGetDashboardCountsQuery();
-  const dataCounts = [
-    { title: 'Published', counts: 160, difference: 2 },
-    { title: 'Unpublished', counts: 1, difference: 1 },
-    { title: 'Audio', counts: 12, difference: 2 },
-    { title: 'Video', counts: 0, difference: 0 },
-    { title: 'Commentaries', counts: 99, difference: 23 },
-    { title: 'System users', counts: 4, difference: 0 },
-  ];
+  const { data, isFetching, isSuccess } = actions.useGetDashboardCountsQuery();
+  const { data: overviewData } = actions.useGetOverviewTopicQuery({ truncate: 68 });
+  const { data: counts } = data || initials.dataArr;
+  const { data: topics } = overviewData || initials.dataArr;
 
-  console.log({
-    data, topics, isFetching, isSuccess,
-  });
+  console.log({ isFetching, isSuccess });
   return (
     <DashboardContainer title="Admin dashboard">
       <Grid
         container
         spacing={1}
       >
-        {dataCounts.map((dt) => (
+        {toDataCounts(counts).map((dt) => (
           <Grid
             item
             key={dt.title}
@@ -59,7 +51,7 @@ export const HomeDashboard = () => {
         ))}
       </Grid>
       <Box sx={{ marginTop: '1rem' }}>
-        <RRVTable columns={dashboardTopicsColumns()} data={data} />
+        <RRVTable columns={dashboardTopicsColumns()} data={topics} />
       </Box>
     </DashboardContainer>
   );

@@ -38,5 +38,11 @@ export const TopicState = {
         endpoint: `/topics?page=1&pageSize=4&canTruncate=yes${getParams(['truncate'], false)}`,
       },
     },
+    getOverview: {
+      api: {
+        verb: VERBS.get,
+        endpoint: `/users/topics?canTruncate=yes&${getParams(['truncate', 'search'])}`,
+      },
+    },
   },
 };

@@ -40,6 +40,7 @@ export const TopicsPage = () => {
     pagination: { page, pageSize },
     handleChangePage,
     handleChangeRowsPerPage,
+    resetRowsPerPage,
   } = usePagination(1, 15);
   const { data, isFetching } = actions.useListTopicsQuery({
     truncate: 148, page, pageSize, category: selectedCategoryId,
@@ -90,10 +91,14 @@ export const TopicsPage = () => {
       }]));
     }
   }, [topics.length, selectedCategoryId]);
-  const breadcrumbMenu = topicsNavs.find((nav) => nav.name === 'All')?.breadcumbMenu;
+  const handleCategoryClick = (category) => {
+    setSelectedCategoryId(category.id);
+    resetRowsPerPage();
+  };
+  const breadcrumbMenu = topicsNavs[(topicsNavs?.length ?? 0) - 1]?.breadcumbMenu;
   console.log({ isFetching });
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={1}>
       <Grid item md={9}>
         <Grid container>
           <Grid item md={12}>
@@ -101,7 +106,7 @@ export const TopicsPage = () => {
             <RRVMenu
               handleClose={handleMenuClose}
               menuId={breadcrumbMenu?.id}
-              menus={[{ id: '', name: 'All' }].concat(categories.map((c) => ({ ...c, onClick: () => setSelectedCategoryId(c.id) })))}
+              menus={[{ id: '', name: 'All' }].concat(categories.map((c) => ({ ...c, onClick: () => handleCategoryClick(c) })))}
               anchorEl={breadcrumbMenu?.anchorEl}
               open={Boolean(breadcrumbMenu?.anchorEl)}
               lebelledBy={breadcrumbMenu?.lebelledBy}
@@ -128,21 +133,21 @@ export const TopicsPage = () => {
       </Grid>
       <Grid item md={3}>
         <Grid container spacing={1}>
-          {[1, 2, 3, 4].map((el) => (
-            <Grid item key={el}>
+          {categories?.map(({ id, name }) => (
+            <Grid item key={id} xs={12} md={12}>
               <Card>
                 <CardHeader
                   avatar={(
-                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                    <Avatar sx={{ bgcolor: red[500] }} aria-label={`Image for ${name}`}>
                       R
                     </Avatar>
                   )}
                   action={(
-                    <IconButton aria-label="settings">
+                    <IconButton aria-label={name}>
                       <MoreVertIcon />
                     </IconButton>
                   )}
-                  title="Shrimp and Chorizo Paella and tcella"
+                  title={name}
                   subheader="September 14, 2016"
                 />
               </Card>

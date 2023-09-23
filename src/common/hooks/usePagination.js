@@ -10,5 +10,11 @@ export const usePagination = (page = 1, pageSize = 10) => {
   const handleChangeRowsPerPage = ({ target }) => {
     setPagination((prev) => ({ ...prev, pageSize: parseInt(target.value, 10), page: 1 }));
   };
-  return { pagination, handleChangePage, handleChangeRowsPerPage };
+
+  const resetRowsPerPage = () => {
+    setPagination((prev) => ({ ...prev, page: 1 }));
+  };
+  return {
+    pagination, handleChangePage, handleChangeRowsPerPage, resetRowsPerPage,
+  };
 };

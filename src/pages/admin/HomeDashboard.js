@@ -14,7 +14,7 @@ import { initials } from '../../redux/apiSliceBuilder';
 
 import { DashboardContainer } from './components/DashboardContainer';
 import { DashboardCount } from './components/DashboardCount';
-import { dashboardTopicsColumns } from './dashboardTopicsColumns';
+import { dashboardTopicsColumns, renderRowActionMenuItems } from './dashboardTopicsColumns';
 
 const toDataCounts = (counts = {}) => Object.keys(counts).map((key) => ({
   title: key,
@@ -23,7 +23,7 @@ const toDataCounts = (counts = {}) => Object.keys(counts).map((key) => ({
 }));
 export const HomeDashboard = () => {
   const { data, isFetching, isSuccess } = actions.useGetDashboardCountsQuery();
-  const { data: overviewData } = actions.useGetOverviewTopicQuery({ truncate: 68 });
+  const { data: overviewData } = actions.useGetOverviewTopicQuery({ truncate: 200 });
   const { data: counts } = data || initials.dataArr;
   const { data: topics } = overviewData || initials.dataArr;
 
@@ -51,7 +51,12 @@ export const HomeDashboard = () => {
         ))}
       </Grid>
       <Box sx={{ marginTop: '1rem' }}>
-        <RRVTable columns={dashboardTopicsColumns()} data={topics} />
+        <RRVTable
+          columns={dashboardTopicsColumns()}
+          data={topics}
+          enableRowActions
+          renderRowActionMenuItems={renderRowActionMenuItems}
+        />
       </Box>
     </DashboardContainer>
   );

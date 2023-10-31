@@ -19,3 +19,23 @@ export const http = axios.create({
     'Accept-Language': lang,
   },
 });
+
+export const uploadFileWithProgress = (
+  file,
+  type = '',
+  prevFile = '',
+  onUploadProgress = () => {},
+) => {
+  const formData = new FormData();
+
+  formData.append('file', file);
+
+  const uploadUrl = `/albums/upload/${type}?prevFile=${prevFile}`;
+
+  return http.post(uploadUrl, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    onUploadProgress,
+  });
+};

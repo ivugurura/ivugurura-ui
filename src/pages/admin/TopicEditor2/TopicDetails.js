@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  Box, Card, CardContent, CardHeader, Paper,
+  Box, Button, Card, CardContent, CardHeader, Paper,
 } from '@mui/material';
 
 import { RRVEditor } from '../../../common/components/RRVEditor';
@@ -17,6 +17,7 @@ export const TopicDetails = ({ editorState, setEditorState }) => {
             placeholder="Type topic details here"
             editorState={editorState}
             onEditorStateChange={setEditorState}
+            toolbarCustomButtons={[<Button>Insert image</Button>]}
           />
         </Paper>
       </CardContent>

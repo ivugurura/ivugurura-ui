@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import { middlewares, reducers } from './apiSliceBuilder';
+import { filePathSlice } from './constantSlices';
 import { rtkQueryErrorLogger } from './errorHandler';
 
 export const store = configureStore({
   reducer: {
+    filer: filePathSlice.reducer,
     ...reducers,
   },
   devTools: true,

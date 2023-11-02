@@ -5,7 +5,7 @@ import { getParams } from './utils';
 export const TopicState = {
   entity: 'Topic',
   actions: {
-    add: {
+    create: {
       api: {
         verb: VERBS.post,
         endpoint: '/topics',

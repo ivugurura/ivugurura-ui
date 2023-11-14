@@ -5,6 +5,7 @@ import { searchQuery } from '../../redux/actions';
 import { Loading } from '../common';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { systemLanguage } from '../../utils/constants';
 
 export const SearchBox = ({ show, onHide }) => {
 	const { t } = useTranslation();
@@ -30,30 +31,28 @@ export const SearchBox = ({ show, onHide }) => {
 				<div>
 					{searching ? (
 						<Loading />
-					) : finished ? (
+					) : finished && (
 						<>
 							<div>
 								<hr />
-								{results.categories.length
-									? results.categories.map((category, categoryIndex) => (
+								{results.categories?.map((category, categoryIndex) => (
 											<Media.Body key={categoryIndex}>
 												<Link
-													to={`/topics/categories/${category.slug}`}
+													to={`/${systemLanguage}/topics/categories/${category.slug}`}
 													onClick={onHide}
 												>
 													<h6>{category.name}</h6>
 												</Link>
 											</Media.Body>
 									  ))
-									: null}
+									}
 							</div>
 							<div>
 								<hr />
-								{results.topics.length
-									? results.topics.map((topic, topicIndex) => (
+								{results.topics?.map((topic, topicIndex) => (
 											<Link
 												key={topicIndex}
-												to={`/topics/${topic.slug}`}
+												to={`/${systemLanguage}/topics/${topic.slug}`}
 												onClick={onHide}
 											>
 												<Media.Body>
@@ -62,10 +61,10 @@ export const SearchBox = ({ show, onHide }) => {
 												</Media.Body>
 											</Link>
 									  ))
-									: null}
+									}
 							</div>
 						</>
-					) : null}
+					)}
 				</div>
 			</Modal.Body>
 		</Modal>

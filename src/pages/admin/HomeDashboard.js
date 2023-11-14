@@ -27,6 +27,11 @@ export const HomeDashboard = () => {
   const { data: counts } = data || initials.dataArr;
   const { data: topics } = overviewData || initials.dataArr;
 
+  const handleActionMenuClick = (action) => (actionProps) => {
+    actionProps.closeMenu();
+    renderRowActionMenuItems(actionProps);
+  };
+
   console.log({ isFetching, isSuccess });
   return (
     <DashboardContainer title="Admin dashboard">
@@ -55,7 +60,7 @@ export const HomeDashboard = () => {
           columns={dashboardTopicsColumns()}
           data={topics}
           enableRowActions
-          renderRowActionMenuItems={renderRowActionMenuItems}
+          renderRowActionMenuItems={handleActionMenuClick}
         />
       </Box>
     </DashboardContainer>

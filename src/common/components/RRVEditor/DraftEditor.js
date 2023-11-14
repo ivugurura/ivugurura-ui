@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 
 import { http } from '../../../helpers/http';
+import { IMAGE_PATH } from '../../../helpers/utils/constants';
 // import { theme } from '../../theme/themes';
 
 import styles from './DraftEditor.module.scss';
@@ -56,26 +57,27 @@ export const DraftEditor = ({
   const onImageUpload = (file) => new Promise((resolve, reject) => {
     const formData = new FormData();
     formData.append('file', file);
-    const params = prevFile ? `image?prevFile=${prevFile}` : 'image';
     http
-      .post(`/upload/${params}`, formData)
+      .post('/albums/upload/image', formData)
       .then((res) => {
         const fileName = res.data.data;
         setPrevFile(fileName);
-        resolve({ data: { url: `/${fileName}` } });
+        resolve({ data: { link: `${IMAGE_PATH}/${fileName}` } });
       })
       .catch((error) => {
-        let errorMessage = '';
+        let errorMessage = error.message;
         if (error.response) {
-          const { error: apiError, message } = error.response.data;
-          errorMessage = apiError || message;
-        } else {
-          errorMessage = error.message;
+          console.log(error.response);
+          const { error: apiError, message } = error.response.data || {};
+          errorMessage = apiError || message || error.message;
         }
         // notifier.error(errorMessage);
+        console.log({ errorMessage });
         reject(errorMessage);
       });
   });
+
+  console.log({ prevFile });
   return (
     <Editor
       editorState={editorState}

@@ -4,10 +4,15 @@ import {
   Card, CardContent, CardHeader, FormControl, Grid, InputLabel, MenuItem, Select, TextField,
 } from '@mui/material';
 
+import { actions, initials } from '../../../redux/apiSliceBuilder';
+
 export const AboutTopic = ({ values = {}, setValues }) => {
+  const { data } = actions.useListCategoryQuery({ categoryType: 'topic' });
+  const { data: categories } = data || initials.dataArr;
   const onChange = ({ target }) => {
     setValues((prev) => ({ ...prev, [target.name]: target.value }));
   };
+  console.log({ categories });
   return (
     <Card>
       <CardHeader title="About topic" />
@@ -35,6 +40,9 @@ export const AboutTopic = ({ values = {}, setValues }) => {
                 onChange={onChange}
               >
                 <MenuItem value="">---</MenuItem>
+                {categories.map((cat) => (
+                  <MenuItem value={cat.id} key={cat.id}>{cat.name}</MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>

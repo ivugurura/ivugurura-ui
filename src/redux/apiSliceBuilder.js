@@ -23,14 +23,11 @@ const buildApiEndPoints = (build, state) => {
       buildType = 'mutation';
     }
     endpoints[current.action] = build[buildType]({
-      query: (args) => {
-        console.log({ args });
-        return {
-          url: formatParamaterizedUrl(current.api.endpoint, args),
-          method: current.api.verb,
-          body: current.api.hasBody && args,
-        };
-      },
+      query: (args) => ({
+        url: formatParamaterizedUrl(current.api.endpoint, args),
+        method: current.api.verb,
+        body: current.api.hasBody ? args : undefined,
+      }),
     });
   });
   return endpoints;

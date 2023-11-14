@@ -9,6 +9,7 @@ export const TopicState = {
       api: {
         verb: VERBS.post,
         endpoint: '/topics',
+        hasBody: true,
       },
     },
     view: {

@@ -17,12 +17,11 @@ export const dashboardTopicsColumns = () => [
   },
 ];
 
-export const renderRowActionMenuItems = ({ closeMenu }) => [
+export const renderRowActionMenuItems = (setAction) => (actionParams) => [
   <MenuItem
     key={0}
     onClick={() => {
-      // View profile logic...
-      closeMenu();
+      setAction('home', actionParams);
     }}
     sx={{ m: 0 }}
   >
@@ -34,8 +33,7 @@ export const renderRowActionMenuItems = ({ closeMenu }) => [
   <MenuItem
     key={1}
     onClick={() => {
-      // Send email logic...
-      closeMenu();
+      setAction('publish', actionParams);
     }}
     sx={{ m: 0 }}
   >
@@ -47,8 +45,7 @@ export const renderRowActionMenuItems = ({ closeMenu }) => [
   <MenuItem
     key={2}
     onClick={() => {
-      // Send email logic...
-      closeMenu();
+      setAction('edit', actionParams);
     }}
     sx={{ m: 0 }}
   >

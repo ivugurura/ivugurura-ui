@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Box,
@@ -22,17 +22,18 @@ const toDataCounts = (counts = {}) => Object.keys(counts).map((key) => ({
   difference: 0,
 }));
 export const HomeDashboard = () => {
+  const [action, setAction] = useState({});
   const { data, isFetching, isSuccess } = actions.useGetDashboardCountsQuery();
   const { data: overviewData } = actions.useGetOverviewTopicQuery({ truncate: 200 });
   const { data: counts } = data || initials.dataArr;
   const { data: topics } = overviewData || initials.dataArr;
 
-  const handleActionMenuClick = (action) => (actionProps) => {
-    actionProps.closeMenu();
-    renderRowActionMenuItems(actionProps);
+  const handleMenuAction = (type, actionParams) => {
+    actionParams.closeMenu();
+    console.log({
+      isFetching, isSuccess, type, actionParams,
+    });
   };
-
-  console.log({ isFetching, isSuccess });
   return (
     <DashboardContainer title="Admin dashboard">
       <Grid
@@ -60,7 +61,7 @@ export const HomeDashboard = () => {
           columns={dashboardTopicsColumns()}
           data={topics}
           enableRowActions
-          renderRowActionMenuItems={handleActionMenuClick}
+          renderRowActionMenuItems={renderRowActionMenuItems(handleMenuAction)}
         />
       </Box>
     </DashboardContainer>

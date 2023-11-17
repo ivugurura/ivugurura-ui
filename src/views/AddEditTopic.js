@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import {
   IMAGE_PATH,
+  systemLanguage,
   systemLanguages,
   topicEditorButtons,
 } from "../utils/constants";
@@ -37,7 +38,6 @@ const topicValues = {
   coverImage: "",
 };
 export const AddEditTopic = ({ history, match }) => {
-  const systemLanguage = localStorage.getItem("lang");
   const { lang } = systemLanguages.find((lang) => lang.abbr === systemLanguage);
   const { topicSlug } = match.params;
   const [topic, setTopic] = useState(topicValues);

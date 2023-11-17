@@ -1,8 +1,7 @@
 import React from 'react';
-import { systemLanguages } from '../../utils/constants';
+import { systemLanguage, systemLanguages } from '../../utils/constants';
 
 export const AdminPageHeader = ({ name, btnTitle, btnAction, children }) => {
-	const systemLanguage = localStorage.getItem('lang') || 'kn';
 	const currentLang = systemLanguages.find(
 		(lang) => lang.abbr === systemLanguage
 	);

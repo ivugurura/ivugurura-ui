@@ -38,5 +38,4 @@ jobs:
             git pull origin develop
             echo "Build the new changes and replace the old ones"
             npm run build
-            npm run mv-build
             echo "Done"

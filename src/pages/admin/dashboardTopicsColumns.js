@@ -20,9 +20,7 @@ export const dashboardTopicsColumns = () => [
 export const renderRowActionMenuItems = (setAction) => (actionParams) => [
   <MenuItem
     key={0}
-    onClick={() => {
-      setAction('home', actionParams);
-    }}
+    onClick={() => setAction('home', actionParams)}
     sx={{ m: 0 }}
   >
     <ListItemIcon>
@@ -32,9 +30,7 @@ export const renderRowActionMenuItems = (setAction) => (actionParams) => [
   </MenuItem>,
   <MenuItem
     key={1}
-    onClick={() => {
-      setAction('publish', actionParams);
-    }}
+    onClick={() => setAction('publish', actionParams)}
     sx={{ m: 0 }}
   >
     <ListItemIcon>
@@ -44,9 +40,7 @@ export const renderRowActionMenuItems = (setAction) => (actionParams) => [
   </MenuItem>,
   <MenuItem
     key={2}
-    onClick={() => {
-      setAction('edit', actionParams);
-    }}
+    onClick={() => setAction('edit', actionParams)}
     sx={{ m: 0 }}
   >
     <ListItemIcon>

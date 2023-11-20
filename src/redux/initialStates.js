@@ -141,3 +141,7 @@ export const dataObj = {
   message: '',
   data: {},
 };
+export const setTopicDisplayState = {
+	loading: false,
+	loaded: false
+};

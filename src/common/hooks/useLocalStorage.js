@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 
-export const useLocalStorage = (key='',value='') => {
+export const useLocalStorage = (key = '', defValue = '') => {
   const rawValueRef = useRef(null);
 
   const [value, setValue] = useState(() => {
-    if (typeof window === 'undefined') return value;
+    if (typeof window === 'undefined') return defValue;
 
     try {
       rawValueRef.current = window.localStorage.getItem(key);
-      const res = rawValueRef.current || value;
+      const res = rawValueRef.current || defValue;
       return res;
     } catch (e) {
       console.log(e);
@@ -33,8 +33,8 @@ export const useLocalStorage = (key='',value='') => {
             url: window.location.href,
             key,
             newValue,
-            oldValue
-          })
+            oldValue,
+          }),
         );
       } else {
         window.localStorage.removeItem(key);
@@ -42,8 +42,8 @@ export const useLocalStorage = (key='',value='') => {
           new StorageEvent('storage', {
             storageArea: window.localStorage,
             url: window.location.href,
-            key
-          })
+            key,
+          }),
         );
       }
     };
@@ -64,14 +64,15 @@ export const useLocalStorage = (key='',value='') => {
           rawValueRef.current = e.newValue;
           setValue(e.newValue ? JSON.parse(e.newValue) : undefined);
         }
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        console.log(error);
       }
     };
 
     if (typeof window === 'undefined') return;
 
     window.addEventListener('storage', handleStorageChange);
+    // eslint-disable-next-line consistent-return
     return () => window.removeEventListener('storage', handleStorageChange);
   }, [key]);
 

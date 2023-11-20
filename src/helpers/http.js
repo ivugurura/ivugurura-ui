@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { systemLanguage } from '../utils/constants';
+
+import { systemLanguage } from './utils/constants';
 
 let token = 'null';
 if (localStorage.user) {
@@ -16,8 +17,8 @@ export const http = axios.create({
   withCredentials: true,
   headers: {
     Authorization: token,
-    'Accept-Language': systemLanguage
-  }
+    'Accept-Language': systemLanguage,
+  },
 });
 
 export const uploadFileWithProgress = (

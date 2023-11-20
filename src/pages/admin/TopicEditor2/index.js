@@ -4,9 +4,10 @@ import { Button } from '@mui/material';
 import { EditorState } from 'draft-js';
 // import { stateToHTML } from 'draft-js-export-html';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { PageHelmet } from '../../../common/components/PageHelmet';
-import { actions } from '../../../redux/apiSliceBuilder';
+import { actions, initials } from '../../../redux/apiSliceBuilder';
 
 import { AboutTopic } from './AboutTopic';
 import { CoverImage } from './CoverImage';
@@ -16,6 +17,7 @@ import { TopicDetails } from './TopicDetails';
 const initialValues = { title: '', categoryId: '' };
 export const TopicEditor2 = () => {
   const [values, setValues] = useState(initialValues);
+  const { topicSlug } = useParams();
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [sunEdContent, setSunEdContent] = useState('');
 
@@ -24,6 +26,8 @@ export const TopicEditor2 = () => {
   const filePathName = useSelector((state) => state.filer.fileName);
 
   const [createTopic, res] = actions.useCreateTopicMutation();
+  const { data, isFetching } = actions.useViewTopicQuery({ slug: topicSlug });
+  const { data: topic } = data || initials.dataObj;
 
   useEffect(() => {
     if (res.isSuccess) {
@@ -41,7 +45,7 @@ export const TopicEditor2 = () => {
     };
     createTopic(payload);
   };
-  console.log(res);
+  console.log({ isFetching, topic });
   return (
     <PageHelmet title="Edit page title">
       <Header />

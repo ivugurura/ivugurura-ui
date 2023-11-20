@@ -1,7 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useMemo } from 'react';
 
-import { DeleteOutlineOutlined, EditNoteOutlined, PublishOutlined } from '@mui/icons-material';
 import { ListItemIcon, MenuItem } from '@mui/material';
 import moment from 'moment';
 
@@ -17,35 +16,18 @@ export const dashboardTopicsColumns = () => [
   },
 ];
 
-export const renderRowActionMenuItems = (setAction) => (actionParams) => [
-  <MenuItem
-    key={0}
-    onClick={() => setAction('home', actionParams)}
-    sx={{ m: 0 }}
-  >
-    <ListItemIcon>
-      <DeleteOutlineOutlined />
-    </ListItemIcon>
-    Remove from home
-  </MenuItem>,
-  <MenuItem
-    key={1}
-    onClick={() => setAction('publish', actionParams)}
-    sx={{ m: 0 }}
-  >
-    <ListItemIcon>
-      <PublishOutlined />
-    </ListItemIcon>
-    Unpublish
-  </MenuItem>,
-  <MenuItem
-    key={2}
-    onClick={() => setAction('edit', actionParams)}
-    sx={{ m: 0 }}
-  >
-    <ListItemIcon>
-      <EditNoteOutlined />
-    </ListItemIcon>
-    Edit
-  </MenuItem>,
-];
+export const renderRowActionMenuItems = (setAction, menus = []) => (params) => menus.map((menu) => {
+  const { title, icon: Icon, action } = menu;
+  return (
+    <MenuItem
+      key={title}
+      onClick={() => setAction(action, params)}
+      sx={{ m: 0 }}
+    >
+      <ListItemIcon>
+        <Icon />
+      </ListItemIcon>
+      {title}
+    </MenuItem>
+  );
+});

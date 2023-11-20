@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 
+import { DeleteOutlineOutlined, EditNoteOutlined, PublishOutlined } from '@mui/icons-material';
 import {
   Box,
   Card, CardContent, CardHeader, Container, Grid,
@@ -21,6 +22,23 @@ const toDataCounts = (counts = {}) => Object.keys(counts).map((key) => ({
   counts: counts[key],
   difference: 0,
 }));
+const dashboardMenus = [
+  {
+    title: 'Edit',
+    icon: EditNoteOutlined,
+    action: 'edit',
+  },
+  {
+    title: 'Unpublish',
+    icon: PublishOutlined,
+    action: 'publish',
+  },
+  {
+    title: 'Remove from home',
+    icon: DeleteOutlineOutlined,
+    action: 'home',
+  },
+];
 export const HomeDashboard = () => {
   const [action, setAction] = useState({});
   const { data, isFetching, isSuccess } = actions.useGetDashboardCountsQuery();
@@ -61,7 +79,7 @@ export const HomeDashboard = () => {
           columns={dashboardTopicsColumns()}
           data={topics}
           enableRowActions
-          renderRowActionMenuItems={renderRowActionMenuItems(handleMenuAction)}
+          renderRowActionMenuItems={renderRowActionMenuItems(handleMenuAction, dashboardMenus)}
         />
       </Box>
     </DashboardContainer>

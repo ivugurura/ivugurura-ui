@@ -13,6 +13,7 @@ import { dataGenerator } from '../../helpers/utils/dataGenerater';
 import { actions } from '../../redux/actions';
 import { initials } from '../../redux/apiSliceBuilder';
 
+import { AlertConfirm } from './components/AlertConfirm';
 import { DashboardContainer } from './components/DashboardContainer';
 import { DashboardCount } from './components/DashboardCount';
 import { dashboardTopicsColumns, renderRowActionMenuItems } from './dashboardTopicsColumns';
@@ -40,7 +41,7 @@ const dashboardMenus = [
   },
 ];
 export const HomeDashboard = () => {
-  const [action, setAction] = useState({});
+  const [alertData, setAlertData] = useState({ action: '', title: '', message: '' });
   const { data, isFetching, isSuccess } = actions.useGetDashboardCountsQuery();
   const { data: overviewData } = actions.useGetOverviewTopicQuery({ truncate: 200 });
   const { data: counts } = data || initials.dataArr;
@@ -48,12 +49,16 @@ export const HomeDashboard = () => {
 
   const handleMenuAction = (type, actionParams) => {
     actionParams.closeMenu();
+    setAlertData((prev) => ({
+      ...prev, action: type, title: actionParams.row.title, message: actionParams.row.message,
+    }));
     console.log({
       isFetching, isSuccess, type, actionParams,
     });
   };
   return (
     <DashboardContainer title="Admin dashboard">
+      <AlertConfirm {...alertData} />
       <Grid
         container
         spacing={1}

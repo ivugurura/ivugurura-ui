@@ -52,6 +52,9 @@ export const HomeDashboard = () => {
 
   const handleMenuAction = (type, actionParams) => {
     actionParams.closeMenu();
+    if (type === 'edit') {
+      history.push(`/admin/topics/${actionParams.row.original.id}`);
+    }
     setAlertData((prev) => ({
       ...prev,
       open: true,

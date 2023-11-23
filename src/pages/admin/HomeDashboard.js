@@ -56,7 +56,6 @@ export const HomeDashboard = () => {
       ...prev,
       open: true,
       action: type,
-      title: actionParams.row.title,
       message: `Are you sure you want to ${type.toUpperCase()} 
       ${actionParams.row.original.title.toUpperCase()}?`,
     }));

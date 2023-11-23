@@ -40,8 +40,11 @@ const dashboardMenus = [
     action: 'home',
   },
 ];
+const alertInitial = {
+  action: '', title: '', message: '', open: false,
+};
 export const HomeDashboard = () => {
-  const [alertData, setAlertData] = useState({ action: '', title: '', message: '' });
+  const [alertData, setAlertData] = useState(alertInitial);
   const { data, isFetching, isSuccess } = actions.useGetDashboardCountsQuery();
   const { data: overviewData } = actions.useGetOverviewTopicQuery({ truncate: 200 });
   const { data: counts } = data || initials.dataArr;
@@ -50,7 +53,11 @@ export const HomeDashboard = () => {
   const handleMenuAction = (type, actionParams) => {
     actionParams.closeMenu();
     setAlertData((prev) => ({
-      ...prev, action: type, title: actionParams.row.title, message: actionParams.row.message,
+      ...prev,
+      open: true,
+      action: type,
+      title: actionParams.row.title,
+      message: `Are you sure you want to ${type.toUpperCase()} ${actionParams.row.title}?`,
     }));
     console.log({
       isFetching, isSuccess, type, actionParams,
@@ -58,7 +65,10 @@ export const HomeDashboard = () => {
   };
   return (
     <DashboardContainer title="Admin dashboard">
-      <AlertConfirm {...alertData} />
+      <AlertConfirm
+        setOpen={() => setAlertData((prev) => ({ ...prev, ...alertInitial }))}
+        {...alertData}
+      />
       <Grid
         container
         spacing={1}

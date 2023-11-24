@@ -7,6 +7,7 @@ import {
   Card, CardContent, CardHeader, Container, Grid,
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { RRVTable } from '../../common/components/RRVTable';
 import { dataGenerator } from '../../helpers/utils/dataGenerater';
@@ -44,6 +45,7 @@ const alertInitial = {
   action: '', title: '', message: '', open: false,
 };
 export const HomeDashboard = () => {
+  const history = useHistory();
   const [alertData, setAlertData] = useState(alertInitial);
   const { data, isFetching, isSuccess } = actions.useGetDashboardCountsQuery();
   const { data: overviewData } = actions.useGetOverviewTopicQuery({ truncate: 200 });

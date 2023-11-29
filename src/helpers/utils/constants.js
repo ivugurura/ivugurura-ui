@@ -5,7 +5,7 @@ const flagUrl = `${process.env.PUBLIC_URL}/img/flags/16`;
 
 export const systemLanguage = localStorage.getItem('lang') || 'kn';
 
-export const toLink = (link = '') => `/${systemLanguage}/${link}`;
+export const toLink = (link = '', isAdmin = false) => `${isAdmin ? '/admin/' : '/'}${systemLanguage}/${link}`;
 
 export const topicEditorButtons = [
   ['undo', 'redo'],

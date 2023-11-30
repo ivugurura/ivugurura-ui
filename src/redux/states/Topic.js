@@ -12,6 +12,13 @@ export const TopicState = {
         hasBody: true,
       },
     },
+    update: {
+      api: {
+        verb: VERBS.patch,
+        endpoint: '/topics/:slug',
+        hasBody: true,
+      },
+    },
     view: {
       api: {
         verb: VERBS.get,

@@ -29,36 +29,46 @@ export const TopicEditor2 = () => {
   const filePathName = useSelector((state) => state.filer.fileName);
 
   const [createTopic, res] = actions.useCreateTopicMutation();
+  const [updateTopic, updateRes] = actions.useUpdateTopicMutation();
   const { data, isFetching } = actions.useViewTopicQuery({ slug: topicSlug });
   const { data: topic } = data || initials.dataObj;
 
   useEffect(() => {
     if (topicSlug && topic) {
-      setValues({ title: topic.title, categoryId: topic.categoryId });
-      setSunEdContent(topic.content);
-      dispatch(setFilePath(topic.coverImage));
+      const {
+        title, categoryId, content, coverImage, slug,
+      } = topic;
+      setValues({ slug, title, categoryId });
+      setSunEdContent(content);
+      dispatch(setFilePath(coverImage));
     }
   }, [topicSlug, topic]);
 
   useEffect(() => {
-    if (res.isSuccess) {
+    if (res.isSuccess || updateRes.isSuccess) {
       setValues(initialValues);
       setSunEdContent('');
       res.reset();
+      updateRes.reset();
     }
-  }, [res.isSuccess]);
+  }, [res.isSuccess, updateRes.isSuccess]);
 
   const handleOpen = (field, value) => {
     setOpen((pv) => ({ ...pv, [field]: value }));
   };
 
   const handleSave = () => {
+    const { slug, ...rest } = values;
     const payload = {
-      ...values,
+      ...rest,
       content: sunEdContent,
       coverImage: filePathName,
     };
-    createTopic(payload);
+    if (slug) {
+      updateTopic(payload, { slug });
+    } else {
+      createTopic(payload);
+    }
   };
   console.log({ isFetching, topic });
   return (

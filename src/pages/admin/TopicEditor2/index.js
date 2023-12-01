@@ -65,12 +65,12 @@ export const TopicEditor2 = () => {
       coverImage: filePathName,
     };
     if (slug) {
-      updateTopic(payload, { slug });
-    } else {
-      createTopic(payload);
+      return updateTopic(payload, { slug });
     }
+    return createTopic(payload);
   };
   console.log({ isFetching, topic });
+  const isLoading = res.isLoading || updateRes.isLoading;
   return (
     <PageHelmet title="Edit page title">
       <Header />
@@ -90,7 +90,7 @@ export const TopicEditor2 = () => {
         onClose={() => handleOpen('preview', false)}
         topic={{ ...values, content: sunEdContent, coverImage: filePathName }}
       />
-      <Button disabled={res.isLoading} onClick={handleSave}>{res.isLoading ? 'Saving...' : 'Save'}</Button>
+      <Button disabled={isLoading} onClick={handleSave}>{isLoading ? 'Saving...' : 'Save'}</Button>
     </PageHelmet>
   );
 };

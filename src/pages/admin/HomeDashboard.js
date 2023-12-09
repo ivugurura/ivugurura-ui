@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { RRVTable } from '../../common/components/RRVTable';
+import { dashboardActions } from '../../helpers/topics';
 import { toLink } from '../../helpers/utils/constants';
 import { dataGenerator } from '../../helpers/utils/dataGenerater';
 import { actions } from '../../redux/actions';
@@ -59,12 +60,13 @@ export const HomeDashboard = () => {
       navigate(toLink(`edit-topic/${actionParams.row.original.slug}`, true));
       return;
     }
+    const { action, title } = dashboardActions(type, actionParams.row.original);
     setAlertData((prev) => ({
       ...prev,
       open: true,
       action: type,
-      message: `Are you sure you want to ${type.toUpperCase()} 
-      ${actionParams.row.original.title.toUpperCase()}?`,
+      message: `Are you sure you want to ${action.toUpperCase()} 
+      "${title.toUpperCase()}"?`,
     }));
     console.log({
       isFetching, isSuccess, type, actionParams,

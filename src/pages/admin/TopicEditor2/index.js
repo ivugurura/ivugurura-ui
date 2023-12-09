@@ -4,9 +4,10 @@ import { Button } from '@mui/material';
 import { EditorState } from 'draft-js';
 // import { stateToHTML } from 'draft-js-export-html';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { PageHelmet } from '../../../common/components/PageHelmet';
+import { toLink } from '../../../helpers/utils/constants';
 import { setFilePath } from '../../../redux/actions';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
 
@@ -19,6 +20,7 @@ import { TopicEditPreview } from './TopicEditPreview';
 const initialValues = { title: '', categoryId: '' };
 export const TopicEditor2 = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [values, setValues] = useState(initialValues);
   const { topicSlug } = useParams();
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -50,6 +52,7 @@ export const TopicEditor2 = () => {
       setSunEdContent('');
       res.reset();
       updateRes.reset();
+      navigate(toLink('', true));
     }
   }, [res.isSuccess, updateRes.isSuccess]);
 
@@ -65,7 +68,7 @@ export const TopicEditor2 = () => {
       coverImage: filePathName,
     };
     if (slug) {
-      return updateTopic(payload, { slug });
+      return updateTopic({ ...payload, slug });
     }
     return createTopic(payload);
   };

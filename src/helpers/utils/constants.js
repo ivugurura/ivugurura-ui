@@ -5,8 +5,6 @@ const flagUrl = `${process.env.PUBLIC_URL}/img/flags/16`;
 
 export const systemLanguage = localStorage.getItem('lang') || 'kn';
 
-export const toLink = (link = '', isAdmin = false) => `${isAdmin ? '/admin/' : '/'}${systemLanguage}/${link}`;
-
 export const topicEditorButtons = [
   ['undo', 'redo'],
   ['font', 'fontSize', 'formatBlock'],
@@ -84,6 +82,9 @@ export const socialMedias = [
 ];
 
 export const IMAGE_PATH = `${process.env.REACT_APP_API_URL}/images`;
+export const AUDIO_PATH = `${process.env.REACT_APP_API_URL}/songs`;
+export const toLink = (link = '', isAdmin = false) => `${isAdmin ? '/admin/' : '/'}${systemLanguage}/${link}`;
+export const toAssetPath = (name = '', isImage = true) => `${isImage ? IMAGE_PATH : AUDIO_PATH}/${name}`;
 
 const messageId = 13;
 export const notifier = {

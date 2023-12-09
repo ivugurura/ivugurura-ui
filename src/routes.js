@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import {
   AdminLayout, AdminMainLayout, UserLayout, UserMainLayout,
 } from './common/components';
+import { systemLanguage } from './helpers/utils/constants';
 
 // import { systemLanguage } from "utils/constants";
 // import { Main, AdminMain } from "./layouts";
@@ -118,7 +119,7 @@ export const AppRoutes = () => (
       <Route path="kn/*" element={<UserLayout />} />
     </Route>
     <Route path="admin/" element={<AdminMainLayout />}>
-      <Route path="kn/*" element={<AdminLayout />} />
+      <Route path={`${systemLanguage}/*`} element={<AdminLayout />} />
     </Route>
   </Routes>
 );

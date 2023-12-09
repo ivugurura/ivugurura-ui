@@ -12,7 +12,6 @@
   "editor.formatOnSave": true,
   // "jest.jestCommandLine": "npm run test",
   // "jest.showCoverageOnLoad": false,
-  "gulp.autoDetect": "off",
   "npm.packageManager": "npm",
   "npm.runSilent": true,
   "eslint.lintTask.enable": false,

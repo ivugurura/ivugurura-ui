@@ -9,9 +9,9 @@ export const dashboardTopicsColumns = () => [
   { accessorKey: 'content', header: 'Small description', size: 400 },
   { accessorKey: 'views', header: 'User views', size: 70 },
   {
-    accessorKey: 'createdAt',
+    id: 'updatedAt',
     header: 'Published',
-    Cell: ({ row }) => moment(row.updatedAt).format('MMMM Do YYYY'),
+    Cell: ({ row }) => moment(row.original.updatedAt).format('MMMM Do YYYY'),
     size: 80,
   },
 ];

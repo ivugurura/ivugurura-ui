@@ -18,16 +18,18 @@ export const dashboardTopicsColumns = () => [
 
 export const renderRowActionMenuItems = (setAction, menus = []) => (params) => menus.map((menu) => {
   const { title, icon: Icon, action } = menu;
+  const { entities, isPublished } = params.row.original;
   return (
     <MenuItem
       key={action}
       onClick={() => setAction(action, params)}
+      disabled={action === 'home' && !isPublished}
       sx={{ m: 0 }}
     >
       <ListItemIcon>
         <Icon />
       </ListItemIcon>
-      {typeof title === 'string' ? title : title(params.row.original?.entities?.length)}
+      {typeof title === 'string' ? title : title({ hasSet: entities?.length, isPublished })}
     </MenuItem>
   );
 });

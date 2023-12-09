@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { RRVTable } from '../../common/components/RRVTable';
 import { dashboardActions } from '../../helpers/topics';
-import { toLink } from '../../helpers/utils/constants';
+import { notifier, toLink } from '../../helpers/utils/constants';
 import { dataGenerator } from '../../helpers/utils/dataGenerater';
 import { actions } from '../../redux/actions';
 import { initials } from '../../redux/apiSliceBuilder';
@@ -33,12 +33,12 @@ const dashboardMenus = [
     action: 'edit',
   },
   {
-    title: 'Unpublish',
+    title: ({ isPublished }) => `${isPublished ? 'Unpublish' : 'Publish'}`,
     icon: PublishOutlined,
     action: 'publish',
   },
   {
-    title: (hasSet) => `${hasSet ? 'Remove from' : 'Set to'} home`,
+    title: ({ hasSet }) => `${hasSet ? 'Remove from' : 'Set to'} home`,
     icon: DeleteOutlineOutlined,
     action: 'home',
   },
@@ -93,16 +93,21 @@ export const HomeDashboard = () => {
   };
 
   const handleConfirmAction = () => {
-    if (alertData.action === 'publish') {
+    const { current, action } = alertData;
+    if (action === 'publish') {
       updateTopic({
-        slug: alertData.current.slug,
-        isPublished: !alertData.current.isPublished,
+        slug: current.slug,
+        isPublished: !current.isPublished,
       });
       return;
     }
-    if (alertData.action === 'home') {
+    if (action === 'home') {
+      if (!current?.isPublished) {
+        notifier.error('Please publish the topic first');
+        return;
+      }
       setOrRemoveTopicDisplay({
-        topicId: alertData.current.id,
+        topicId: current.id,
         type: 'topic',
         displayType: 'home',
       });

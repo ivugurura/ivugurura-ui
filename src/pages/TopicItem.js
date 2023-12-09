@@ -10,7 +10,9 @@ import parse from 'html-react-parser';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
-import { IMAGE_PATH, toLink, truncate } from '../helpers/utils/constants';
+import {
+  toAssetPath, toLink, truncate,
+} from '../helpers/utils/constants';
 
 const TopicItem = ({
   className = '', topic, imageHeight = '194', hasMore = false,
@@ -36,7 +38,7 @@ const TopicItem = ({
       <CardMedia
         component="img"
         height={imageHeight}
-        image={`${IMAGE_PATH}/${topic.coverImage}`}
+        image={toAssetPath(topic.coverImage)}
         alt={topic.title}
       />
       <CardContent>

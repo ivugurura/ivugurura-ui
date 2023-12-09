@@ -46,7 +46,7 @@ export const AdminMainLayout = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h3" noWrap component="div">
-            Responsive drawer
+            RRV - Admin Dashboard
           </Typography>
         </Toolbar>
       </AppBar>

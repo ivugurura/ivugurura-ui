@@ -11,7 +11,7 @@ import { PageRoutes } from '../../../RoutesConstants';
 
 export const AdminLayout = () => (
   <Box>
-    <h2>Admin layout</h2>
+    <h2>Topics: 23, Audios: 172, Commentaries: 10, Users: 4</h2>
     <Routes>
       <Route index element={<HomeDashboard />} />
       <Route path={PageRoutes.admin.AddTopic} element={<TopicEditor2 />} />

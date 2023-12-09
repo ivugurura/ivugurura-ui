@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { formatParamaterizedUrl, startCase } from '../helpers/utils';
+import { formulateQuery, startCase } from '../helpers/utils';
 
 import * as initialStates from './initialStates';
 import { buildAppStates } from './stateBuilder';
@@ -23,11 +23,7 @@ const buildApiEndPoints = (build, state) => {
       buildType = 'mutation';
     }
     endpoints[current.action] = build[buildType]({
-      query: (args) => ({
-        url: formatParamaterizedUrl(current.api.endpoint, args),
-        method: current.api.verb,
-        body: current.api.hasBody ? args : undefined,
-      }),
+      query: formulateQuery(current.api),
     });
   });
   return endpoints;

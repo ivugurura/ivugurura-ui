@@ -67,13 +67,21 @@ export const startCase = (str = '', toUpper = true) => {
   return sentences.join(' ');
 };
 
+export const getSearchParams = (url = '') => {
+  const paramPattern = /:\w+/g;
+
+  return url.match(paramPattern)
+  // Remove the leading colon
+    ?.map((m) => m.slice(1));
+};
+
 /**
  *
  * @param url a string to be formatted
  * @param params an object of parametters to be appended to the string
  * @returns formatted string
  */
-export const formatParamaterizedUrl = (url = '', params = {}) => {
+export const formatParamaterizedUrl = (url = '', params = {}, searchParams = []) => {
   let endpoint = url;
   /**
    * When a @url like /employee?pageNumber=:pageNumber&search=:searchKey
@@ -86,13 +94,34 @@ export const formatParamaterizedUrl = (url = '', params = {}) => {
    * The result would be /employee?pageNumber=&search=
    */
 
-  const paramPattern = /:\w+/g;
-  const searchParams = endpoint.match(paramPattern);
-  if (searchParams) {
-    for (const searchParam of searchParams) {
-      const param = searchParam.slice(1); // Remove the leading colon
-      endpoint = endpoint.replace(searchParam, params[param] || '');
+  for (const sp of searchParams) {
+    endpoint = endpoint.replace(`:${sp}`, params[sp] || '');
+  }
+
+  return endpoint;
+};
+
+export const formulateQuery = (stateApi = {}) => (args = {}) => {
+  const query = {
+    url: stateApi.endpoint,
+    method: stateApi.verb,
+    body: undefined,
+  };
+  const searchParams = getSearchParams(stateApi.endpoint);
+  if (searchParams?.length) {
+    query.url = formatParamaterizedUrl(query.url, args, searchParams);
+
+    if (stateApi.hasBody) {
+      // If the API has a body, we should formulate it
+      // with the remaining params
+      query.body = { ...args };
+      Object.keys(args).forEach((key) => {
+        if (searchParams.includes(key)) {
+          delete query.body[key];
+        }
+      });
     }
   }
-  return endpoint;
+
+  return query;
 };

@@ -38,21 +38,33 @@ const dashboardMenus = [
     action: 'publish',
   },
   {
-    title: 'Remove from home',
+    title: (hasSet) => `${hasSet ? 'Remove from' : 'Set to'} home`,
     icon: DeleteOutlineOutlined,
     action: 'home',
   },
 ];
 const alertInitial = {
-  action: '', title: '', message: '', open: false,
+  current: null, action: '', message: '', open: false,
 };
 export const HomeDashboard = () => {
   const navigate = useNavigate();
   const [alertData, setAlertData] = useState(alertInitial);
-  const { data, isFetching, isSuccess } = actions.useGetDashboardCountsQuery();
-  const { data: overviewData } = actions.useGetOverviewTopicQuery({ truncate: 200 });
+  const {
+    data, isFetching, isSuccess, ...restCountsQ
+  } = actions.useGetDashboardCountsQuery();
+  const { data: overviewData, ...restTopicQ } = actions.useGetOverviewTopicQuery({ truncate: 200 });
+  const [updateTopic, updateRes] = actions.useUpdateTopicMutation();
   const { data: counts } = data || initials.dataArr;
   const { data: topics } = overviewData || initials.dataArr;
+
+  useEffect(() => {
+    if (updateRes.isSuccess) {
+      setAlertData(alertInitial);
+      updateRes.reset();
+      restCountsQ.refetch();
+      restTopicQ.refetch();
+    }
+  }, [updateRes.isSuccess]);
 
   const handleMenuAction = (type, actionParams) => {
     actionParams.closeMenu();
@@ -63,6 +75,7 @@ export const HomeDashboard = () => {
     const { action, title } = dashboardActions(type, actionParams.row.original);
     setAlertData((prev) => ({
       ...prev,
+      current: actionParams.row.original,
       open: true,
       action: type,
       message: `Are you sure you want to ${action.toUpperCase()} 
@@ -72,11 +85,23 @@ export const HomeDashboard = () => {
       isFetching, isSuccess, type, actionParams,
     });
   };
+
+  const handleConfirmAction = () => {
+    if (alertData.action === 'publish') {
+      updateTopic({
+        slug: alertData.current.slug,
+        isPublished: !alertData.current.isPublished,
+      });
+    }
+  };
   return (
     <DashboardContainer title="Admin dashboard">
       <AlertConfirm
-        setOpen={() => setAlertData((prev) => ({ ...prev, ...alertInitial }))}
         {...alertData}
+        setOpen={() => setAlertData((prev) => ({ ...prev, ...alertInitial }))}
+        title={alertData.title}
+        onConfirmYes={handleConfirmAction}
+        loading={updateRes.isLoading}
       />
       <Grid
         container

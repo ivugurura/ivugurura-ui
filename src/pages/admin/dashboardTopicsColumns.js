@@ -20,14 +20,14 @@ export const renderRowActionMenuItems = (setAction, menus = []) => (params) => m
   const { title, icon: Icon, action } = menu;
   return (
     <MenuItem
-      key={title}
+      key={action}
       onClick={() => setAction(action, params)}
       sx={{ m: 0 }}
     >
       <ListItemIcon>
         <Icon />
       </ListItemIcon>
-      {title}
+      {typeof title === 'string' ? title : title(params.row.original?.entities?.length)}
     </MenuItem>
   );
 });

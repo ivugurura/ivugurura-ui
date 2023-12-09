@@ -15,14 +15,13 @@
   "gulp.autoDetect": "off",
   "npm.packageManager": "npm",
   "npm.runSilent": true,
-  "eslint.packageManager": "npm",
   "eslint.lintTask.enable": false,
   "eslint.validate": [
     "javascript",
     "javascriptreact"
   ],
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "eslint.codeActionsOnSave.mode": "problems",
   "eslint.options": {

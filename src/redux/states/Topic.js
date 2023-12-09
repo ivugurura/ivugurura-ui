@@ -52,5 +52,12 @@ export const TopicState = {
         endpoint: `/users/topics?canTruncate=yes&${getParams(['truncate', 'search'])}`,
       },
     },
+    setHome: {
+      api: {
+        verb: VERBS.patch,
+        endpoint: '/manage/entity-display/:topicId',
+        hasBody: true,
+      },
+    },
   },
 };

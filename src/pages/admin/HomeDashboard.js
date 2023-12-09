@@ -54,17 +54,23 @@ export const HomeDashboard = () => {
   } = actions.useGetDashboardCountsQuery();
   const { data: overviewData, ...restTopicQ } = actions.useGetOverviewTopicQuery({ truncate: 200 });
   const [updateTopic, updateRes] = actions.useUpdateTopicMutation();
+  const [setOrRemoveTopicDisplay, displayRes] = actions.useSetHomeTopicMutation();
   const { data: counts } = data || initials.dataArr;
   const { data: topics } = overviewData || initials.dataArr;
 
   useEffect(() => {
-    if (updateRes.isSuccess) {
+    if (updateRes.isSuccess || displayRes.isSuccess) {
       setAlertData(alertInitial);
-      updateRes.reset();
-      restCountsQ.refetch();
       restTopicQ.refetch();
+      if (displayRes.isSuccess) {
+        displayRes.reset();
+      }
+      if (updateRes.isSuccess) {
+        updateRes.reset();
+        restCountsQ.refetch();
+      }
     }
-  }, [updateRes.isSuccess]);
+  }, [updateRes.isSuccess, displayRes.isSuccess]);
 
   const handleMenuAction = (type, actionParams) => {
     actionParams.closeMenu();
@@ -92,6 +98,14 @@ export const HomeDashboard = () => {
         slug: alertData.current.slug,
         isPublished: !alertData.current.isPublished,
       });
+      return;
+    }
+    if (alertData.action === 'home') {
+      setOrRemoveTopicDisplay({
+        topicId: alertData.current.id,
+        type: 'topic',
+        displayType: 'home',
+      });
     }
   };
   return (
@@ -101,7 +115,7 @@ export const HomeDashboard = () => {
         setOpen={() => setAlertData((prev) => ({ ...prev, ...alertInitial }))}
         title={alertData.title}
         onConfirmYes={handleConfirmAction}
-        loading={updateRes.isLoading}
+        loading={updateRes.isLoading || displayRes.isLoading}
       />
       <Grid
         container

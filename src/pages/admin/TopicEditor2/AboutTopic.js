@@ -12,7 +12,6 @@ export const AboutTopic = ({ values = {}, setValues }) => {
   const onChange = ({ target }) => {
     setValues((prev) => ({ ...prev, [target.name]: target.value }));
   };
-  console.log({ categories });
   return (
     <Card>
       <CardHeader title="About topic" />
@@ -24,7 +23,7 @@ export const AboutTopic = ({ values = {}, setValues }) => {
               label="Topic title"
               name="title"
               variant="outlined"
-              value={values.title}
+              value={values.title || ''}
               onChange={onChange}
             />
           </Grid>
@@ -36,7 +35,7 @@ export const AboutTopic = ({ values = {}, setValues }) => {
               <Select
                 labelId="blog-category"
                 name="categoryId"
-                value={values.categoryId}
+                value={values.categoryId || ''}
                 onChange={onChange}
               >
                 <MenuItem value="">---</MenuItem>

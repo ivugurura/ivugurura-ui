@@ -12,7 +12,7 @@ import {
   theme,
 } from './common';
 import { ErrorBoundary } from './common/components';
-import { buildAppStates } from './redux/stateBuilder';
+// import { buildAppStates } from './redux/stateBuilder';
 import { store } from './redux/store';
 // import { ErrorBoundary } from './common/components/errors';
 // import { generateClassName, themeV4, themeV5 } from './common/theme';
@@ -20,12 +20,12 @@ import { AppRoutes } from './routes';
 // import { Route } from "react-router";
 
 const App = () => {
-  const states = buildAppStates();
+  // const states = buildAppStates();
   if (window.location.pathname === '/') {
     window.location.href = '/kn';
     console.log('Root directory');
   }
-  console.log('AppStates', states);
+  // console.log('AppStates', states);
   return (
   // <StylesProvider generateClassName={generateClassName}>
   //   <ThemeProviderV4 theme={themeV4}>

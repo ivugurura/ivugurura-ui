@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 
-import { audioPath } from '../../helpers/utils';
+import { toAssetPath } from '../../helpers/utils/constants';
 import { actions, initials } from '../../redux/apiSliceBuilder';
 
 export const RRVAudioPlayer = () => {
@@ -68,7 +68,7 @@ export const RRVAudioPlayer = () => {
       <>
         <AudioPlayer
           muted
-          src={audioPath + currentAudio.audio.mediaLink}
+          src={toAssetPath(currentAudio.audio.mediaLink, false)}
           customAdditionalControls={customControls}
         />
         <CardHeader

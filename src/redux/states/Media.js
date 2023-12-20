@@ -9,5 +9,17 @@ export const MediaState = {
         endpoint: '/albums/images/cover-images',
       },
     },
+    createAlbum: {
+      api: {
+        verb: VERBS.post,
+        endpoint: '/albums',
+      },
+    },
+    getAlbums: {
+      api: {
+        verb: VERBS.get,
+        endpoint: '/albums',
+      },
+    },
   },
 };

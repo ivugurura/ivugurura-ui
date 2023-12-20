@@ -4,7 +4,7 @@ import {
   Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField,
 } from '@mui/material';
 
-import { actions } from '../../../redux/apiSliceBuilder';
+import { actions } from '../../../redux/actions';
 
 export const AddEditTopic = ({ open, onClose }) => {
   const [createAlbum, newAlbumRes] = actions.useCreateAlbumMediaQuery();

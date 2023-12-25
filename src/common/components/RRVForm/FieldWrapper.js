@@ -13,7 +13,7 @@ export const FieldWrapper = ({
   children,
 }) => {
   <FormControl variant="standard" fullWidth {...fcProps}>
-    <InputLabel htmlFor={id || name}>{label}</InputLabel>
+    <InputLabel id={`${name}-input-label`} htmlFor={id || name}>{label}</InputLabel>
     {children}
     {helperText && <FormHelperText id={`${name}-helper-text`}>{helperText}</FormHelperText>}
   </FormControl>;

@@ -4,15 +4,16 @@ import React from 'react';
 import { Grid } from '@mui/material';
 
 import { RRVInput } from './RRVInput';
+import { RRVSelect } from './RRVSelect';
 
 export const RRVForm = ({ fields = [] }) => {
-  const getFieldView = ({
-    id, type, name, ...viewProps
-  }, index) => {
+  const getFieldView = ({ type, ...viewProps }) => {
     switch (type) {
+      case 'select':
+        return <RRVSelect {...viewProps} />;
       case 'text':
       default:
-        return <RRVInput id={id || name + index} {...viewProps} />;
+        return <RRVInput {...viewProps} />;
     }
   };
   const getSizes = (rowsLength) => {

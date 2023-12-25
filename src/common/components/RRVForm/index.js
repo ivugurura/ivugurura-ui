@@ -16,8 +16,7 @@ const RRVForm = ({ type, ...fieldViewProps }) => {
   return (
     <Grid container spacing={2}>
       <Grid item lg={6} md={6} sm={12} xs={12}>
-        {' '}
-        dsfsdf
+        {getFieldView(fieldViewProps, 1)}
       </Grid>
     </Grid>
   );

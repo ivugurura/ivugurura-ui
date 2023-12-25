@@ -14,6 +14,7 @@ import { audioColumns } from '../columns/audioColumns';
 import { DashboardContainer } from '../components/DashboardContainer';
 
 import { AddEditTopic } from './AddEditAlbum';
+import { AddEditMedia } from './AddEditMedia';
 
 const initialEditorStates = { openAlbum: false, openMedia: false };
 export const MediaEditor = () => {
@@ -28,13 +29,19 @@ export const MediaEditor = () => {
     }
   }, [audios]);
   const { audio } = currentAudio;
+
+  const handleOpenEditor = (type) => {
+    setEditorState((prev) => ({ ...prev, [type]: !prev[type] }));
+  };
   return (
     <DashboardContainer
       title="All media"
       action={(
         <ButtonGroup variant="contained" aria-label="outlined primary button group">
-          <Button>Add new media</Button>
-          <Button onClick={() => setEditorState((prev) => ({ ...prev, openAlbum: true }))}>
+          <Button onClick={() => handleOpenEditor('openMedia')}>
+            Add new media
+          </Button>
+          <Button onClick={() => handleOpenEditor('openAlbum')}>
             Add new album
           </Button>
         </ButtonGroup>
@@ -42,7 +49,11 @@ export const MediaEditor = () => {
     >
       <AddEditTopic
         open={editorState.openAlbum}
-        onClose={() => setEditorState((prev) => ({ ...prev, openAlbum: false }))}
+        onClose={() => handleOpenEditor('openAlbum')}
+      />
+      <AddEditMedia
+        open={editorState.openMedia}
+        onClose={() => handleOpenEditor('openMedia')}
       />
       <Grid container spacing={1}>
         <Grid item xs={12} lg={8}>

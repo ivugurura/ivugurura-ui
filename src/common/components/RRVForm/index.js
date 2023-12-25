@@ -8,12 +8,13 @@ import { RRVSelect } from './RRVSelect';
 
 export const RRVForm = ({ fields = [] }) => {
   const getFieldView = ({ type, ...viewProps }) => {
+    console.log({ type });
     switch (type) {
       case 'select':
-        return <RRVSelect {...viewProps} />;
+        return <RRVSelect key={`select-${viewProps.name}`} type={type} {...viewProps} />;
       case 'text':
       default:
-        return <RRVInput {...viewProps} />;
+        return <RRVInput key={`input-${viewProps.name}`} type={type} {...viewProps} />;
     }
   };
   const getSizes = (rowsLength) => {

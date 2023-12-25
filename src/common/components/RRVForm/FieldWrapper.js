@@ -5,7 +5,6 @@ import {
 } from '@mui/material';
 
 export const FieldWrapper = ({
-  id,
   name,
   fcProps = {},
   label,
@@ -13,7 +12,7 @@ export const FieldWrapper = ({
   children,
 }) => {
   <FormControl variant="standard" fullWidth {...fcProps}>
-    <InputLabel id={`${name}-input-label`} htmlFor={id || name}>{label}</InputLabel>
+    <InputLabel htmlFor={`${name}-input-label`}>{label}</InputLabel>
     {children}
     {helperText && <FormHelperText id={`${name}-helper-text`}>{helperText}</FormHelperText>}
   </FormControl>;

@@ -19,6 +19,15 @@ const fields = [
       helperText: 'Name of the media',
     },
   ],
+  [
+    {
+      label: 'Media type',
+      name: 'type',
+      type: 'select',
+      options: [{ value: 'audio', label: 'Audio' }],
+      helperText: 'Type of the media',
+    },
+  ],
 ];
 export const AddEditMedia = ({ open, onClose }) => {
   // const [media, setMedia] = React.useState(initialStates);

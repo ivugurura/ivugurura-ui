@@ -13,6 +13,7 @@ export const MediaState = {
       api: {
         verb: VERBS.post,
         endpoint: '/albums',
+        hasBody: true,
       },
     },
     getAlbums: {

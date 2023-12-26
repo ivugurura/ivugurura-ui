@@ -64,6 +64,7 @@
     ],
     "react/prop-types": [
       0
-    ]
+    ],
+    "react/no-array-index-key": "off"
   }
 }

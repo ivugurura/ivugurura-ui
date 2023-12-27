@@ -9,13 +9,14 @@ export const RRVSelect = (props) => {
     id,
     name,
     label,
+    helperText,
     options = [],
     labelSelector = 'label',
     valueSelector = 'value',
     inputProps = {},
   } = props;
   return (
-    <FieldWrapper {...props}>
+    <FieldWrapper name={name} label={label} helperText={helperText}>
       <Select
         labelId={`${name}-select-label`}
         id={id}

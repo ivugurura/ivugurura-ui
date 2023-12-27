@@ -8,21 +8,18 @@ import {
 import { actions } from '../../../redux/actions';
 import { initials } from '../../../redux/apiSliceBuilder';
 
-export const AddEditTopic = ({ open, onClose }) => {
+export const AddEditTopic = ({ open, onClose, refetchAlbums }) => {
   const [createAlbum, newAlbumRes] = actions.useCreateAlbumMediaMutation();
   const [name, setName] = React.useState('');
-  const { data, refetch } = actions.useGetAlbumsMediaQuery();
-  const { data: albums } = data || initials.dataArr;
 
   React.useEffect(() => {
     if (newAlbumRes.success) {
       onClose();
       setName('');
-      refetch();
+      refetchAlbums();
       newAlbumRes.reset();
     }
   }, [newAlbumRes.success]);
-  console.log(albums);
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Create a new album</DialogTitle>

@@ -22,7 +22,9 @@ export const MediaEditor = () => {
   const [editorState, setEditorState] = useState(initialEditorStates);
 
   const { data, isFetching } = actions.useListAudiosQuery({ page: 1, pageSize: 3 });
+  const { data: albumData, refetch } = actions.useGetAlbumsMediaQuery();
   const { data: audios } = data || initials.dataArr;
+  const { data: albums } = albumData || initials.dataArr;
   useEffect(() => {
     if (audios?.length > 0) {
       setCurrentAudio({ index: 0, audio: audios[0] });
@@ -50,10 +52,12 @@ export const MediaEditor = () => {
       <AddEditTopic
         open={editorState.openAlbum}
         onClose={() => handleOpenEditor('openAlbum')}
+        refetchAlbums={refetch}
       />
       <AddEditMedia
         open={editorState.openMedia}
         onClose={() => handleOpenEditor('openMedia')}
+        albums={albums}
       />
       <Grid container spacing={1}>
         <Grid item xs={12} lg={8}>

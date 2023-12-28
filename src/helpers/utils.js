@@ -105,7 +105,7 @@ export const formulateQuery = (stateApi = {}) => (args = {}) => {
   const query = {
     url: stateApi.endpoint,
     method: stateApi.verb,
-    body: undefined,
+    body: stateApi.hasBody ? args : undefined,
   };
   const searchParams = getSearchParams(stateApi.endpoint);
   if (searchParams?.length) {

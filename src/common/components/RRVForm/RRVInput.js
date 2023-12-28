@@ -7,7 +7,7 @@ export const RRVInput = (props) => {
     type = 'text',
     select = false,
     options = [],
-    defaultText = '',
+    value = '',
     size = 'small',
     labelSelector = 'label',
     valueSelector = 'value',
@@ -18,8 +18,8 @@ export const RRVInput = (props) => {
       type={type}
       fullWidth
       select={select}
-      defaultValue={defaultText}
       size={size}
+      value={value || ''}
       {...inputProps}
     >
       {select && (

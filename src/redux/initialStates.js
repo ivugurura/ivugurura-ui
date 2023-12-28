@@ -142,6 +142,6 @@ export const dataObj = {
   data: {},
 };
 export const setTopicDisplayState = {
-	loading: false,
-	loaded: false
+  loading: false,
+  loaded: false,
 };

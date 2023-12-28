@@ -32,15 +32,15 @@ const fields = (albums = []) => [
       name: 'albumId',
       select: true,
       options: albums,
-      labelSelector: 'id',
-      valueSelector: 'name',
+      valueSelector: 'id',
+      labelSelector: 'name',
       helperText: 'Select media album',
     },
   ],
 ];
 export const AddEditMedia = ({ open, onClose, albums }) => {
   // const [media, setMedia] = React.useState(initialStates);
-  console.log('AddEditMedia', albums);
+  console.log('AddEditMedia');
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Create a new media</DialogTitle>

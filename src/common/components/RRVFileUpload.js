@@ -31,7 +31,7 @@ const dataUrlToFile = (dataUrl, filename) => {
   return new File([buff], filename.replace(' ', '_'), { type: mime });
 };
 
-export const RRVFileUpload = ({ title = '', type = 'image' }) => {
+export const RRVFileUpload = ({ title = '', type = 'image', accept = '.png, .jpg, .jpeg' }) => {
   const dispatch = useDispatch();
   const [imageProps, setImageProps] = React.useState(initialImageProps);
   const imageRef = React.createRef(null);
@@ -75,99 +75,99 @@ export const RRVFileUpload = ({ title = '', type = 'image' }) => {
     }
   };
   return (
-    <div className="files color">
+    <Grid container>
       {/* <Form.File id="audioFile" label={title} onChange={onChange} /> */}
-      <MuiFileInput
-        label={title}
-        value={imageProps.file}
-        onChange={(selectedFile) => setImageProps((prev) => ({ ...prev, file: selectedFile }))}
-        placeholder="Insert a file"
-      />
-      {imageProps.file?.type?.includes('image/') && (
-        <div>
-          <br />
-          <AvatarEditor
-            ref={imageRef}
-            width={imageProps.width}
-            height={imageProps.height}
-            scale={imageProps.zoom}
-            rotate={0}
-            borderRadius={imageProps.height / (100 / imageProps.bRadius)}
-            image={imageProps.file}
-            className="cover"
-          />
-          <Grid container justifyContent="center">
-            <Grid item>
-              <div>
-                Zoom:
-                <input
-                  name="zoom"
-                  type="range"
-                  min="0.01"
-                  max="2"
-                  step="0.01"
-                  value={imageProps.zoom}
-                  onChange={handleChange}
-                />
-              </div>
-              <br />
-              <div>
-                Border radius:
-                <input
-                  name="bRadius"
-                  type="range"
-                  min="1"
-                  max="50"
-                  step="1"
-                  value={imageProps.bRadius}
-                  onChange={handleChange}
-                />
-              </div>
-              <br />
-              <div>
-                Image height:
-                <input
-                  name="height"
-                  type="number"
-                  min="50"
-                  max="250"
-                  step="10"
-                  onWheel={(event) => {
-                    event.preventDefault();
-                  }}
-                  value={imageProps.height}
-                  onChange={handleChange}
-                />
-              </div>
-              <br />
-              <div>
-                Image width:
-                <input
-                  name="width"
-                  type="number"
-                  min="50"
-                  max="550"
-                  step="10"
-                  onWheel={(event) => {
-                    event.preventDefault();
-                  }}
-                  value={imageProps.width}
-                  onChange={handleChange}
-                />
-              </div>
-            </Grid>
-            <Grid item>
-              <Button onClick={handleUploadFile}>Upload the file to the server</Button>
-            </Grid>
-          </Grid>
-        </div>
-      )}
-      {progress > 0 && (
-        <Box sx={{ width: '100%' }}>
-          <Typography variant="h6">{`${progress}%`}</Typography>
-          <LinearProgress variant="determinate" value={progress} sx={{ height: '10' }} />
-        </Box>
-      )}
-    </div>
+      <Grid item xs={12}>
+        <MuiFileInput
+          label={title}
+          value={imageProps.file}
+          onChange={(selectedFile) => setImageProps((prev) => ({ ...prev, file: selectedFile }))}
+          placeholder="Insert a file"
+          inputProps={{ accept }}
+        />
+      </Grid>
+      <Grid item xs={12} mt={1}>
+        {imageProps.file?.type?.includes('image/') && (
+          <div>
+            <AvatarEditor
+              ref={imageRef}
+              width={imageProps.width}
+              height={imageProps.height}
+              scale={imageProps.zoom}
+              rotate={0}
+              borderRadius={imageProps.height / (100 / imageProps.bRadius)}
+              image={imageProps.file}
+              className="cover"
+            />
+            <div>
+              Zoom:
+              <input
+                name="zoom"
+                type="range"
+                min="0.01"
+                max="2"
+                step="0.01"
+                value={imageProps.zoom}
+                onChange={handleChange}
+              />
+            </div>
+            <br />
+            <div>
+              Border radius:
+              <input
+                name="bRadius"
+                type="range"
+                min="1"
+                max="50"
+                step="1"
+                value={imageProps.bRadius}
+                onChange={handleChange}
+              />
+            </div>
+            <br />
+            <div>
+              Image height:
+              <input
+                name="height"
+                type="number"
+                min="50"
+                max="250"
+                step="10"
+                onWheel={(event) => {
+                  event.preventDefault();
+                }}
+                value={imageProps.height}
+                onChange={handleChange}
+              />
+            </div>
+            <br />
+            <div>
+              Image width:
+              <input
+                name="width"
+                type="number"
+                min="50"
+                max="550"
+                step="10"
+                onWheel={(event) => {
+                  event.preventDefault();
+                }}
+                value={imageProps.width}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+        )}
+        {imageProps.file && (
+          <Button onClick={handleUploadFile}>Upload the file to the server</Button>
+        )}
+        {progress > 0 && (
+          <Box sx={{ width: '100%' }}>
+            <Typography variant="h6">{`${progress}%`}</Typography>
+            <LinearProgress variant="determinate" value={progress} sx={{ height: '10' }} />
+          </Box>
+        )}
+      </Grid>
+    </Grid>
   );
 };

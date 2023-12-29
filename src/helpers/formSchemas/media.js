@@ -36,7 +36,7 @@ export const mediaSchema = (albums = []) => [
     {
       label: 'Media file',
       fieldType: 'file-field',
-      type: 'audio',
+      type: 'song',
       accept: '.mp3, .m4a',
     },
   ],

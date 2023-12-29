@@ -34,7 +34,7 @@ export const RRVForm = ({ fields = [], states = null, setStates = () => {} }) =>
   const getFieldView = ({ fieldType, accept, ...vProps }, idx) => {
     switch (fieldType) {
       case 'file-field':
-        return <RRVFileUpload key={`fu-${idx}`} title={vProps.label} accept={accept} />;
+        return <RRVFileUpload key={`fu-${idx}`} type={vProps.type} title={vProps.label} accept={accept} />;
       case 'text-field':
       default:
         return <RRVInput key={`ft-${idx}`} onChange={handleChange(vProps)} {...vProps} />;

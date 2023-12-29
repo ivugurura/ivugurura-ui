@@ -51,8 +51,7 @@ export const RRVFileUpload = ({ title = '', type = 'image', accept = '.png, .jpg
       fileToUpload = dataUrlToFile(imageDataUrl, imageProps.file.name);
     }
     if (imageProps.file && fileToUpload) {
-      const convertedFile = dataUrlToFile(imageDataUrl, imageProps.file.name);
-      uploadFileWithProgress(convertedFile, imageProps.uploaded, type, (e) => {
+      uploadFileWithProgress(fileToUpload, imageProps.uploaded, type, (e) => {
         setProgress(Math.round((100 * e.loaded) / e.total));
       })
         .then((res) => {

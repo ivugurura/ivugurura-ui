@@ -27,7 +27,7 @@ export const AddEditMedia = ({
 }) => {
   const [media, setMedia] = React.useState(initialStates);
   const filePathName = useSelector((state) => state.filer.fileName);
-  const [createMedia, newMediaRes] = actions.useCreateAlbumMediaMutation();
+  const [createMedia, newMediaRes] = actions.useCreateAudioMutation();
   useEffect(() => {
     if (newMediaRes.success) {
       onClose();
@@ -35,7 +35,7 @@ export const AddEditMedia = ({
       newMediaRes.reset();
       refetchMedia();
     }
-  });
+  }, [newMediaRes.success]);
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Create a new media</DialogTitle>

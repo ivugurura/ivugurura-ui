@@ -21,7 +21,10 @@ export const MediaEditor = () => {
   const [currentAudio, setCurrentAudio] = useState({ index: -1, audio: null });
   const [editorState, setEditorState] = useState(initialEditorStates);
 
-  const { data, isFetching } = actions.useListAudiosQuery({ page: 1, pageSize: 3 });
+  const {
+    data,
+    isFetching, refetch: refetchMedia,
+  } = actions.useListAudiosQuery({ page: 1, pageSize: 3 });
   const { data: albumData, refetch } = actions.useGetAlbumsMediaQuery();
   const { data: audios } = data || initials.dataArr;
   const { data: albums } = albumData || initials.dataArr;
@@ -30,11 +33,12 @@ export const MediaEditor = () => {
       setCurrentAudio({ index: 0, audio: audios[0] });
     }
   }, [audios]);
-  const { audio } = currentAudio;
 
   const handleOpenEditor = (type) => {
     setEditorState((prev) => ({ ...prev, [type]: !prev[type] }));
   };
+
+  const { audio } = currentAudio;
   return (
     <DashboardContainer
       title="All media"
@@ -58,6 +62,7 @@ export const MediaEditor = () => {
         open={editorState.openMedia}
         onClose={() => handleOpenEditor('openMedia')}
         albums={albums}
+        refetchMedia={refetchMedia}
       />
       <Grid container spacing={1}>
         <Grid item xs={12} lg={8}>

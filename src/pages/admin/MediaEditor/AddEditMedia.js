@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import {
   Button,
@@ -9,9 +9,11 @@ import {
   DialogActions,
 } from '@mui/material';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 import { RRVForm } from '../../../common/components/RRVForm';
 import { mediaSchema } from '../../../helpers/formSchemas/media';
+import { actions } from '../../../redux/apiSliceBuilder';
 
 const initialStates = {
   title: '',
@@ -20,9 +22,20 @@ const initialStates = {
   author: '',
   actionDate: moment().format('YYYY-MM-DD'),
 };
-export const AddEditMedia = ({ open, onClose, albums }) => {
+export const AddEditMedia = ({
+  open, onClose, albums, refetchMedia,
+}) => {
   const [media, setMedia] = React.useState(initialStates);
-  console.log('AddEditMedia', media);
+  const filePathName = useSelector((state) => state.filer.fileName);
+  const [createMedia, newMediaRes] = actions.useCreateAlbumMediaMutation();
+  useEffect(() => {
+    if (newMediaRes.success) {
+      onClose();
+      setMedia(initialStates);
+      newMediaRes.reset();
+      refetchMedia();
+    }
+  });
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Create a new media</DialogTitle>
@@ -34,7 +47,7 @@ export const AddEditMedia = ({ open, onClose, albums }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={() => {}}>Save</Button>
+        <Button onClick={() => createMedia({ ...media, mediaLink: filePathName })}>Save</Button>
       </DialogActions>
     </Dialog>
   );

@@ -1,7 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useMemo } from 'react';
 
-import { ListItemIcon, MenuItem } from '@mui/material';
 import moment from 'moment';
 
 export const dashboardTopicsColumns = () => [
@@ -15,21 +14,3 @@ export const dashboardTopicsColumns = () => [
     size: 80,
   },
 ];
-
-export const renderRowActionMenuItems = (setAction, menus = []) => (params) => menus.map((menu) => {
-  const { title, icon: Icon, action } = menu;
-  const { entities, isPublished } = params.row.original;
-  return (
-    <MenuItem
-      key={action}
-      onClick={() => setAction(action, params)}
-      disabled={action === 'home' && !isPublished}
-      sx={{ m: 0 }}
-    >
-      <ListItemIcon>
-        <Icon />
-      </ListItemIcon>
-      {typeof title === 'string' ? title : title({ hasSet: entities?.length, isPublished })}
-    </MenuItem>
-  );
-});

@@ -9,7 +9,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { RRVTable } from '../../common/components/RRVTable';
+import { RRVTable, renderRowActionMenus } from '../../common/components/RRVTable';
 import { dashboardActions } from '../../helpers/topics';
 import { notifier, toLink } from '../../helpers/utils/constants';
 import { dataGenerator } from '../../helpers/utils/dataGenerater';
@@ -19,7 +19,7 @@ import { initials } from '../../redux/apiSliceBuilder';
 import { AlertConfirm } from './components/AlertConfirm';
 import { DashboardContainer } from './components/DashboardContainer';
 import { DashboardCount } from './components/DashboardCount';
-import { dashboardTopicsColumns, renderRowActionMenuItems } from './dashboardTopicsColumns';
+import { dashboardTopicsColumns } from './dashboardTopicsColumns';
 
 const toDataCounts = (counts = {}) => Object.keys(counts).map((key) => ({
   title: key,
@@ -38,8 +38,9 @@ const dashboardMenus = [
     action: 'publish',
   },
   {
-    title: ({ hasSet }) => `${hasSet ? 'Remove from' : 'Set to'} home`,
+    title: ({ entities }) => `${entities?.length ? 'Remove from' : 'Set to'} home`,
     icon: DeleteOutlineOutlined,
+    canDisable: ({ isPublished }) => !isPublished,
     action: 'home',
   },
 ];
@@ -147,7 +148,7 @@ export const HomeDashboard = () => {
           columns={dashboardTopicsColumns()}
           data={topics}
           enableRowActions
-          renderRowActionMenuItems={renderRowActionMenuItems(handleMenuAction, dashboardMenus)}
+          renderRowActionMenuItems={renderRowActionMenus(handleMenuAction, dashboardMenus)}
         />
       </Box>
     </DashboardContainer>

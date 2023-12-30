@@ -59,5 +59,11 @@ export const TopicState = {
         hasBody: true,
       },
     },
+    getComments: {
+      api: {
+        verb: VERBS.get,
+        endpoint: `/topics/comments/all?${getParams([])}`,
+      },
+    },
   },
 };

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import * as React from 'react';
 
 import {
@@ -6,20 +5,19 @@ import {
 } from '@mui/material';
 
 import { actions } from '../../../redux/actions';
-import { initials } from '../../../redux/apiSliceBuilder';
 
 export const AddEditTopic = ({ open, onClose, refetchAlbums }) => {
   const [createAlbum, newAlbumRes] = actions.useCreateAlbumMediaMutation();
   const [name, setName] = React.useState('');
 
   React.useEffect(() => {
-    if (newAlbumRes.success) {
+    if (newAlbumRes.isSuccess) {
       onClose();
       setName('');
       refetchAlbums();
       newAlbumRes.reset();
     }
-  }, [newAlbumRes.success]);
+  }, [newAlbumRes.isSuccess]);
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Create a new album</DialogTitle>

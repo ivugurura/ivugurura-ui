@@ -29,13 +29,13 @@ export const AddEditMedia = ({
   const filePathName = useSelector((state) => state.filer.fileName);
   const [createMedia, newMediaRes] = actions.useCreateAudioMutation();
   useEffect(() => {
-    if (newMediaRes.success) {
+    if (newMediaRes.isSuccess) {
       onClose();
       setMedia(initialStates);
       newMediaRes.reset();
       refetchMedia();
     }
-  }, [newMediaRes.success]);
+  }, [newMediaRes.isSuccess]);
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Create a new media</DialogTitle>

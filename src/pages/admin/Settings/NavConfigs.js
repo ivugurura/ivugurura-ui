@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ExpandLess, ExpandMore, Settings as SettingsIcon } from '@mui/icons-material';
 import {
-  Collapse, Card, CardHeader, CardContent,
+  Button, Collapse, Card, CardHeader, CardContent,
   List, ListItemButton, ListItemIcon, ListItemText,
 } from '@mui/material';
 
@@ -18,7 +18,7 @@ export const NavConfigs = () => {
   };
   return (
     <Card>
-      <CardHeader title={<h2>Setting</h2>} />
+      <CardHeader title="Setting" action={<Button>Add</Button>} />
       <CardContent sx={{ height: '100vh' }}>
         <List>
           {settingMenus.map((menu) => (

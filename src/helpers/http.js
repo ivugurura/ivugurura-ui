@@ -9,7 +9,11 @@ if (localStorage.user) {
 }
 
 export const VERBS = {
-  get: 'GET', post: 'POST', patch: 'PATCH', delete: 'DELETE',
+  get: 'GET',
+  post: 'POST',
+  patch: 'PATCH',
+  put: 'PUT',
+  delete: 'DELETE',
 };
 
 export const http = axios.create({

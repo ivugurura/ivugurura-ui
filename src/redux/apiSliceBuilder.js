@@ -18,9 +18,9 @@ const buildApiEndPoints = (build, state) => {
   const endpoints = {};
   Object.keys(actions).forEach((key) => {
     const current = actions[key];
-    let buildType = 'query';
-    if (current.api.verb === 'POST' || current.api.verb === 'PATCH') {
-      buildType = 'mutation';
+    let buildType = 'mutation';
+    if (current.api.verb === 'GET') {
+      buildType = 'query';
     }
     endpoints[current.action] = build[buildType]({
       query: formulateQuery(current.api),

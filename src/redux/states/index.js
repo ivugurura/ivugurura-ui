@@ -1,5 +1,6 @@
 import { AudioState } from './Audio';
 import { CategoryState } from './Category';
+import { ConfigState } from './Config';
 import { CountState } from './Count';
 import { MediaState } from './Media';
 import { TopicState } from './Topic';
@@ -12,4 +13,5 @@ export const appStates = [
   AudioState,
   CategoryState,
   MediaState,
+  ConfigState,
 ];

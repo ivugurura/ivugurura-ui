@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ExpandLess, ExpandMore, Settings as SettingsIcon } from '@mui/icons-material';
 import {
@@ -6,43 +6,48 @@ import {
   List, ListItemButton, ListItemIcon, ListItemText,
 } from '@mui/material';
 
-const settingMenus = [{
-  name: 'Imibereho myiza', subMenus: [{ name: 'Uburezi' }, { name: 'Umuryango' }],
-}, {
-  name: 'Ubuhanuzi', subMenus: [{ name: 'Ubuhanuzi bw\'iki gihe' }, { name: 'Ubuhanuzi bw\'ahashize' }],
-}];
+import { actions, initials } from '../../../redux/apiSliceBuilder';
+
+import { AddEditNav } from './AddEditNav';
+
 export const NavConfigs = () => {
+  const [open, setOpen] = useState(false);
+  const { data: navsData } = actions.useGetNavsConfigQuery();
+
   const [currentOpenMenu, setCurrentOpenMenu] = React.useState(null);
   const handleOpenMunu = (menu) => {
-    setCurrentOpenMenu((prev) => (prev?.name === menu.name ? null : menu));
+    setCurrentOpenMenu((prev) => (prev?.slug === menu.slug ? null : menu));
   };
+  const { data: navs } = navsData || initials.dataArr;
+  console.log(navs);
   return (
     <Card>
-      <CardHeader title="Setting" action={<Button>Add</Button>} />
+      <CardHeader title="Setting" action={<Button onClick={() => setOpen(true)}>Add</Button>} />
       <CardContent sx={{ height: '100vh' }}>
+        <AddEditNav open={open} onClose={() => setOpen(false)} />
         <List>
-          {settingMenus.map((menu) => (
-            <>
-              <ListItemButton onClick={() => handleOpenMunu(menu)}>
+          {navs.map((nav) => (
+            <div key={nav.slug}>
+              <ListItemButton onClick={() => handleOpenMunu(nav)}>
                 <ListItemIcon>
                   <SettingsIcon />
                 </ListItemIcon>
-                <ListItemText primary={<h2>{menu.name}</h2>} />
-                {currentOpenMenu?.name === menu.name ? <ExpandLess /> : <ExpandMore />}
+                <ListItemText primary={<h3>{nav.name}</h3>} />
+                {currentOpenMenu?.slug === nav.slug ? <ExpandLess /> : <ExpandMore />}
               </ListItemButton>
-              <Collapse in={currentOpenMenu?.name === menu.name} timeout="auto" unmountOnExit>
+              <Collapse in={currentOpenMenu?.slug === nav.slug} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  {menu.subMenus.map((sMenu) => (
-                    <ListItemButton sx={{ pl: 4 }}>
+                  {nav.categories.map((subCat) => (
+                    <ListItemButton sx={{ pl: 4 }} key={subCat.slug}>
                       <ListItemIcon>
                         <SettingsIcon />
                       </ListItemIcon>
-                      <ListItemText primary={<h3>{sMenu.name}</h3>} />
+                      <ListItemText primary={<h4>{subCat.name}</h4>} />
                     </ListItemButton>
                   ))}
                 </List>
               </Collapse>
-            </>
+            </div>
           ))}
         </List>
       </CardContent>

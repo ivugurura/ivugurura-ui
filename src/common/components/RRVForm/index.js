@@ -5,6 +5,7 @@ import { Grid } from '@mui/material';
 import { RRVFileUpload } from '../RRVFileUpload';
 
 import { RRVInput } from './RRVInput';
+import { RRVSwitch } from './RRVSwitch';
 
 export const RRVForm = ({ fields = [], states = null, setStates = () => {} }) => {
   const [localFields, setLocalFields] = React.useState(fields);
@@ -20,21 +21,24 @@ export const RRVForm = ({ fields = [], states = null, setStates = () => {} }) =>
       setLocalFields(newFields);
     }
   }, [states, fields]);
-  const handleChange = ({ name }) => (ev) => {
-    const { value } = ev.target;
+  const handleChange = ({ name, isBool }) => (ev) => {
+    const { value, checked } = ev.target;
+    const inputValue = isBool ? checked : value;
     const newFields = localFields.map((f) => f.map((r) => {
       if (r.name === name) {
-        return { ...r, value };
+        return { ...r, value: inputValue };
       }
       return r;
     }));
     setLocalFields(newFields);
-    setStates((prev) => ({ ...prev, [name]: value }));
+    setStates((prev) => ({ ...prev, [name]: inputValue }));
   };
   const getFieldView = ({ fieldType, accept, ...vProps }, idx) => {
     switch (fieldType) {
       case 'file-field':
         return <RRVFileUpload key={`fu-${idx}`} type={vProps.type} title={vProps.label} accept={accept} />;
+      case 'switch-field':
+        return <RRVSwitch key={`sf-${idx}`} onChange={handleChange(vProps)} {...vProps} />;
       case 'text-field':
       default:
         return <RRVInput key={`ft-${idx}`} onChange={handleChange(vProps)} {...vProps} />;

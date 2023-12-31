@@ -65,5 +65,12 @@ export const TopicState = {
         endpoint: `/topics/comments/all?${getParams([])}`,
       },
     },
+    publish: {
+      api: {
+        verb: VERBS.put,
+        endpoint: '/topics/publish/comments/:commentId',
+        hasBody: true,
+      },
+    },
   },
 };

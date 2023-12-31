@@ -3,7 +3,7 @@ import React from 'react';
 import { ExpandLess, ExpandMore, Settings as SettingsIcon } from '@mui/icons-material';
 import {
   Collapse,
-  Grid, List, ListItemButton, ListItemIcon, ListItemText, ListSubheader,
+  Grid, List, ListItemButton, ListItemIcon, ListItemText,
 } from '@mui/material';
 
 import { DashboardContainer } from './components/DashboardContainer';
@@ -22,13 +22,8 @@ export const Setting = () => {
   return (
     <DashboardContainer title="Setting menu">
       <Grid container spacing={1}>
-        <Grid item xs={12} lg={10}>
-          <List subheader={(
-            <ListSubheader component="div">
-              Nested List Items
-            </ListSubheader>
-            )}
-          >
+        <Grid item xs={12} lg={9}>
+          <List>
             {settingMenus.map((menu) => (
               <>
                 <ListItemButton onClick={() => handleOpenMunu(menu)}>
@@ -54,7 +49,7 @@ export const Setting = () => {
             ))}
           </List>
         </Grid>
-        <Grid item xs={12} lg={2}>
+        <Grid item xs={12} lg={3}>
           <h1>23</h1>
           {' — Commentaries'}
         </Grid>

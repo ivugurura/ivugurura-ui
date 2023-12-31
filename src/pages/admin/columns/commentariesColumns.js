@@ -4,7 +4,6 @@ import React, { useMemo } from 'react';
 import { Button, Tooltip, Typography } from '@mui/material';
 
 export const commentariesColumns = (setAction) => [
-  { accessorKey: 'commentor', header: 'Commentor Info', size: 1 },
   {
     id: 'commentor',
     header: 'Commentor Info',
@@ -12,30 +11,42 @@ export const commentariesColumns = (setAction) => [
       <Tooltip
         title={(
           <>
-            <Typography color="inherit">Tooltip with HTML</Typography>
-            <em>And here is</em>
-            {' '}
-            <b>some</b>
-            {' '}
-            <u>amazing content</u>
+            <Typography color="inherit">{row.original.names}</Typography>
+            <b>E-mail:</b>
+            <u>{row.original.email}</u>
             .
-            {' '}
-            It is very engaging. Right?
+            <br />
+            <b>Website:</b>
+            <u>{row.original.website}</u>
           </>
         )}
       >
-        <Button>HTML</Button>
+        <>
+          <Typography color="inherit">{row.original.names}</Typography>
+          {row.original.email}
+        </>
       </Tooltip>
     ),
     size: 80,
   },
   { accessorKey: 'content', header: 'Content' },
-  { accessorKey: 'topicTitle', header: 'Topic Title' },
+  {
+    id: 'title',
+    header: 'Topic Title',
+    Cell: ({ row }) => row.original.topic?.title,
+    size: 80,
+  },
   {
     id: 'isPublished',
     header: 'Published',
-    Cell: ({ row }) => <Button onClick={() => setAction(row.original)}>Publish</Button>,
+    Cell: ({ row: { original } }) => (
+      <Button
+        onClick={() => setAction(original)}
+        color={original.isPublished ? 'primary' : 'secondary'}
+      >
+        {original.isPublished ? 'Unpublish' : 'Publish'}
+      </Button>
+    ),
     size: 80,
   },
-  { accessorKey: 'actions', header: 'Actions' },
 ];

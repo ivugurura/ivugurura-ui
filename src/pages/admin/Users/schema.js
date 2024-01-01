@@ -2,12 +2,10 @@
 import React, { useMemo } from 'react';
 
 export const userColumns = () => [
-  { accessorKey: 'no', header: 'No' },
-  { accessorKey: 'names', header: 'Commentor Info', size: 1 },
-  { accessorKey: 'username', header: 'Content' },
+  { accessorKey: 'names', header: 'Names(First/Last name)', size: 1 },
+  { accessorKey: 'username', header: 'User name' },
   { accessorKey: 'email', header: 'Email' },
-  { accessorKey: 'topicTitle', header: 'Topic Title' },
-  { accessorKey: 'role', header: 'Is published' },
-  { accessorKey: 'createdAt', header: 'Is published' },
+  { accessorKey: 'role', header: 'User role' },
+  { accessorKey: 'createdAt', header: 'Registed' },
   { accessorKey: 'actions', header: 'Actions' },
 ];

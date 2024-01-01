@@ -23,11 +23,12 @@ export const MediaEditor = () => {
 
   const {
     data,
-    isFetching, refetch: refetchMedia,
-  } = actions.useListAudiosQuery({ page: 1, pageSize: 3 });
+    isFetching,
+    refetch: refetchMedia,
+  } = actions.useListAudiosQuery({ page: 1, pageSize: 10 });
   const { data: albumData, refetch } = actions.useGetAlbumsMediaQuery();
-  const { data: audios } = data || initials.dataArr;
-  const { data: albums } = albumData || initials.dataArr;
+  const { data: audios, totalItems } = data || initials.dataArr;
+
   useEffect(() => {
     if (audios?.length > 0) {
       setCurrentAudio({ index: 0, audio: audios[0] });
@@ -38,6 +39,7 @@ export const MediaEditor = () => {
     setEditorState((prev) => ({ ...prev, [type]: !prev[type] }));
   };
 
+  const { data: albums } = albumData || initials.dataArr;
   const { audio } = currentAudio;
   return (
     <DashboardContainer
@@ -66,7 +68,12 @@ export const MediaEditor = () => {
       />
       <Grid container spacing={1}>
         <Grid item xs={12} lg={8}>
-          <RRVTable columns={audioColumns()} data={audios} isLoading={isFetching} />
+          <RRVTable
+            columns={audioColumns()}
+            data={audios}
+            isLoading={isFetching}
+            pageCount={totalItems}
+          />
         </Grid>
         <Grid item xs={12} lg={4}>
           {audio && (

@@ -9,17 +9,17 @@ import {
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { RRVTable, renderRowActionMenus } from '../../common/components/RRVTable';
-import { dashboardActions } from '../../helpers/topics';
-import { notifier, toLink } from '../../helpers/utils/constants';
-import { dataGenerator } from '../../helpers/utils/dataGenerater';
-import { actions } from '../../redux/actions';
-import { initials } from '../../redux/apiSliceBuilder';
+import { RRVTable, renderRowActionMenus } from '../../../common/components/RRVTable';
+import { dashboardActions } from '../../../helpers/topics';
+import { notifier, toLink } from '../../../helpers/utils/constants';
+import { dataGenerator } from '../../../helpers/utils/dataGenerater';
+import { actions } from '../../../redux/actions';
+import { initials } from '../../../redux/apiSliceBuilder';
+import { AlertConfirm } from '../components/AlertConfirm';
+import { DashboardContainer } from '../components/DashboardContainer';
 
-import { AlertConfirm } from './components/AlertConfirm';
-import { DashboardContainer } from './components/DashboardContainer';
-import { DashboardCount } from './components/DashboardCount';
-import { dashboardTopicsColumns } from './dashboardTopicsColumns';
+import { DashboardCount } from './DashboardCount';
+import { dashboardTopicsColumns } from './schema';
 
 const toDataCounts = (counts = {}) => Object.keys(counts).map((key) => ({
   title: key,

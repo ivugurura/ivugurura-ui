@@ -1,4 +1,4 @@
-export * from './HomeDashboard';
+export * from './Home';
 export * from './TopicEditor';
 export * from './MediaEditor';
 export * from './TopicEditor2';

@@ -4,6 +4,7 @@ import { TextField, MenuItem } from '@mui/material';
 
 export const RRVInput = (props) => {
   const {
+    id,
     type = 'text',
     select = false,
     options = [],
@@ -20,6 +21,7 @@ export const RRVInput = (props) => {
       select={select}
       size={size}
       value={value || ''}
+      id={id || inputProps.name}
       {...inputProps}
     >
       {select && (

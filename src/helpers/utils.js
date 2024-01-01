@@ -125,3 +125,11 @@ export const formulateQuery = (stateApi = {}) => (args = {}) => {
 
   return query;
 };
+
+export const toNewObj = (current = {}, old = {}) => {
+  const newObj = { ...current };
+  Object.keys(current).forEach((c) => {
+    newObj[c] = old[c];
+  });
+  return newObj;
+};

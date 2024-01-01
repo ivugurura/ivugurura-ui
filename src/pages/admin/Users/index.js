@@ -2,10 +2,10 @@ import React from 'react';
 
 import { Grid } from '@mui/material';
 
-import { RRVTable } from '../../common/components/RRVTable/Table';
+import { RRVTable } from '../../../common/components/RRVTable';
+import { DashboardContainer } from '../components/DashboardContainer';
 
-import { userColumns } from './columns/userColumns';
-import { DashboardContainer } from './components/DashboardContainer';
+import { userColumns } from './schema';
 
 const users = [{
   no: 1, names: 'A Jean', username: 'akimana', email: 'a@test.com', topicTitle: 'Some topic title', role: 'Editor', createdAt: 'September 25th 2023', isActive: 'No',

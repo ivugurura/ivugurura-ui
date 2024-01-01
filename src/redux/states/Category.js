@@ -11,5 +11,12 @@ export const CategoryState = {
         endpoint: `/categories?${getParams(['categoryType'], false)}`,
       },
     },
+    create: {
+      api: {
+        verb: VERBS.post,
+        endpoint: '/categories',
+        hasBody: true,
+      },
+    },
   },
 };

@@ -12,18 +12,23 @@ import { AddEditNav } from './AddEditNav';
 
 export const NavConfigs = () => {
   const [open, setOpen] = useState(false);
-  const { data: navsData } = actions.useGetNavsConfigQuery();
+  const { data, refetch } = actions.useGetNavsConfigQuery();
 
   const [currentOpenMenu, setCurrentOpenMenu] = React.useState(null);
   const handleOpenMunu = (menu) => {
     setCurrentOpenMenu((prev) => (prev?.slug === menu.slug ? null : menu));
   };
-  const { data: navs } = navsData || initials.dataArr;
+  const { data: navs } = data || initials.dataArr;
   return (
     <Card>
       <CardHeader title="Setting" action={<Button onClick={() => setOpen(true)}>Add</Button>} />
       <CardContent sx={{ height: '100vh' }}>
-        <AddEditNav open={open} onClose={() => setOpen(false)} navs={navs} />
+        <AddEditNav
+          open={open}
+          onClose={() => setOpen(false)}
+          navs={navs}
+          refetchNavs={refetch}
+        />
         <List>
           {navs.map((nav) => (
             <div key={nav.slug}>

@@ -9,8 +9,8 @@ export const RRVInput = (props) => {
     options = [],
     value = '',
     size = 'small',
-    labelSelector = 'label',
-    valueSelector = 'value',
+    valueSelector = 'id',
+    labelSelector = 'name',
     ...inputProps
   } = props;
   return (

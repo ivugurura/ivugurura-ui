@@ -10,15 +10,13 @@ export const mediaSchema = (albums = []) => [
       label: 'Media type',
       name: 'type',
       select: true,
-      options: [{ value: 'audio', label: 'Audio' }],
+      options: [{ id: 'audio', name: 'Audio' }],
     },
     {
       label: 'Media album',
       name: 'albumId',
       select: true,
       options: albums,
-      valueSelector: 'id',
-      labelSelector: 'name',
     },
   ],
   [

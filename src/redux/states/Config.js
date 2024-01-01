@@ -9,5 +9,18 @@ export const ConfigState = {
         endpoint: '/categories/navs',
       },
     },
+    getPubs: {
+      api: {
+        verb: VERBS.get,
+        endpoint: '/announcements',
+      },
+    },
+    publish: {
+      api: {
+        verb: VERBS.post,
+        endpoint: 'announcements/:pubId/publish',
+        hasBody: true,
+      },
+    },
   },
 };

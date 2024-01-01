@@ -18,7 +18,8 @@ export const AddEditUser = ({
   action = 'add',
 }) => {
   const [user, setUser] = useState(userInitials);
-  const [createUser, userRes] = actions.useCreateUserSystemMutation();
+  const [createUser, res] = actions.useCreateUserSystemMutation();
+  const [updateUser, editRes] = actions.useUpdateUserSystemMutation();
 
   useEffect(() => {
     if (current && action === 'edit') {
@@ -29,17 +30,24 @@ export const AddEditUser = ({
     }
   }, [current, action]);
   useEffect(() => {
-    if (userRes.isSuccess) {
+    if (res.isSuccess || editRes.isSuccess) {
       setUser(userInitials);
-      userRes.reset();
+      res.reset();
       refetchUsers();
       onClose();
     }
-  }, [userRes.isSuccess]);
-  const lebels = action === 'edit' ? userEditLebels : undefined;
+  }, [res.isSuccess, editRes.isSuccess]);
+
+  const handleSave = () => {
+    const saveUser = action === 'edit' ? updateUser : createUser;
+    saveUser({ ...user, userId: current?.id });
+  };
+  const isEdit = action === 'edit';
+  const lebels = isEdit ? userEditLebels : undefined;
+  const isLoading = res.isLoading || editRes.isLoading;
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>{action === 'add' ? 'Create a new album' : `Edit user "${current?.names}"`}</DialogTitle>
+      <DialogTitle>{isEdit ? `Edit user "${current?.names}"` : 'Create a new album'}</DialogTitle>
       <DialogContent>
         <DialogContentText>
           System Users: An user who can create or modifiy contents on the website.
@@ -48,12 +56,12 @@ export const AddEditUser = ({
         <RRVForm fields={userSchema(lebels)} states={user} setStates={setUser} />
       </DialogContent>
       <DialogActions>
-        <Button disabled={userRes.isLoading} onClick={onClose}>Cancel</Button>
+        <Button disabled={isLoading} onClick={onClose}>Cancel</Button>
         <Button
-          disabled={userRes.isLoading}
-          onClick={() => createUser(user)}
+          disabled={isLoading}
+          onClick={handleSave}
         >
-          {userRes.isLoading ? 'Saving,...' : 'Save'}
+          {isLoading ? 'Saving,...' : 'Save'}
         </Button>
       </DialogActions>
     </Dialog>

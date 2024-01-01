@@ -18,6 +18,13 @@ export const SystemState = {
         hasBody: true,
       },
     },
+    updateUser: {
+      api: {
+        verb: VERBS.patch,
+        endpoint: '/users/:userId',
+        hasBody: true,
+      },
+    },
     listUsers: {
       api: {
         verb: VERBS.get,

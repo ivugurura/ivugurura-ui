@@ -12,8 +12,9 @@ import moment from 'moment';
 import { useSelector } from 'react-redux';
 
 import { RRVForm } from '../../../common/components/RRVForm';
-import { mediaSchema } from '../../../helpers/formSchemas/media';
 import { actions } from '../../../redux/apiSliceBuilder';
+
+import { mediaSchema } from './schema';
 
 const initialStates = {
   title: '',

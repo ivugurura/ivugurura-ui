@@ -10,11 +10,11 @@ import AudioPlayer from 'react-h5-audio-player';
 import { RRVTable } from '../../../common/components/RRVTable/Table';
 import { toAssetPath } from '../../../helpers/utils/constants';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
-import { audioColumns } from '../columns/audioColumns';
 import { DashboardContainer } from '../components/DashboardContainer';
 
 import { AddEditTopic } from './AddEditAlbum';
 import { AddEditMedia } from './AddEditMedia';
+import { audioColumns } from './schema';
 
 const initialEditorStates = { openAlbum: false, openMedia: false };
 export const MediaEditor = () => {

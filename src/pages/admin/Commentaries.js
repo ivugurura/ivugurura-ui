@@ -4,7 +4,7 @@ import { Grid } from '@mui/material';
 
 import { RRVTable } from '../../common/components/RRVTable/Table';
 
-import { commentariesColumns } from './columns/commentariesColumns';
+import { commentariesColumns } from './Commentary/schema';
 import { DashboardContainer } from './components/DashboardContainer';
 
 const comments = [{

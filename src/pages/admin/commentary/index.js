@@ -5,9 +5,10 @@ import { Grid } from '@mui/material';
 import { RRVTable } from '../../../common/components/RRVTable';
 import { actions } from '../../../redux/actions';
 import { initials } from '../../../redux/apiSliceBuilder';
-import { commentariesColumns } from '../columns/commentariesColumns';
 import { AlertConfirm } from '../components/AlertConfirm';
 import { DashboardContainer } from '../components/DashboardContainer';
+
+import { commentariesColumns } from './schema';
 
 const alertInitial = {
   current: null, message: '', open: false,

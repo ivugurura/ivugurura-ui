@@ -62,11 +62,14 @@ export const RRVForm = ({ fields = [], states = null, setStates = () => {} }) =>
 
   return (
     <Grid container spacing={2}>
-      {localFields.map((rows, fIdx) => rows.map((row, rIdx) => (
-        <Grid item key={`field-grid-${fIdx}-${rIdx}`} {...getSizes(rows.length)}>
-          {getFieldView(row, rIdx)}
-        </Grid>
-      )))}
+      {localFields.map((rows, fIdx) => rows.map(({ hide, ...ro }, rIdx) => {
+        if (hide) return null;
+        return (
+          <Grid item key={`field-grid-${fIdx}-${rIdx}`} {...getSizes(rows.length)}>
+            {getFieldView(ro, rIdx)}
+          </Grid>
+        );
+      }))}
     </Grid>
   );
 };

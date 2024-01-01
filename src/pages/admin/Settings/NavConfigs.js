@@ -19,12 +19,11 @@ export const NavConfigs = () => {
     setCurrentOpenMenu((prev) => (prev?.slug === menu.slug ? null : menu));
   };
   const { data: navs } = navsData || initials.dataArr;
-  console.log(navs);
   return (
     <Card>
       <CardHeader title="Setting" action={<Button onClick={() => setOpen(true)}>Add</Button>} />
       <CardContent sx={{ height: '100vh' }}>
-        <AddEditNav open={open} onClose={() => setOpen(false)} />
+        <AddEditNav open={open} onClose={() => setOpen(false)} navs={navs} />
         <List>
           {navs.map((nav) => (
             <div key={nav.slug}>

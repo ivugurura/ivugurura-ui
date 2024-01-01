@@ -1,10 +1,9 @@
 import { VERBS } from '../../helpers/http';
 
-export const CountState = {
-  entity: 'Count',
+export const SystemState = {
+  entity: 'System',
   actions: {
-    getDashboard: {
-      suffix: 's',
+    getCounts: {
       api: {
         verb: VERBS.get,
         endpoint: '/users/dashboard',

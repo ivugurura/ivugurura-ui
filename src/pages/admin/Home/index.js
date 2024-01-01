@@ -52,7 +52,7 @@ export const HomeDashboard = () => {
   const [alertData, setAlertData] = useState(alertInitial);
   const {
     data, isFetching, isSuccess, ...restCountsQ
-  } = actions.useGetDashboardCountsQuery();
+  } = actions.useGetCountsSystemQuery();
   const { data: overviewData, ...restTopicQ } = actions.useGetOverviewTopicQuery({ truncate: 200 });
   const [updateTopic, updateRes] = actions.useUpdateTopicMutation();
   const [setOrRemoveTopicDisplay, displayRes] = actions.useSetHomeTopicMutation();

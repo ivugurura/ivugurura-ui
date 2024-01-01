@@ -6,10 +6,16 @@ export const RRVSwitch = (props) => {
   const {
     value, label, name, onChange,
   } = props;
-  console.log('======>rs', { value });
   return (
     <FormControlLabel
-      control={<Switch checked={value === 'on'} onChange={onChange} name={name} />}
+      control={(
+        <Switch
+          checked={value ?? false}
+          onChange={onChange}
+          name={name}
+          inputProps={{ 'aria-label': 'controlled' }}
+        />
+        )}
       label={label}
     />
   );

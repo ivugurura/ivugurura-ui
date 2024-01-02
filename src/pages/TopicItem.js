@@ -33,7 +33,7 @@ const TopicItem = ({
           </IconButton>
         )}
         title={truncate(topic.title, 34)}
-        subheader={`Cyateguwe kuwa ${moment(topic.updatedAt).format('DD.MM.YYYY')}`}
+        subheader={`Lastly updated ${moment(topic.updatedAt).format('DD.MM.YYYY')}`}
       />
       <CardMedia
         component="img"

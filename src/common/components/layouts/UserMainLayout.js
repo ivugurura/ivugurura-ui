@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom';
 
 import { useStyles } from '../../styles';
 // import { Footer } from '../Footer';
+import { MainFooter } from '../Footer';
 import { NavBar } from '../navbar';
 
 export const UserMainLayout = () => {
@@ -16,7 +17,7 @@ export const UserMainLayout = () => {
         <Outlet />
       </main>
       <div style={{ marginTop: 10 }} />
-      {/* <Footer /> */}
+      <MainFooter />
     </Box>
   );
 };

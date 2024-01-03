@@ -11,49 +11,47 @@ import { actions, initials } from '../../../redux/apiSliceBuilder';
 
 import { CarsoulLoader } from './HomeLoaders';
 
+const DEFAULT = {
+  image: 'https://reformationvoice.org/topic-cour-img.png',
+  title: 'Revival and reformation',
+  subtitle: '',
+};
+const CarsouselItem = ({ topic = null }) => (
+  <ImageListItem>
+    <CardMedia
+      component="img"
+      height="250"
+      image={topic ? toAssetPath(topic?.coverImage) : DEFAULT.image}
+      alt={topic.title || DEFAULT.title}
+    />
+    <ImageListItemBar
+      title={topic?.title || DEFAULT.title}
+      subtitle={topic?.content || DEFAULT.subtitle}
+      actionIcon={(
+        <IconButton
+          sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
+          aria-label={topic?.title || DEFAULT.title}
+        >
+          <InfoIcon />
+        </IconButton>
+      )}
+    />
+  </ImageListItem>
+);
 export const HomeCarousel = () => {
   const { data, isFetching } = actions.useGetCsTopicsQuery({ truncate: 56 });
   const { data: topics } = data || initials.dataArr;
-  const imgProps = { component: 'img', height: '250' };
   return (
     <>
       {isFetching ? <CarsoulLoader /> : topics?.length > 0 && (
       <RMCarousel indicators={false}>
         {topics.map((topic) => (
-          <ImageListItem key={topic.title}>
-            <CardMedia image={toAssetPath(topic.coverImage)} alt={topic.title} {...imgProps} />
-            <ImageListItemBar
-              title={topic.title}
-              subtitle={topic.content}
-              actionIcon={(
-                <IconButton
-                  sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                  aria-label="info about item.title"
-                >
-                  <InfoIcon />
-                </IconButton>
-              )}
-            />
-          </ImageListItem>
+          <CarsouselItem key={topic.title} topic={topic} />
         ))}
       </RMCarousel>
       )}
       {!isFetching && topics?.length === 0 && (
-      <ImageListItem>
-        <CardMedia image="https://reformationvoice.org/topic-cour-img.png" alt="Revival and reformation" {...imgProps} />
-        <ImageListItemBar
-          title=""
-          subtitle=""
-          actionIcon={(
-            <IconButton
-              sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-              aria-label="info about item.title"
-            >
-              <InfoIcon />
-            </IconButton>
-              )}
-        />
-      </ImageListItem>
+        <CarsouselItem />
       )}
     </>
   );

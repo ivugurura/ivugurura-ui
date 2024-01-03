@@ -13,7 +13,9 @@ export const HomeRecentTopics = () => {
   return (
     <Grid container spacing={1}>
       {topics?.length > 0 && topics.map((topic) => (
-        <Grid key={topic.title} item xs={12} sm={12} md={3}><TopicItem topic={topic} /></Grid>
+        <Grid key={topic.title} item xs={12} sm={12} md={3}>
+          <TopicItem topic={topic} hasMore />
+        </Grid>
       ))}
     </Grid>
   );

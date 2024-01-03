@@ -1,10 +1,12 @@
 import React from 'react';
 
 import { Info as InfoIcon } from '@mui/icons-material';
-import { IconButton, ImageListItem, ImageListItemBar } from '@mui/material';
+import {
+  CardMedia, IconButton, ImageListItem, ImageListItemBar,
+} from '@mui/material';
 import RMCarousel from 'react-material-ui-carousel';
 
-import { IMAGE_PATH } from '../../../helpers/utils/constants';
+import { toAssetPath } from '../../../helpers/utils/constants';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
 
 import { CarsoulLoader } from './HomeLoaders';
@@ -18,11 +20,11 @@ export const HomeCarousel = () => {
       <RMCarousel indicators={false}>
         {topics.map((topic) => (
           <ImageListItem key={topic.title}>
-            <img
-              src={`${IMAGE_PATH}/${topic.coverImage}?w=248&fit=crop&auto=format`}
-              srcSet={`${IMAGE_PATH}/${topic.coverImage}?w=248&fit=crop&auto=format&dpr=2 2x`}
-              alt="item.title"
-              loading="lazy"
+            <CardMedia
+              component="img"
+              height="250"
+              image={toAssetPath(topic.coverImage)}
+              alt={topic.title}
             />
             <ImageListItemBar
               title={topic.title}

@@ -2,8 +2,6 @@ import React from 'react';
 
 import {
   Card,
-  CardContent,
-  // CardHeader,
   Grid,
   Typography,
 } from '@mui/material';
@@ -17,6 +15,7 @@ import { Page } from '../../common/components/wrappers';
 import {
   HomeCarousel, HomeRecentTopics, HomeYoutube, RadioHome,
 } from './components';
+import { HomeContentLayout } from './components/HomeContentLayout';
 
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -56,25 +55,19 @@ export const Home = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Card color="red">
-        {/* <CardHeader title="Recent topics" subheader="Recents" /> */}
-        <CardContent>
-          <HomeRecentTopics />
-        </CardContent>
-      </Card>
-      <Card color="red">
-        {/* <CardHeader title="Audio and video" subheader="Recents" /> */}
-        <CardContent>
-          <Grid container spacing={1}>
-            <Grid item xs={12} sm={12} md={5}>
-              <RRVAudioPlayer />
-            </Grid>
-            <Grid item xs={12} sm={12} md={7}>
-              <HomeYoutube heightRatio={0.534} widthRatio={0.57} normalHeight={420} randomize />
-            </Grid>
+      <HomeContentLayout>
+        <HomeRecentTopics />
+      </HomeContentLayout>
+      <HomeContentLayout>
+        <Grid container spacing={1}>
+          <Grid item xs={12} sm={12} md={5}>
+            <RRVAudioPlayer />
           </Grid>
-        </CardContent>
-      </Card>
+          <Grid item xs={12} sm={12} md={7}>
+            <HomeYoutube heightRatio={0.534} widthRatio={0.57} normalHeight={420} randomize />
+          </Grid>
+        </Grid>
+      </HomeContentLayout>
     </Page>
   );
 };

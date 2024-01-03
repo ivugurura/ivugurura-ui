@@ -14,18 +14,14 @@ import { CarsoulLoader } from './HomeLoaders';
 export const HomeCarousel = () => {
   const { data, isFetching } = actions.useGetCsTopicsQuery({ truncate: 56 });
   const { data: topics } = data || initials.dataArr;
+  const imgProps = { component: 'img', height: '250' };
   return (
     <>
       {isFetching ? <CarsoulLoader /> : topics?.length > 0 && (
       <RMCarousel indicators={false}>
         {topics.map((topic) => (
           <ImageListItem key={topic.title}>
-            <CardMedia
-              component="img"
-              height="250"
-              image={toAssetPath(topic.coverImage)}
-              alt={topic.title}
-            />
+            <CardMedia image={toAssetPath(topic.coverImage)} alt={topic.title} {...imgProps} />
             <ImageListItemBar
               title={topic.title}
               subtitle={topic.content}
@@ -44,12 +40,7 @@ export const HomeCarousel = () => {
       )}
       {!isFetching && topics?.length === 0 && (
       <ImageListItem>
-        <img
-          src="https://reformationvoice.org/topic-cour-img.png?w=248&fit=crop&auto=format"
-          srcSet="https://reformationvoice.org/topic-cour-img.png?w=248&fit=crop&auto=format&dpr=2 2x"
-          alt="item.title"
-          loading="lazy"
-        />
+        <CardMedia image="https://reformationvoice.org/topic-cour-img.png" alt="Revival and reformation" {...imgProps} />
         <ImageListItemBar
           title=""
           subtitle=""

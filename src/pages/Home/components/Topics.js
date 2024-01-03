@@ -2,12 +2,13 @@ import React from 'react';
 
 import { Grid } from '@mui/material';
 
-import { actions } from '../../../redux/apiSliceBuilder';
+import { actions, initials } from '../../../redux/apiSliceBuilder';
 import TopicItem from '../../TopicItem';
 
 export const HomeRecentTopics = () => {
-  const { data: topics, isFetching } = actions.useGetRecentTopicsQuery({ truncate: 148 });
+  const { data, isFetching } = actions.useGetRecentTopicsQuery({ truncate: 148 });
 
+  const { data: topics } = data || initials.dataArr;
   console.log({ topics, isFetching });
   return (
     <Grid container spacing={1}>

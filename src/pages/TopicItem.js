@@ -14,8 +14,11 @@ import {
   toAssetPath, toLink, truncate,
 } from '../helpers/utils/constants';
 
+import { Comments } from './TopicDetails/Comments';
+
 const TopicItem = ({
   className = '', topic, imageHeight = '194', hasMore = false,
+  showComments = false,
 }) => {
   console.log('Topic');
 
@@ -46,6 +49,7 @@ const TopicItem = ({
           {parse(topic.content || 'No content available')}
           {hasMore && <Button size="small" component={Link} to={toLink(`topics/${topic.slug}`)}>More</Button>}
         </Typography>
+        {showComments && <Comments />}
       </CardContent>
     </Card>
   );

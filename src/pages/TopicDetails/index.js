@@ -54,7 +54,7 @@ export const TopicDetailPage = () => {
             <RRVBreadcrumbs crumbs={topicNavs} />
           </Grid>
           <Grid item md={12}>
-            {isFetching ? <TopicDetailSkeleton /> : topic && <TopicItem topic={topic} imageHeight="380" />}
+            {isFetching ? <TopicDetailSkeleton /> : topic && <TopicItem topic={topic} imageHeight="380" showComments />}
           </Grid>
         </Grid>
       </Grid>

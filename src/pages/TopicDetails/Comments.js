@@ -5,11 +5,14 @@ import {
 } from '@mui/material';
 
 import { RRVForm } from '../../common/components/RRVForm';
+import { actions, initials } from '../../redux/apiSliceBuilder';
 
 import { commentSchema } from './schema';
 
 export const Comments = () => {
-  console.log('Comments');
+  const { data, isFetching } = actions.useGetCommentsTopicQuery();
+  const { data: comments, totalItems } = data || initials.dataArr;
+  console.log('Comments', { isFetching, comments, totalItems });
   return (
     <Grid item xs={12}>
       <hr />

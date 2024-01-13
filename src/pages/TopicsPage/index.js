@@ -32,6 +32,26 @@ const initialTopicHomeNavs = [{
   primaryIcon: HomeIcon,
   breadcumbMenu: null,
 }];
+const CategoryItem = ({ category, selectedId, onClick }) => (
+  <Grid item xs={12} md={12}>
+    <Card sx={{ background: category.id === selectedId ? 'silver' : 'transparent', cursor: 'pointer' }} onClick={() => onClick(category)}>
+      <CardHeader
+        avatar={(
+          <Avatar sx={{ bgcolor: red[500] }} aria-label={`Image for ${category.name}`}>
+            R
+          </Avatar>
+        )}
+        action={(
+          <IconButton aria-label={category.name}>
+            <MoreVertIcon />
+          </IconButton>
+        )}
+        title={category.name}
+        subheader="September 14, 2016"
+      />
+    </Card>
+  </Grid>
+);
 export const TopicsPage = () => {
   const [topicsNavs, setTopicsNavs] = React.useState(initialTopicHomeNavs);
   const [selectedCategoryId, setSelectedCategoryId] = React.useState(null);
@@ -92,7 +112,7 @@ export const TopicsPage = () => {
     }
   }, [topics.length, selectedCategoryId]);
   const handleCategoryClick = (category) => {
-    setSelectedCategoryId(category.id);
+    setSelectedCategoryId(category?.id || null);
     resetRowsPerPage();
   };
   const breadcrumbMenu = topicsNavs[(topicsNavs?.length ?? 0) - 1]?.breadcumbMenu;
@@ -106,7 +126,7 @@ export const TopicsPage = () => {
             <RRVMenu
               handleClose={handleMenuClose}
               menuId={breadcrumbMenu?.id}
-              menus={[{ id: '', name: 'All' }].concat(categories.map((c) => ({ ...c, onClick: () => handleCategoryClick(c) })))}
+              menus={[{ id: '', name: 'All' }].concat(categories).map((c) => ({ ...c, onClick: () => handleCategoryClick(c) }))}
               anchorEl={breadcrumbMenu?.anchorEl}
               open={Boolean(breadcrumbMenu?.anchorEl)}
               lebelledBy={breadcrumbMenu?.lebelledBy}
@@ -133,25 +153,18 @@ export const TopicsPage = () => {
       </Grid>
       <Grid item md={3}>
         <Grid container spacing={1}>
-          {categories?.map(({ id, name }) => (
-            <Grid item key={id} xs={12} md={12}>
-              <Card>
-                <CardHeader
-                  avatar={(
-                    <Avatar sx={{ bgcolor: red[500] }} aria-label={`Image for ${name}`}>
-                      R
-                    </Avatar>
-                  )}
-                  action={(
-                    <IconButton aria-label={name}>
-                      <MoreVertIcon />
-                    </IconButton>
-                  )}
-                  title={name}
-                  subheader="September 14, 2016"
-                />
-              </Card>
-            </Grid>
+          <CategoryItem
+            category={{ id: null, name: 'All' }}
+            selectedId={selectedCategoryId}
+            onClick={handleCategoryClick}
+          />
+          {categories?.map((cat) => (
+            <CategoryItem
+              key={cat.id}
+              category={cat}
+              selectedId={selectedCategoryId}
+              onClick={handleCategoryClick}
+            />
           ))}
         </Grid>
       </Grid>

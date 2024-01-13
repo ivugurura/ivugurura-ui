@@ -14,6 +14,7 @@ export const usePagination = (page = 1, pageSize = 10) => {
   const resetRowsPerPage = () => {
     setPagination((prev) => ({ ...prev, page: 1 }));
   };
+
   return {
     pagination, handleChangePage, handleChangeRowsPerPage, resetRowsPerPage,
   };

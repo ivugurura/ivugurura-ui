@@ -25,6 +25,12 @@ export const TopicState = {
         endpoint: '/topics/:slug',
       },
     },
+    viewComments: {
+      api: {
+        verb: VERBS.get,
+        endpoint: '/topics/:slug/comments',
+      },
+    },
     list: {
       suffix: 's',
       api: {
@@ -69,6 +75,13 @@ export const TopicState = {
       api: {
         verb: VERBS.put,
         endpoint: '/topics/publish/comments/:commentId',
+        hasBody: true,
+      },
+    },
+    addComment: {
+      api: {
+        verb: VERBS.post,
+        endpoint: '/topics/:slug/comments',
         hasBody: true,
       },
     },

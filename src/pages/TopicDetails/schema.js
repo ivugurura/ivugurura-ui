@@ -16,3 +16,10 @@ export const commentSchema = () => [
     label: 'Website',
   }],
 ];
+
+export const commentState = {
+  content: '',
+  names: '',
+  email: '',
+  website: '',
+};

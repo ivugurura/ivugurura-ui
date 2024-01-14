@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { MoreVert as MoreVertIcon } from '@mui/icons-material';
 import {
-  Avatar, Button, Card, CardContent, CardHeader, CardMedia, IconButton, Typography,
+  Avatar, Button, Card, CardContent, CardHeader, CardMedia, IconButton,
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 import classNames from 'classnames';
@@ -45,11 +45,9 @@ const TopicItem = ({
         alt={topic.title}
       />
       <CardContent>
-        <Typography variant="body1" color="text.secondary">
-          {parse(topic.content || 'No content available')}
-          {hasMore && <Button size="small" component={Link} to={toLink(`topics/${topic.slug}`)}>More</Button>}
-        </Typography>
-        {showComments && <Comments />}
+        {parse(topic.content || 'No content available')}
+        {hasMore && <Button size="small" component={Link} to={toLink(`topics/${topic.slug}`)}>More</Button>}
+        {showComments && <Comments slug={topic.slug} />}
       </CardContent>
     </Card>
   );

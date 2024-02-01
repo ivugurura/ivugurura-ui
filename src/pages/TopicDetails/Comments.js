@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 
 import {
-  Box, Button, Grid, Typography,
+  Avatar, Box, Button, Grid, Typography,
 } from '@mui/material';
 
 import { RRVForm } from '../../common/components/RRVForm';
+import { toFCap } from '../../helpers/utils';
 import { actions, initials } from '../../redux/apiSliceBuilder';
 
 import { commentSchema, commentState } from './schema';
+import { styles } from './TopicDetails.style';
 
 export const Comments = ({ slug }) => {
   const [comment, setComment] = React.useState(commentState);
@@ -21,12 +23,39 @@ export const Comments = ({ slug }) => {
       saveRes.reset();
     }
   }, [saveRes.isSuccess]);
+
   const { data: comments, totalItems } = data || initials.dataArr;
-  console.log('Comments', { isFetching, comments, totalItems });
+  console.log('Comments', {
+    isFetching, comments, totalItems,
+  });
   return (
     <Grid item xs={12}>
+      <Typography variant="h4" color="blueviolet">Comments</Typography>
+      {comments.map((c) => (
+        <Box key={c.id} sx={styles.commentRoot}>
+          <Avatar>{toFCap(c.names)}</Avatar>
+          <Box pl={2}>
+            <Box>
+              <Typography
+                variant="subtitle2"
+                fontWeight={700}
+                fontSize="0.875rem"
+              >
+                {c.names}
+              </Typography>
+            </Box>
+            <Typography
+              variant="subtitle2"
+              fontWeight={500}
+              fontSize="0.875rem"
+            >
+              {c.content}
+            </Typography>
+          </Box>
+        </Box>
+      ))}
       <hr />
-      <Box>Leave us a comment to this comment</Box>
+      <Typography variant="h4" color="blueviolet">Leave us a comment to this comment</Typography>
       <Typography>We will not share your email</Typography>
       <RRVForm fields={commentSchema()} states={comment} setStates={setComment} />
       <Button

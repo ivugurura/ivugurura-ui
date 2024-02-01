@@ -133,3 +133,5 @@ export const toNewObj = (current = {}, old = {}) => {
   });
   return newObj;
 };
+
+export const toFCap = (str = '') => str.match(/\b\w/g).join('');

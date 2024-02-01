@@ -22,7 +22,7 @@ const CarsouselItem = ({ topic = null }) => (
       component="img"
       height="250"
       image={topic ? toAssetPath(topic?.coverImage) : DEFAULT.image}
-      alt={topic.title || DEFAULT.title}
+      alt={topic?.title || DEFAULT.title}
     />
     <ImageListItemBar
       title={topic?.title || DEFAULT.title}

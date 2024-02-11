@@ -55,7 +55,7 @@ export const Comments = ({ slug }) => {
         </Box>
       ))}
       <hr />
-      <Typography variant="h4" color="blueviolet">Leave us a comment to this comment</Typography>
+      <Typography variant="h4" color="blueviolet">Leave us a comment to this topic</Typography>
       <Typography>We will not share your email</Typography>
       <RRVForm fields={commentSchema()} states={comment} setStates={setComment} />
       <Button

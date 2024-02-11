@@ -35,7 +35,7 @@ export const TopicDetailPage = () => {
       const relatedCount = topic.category.relatedTopics.length;
       const newNavs = [{
         name: `${topic.category.name}(${relatedCount === 10 ? '10+' : relatedCount})`,
-        route: toLink(`topics/${topic.category?.slug}`),
+        route: toLink(`topics/?t=${topic.category?.slug}`),
         primaryIcon: CategoryIcon,
         secondaryIcon: ExpandMoreIcon,
       }, {

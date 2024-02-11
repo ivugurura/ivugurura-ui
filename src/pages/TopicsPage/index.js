@@ -13,6 +13,7 @@ import { RRVBreadcrumbs } from '../../common/components/RRVBreadcrumbs/Breadcrum
 import { RRVMenu } from '../../common/components/RRVMenu/RRVMenu';
 import { RRVPagination } from '../../common/components/RRVPagination';
 import { usePagination } from '../../common/hooks/usePagination';
+import { useQueryParams } from '../../common/hooks/useQueryParams';
 import { toLink } from '../../helpers/utils/constants';
 import { actions, initials } from '../../redux/apiSliceBuilder';
 import TopicItem from '../TopicItem';
@@ -54,6 +55,7 @@ const CategoryItem = ({ category, selectedId, onClick }) => (
 );
 export const TopicsPage = () => {
   const [topicsNavs, setTopicsNavs] = React.useState(initialTopicHomeNavs);
+  const { t: categorySlug } = useQueryParams();
   const [selectedCategoryId, setSelectedCategoryId] = React.useState(null);
   // const [breadcumbMenu, setBreadcumbMenu] = React.useState(initialCrumbsProps);
   const {
@@ -111,6 +113,18 @@ export const TopicsPage = () => {
       }]));
     }
   }, [topics.length, selectedCategoryId]);
+  useEffect(() => {
+    if (topics.length > 0 && categorySlug) {
+      const category = categories.find((cat) => cat.slug === categorySlug);
+      setSelectedCategoryId(category?.id || null);
+      setTopicsNavs(initialTopicHomeNavs.concat([{
+        primaryIcon: RssFeedIcon,
+        name: category?.name,
+        onClick: handleMenuOpen,
+        breadcumbMenu: initialCrumbsProps,
+      }]));
+    }
+  }, [topics.length, categorySlug]);
   const handleCategoryClick = (category) => {
     setSelectedCategoryId(category?.id || null);
     resetRowsPerPage();

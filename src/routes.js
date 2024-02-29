@@ -3,9 +3,13 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import {
-  AdminLayout, AdminMainLayout, UserLayout, UserMainLayout,
+  AdminLayout,
+  AdminMainLayout,
+  UserLayout,
+  UserMainLayout,
 } from './common/components';
 import { systemLanguage } from './helpers/utils/constants';
+import { Login } from './pages/admin/Login';
 
 // import { systemLanguage } from "utils/constants";
 // import { Main, AdminMain } from "./layouts";
@@ -118,6 +122,7 @@ export const AppRoutes = () => (
     <Route path="/" element={<UserMainLayout />}>
       <Route path="kn/*" element={<UserLayout />} />
     </Route>
+    <Route path="login" element={<Login />} />
     <Route path="admin/" element={<AdminMainLayout />}>
       <Route path={`${systemLanguage}/*`} element={<AdminLayout />} />
     </Route>

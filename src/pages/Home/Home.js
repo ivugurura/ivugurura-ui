@@ -30,10 +30,8 @@ export const Home = () => {
     <Page title="Home">
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={6} lg={6}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
-              <HomeYoutube />
-            </Grid>
+          <Grid item xs={12} sm={12} md={12} lg={12}>
+            <HomeYoutube />
           </Grid>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6}>

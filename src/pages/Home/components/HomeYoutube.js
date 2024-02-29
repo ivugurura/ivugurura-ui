@@ -8,13 +8,18 @@ import { useWindowSize } from '../../../common/hooks/useWindowSize';
 import { YoutubeLoader } from './HomeLoaders';
 
 export const HomeYoutube = ({
-  widthRatio = 0.5, heightRatio = 0.47, normalHeight = 370, randomize = false,
+  widthRatio = 0.5,
+  heightRatio = 0.47,
+  normalHeight = 370,
+  randomize = false,
 }) => {
   const [videoId, setVideoId] = React.useState('-PweyZWNcLk');
   const [playerSizes, setPlayerSizes] = React.useState({});
   const { width: winWidth, height: winHeight } = useWindowSize();
   // const { data: ytData, isFetching } = actions.useListYoutubesQuery();
-  const { data: ytData, isFetching } = { data: { items: [], isFetching: false } };
+  const { data: ytData, isFetching } = {
+    data: { items: [], isFetching: false },
+  };
   useEffect(() => {
     let height = heightRatio * winHeight;
     let width = widthRatio * winWidth;
@@ -38,17 +43,18 @@ export const HomeYoutube = ({
     }
   }, [ytData, randomize]);
 
-  return isFetching ? <YoutubeLoader />
-    : (
-      <YouTube
-        videoId={videoId}
-        opts={{
-          ...playerSizes,
-          playerVars: {
-            // https://developers.google.com/youtube/player_parameters
-            autoplay: 1,
-          },
-        }}
-      />
-    );
+  return isFetching ? (
+    <YoutubeLoader />
+  ) : (
+    <YouTube
+      videoId={videoId}
+      opts={{
+        ...playerSizes,
+        playerVars: {
+          // https://developers.google.com/youtube/player_parameters
+          autoplay: 1,
+        },
+      }}
+    />
+  );
 };

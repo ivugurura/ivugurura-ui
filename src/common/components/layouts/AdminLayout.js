@@ -5,7 +5,13 @@ import { Route, Routes } from 'react-router-dom';
 
 import {
   // eslint-disable-next-line no-unused-vars
-  Commentaries, HomeDashboard, MediaEditor, Settings, SystemUsers, TopicEditor, TopicEditor2,
+  Commentaries,
+  HomeDashboard,
+  MediaEditor,
+  Settings,
+  SystemUsers,
+  // TopicEditor,
+  TopicEditor2,
 } from '../../../pages/admin';
 import { PageRoutes } from '../../../RoutesConstants';
 

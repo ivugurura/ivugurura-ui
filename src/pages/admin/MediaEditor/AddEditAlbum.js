@@ -1,7 +1,13 @@
 import * as React from 'react';
 
 import {
-  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
 } from '@mui/material';
 
 import { actions } from '../../../redux/actions';
@@ -23,8 +29,8 @@ export const AddEditTopic = ({ open, onClose, refetchAlbums }) => {
       <DialogTitle>Create a new album</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Albums: a folder of media files that can help you organize
-          your media(songs, preachings). Audio, video, images.
+          Albums: a folder of media files that can help you organize your
+          media(songs, preachings). Audio, video, images.
         </DialogContentText>
         <TextField
           autoFocus

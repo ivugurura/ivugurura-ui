@@ -5,7 +5,10 @@ import { useState, useEffect } from 'react';
  * Updates accordingly when window resizes.
  */
 export function useWindowSize() {
-  const [size, setSize] = useState({ height: window.innerHeight, width: window.innerWidth });
+  const [size, setSize] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  });
 
   useEffect(() => {
     function onResize() {

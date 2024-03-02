@@ -26,9 +26,7 @@ const Page = ({ title, children, ...rest }) => {
   return (
     <div {...rest}>
       <Helmet>
-        <title>
-          {`${title} - Ivugurura n ubugorozi`}
-        </title>
+        <title>{`${title} - Ivugurura n ubugorozi`}</title>
       </Helmet>
       {children}
     </div>

@@ -3,14 +3,15 @@ import React, { Suspense } from 'react';
 // import "./i18n";
 // import { ThemeProvider as ThemeProviderV4, StylesProvider } from '@material-ui/core/styles';
 import { CssBaseline, LinearProgress } from '@mui/material';
-import { StyledEngineProvider, ThemeProvider as ThemeProviderV5 } from '@mui/material/styles';
+import {
+  StyledEngineProvider,
+  ThemeProvider as ThemeProviderV5,
+} from '@mui/material/styles';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import {
-  theme,
-} from './common';
+import { theme } from './common';
 import { ErrorBoundary } from './common/components';
 // import { buildAppStates } from './redux/stateBuilder';
 import { store } from './redux/store';
@@ -27,8 +28,8 @@ const App = () => {
   }
   // console.log('AppStates', states);
   return (
-  // <StylesProvider generateClassName={generateClassName}>
-  //   <ThemeProviderV4 theme={themeV4}>
+    // <StylesProvider generateClassName={generateClassName}>
+    //   <ThemeProviderV4 theme={themeV4}>
     <ThemeProviderV5 theme={theme}>
       <Provider store={store}>
         <ErrorBoundary location={null}>
@@ -44,8 +45,8 @@ const App = () => {
         </ErrorBoundary>
       </Provider>
     </ThemeProviderV5>
-  //   </ThemeProviderV4>
-  // </StylesProvider>
+    //   </ThemeProviderV4>
+    // </StylesProvider>
   );
 };
 

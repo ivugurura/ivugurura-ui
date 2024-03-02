@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
 
-import { ExpandLess, ExpandMore, Settings as SettingsIcon } from '@mui/icons-material';
 import {
-  Button, Collapse, Card, CardHeader, CardContent,
-  List, ListItemButton, ListItemIcon, ListItemText,
+  ExpandLess,
+  ExpandMore,
+  Settings as SettingsIcon,
+} from '@mui/icons-material';
+import {
+  Button,
+  Collapse,
+  Card,
+  CardHeader,
+  CardContent,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
 } from '@mui/material';
 
 import { actions, initials } from '../../../redux/apiSliceBuilder';
@@ -21,7 +32,10 @@ export const NavConfigs = () => {
   const { data: navs } = data || initials.dataArr;
   return (
     <Card>
-      <CardHeader title="Setting" action={<Button onClick={() => setOpen(true)}>Add</Button>} />
+      <CardHeader
+        title="Setting"
+        action={<Button onClick={() => setOpen(true)}>Add</Button>}
+      />
       <CardContent sx={{ height: '100vh' }}>
         <AddEditNav
           open={open}
@@ -37,9 +51,17 @@ export const NavConfigs = () => {
                   <SettingsIcon />
                 </ListItemIcon>
                 <ListItemText primary={<h3>{nav.name}</h3>} />
-                {currentOpenMenu?.slug === nav.slug ? <ExpandLess /> : <ExpandMore />}
+                {currentOpenMenu?.slug === nav.slug ? (
+                  <ExpandLess />
+                ) : (
+                  <ExpandMore />
+                )}
               </ListItemButton>
-              <Collapse in={currentOpenMenu?.slug === nav.slug} timeout="auto" unmountOnExit>
+              <Collapse
+                in={currentOpenMenu?.slug === nav.slug}
+                timeout="auto"
+                unmountOnExit
+              >
                 <List component="div" disablePadding>
                   {nav.categories.map((subCat) => (
                     <ListItemButton sx={{ pl: 4 }} key={subCat.slug}>

@@ -70,9 +70,12 @@ export const startCase = (str = '', toUpper = true) => {
 export const getSearchParams = (url = '') => {
   const paramPattern = /:\w+/g;
 
-  return url.match(paramPattern)
-  // Remove the leading colon
-    ?.map((m) => m.slice(1));
+  return (
+    url
+      .match(paramPattern)
+      // Remove the leading colon
+      ?.map((m) => m.slice(1))
+  );
 };
 
 /**
@@ -81,7 +84,11 @@ export const getSearchParams = (url = '') => {
  * @param params an object of parametters to be appended to the string
  * @returns formatted string
  */
-export const formatParamaterizedUrl = (url = '', params = {}, searchParams = []) => {
+export const formatParamaterizedUrl = (
+  url = '',
+  params = {},
+  searchParams = [],
+) => {
   let endpoint = url;
   /**
    * When a @url like /employee?pageNumber=:pageNumber&search=:searchKey
@@ -101,30 +108,32 @@ export const formatParamaterizedUrl = (url = '', params = {}, searchParams = [])
   return endpoint;
 };
 
-export const formulateQuery = (stateApi = {}) => (args = {}) => {
-  const query = {
-    url: stateApi.endpoint,
-    method: stateApi.verb,
-    body: stateApi.hasBody ? args : undefined,
-  };
-  const searchParams = getSearchParams(stateApi.endpoint);
-  if (searchParams?.length) {
-    query.url = formatParamaterizedUrl(query.url, args, searchParams);
+export const formulateQuery =
+  (stateApi = {}) =>
+  (args = {}) => {
+    const query = {
+      url: stateApi.endpoint,
+      method: stateApi.verb,
+      body: stateApi.hasBody ? args : undefined,
+    };
+    const searchParams = getSearchParams(stateApi.endpoint);
+    if (searchParams?.length) {
+      query.url = formatParamaterizedUrl(query.url, args, searchParams);
 
-    if (stateApi.hasBody) {
-      // If the API has a body, we should formulate it
-      // with the remaining params
-      query.body = { ...args };
-      Object.keys(args).forEach((key) => {
-        if (searchParams.includes(key)) {
-          delete query.body[key];
-        }
-      });
+      if (stateApi.hasBody) {
+        // If the API has a body, we should formulate it
+        // with the remaining params
+        query.body = { ...args };
+        Object.keys(args).forEach((key) => {
+          if (searchParams.includes(key)) {
+            delete query.body[key];
+          }
+        });
+      }
     }
-  }
 
-  return query;
-};
+    return query;
+  };
 
 export const toNewObj = (current = {}, old = {}) => {
   const newObj = { ...current };

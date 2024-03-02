@@ -32,7 +32,9 @@ export const TopicImages = () => {
       {topicImages.map((img) => (
         <div key={img.fileName}>
           <Label>
-            {filePathName === img.fileName ? 'Selected' : `Uploded at ${moment(img.createdAt).format('DD-MM-YYYY')}`}
+            {filePathName === img.fileName
+              ? 'Selected'
+              : `Uploded at ${moment(img.createdAt).format('DD-MM-YYYY')}`}
           </Label>
           <img
             role="presentation"

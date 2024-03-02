@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import {
-  Grid, Card, CardHeader, CardContent,
-} from '@mui/material';
+import { Grid, Card, CardHeader, CardContent } from '@mui/material';
 
 import { RRVTable } from '../../../common/components/RRVTable';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
@@ -13,7 +11,9 @@ import { NavConfigs } from './NavConfigs';
 import { pubsColumns } from './schema';
 
 const alertInitial = {
-  current: null, message: '', open: false,
+  current: null,
+  message: '',
+  open: false,
 };
 export const Settings = () => {
   const [alertData, setAlertData] = useState(alertInitial);
@@ -46,10 +46,12 @@ export const Settings = () => {
         {...alertData}
         setOpen={() => setAlertData((prev) => ({ ...prev, ...alertInitial }))}
         title={alertData.title}
-        onConfirmYes={() => publish({
-          pubId: alertData.current.id,
-          isPublished: !alertData.current.isPublished,
-        })}
+        onConfirmYes={() =>
+          publish({
+            pubId: alertData.current.id,
+            isPublished: !alertData.current.isPublished,
+          })
+        }
         loading={publishRes.isLoading}
       />
       <Grid container spacing={1}>
@@ -57,7 +59,11 @@ export const Settings = () => {
           <Card>
             <CardHeader title="Public communication" />
             <CardContent>
-              <RRVTable columns={pubsColumns(handleSetAction)} data={pubs} isLoading={isFetching} />
+              <RRVTable
+                columns={pubsColumns(handleSetAction)}
+                data={pubs}
+                isLoading={isFetching}
+              />
             </CardContent>
           </Card>
         </Grid>

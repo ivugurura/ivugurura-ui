@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 import {
-  ButtonGroup, Button,
-  Card, CardContent, CardHeader, Grid, Typography,
+  ButtonGroup,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  Typography,
 } from '@mui/material';
 import moment from 'moment';
 import AudioPlayer from 'react-h5-audio-player';
@@ -44,8 +49,11 @@ export const MediaEditor = () => {
   return (
     <DashboardContainer
       title="All media"
-      action={(
-        <ButtonGroup variant="contained" aria-label="outlined primary button group">
+      action={
+        <ButtonGroup
+          variant="contained"
+          aria-label="outlined primary button group"
+        >
           <Button onClick={() => handleOpenEditor('openMedia')}>
             Add new media
           </Button>
@@ -53,7 +61,7 @@ export const MediaEditor = () => {
             Add new album
           </Button>
         </ButtonGroup>
-      )}
+      }
     >
       <AddEditTopic
         open={editorState.openAlbum}
@@ -84,7 +92,7 @@ export const MediaEditor = () => {
               />
               <CardHeader
                 title={audio.title}
-                subheader={(
+                subheader={
                   <>
                     <Typography
                       sx={{ display: 'inline' }}
@@ -92,16 +100,16 @@ export const MediaEditor = () => {
                       variant="body2"
                       color="text.primary"
                     >
-                      by
-                      {' '}
-                      {audio.author}
+                      by {audio.author}
                     </Typography>
                     {` — Language: ${audio.language?.name}, Album: ${audio.album?.name}`}
                   </>
-              )}
+                }
               />
               <CardContent>{audio.language?.name}</CardContent>
-              <CardContent>{moment(audio.actionDate).format('dddd, MMM D, YYYY')}</CardContent>
+              <CardContent>
+                {moment(audio.actionDate).format('dddd, MMM D, YYYY')}
+              </CardContent>
             </Card>
           )}
         </Grid>

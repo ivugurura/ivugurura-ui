@@ -43,7 +43,8 @@ export const systemLanguages = [
     flag: `${flagUrl}/KE.png`,
   },
 ];
-export const truncate = (str = '', n = 1) => (str.length > n ? `${str.substr(0, n - 1)}...` : str);
+export const truncate = (str = '', n = 1) =>
+  str.length > n ? `${str.substr(0, n - 1)}...` : str;
 export const formatDate = (theDate) => {
   const stringDate = moment(theDate).format('YYYY-MM-DD HH:mm');
   return stringDate;
@@ -83,19 +84,23 @@ export const socialMedias = [
 
 export const IMAGE_PATH = `${process.env.REACT_APP_API_URL}/images`;
 export const AUDIO_PATH = `${process.env.REACT_APP_API_URL}/songs`;
-export const toLink = (link = '', isAdmin = false) => `${isAdmin ? '/admin/' : '/'}${systemLanguage}/${link}`;
-export const toAssetPath = (name = '', isImage = true) => `${isImage ? IMAGE_PATH : AUDIO_PATH}/${name}`;
+export const toLink = (link = '', isAdmin = false) =>
+  `${isAdmin ? '/admin/' : '/'}${systemLanguage}/${link}`;
+export const toAssetPath = (name = '', isImage = true) =>
+  `${isImage ? IMAGE_PATH : AUDIO_PATH}/${name}`;
 
 const messageId = 13;
 export const notifier = {
-  error: (msg) => toast(msg, {
-    type: toast.TYPE.ERROR,
-    position: toast.POSITION.BOTTOM_RIGHT,
-    toastId: messageId,
-  }),
-  success: (msg) => toast(msg, {
-    type: toast.TYPE.DEFAULT,
-    position: toast.POSITION.BOTTOM_LEFT,
-    toastId: messageId,
-  }),
+  error: (msg) =>
+    toast(msg, {
+      type: toast.TYPE.ERROR,
+      position: toast.POSITION.BOTTOM_RIGHT,
+      toastId: messageId,
+    }),
+  success: (msg) =>
+    toast(msg, {
+      type: toast.TYPE.DEFAULT,
+      position: toast.POSITION.BOTTOM_LEFT,
+      toastId: messageId,
+    }),
 };

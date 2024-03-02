@@ -9,7 +9,7 @@ export const commentariesColumns = (setAction) => [
     header: 'Commentor Info',
     Cell: ({ row }) => (
       <Tooltip
-        title={(
+        title={
           <>
             <Typography color="inherit">{row.original.names}</Typography>
             <b>E-mail:</b>
@@ -19,7 +19,7 @@ export const commentariesColumns = (setAction) => [
             <b>Website:</b>
             <u>{row.original.website}</u>
           </>
-        )}
+        }
       >
         <>
           <Typography color="inherit">{row.original.names}</Typography>

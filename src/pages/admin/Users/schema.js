@@ -37,9 +37,7 @@ export const userEditLebels = {
 };
 
 export const userSchema = (newLevel = {}) => [
-  [
-    { name: 'names', label: 'User full name (First and last name)' },
-  ],
+  [{ name: 'names', label: 'User full name (First and last name)' }],
   [
     {
       name: 'isActive',

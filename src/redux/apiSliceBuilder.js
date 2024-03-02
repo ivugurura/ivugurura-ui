@@ -37,22 +37,28 @@ const baseQuery = fetchBaseQuery({
     'Accept-Language': lang,
   },
 });
-const buildAppApis = () => states.map((state) => createApi({
-  reducerPath: `${startCase(state.entity, false)}Api`,
-  baseQuery: async (args, api, extraOptions) => {
-    const result = await baseQuery(args, api, extraOptions);
-    // if (result.data?.totalItems) {
-    //   return { data: { ...result.data } };
-    // }
-    return result;
-  },
-  endpoints: (build) => buildApiEndPoints(build, state),
-}));
+const buildAppApis = () =>
+  states.map((state) =>
+    createApi({
+      reducerPath: `${startCase(state.entity, false)}Api`,
+      baseQuery: async (args, api, extraOptions) => {
+        const result = await baseQuery(args, api, extraOptions);
+        // if (result.data?.totalItems) {
+        //   return { data: { ...result.data } };
+        // }
+        return result;
+      },
+      endpoints: (build) => buildApiEndPoints(build, state),
+    }),
+  );
 
 const buildApiSlicers = () => {
   const apis = buildAppApis();
   const utils = {
-    reducers: {}, middlewares: [], actions: {}, initials: initialStates,
+    reducers: {},
+    middlewares: [],
+    actions: {},
+    initials: initialStates,
   };
 
   apis.forEach((api) => {
@@ -60,7 +66,11 @@ const buildApiSlicers = () => {
     utils.middlewares.push(api.middleware);
 
     Object.keys(api).forEach((key) => {
-      if (key.startsWith('use') && !key.includes('Lazy') && key !== 'usePrefetch') {
+      if (
+        key.startsWith('use') &&
+        !key.includes('Lazy') &&
+        key !== 'usePrefetch'
+      ) {
         utils.actions[key] = api[key];
       }
     });
@@ -70,6 +80,4 @@ const buildApiSlicers = () => {
 };
 
 const slicers = buildApiSlicers();
-export const {
-  actions, initials, reducers, middlewares,
-} = slicers;
+export const { actions, initials, reducers, middlewares } = slicers;

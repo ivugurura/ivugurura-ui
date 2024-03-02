@@ -1,6 +1,4 @@
-import React, {
-  createContext, useCallback, useMemo, useState,
-} from 'react';
+import React, { createContext, useCallback, useMemo, useState } from 'react';
 
 import { BrowserRouter } from 'react-router-dom';
 

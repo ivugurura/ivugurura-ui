@@ -23,9 +23,7 @@ const initialStates = {
   author: '',
   actionDate: moment().format('YYYY-MM-DD'),
 };
-export const AddEditMedia = ({
-  open, onClose, albums, refetchMedia,
-}) => {
+export const AddEditMedia = ({ open, onClose, albums, refetchMedia }) => {
   const [media, setMedia] = React.useState(initialStates);
   const filePathName = useSelector((state) => state.filer.fileName);
   const [createMedia, newMediaRes] = actions.useCreateAudioMutation();
@@ -44,11 +42,19 @@ export const AddEditMedia = ({
         <DialogContentText>
           Media: a file that can be (songs, preachings). Audio, video, images.
         </DialogContentText>
-        <RRVForm fields={mediaSchema(albums)} states={media} setStates={setMedia} />
+        <RRVForm
+          fields={mediaSchema(albums)}
+          states={media}
+          setStates={setMedia}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={() => createMedia({ ...media, mediaLink: filePathName })}>Save</Button>
+        <Button
+          onClick={() => createMedia({ ...media, mediaLink: filePathName })}
+        >
+          Save
+        </Button>
       </DialogActions>
     </Dialog>
   );

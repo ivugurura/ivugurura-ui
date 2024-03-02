@@ -4,8 +4,15 @@ import React from 'react';
 
 import { Button, Typography } from '@mui/material';
 
-export const isErrorLike = (value) => typeof value === 'object' && value !== null && ('stack' in value || 'message' in value) && !('__typename' in value);
-const isWebpackChunkError = (value) => isErrorLike(value) && (value.name === 'ChunkLoadError' || /loading css chunk/gi.test(value.message));
+export const isErrorLike = (value) =>
+  typeof value === 'object' &&
+  value !== null &&
+  ('stack' in value || 'message' in value) &&
+  !('__typename' in value);
+const isWebpackChunkError = (value) =>
+  isErrorLike(value) &&
+  (value.name === 'ChunkLoadError' ||
+    /loading css chunk/gi.test(value.message));
 const asError = (value) => {
   if (value instanceof Error) {
     return value;
@@ -55,8 +62,8 @@ export class ErrorBoundary extends React.PureComponent {
       return (
         <div className="container">
           <Typography>
-            The SITE encountered an unexpected error. If reloading the page does not fix it,
-            contact your site admin or The SITE support.
+            The SITE encountered an unexpected error. If reloading the page does
+            not fix it, contact your site admin or The SITE support.
           </Typography>
           <Typography>
             <Typography className="text-wrap">{error.message}</Typography>

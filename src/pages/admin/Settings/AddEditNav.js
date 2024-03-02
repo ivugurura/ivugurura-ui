@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 import {
-  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from '@mui/material';
 
 import { RRVForm } from '../../../common/components/RRVForm';
@@ -14,9 +19,7 @@ const initialStates = {
   hasParent: false,
   categoryId: '',
 };
-export const AddEditNav = ({
-  open, onClose, refetchNavs, navs = [],
-}) => {
+export const AddEditNav = ({ open, onClose, refetchNavs, navs = [] }) => {
   const [newNav, setNewNav] = useState(initialStates);
   const [createCategory, res] = actions.useCreateCategoryMutation();
 
@@ -38,14 +41,22 @@ export const AddEditNav = ({
       <DialogTitle>Create a new nav menu</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Nav setting: set navigation menu as they get diplayed
-          in the website as well as in the Mobile app.
+          Nav setting: set navigation menu as they get diplayed in the website
+          as well as in the Mobile app.
         </DialogContentText>
-        <RRVForm fields={navSchema(navs, newNav)} states={newNav} setStates={setNewNav} />
+        <RRVForm
+          fields={navSchema(navs, newNav)}
+          states={newNav}
+          setStates={setNewNav}
+        />
       </DialogContent>
       <DialogActions>
-        <Button disabled={res.isLoading} onClick={onClose}>Cancel</Button>
-        <Button disabled={res.isLoading} onClick={handleSave}>{res.isLoading ? 'Saving,...' : 'Save'}</Button>
+        <Button disabled={res.isLoading} onClick={onClose}>
+          Cancel
+        </Button>
+        <Button disabled={res.isLoading} onClick={handleSave}>
+          {res.isLoading ? 'Saving,...' : 'Save'}
+        </Button>
       </DialogActions>
     </Dialog>
   );

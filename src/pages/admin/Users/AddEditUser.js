@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 import {
-  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from '@mui/material';
 
 import { RRVForm } from '../../../common/components/RRVForm';
@@ -47,20 +52,25 @@ export const AddEditUser = ({
   const isLoading = res.isLoading || editRes.isLoading;
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>{isEdit ? `Edit user "${current?.names}"` : 'Create a new album'}</DialogTitle>
+      <DialogTitle>
+        {isEdit ? `Edit user "${current?.names}"` : 'Create a new album'}
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          System Users: An user who can create or modifiy contents on the website.
-          Can be an admin, editor
+          System Users: An user who can create or modifiy contents on the
+          website. Can be an admin, editor
         </DialogContentText>
-        <RRVForm fields={userSchema(lebels)} states={user} setStates={setUser} />
+        <RRVForm
+          fields={userSchema(lebels)}
+          states={user}
+          setStates={setUser}
+        />
       </DialogContent>
       <DialogActions>
-        <Button disabled={isLoading} onClick={onClose}>Cancel</Button>
-        <Button
-          disabled={isLoading}
-          onClick={handleSave}
-        >
+        <Button disabled={isLoading} onClick={onClose}>
+          Cancel
+        </Button>
+        <Button disabled={isLoading} onClick={handleSave}>
           {isLoading ? 'Saving,...' : 'Save'}
         </Button>
       </DialogActions>

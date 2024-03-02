@@ -2,7 +2,12 @@
 import React from 'react';
 
 import {
-  Box, Button, Card, CardContent, CardHeader, Paper,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Paper,
 } from '@mui/material';
 import SunEditor from 'suneditor-react';
 
@@ -11,7 +16,10 @@ import { RRVSunEditor } from '../../../common/components/RRVEditor/SunEditor';
 
 export const TopicDetails = ({
   topic,
-  editorState, setEditorState, sunEdContent, setSunEdContent,
+  editorState,
+  setEditorState,
+  sunEdContent,
+  setSunEdContent,
 }) => {
   console.log('Topic Details');
   return (

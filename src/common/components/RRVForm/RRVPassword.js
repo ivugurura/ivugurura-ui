@@ -10,9 +10,7 @@ import {
 } from '@mui/material';
 
 export const RRVPassword = (props) => {
-  const {
-    id, value, size = 'small', label, ...inputProps
-  } = props;
+  const { id, value, size = 'small', label, ...inputProps } = props;
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -27,7 +25,7 @@ export const RRVPassword = (props) => {
         id={id}
         value={value || ''}
         type={showPassword ? 'text' : 'password'}
-        endAdornment={(
+        endAdornment={
           <InputAdornment position="end">
             <IconButton
               aria-label="toggle password visibility"
@@ -38,7 +36,7 @@ export const RRVPassword = (props) => {
               {showPassword ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           </InputAdornment>
-        )}
+        }
         label={label}
         {...inputProps}
       />

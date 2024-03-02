@@ -2,7 +2,13 @@ import * as React from 'react';
 
 import { MoreVert as MoreVertIcon } from '@mui/icons-material';
 import {
-  Avatar, Button, Card, CardContent, CardHeader, CardMedia, IconButton,
+  Avatar,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  IconButton,
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 import classNames from 'classnames';
@@ -10,14 +16,15 @@ import parse from 'html-react-parser';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
-import {
-  toAssetPath, toLink, truncate,
-} from '../helpers/utils/constants';
+import { toAssetPath, toLink, truncate } from '../helpers/utils/constants';
 
 import { Comments } from './TopicDetails/Comments';
 
 const TopicItem = ({
-  className = '', topic, imageHeight = '194', hasMore = false,
+  className = '',
+  topic,
+  imageHeight = '194',
+  hasMore = false,
   showComments = false,
 }) => {
   console.log('Topic');
@@ -25,16 +32,16 @@ const TopicItem = ({
   return (
     <Card className={classNames(className)}>
       <CardHeader
-        avatar={(
+        avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
             R
           </Avatar>
-        )}
-        action={(
+        }
+        action={
           <IconButton aria-label="settings">
             <MoreVertIcon />
           </IconButton>
-        )}
+        }
         title={truncate(topic.title, 34)}
         subheader={`Lastly updated ${moment(topic.updatedAt).format('DD.MM.YYYY')}`}
       />
@@ -46,7 +53,15 @@ const TopicItem = ({
       />
       <CardContent>
         {parse(topic.content || 'No content available')}
-        {hasMore && <Button size="small" component={Link} to={toLink(`topics/${topic.slug}`)}>More</Button>}
+        {hasMore && (
+          <Button
+            size="small"
+            component={Link}
+            to={toLink(`topics/${topic.slug}`)}
+          >
+            More
+          </Button>
+        )}
         {showComments && <Comments slug={topic.slug} />}
       </CardContent>
     </Card>

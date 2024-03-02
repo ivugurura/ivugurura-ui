@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 import {
-  MusicNote, PlayArrow, SkipNext, SkipPrevious,
+  MusicNote,
+  PlayArrow,
+  SkipNext,
+  SkipPrevious,
 } from '@mui/icons-material';
 import {
   Button,
@@ -23,7 +26,10 @@ import { actions, initials } from '../../redux/apiSliceBuilder';
 
 export const RRVAudioPlayer = () => {
   const [currentAudio, setCurrentAudio] = useState({ index: -1, audio: null });
-  const { data, isFetching } = actions.useListAudiosQuery({ page: 1, pageSize: 3 });
+  const { data, isFetching } = actions.useListAudiosQuery({
+    page: 1,
+    pageSize: 3,
+  });
   const { data: audios } = data || initials.dataArr;
   useEffect(() => {
     if (audios?.length > 0) {
@@ -61,33 +67,34 @@ export const RRVAudioPlayer = () => {
   ];
   //   const DL_ROUTE = `${process.env.REACT_APP_API_URL}/api/v1/albums/download/`;
   console.log({ audios });
-  return isFetching ? 'Loading' : (
+  return isFetching ? (
+    'Loading'
+  ) : (
     <Card>
-      {currentAudio.audio
-      && (
-      <>
-        <AudioPlayer
-          muted
-          src={toAssetPath(currentAudio.audio.mediaLink, false)}
-          customAdditionalControls={customControls}
-        />
-        <CardHeader
-          title={currentAudio.audio?.title}
-          subheader={(
-            <>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                {`By ${currentAudio.audio.author}`}
-              </Typography>
-              {" — Wish I could come, but I'm out of town this…"}
-            </>
-        )}
-        />
-      </>
+      {currentAudio.audio && (
+        <>
+          <AudioPlayer
+            muted
+            src={toAssetPath(currentAudio.audio.mediaLink, false)}
+            customAdditionalControls={customControls}
+          />
+          <CardHeader
+            title={currentAudio.audio?.title}
+            subheader={
+              <>
+                <Typography
+                  sx={{ display: 'inline' }}
+                  component="span"
+                  variant="body2"
+                  color="text.primary"
+                >
+                  {`By ${currentAudio.audio.author}`}
+                </Typography>
+                {" — Wish I could come, but I'm out of town this…"}
+              </>
+            }
+          />
+        </>
       )}
       <CardContent>
         <List>
@@ -96,17 +103,20 @@ export const RRVAudioPlayer = () => {
               <ListItem
                 key={audio.id}
                 selected={audio.id === currentAudio.audio?.id}
-                secondaryAction={(
+                secondaryAction={
                   <IconButton edge="end">
                     <PlayArrow />
                   </IconButton>
-                  )}
+                }
                 alignItems="flex-start"
               >
                 <ListItemIcon>
                   <MusicNote />
                 </ListItemIcon>
-                <ListItemText primary={audio.title} secondary={`By ${audio.author}`} />
+                <ListItemText
+                  primary={audio.title}
+                  secondary={`By ${audio.author}`}
+                />
               </ListItem>
               <Divider variant="insert" component="li" />
             </>

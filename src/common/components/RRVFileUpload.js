@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 
-import {
-  Box, Button, Grid, LinearProgress, Typography,
-} from '@mui/material';
+import { Box, Button, Grid, LinearProgress, Typography } from '@mui/material';
 import { MuiFileInput } from 'mui-file-input';
 import AvatarEditor from 'react-avatar-editor';
 import { useDispatch } from 'react-redux';
@@ -15,7 +13,12 @@ import { setFilePath } from '../../redux/actions';
 const { Buffer } = require('buffer/');
 
 const initialImageProps = {
-  file: null, uploaded: '', height: 190, width: 460, bRadius: 5, zoom: 0.68,
+  file: null,
+  uploaded: '',
+  height: 190,
+  width: 460,
+  bRadius: 5,
+  zoom: 0.68,
 };
 const dataUrlToFile = (dataUrl, filename) => {
   const arr = dataUrl.split(',');
@@ -31,7 +34,11 @@ const dataUrlToFile = (dataUrl, filename) => {
   return new File([buff], filename.replace(' ', '_'), { type: mime });
 };
 
-export const RRVFileUpload = ({ title = '', type = 'image', accept = '.png, .jpg, .jpeg' }) => {
+export const RRVFileUpload = ({
+  title = '',
+  type = 'image',
+  accept = '.png, .jpg, .jpeg',
+}) => {
   const dispatch = useDispatch();
   const [imageProps, setImageProps] = React.useState(initialImageProps);
   const imageRef = React.createRef(null);
@@ -80,7 +87,9 @@ export const RRVFileUpload = ({ title = '', type = 'image', accept = '.png, .jpg
         <MuiFileInput
           label={title}
           value={imageProps.file}
-          onChange={(selectedFile) => setImageProps((prev) => ({ ...prev, file: selectedFile }))}
+          onChange={(selectedFile) =>
+            setImageProps((prev) => ({ ...prev, file: selectedFile }))
+          }
           placeholder="Insert a file"
           inputProps={{ accept }}
         />
@@ -158,12 +167,18 @@ export const RRVFileUpload = ({ title = '', type = 'image', accept = '.png, .jpg
           </div>
         )}
         {imageProps.file && (
-          <Button onClick={handleUploadFile}>Upload the file to the server</Button>
+          <Button onClick={handleUploadFile}>
+            Upload the file to the server
+          </Button>
         )}
         {progress > 0 && (
           <Box sx={{ width: '100%' }}>
             <Typography variant="h6">{`${progress}%`}</Typography>
-            <LinearProgress variant="determinate" value={progress} sx={{ height: '10' }} />
+            <LinearProgress
+              variant="determinate"
+              value={progress}
+              sx={{ height: '10' }}
+            />
           </Box>
         )}
       </Grid>

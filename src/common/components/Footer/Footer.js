@@ -5,7 +5,11 @@ import { Container, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 import './styles.css';
-import { currentYear, socialMedias, systemLanguage } from '../../../helpers/utils/constants';
+import {
+  currentYear,
+  socialMedias,
+  systemLanguage,
+} from '../../../helpers/utils/constants';
 
 export const navCategories = [
   {
@@ -113,14 +117,14 @@ export const MainFooter = () => {
           <Grid container>
             <Grid item lg={10} md={10} sm={12} xs={12}>
               <Grid container>
-                {[].map((category, categoryIdx) => (
-                  <Grid item xs={12} sm={12} md={3} lg={3} key={categoryIdx}>
+                {[].map((category) => (
+                  <Grid item xs={12} sm={12} md={3} lg={3} key={category.slug}>
                     <div className="footer-pad">
                       <h4>{category.name}</h4>
                       <ul className="list-styled">
-                        {category.categories.map((subCat, subCatIdx) => (
+                        {category.categories.map((subCat) => (
                           <Link
-                            key={subCatIdx}
+                            key={subCat.slug}
                             to={`/${systemLanguage}/topics/categories/${subCat.slug}`}
                           >
                             <p>{subCat.name}</p>
@@ -135,8 +139,8 @@ export const MainFooter = () => {
             <Grid item lg={2} md={2} sm={12} xs={12}>
               <h5>Follow us</h5>
               <ul className="social-network social-circle">
-                {socialMedias.map((social, socialIdx) => (
-                  <li key={socialIdx}>
+                {socialMedias.map((social) => (
+                  <li key={social.name}>
                     <a
                       target="_blank"
                       rel="noreferrer"
@@ -149,7 +153,7 @@ export const MainFooter = () => {
                 ))}
               </ul>
               <address>
-                Contact Us:
+                Contact Us:{' '}
                 <a
                   href="mailto:abagorozi@yahoo.com"
                   rel="noreferrer"
@@ -163,9 +167,8 @@ export const MainFooter = () => {
           <Grid container>
             <Grid item md={12} className="copy">
               <p className="text-center">
-                &copy; Copyright 2016-
-                {currentYear}
-                , Ivugurura n Ubugorozi. All rights reserved.
+                &copy;{' '}
+                {`Copyright 2016-${currentYear}, Ivugurura n Ubugorozi. All rights reserved.`}
               </p>
             </Grid>
           </Grid>

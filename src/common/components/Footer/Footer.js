@@ -5,11 +5,8 @@ import { Container, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 import './styles.css';
-import {
-  currentYear,
-  socialMedias,
-  systemLanguage,
-} from '../../../helpers/utils/constants';
+import { socialMedias, systemLanguage } from '../../../helpers/utils/constants';
+import { Copyright } from '../Copyright';
 
 export const navCategories = [
   {
@@ -153,7 +150,7 @@ export const MainFooter = () => {
                 ))}
               </ul>
               <address>
-                Contact Us:{' '}
+                Contact Us:
                 <a
                   href="mailto:abagorozi@yahoo.com"
                   rel="noreferrer"
@@ -166,10 +163,7 @@ export const MainFooter = () => {
           </Grid>
           <Grid container>
             <Grid item md={12} className="copy">
-              <p className="text-center">
-                &copy;{' '}
-                {`Copyright 2016-${currentYear}, Ivugurura n Ubugorozi. All rights reserved.`}
-              </p>
+              <Copyright />
             </Grid>
           </Grid>
         </Container>

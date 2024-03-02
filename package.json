@@ -14,7 +14,7 @@
     "start": "babel-node server.js",
     "dev": "react-scripts start",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix",
+    "lint:fix": "eslint --fix .",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}'",
     "build": "react-scripts build  && yarn mv-build",
     "mv-build": "rm -rf ../ivugururaApi/build && mv build ../ivugururaApi/build",

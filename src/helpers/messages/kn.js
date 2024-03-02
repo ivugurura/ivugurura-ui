@@ -24,5 +24,5 @@ export const kn = {
   createdAt: 'Cyateguwe kuri ',
   commentSuccess: 'Igitekerezo cyanyu twacyakiriye. Murakoze',
   mostReadTopics: 'Ibyigisho byasomwe cyane',
-  btnSend: 'Mwohereze'
+  btnSend: 'Mwohereze',
 };

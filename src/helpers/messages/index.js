@@ -1,6 +1,11 @@
 import { en } from './en';
+import { fr } from './fr';
 import { kn } from './kn';
 import { sw } from './sw';
-import { fr } from './fr';
 
-export const messages = { en, kn, fr, sw };
+export const messages = {
+  en,
+  kn,
+  fr,
+  sw,
+};

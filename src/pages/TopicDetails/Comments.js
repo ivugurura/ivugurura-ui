@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 
-import {
-  Avatar, Box, Button, Grid, Typography,
-} from '@mui/material';
+import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
 
 import { RRVForm } from '../../common/components/RRVForm';
 import { toFCap } from '../../helpers/utils';
@@ -26,11 +24,15 @@ export const Comments = ({ slug }) => {
 
   const { data: comments, totalItems } = data || initials.dataArr;
   console.log('Comments', {
-    isFetching, comments, totalItems,
+    isFetching,
+    comments,
+    totalItems,
   });
   return (
     <Grid item xs={12}>
-      <Typography variant="h4" color="blueviolet">Comments</Typography>
+      <Typography variant="h4" align="center">
+        Comments
+      </Typography>
       {comments.map((c) => (
         <Box key={c.id} sx={styles.commentRoot}>
           <Avatar>{toFCap(c.names)}</Avatar>
@@ -55,9 +57,15 @@ export const Comments = ({ slug }) => {
         </Box>
       ))}
       <hr />
-      <Typography variant="h4" color="blueviolet">Leave us a comment to this topic</Typography>
+      <Typography variant="h4" align="center">
+        Leave us a comment to this topic
+      </Typography>
       <Typography>We will not share your email</Typography>
-      <RRVForm fields={commentSchema()} states={comment} setStates={setComment} />
+      <RRVForm
+        fields={commentSchema()}
+        states={comment}
+        setStates={setComment}
+      />
       <Button
         onClick={() => save({ ...comment, slug })}
         disabled={saveRes.isLoading}

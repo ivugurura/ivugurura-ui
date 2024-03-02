@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { makeStyles } from '@mui/styles';
 
 export const useHomeStyles = makeStyles(({ spacing, breakpoints }) => ({

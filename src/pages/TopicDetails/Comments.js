@@ -25,14 +25,16 @@ export const Comments = ({ slug }) => {
   const { data: comments, totalItems } = data || initials.dataArr;
   console.log('Comments', {
     isFetching,
-    comments,
     totalItems,
   });
+  const hasComments = comments?.length > 0;
   return (
     <Grid item xs={12}>
-      <Typography variant="h4" align="center">
-        Comments
-      </Typography>
+      {hasComments && (
+        <Typography variant="h4" align="center">
+          Comments
+        </Typography>
+      )}
       {comments.map((c) => (
         <Box key={c.id} sx={styles.commentRoot}>
           <Avatar>{toFCap(c.names)}</Avatar>
@@ -56,7 +58,7 @@ export const Comments = ({ slug }) => {
           </Box>
         </Box>
       ))}
-      <hr />
+      {hasComments && <hr />}
       <Typography variant="h4" align="center">
         Leave us a comment to this topic
       </Typography>

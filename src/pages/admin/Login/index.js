@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
 import {
@@ -10,9 +10,12 @@ import {
   FormControlLabel,
   Typography,
 } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Copyright } from '../../../common/components/Copyright';
 import { RRVForm } from '../../../common/components/RRVForm/index';
+import { notifier, toLink } from '../../../helpers/utils/constants';
+import { actions, setUser } from '../../../redux/actions';
 
 import { loginSchema } from './schema';
 
@@ -20,13 +23,43 @@ const initialStates = {
   email: '',
   password: '',
 };
+const redirectToDashboard = () => {
+  setTimeout(() => {
+    window.location.replace(toLink('', true));
+  }, 5000);
+};
 export const Login = () => {
   const [loginInfo, setLoginInfo] = useState(initialStates);
+
+  const [loginUser, res] = actions.useLoginSystemMutation();
+
+  const dispatch = useDispatch();
+
+  const { isAuthenticated, info } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      redirectToDashboard();
+    }
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (res.isSuccess) {
+      const {
+        message,
+        data: { token, ...user },
+      } = res.data;
+      notifier.success(`${message}. Be redirected in 3 seconds`);
+      localStorage.setItem('user', JSON.stringify(res.data.data));
+      dispatch(setUser(user));
+    }
+  }, [res.isSuccess]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log({ loginInfo });
+    loginUser(loginInfo);
   };
-
+  console.log({ isAuthenticated, info });
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -58,8 +91,9 @@ export const Login = () => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            disabled={res.isLoading}
           >
-            Sign In
+            {res.isLoading ? 'Signing in,...' : 'Sign In'}
           </Button>
           {/* <Grid container>
               <Grid item xs>

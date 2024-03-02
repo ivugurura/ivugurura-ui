@@ -9,7 +9,8 @@ import {
 } from '@mui/icons-material';
 import { Avatar, Grid, CardHeader, IconButton, Card } from '@mui/material';
 import { red } from '@mui/material/colors';
-import { useParams } from 'react-router';
+import moment from 'moment';
+import { useNavigate, useParams } from 'react-router';
 
 import {
   TopicDetailSkeleton,
@@ -28,6 +29,7 @@ const initialTopicHomeNavs = [
   },
 ];
 export const TopicDetailPage = () => {
+  const navigation = useNavigate();
   const { slug } = useParams();
   const { data, isFetching } = actions.useViewTopicQuery({ slug });
   const [topicNavs, setTopicNavs] = React.useState(initialTopicHomeNavs);
@@ -77,7 +79,7 @@ export const TopicDetailPage = () => {
           ) : (
             topic?.category?.relatedTopics.map((rt) => (
               <Grid item key={rt.slug} sx={{ width: '100%' }}>
-                <Card>
+                <Card sx={{ cursor: 'pointer' }}>
                   <CardHeader
                     avatar={
                       <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -89,8 +91,13 @@ export const TopicDetailPage = () => {
                         <MoreVertIcon />
                       </IconButton>
                     }
+                    onClick={() => {
+                      navigation(toLink(`topics/${rt.slug}`), {
+                        replace: true,
+                      });
+                    }}
                     title={rt.title}
-                    subheader="September 14, 2016"
+                    subheader={`Lastly updated ${moment(rt.updatedAt).format('DD.MM.YYYY')}`}
                   />
                 </Card>
               </Grid>

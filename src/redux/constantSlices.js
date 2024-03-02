@@ -1,13 +1,18 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+const initialFileState = {
   fileName: '',
+};
+
+const initialUserState = {
+  isAuthenticated: false,
+  info: {},
 };
 
 export const filePathSlice = createSlice({
   name: 'filer',
-  initialState,
+  initialState: initialFileState,
   reducers: {
     setFilePath: (state, action) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
@@ -18,6 +23,21 @@ export const filePathSlice = createSlice({
     },
     resetFilePath: (state) => {
       state.fileName = '';
+    },
+  },
+});
+
+export const authUserSlice = createSlice({
+  name: 'auth',
+  initialState: initialUserState,
+  reducers: {
+    setUser: (state, action) => {
+      state.isAuthenticated = true;
+      state.info = action.payload;
+    },
+    resetUser: (state) => {
+      state.isAuthenticated = false;
+      state.info = {};
     },
   },
 });

@@ -31,5 +31,12 @@ export const SystemState = {
         endpoint: `/users?${getParams([])}`,
       },
     },
+    login: {
+      api: {
+        verb: VERBS.post,
+        endpoint: '/users/login',
+        hasBody: true,
+      },
+    },
   },
 };

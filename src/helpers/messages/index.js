@@ -4,5 +4,8 @@ import { kn } from './kn';
 import { sw } from './sw';
 
 export const messages = {
-  en, kn, fr, sw,
+  en,
+  kn,
+  fr,
+  sw,
 };

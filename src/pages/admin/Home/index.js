@@ -1,15 +1,26 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 
-import { DeleteOutlineOutlined, EditNoteOutlined, PublishOutlined } from '@mui/icons-material';
+import {
+  DeleteOutlineOutlined,
+  EditNoteOutlined,
+  PublishOutlined,
+} from '@mui/icons-material';
 import {
   Box,
-  Card, CardContent, CardHeader, Container, Grid,
+  Card,
+  CardContent,
+  CardHeader,
+  Container,
+  Grid,
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { RRVTable, renderRowActionMenus } from '../../../common/components/RRVTable';
+import {
+  RRVTable,
+  renderRowActionMenus,
+} from '../../../common/components/RRVTable';
 import { dashboardActions } from '../../../helpers/topics';
 import { notifier, toLink } from '../../../helpers/utils/constants';
 import { dataGenerator } from '../../../helpers/utils/dataGenerater';
@@ -21,11 +32,12 @@ import { DashboardContainer } from '../components/DashboardContainer';
 import { DashboardCount } from './DashboardCount';
 import { dashboardTopicsColumns } from './schema';
 
-const toDataCounts = (counts = {}) => Object.keys(counts).map((key) => ({
-  title: key,
-  counts: counts[key],
-  difference: 0,
-}));
+const toDataCounts = (counts = {}) =>
+  Object.keys(counts).map((key) => ({
+    title: key,
+    counts: counts[key],
+    difference: 0,
+  }));
 const dashboardMenus = [
   {
     title: 'Edit',
@@ -38,24 +50,29 @@ const dashboardMenus = [
     action: 'publish',
   },
   {
-    title: ({ entities }) => `${entities?.length ? 'Remove from' : 'Set to'} home`,
+    title: ({ entities }) =>
+      `${entities?.length ? 'Remove from' : 'Set to'} home`,
     icon: DeleteOutlineOutlined,
     canDisable: ({ isPublished }) => !isPublished,
     action: 'home',
   },
 ];
 const alertInitial = {
-  current: null, action: '', message: '', open: false,
+  current: null,
+  action: '',
+  message: '',
+  open: false,
 };
 export const HomeDashboard = () => {
   const navigate = useNavigate();
   const [alertData, setAlertData] = useState(alertInitial);
-  const {
-    data, isFetching, isSuccess, ...restCountsQ
-  } = actions.useGetCountsSystemQuery();
-  const { data: overviewData, ...restTopicQ } = actions.useGetOverviewTopicQuery({ truncate: 200 });
+  const { data, isFetching, isSuccess, ...restCountsQ } =
+    actions.useGetCountsSystemQuery();
+  const { data: overviewData, ...restTopicQ } =
+    actions.useGetOverviewTopicQuery({ truncate: 200 });
   const [updateTopic, updateRes] = actions.useUpdateTopicMutation();
-  const [setOrRemoveTopicDisplay, displayRes] = actions.useSetHomeTopicMutation();
+  const [setOrRemoveTopicDisplay, displayRes] =
+    actions.useSetHomeTopicMutation();
   const { data: counts } = data || initials.dataArr;
   const { data: topics } = overviewData || initials.dataArr;
 
@@ -89,7 +106,10 @@ export const HomeDashboard = () => {
       "${title.toUpperCase()}"?`,
     }));
     console.log({
-      isFetching, isSuccess, type, actionParams,
+      isFetching,
+      isSuccess,
+      type,
+      actionParams,
     });
   };
 
@@ -123,18 +143,9 @@ export const HomeDashboard = () => {
         onConfirmYes={handleConfirmAction}
         loading={updateRes.isLoading || displayRes.isLoading}
       />
-      <Grid
-        container
-        spacing={1}
-      >
+      <Grid container spacing={1}>
         {toDataCounts(counts).map((dt) => (
-          <Grid
-            item
-            key={dt.title}
-            xs={12}
-            sm={4}
-            lg={2}
-          >
+          <Grid item key={dt.title} xs={12} sm={4} lg={2}>
             <DashboardCount
               title={dt.title}
               value={dt.counts}
@@ -148,7 +159,10 @@ export const HomeDashboard = () => {
           columns={dashboardTopicsColumns()}
           data={topics}
           enableRowActions
-          renderRowActionMenuItems={renderRowActionMenus(handleMenuAction, dashboardMenus)}
+          renderRowActionMenuItems={renderRowActionMenus(
+            handleMenuAction,
+            dashboardMenus,
+          )}
         />
       </Box>
     </DashboardContainer>

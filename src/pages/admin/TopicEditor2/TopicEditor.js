@@ -5,7 +5,10 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Grid, InputAdornment, MenuItem, TextField,
+  Grid,
+  InputAdornment,
+  MenuItem,
+  TextField,
 } from '@mui/material';
 import { EditorState } from 'draft-js';
 
@@ -17,10 +20,7 @@ export const TopicEditor = () => {
   return (
     <DashboardContainer title="Add a new topic">
       <Grid container spacing={1}>
-        <Grid
-          xs={12}
-          lg={5}
-        >
+        <Grid xs={12} lg={5}>
           <Card>
             <CardHeader title="About the topic" />
             <TextField
@@ -28,7 +28,11 @@ export const TopicEditor = () => {
               label="Title"
               fullWidth
               InputProps={{
-                startAdornment: <InputAdornment position="start">In Kinyarwanda</InputAdornment>,
+                startAdornment: (
+                  <InputAdornment position="start">
+                    In Kinyarwanda
+                  </InputAdornment>
+                ),
               }}
             />
             <TextField
@@ -39,9 +43,7 @@ export const TopicEditor = () => {
               helperText="Please select topic category"
               fullWidth
             >
-              <MenuItem value="">
-                Select category
-              </MenuItem>
+              <MenuItem value="">Select category</MenuItem>
             </TextField>
             <TextField
               id="description"
@@ -59,12 +61,11 @@ export const TopicEditor = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid
-          xs={12}
-          lg={7}
-          sx={{ boxSizing: 'border-box' }}
-        >
-          <RRVEditor editorState={editorState} onEditorStateChange={setEditorState} />
+        <Grid xs={12} lg={7} sx={{ boxSizing: 'border-box' }}>
+          <RRVEditor
+            editorState={editorState}
+            onEditorStateChange={setEditorState}
+          />
         </Grid>
         <Button>View</Button>
         <Button>Save</Button>

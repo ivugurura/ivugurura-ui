@@ -2,7 +2,10 @@ import React from 'react';
 
 import { Info as InfoIcon } from '@mui/icons-material';
 import {
-  CardMedia, IconButton, ImageListItem, ImageListItemBar,
+  CardMedia,
+  IconButton,
+  ImageListItem,
+  ImageListItemBar,
 } from '@mui/material';
 import RMCarousel from 'react-material-ui-carousel';
 
@@ -27,14 +30,14 @@ const CarsouselItem = ({ topic = null }) => (
     <ImageListItemBar
       title={topic?.title || DEFAULT.title}
       subtitle={topic?.content || DEFAULT.subtitle}
-      actionIcon={(
+      actionIcon={
         <IconButton
           sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
           aria-label={topic?.title || DEFAULT.title}
         >
           <InfoIcon />
         </IconButton>
-      )}
+      }
     />
   </ImageListItem>
 );
@@ -43,16 +46,18 @@ export const HomeCarousel = () => {
   const { data: topics } = data || initials.dataArr;
   return (
     <>
-      {isFetching ? <CarsoulLoader /> : topics?.length > 0 && (
-      <RMCarousel indicators={false}>
-        {topics.map((topic) => (
-          <CarsouselItem key={topic.title} topic={topic} />
-        ))}
-      </RMCarousel>
+      {isFetching ? (
+        <CarsoulLoader />
+      ) : (
+        topics?.length > 0 && (
+          <RMCarousel indicators={false}>
+            {topics.map((topic) => (
+              <CarsouselItem key={topic.title} topic={topic} />
+            ))}
+          </RMCarousel>
+        )
       )}
-      {!isFetching && topics?.length === 0 && (
-        <CarsouselItem />
-      )}
+      {!isFetching && topics?.length === 0 && <CarsouselItem />}
     </>
   );
 };

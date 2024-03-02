@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 
-import {
-  Edit as EditIcon,
-  Delete as DeleteIcon,
-} from '@mui/icons-material';
-import {
-  Button, Box, IconButton, Grid,
-} from '@mui/material';
+import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import { Button, Box, IconButton, Grid } from '@mui/material';
 
 import { RRVTable } from '../../../common/components/RRVTable';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
@@ -17,7 +12,10 @@ import { AddEditUser } from './AddEditUser';
 import { userColumns } from './schema';
 
 const alertInitial = {
-  current: null, message: '', open: false, action: 'add',
+  current: null,
+  message: '',
+  open: false,
+  action: 'add',
 };
 export const SystemUsers = () => {
   const [alertData, setAlertData] = useState(alertInitial);
@@ -39,7 +37,12 @@ export const SystemUsers = () => {
 
   const { data: users, totalItems } = data || initials.dataArr;
   return (
-    <DashboardContainer title="List of registered users" action={<Button onClick={() => handleSetAction('add')}>Add new user</Button>}>
+    <DashboardContainer
+      title="List of registered users"
+      action={
+        <Button onClick={() => handleSetAction('add')}>Add new user</Button>
+      }
+    >
       <AddEditUser
         open={open}
         onClose={() => setOpen(false)}

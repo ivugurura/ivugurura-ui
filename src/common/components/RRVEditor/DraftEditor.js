@@ -50,32 +50,36 @@ import styles from './DraftEditor.module.scss';
 //   },
 // };
 export const DraftEditor = ({
-  editorState, onEditorStateChange, placeholder, ...rest
+  editorState,
+  onEditorStateChange,
+  placeholder,
+  ...rest
 }) => {
   const [prevFile, setPrevFile] = useState('');
 
-  const onImageUpload = (file) => new Promise((resolve, reject) => {
-    const formData = new FormData();
-    formData.append('file', file);
-    http
-      .post('/albums/upload/image', formData)
-      .then((res) => {
-        const fileName = res.data.data;
-        setPrevFile(fileName);
-        resolve({ data: { link: `${IMAGE_PATH}/${fileName}` } });
-      })
-      .catch((error) => {
-        let errorMessage = error.message;
-        if (error.response) {
-          console.log(error.response);
-          const { error: apiError, message } = error.response.data || {};
-          errorMessage = apiError || message || error.message;
-        }
-        // notifier.error(errorMessage);
-        console.log({ errorMessage });
-        reject(errorMessage);
-      });
-  });
+  const onImageUpload = (file) =>
+    new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append('file', file);
+      http
+        .post('/albums/upload/image', formData)
+        .then((res) => {
+          const fileName = res.data.data;
+          setPrevFile(fileName);
+          resolve({ data: { link: `${IMAGE_PATH}/${fileName}` } });
+        })
+        .catch((error) => {
+          let errorMessage = error.message;
+          if (error.response) {
+            console.log(error.response);
+            const { error: apiError, message } = error.response.data || {};
+            errorMessage = apiError || message || error.message;
+          }
+          // notifier.error(errorMessage);
+          console.log({ errorMessage });
+          reject(errorMessage);
+        });
+    });
 
   console.log({ prevFile });
   return (

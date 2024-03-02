@@ -60,7 +60,9 @@ export const RRVSunEditor = ({ topic, sunEdContent, setSunEdContent }) => {
       placeholder="Please type here..."
       onChange={(content) => setSunEdContent(content)}
       onImageUploadBefore={onImageUploadBefore}
-      onImageUploadError={(errorMsg, result) => console.log({ errorMsg, result })}
+      onImageUploadError={(errorMsg, result) =>
+        console.log({ errorMsg, result })
+      }
     />
   );
 };

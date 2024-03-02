@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 
 import {
-  Home as HomeIcon, MoreVert as MoreVertIcon, RssFeed as RssFeedIcon,
+  Home as HomeIcon,
+  MoreVert as MoreVertIcon,
+  RssFeed as RssFeedIcon,
 } from '@mui/icons-material';
 import { Masonry } from '@mui/lab';
-import {
-  Avatar, Grid, CardHeader, IconButton, Card,
-} from '@mui/material';
+import { Avatar, Grid, CardHeader, IconButton, Card } from '@mui/material';
 import { red } from '@mui/material/colors';
 
 import { RRVBreadcrumbs } from '../../common/components/RRVBreadcrumbs/Breadcrumbs';
@@ -27,26 +27,37 @@ const initialCrumbsProps = {
   onClick: undefined,
   anchorEl: null,
 };
-const initialTopicHomeNavs = [{
-  name: 'Topics',
-  route: toLink('topics'),
-  primaryIcon: HomeIcon,
-  breadcumbMenu: null,
-}];
+const initialTopicHomeNavs = [
+  {
+    name: 'Topics',
+    route: toLink('topics'),
+    primaryIcon: HomeIcon,
+    breadcumbMenu: null,
+  },
+];
 const CategoryItem = ({ category, selectedId, onClick }) => (
   <Grid item xs={12} md={12}>
-    <Card sx={{ background: category.id === selectedId ? 'silver' : 'transparent', cursor: 'pointer' }} onClick={() => onClick(category)}>
+    <Card
+      sx={{
+        background: category.id === selectedId ? 'silver' : 'transparent',
+        cursor: 'pointer',
+      }}
+      onClick={() => onClick(category)}
+    >
       <CardHeader
-        avatar={(
-          <Avatar sx={{ bgcolor: red[500] }} aria-label={`Image for ${category.name}`}>
+        avatar={
+          <Avatar
+            sx={{ bgcolor: red[500] }}
+            aria-label={`Image for ${category.name}`}
+          >
             R
           </Avatar>
-        )}
-        action={(
+        }
+        action={
           <IconButton aria-label={category.name}>
             <MoreVertIcon />
           </IconButton>
-        )}
+        }
         title={category.name}
         subheader="September 14, 2016"
       />
@@ -57,7 +68,6 @@ export const TopicsPage = () => {
   const [topicsNavs, setTopicsNavs] = React.useState(initialTopicHomeNavs);
   const { t: categorySlug } = useQueryParams();
   const [selectedCategoryId, setSelectedCategoryId] = React.useState(null);
-  // const [breadcumbMenu, setBreadcumbMenu] = React.useState(initialCrumbsProps);
   const {
     pagination: { page, pageSize },
     handleChangePage,
@@ -65,13 +75,17 @@ export const TopicsPage = () => {
     resetRowsPerPage,
   } = usePagination(1, 15);
   const { data, isFetching } = actions.useListTopicsQuery({
-    truncate: 148, page, pageSize, category: selectedCategoryId,
+    truncate: 148,
+    page,
+    pageSize,
+    category: selectedCategoryId,
   });
-  const { data: catData } = actions.useListCategoryQuery({ categoryType: 'with-topics' });
+  const { data: catData } = actions.useListCategoryQuery({
+    categoryType: 'with-topics',
+  });
   const { data: topics, totalItems } = data || initials.dataArr;
   const { data: categories } = catData || initials.dataArr;
   const handleMenuOpen = (event) => {
-    // setBreadcumbMenu((prev) => ({ ...prev, anchorEl: event.currentTarget }));
     setTopicsNavs((prev) => {
       const copyPrev = [...prev];
       const navIndex = prev.length - 1;
@@ -105,31 +119,30 @@ export const TopicsPage = () => {
   useEffect(() => {
     if (topics.length > 0) {
       const category = categories.find((cat) => cat.id === selectedCategoryId);
-      setTopicsNavs(initialTopicHomeNavs.concat([{
-        primaryIcon: RssFeedIcon,
-        name: category?.name || 'All',
-        onClick: handleMenuOpen,
-        breadcumbMenu: initialCrumbsProps,
-      }]));
+      setTopicsNavs(
+        initialTopicHomeNavs.concat([
+          {
+            primaryIcon: RssFeedIcon,
+            name: category?.name || 'All',
+            onClick: handleMenuOpen,
+            breadcumbMenu: initialCrumbsProps,
+          },
+        ]),
+      );
     }
   }, [topics.length, selectedCategoryId]);
   useEffect(() => {
-    if (topics.length > 0 && categorySlug) {
+    if (categories.length > 0 && categorySlug) {
       const category = categories.find((cat) => cat.slug === categorySlug);
       setSelectedCategoryId(category?.id || null);
-      setTopicsNavs(initialTopicHomeNavs.concat([{
-        primaryIcon: RssFeedIcon,
-        name: category?.name,
-        onClick: handleMenuOpen,
-        breadcumbMenu: initialCrumbsProps,
-      }]));
     }
-  }, [topics.length, categorySlug]);
+  }, [categories.length, categorySlug]);
   const handleCategoryClick = (category) => {
     setSelectedCategoryId(category?.id || null);
     resetRowsPerPage();
   };
-  const breadcrumbMenu = topicsNavs[(topicsNavs?.length ?? 0) - 1]?.breadcumbMenu;
+  const breadcrumbMenu =
+    topicsNavs[(topicsNavs?.length ?? 0) - 1]?.breadcumbMenu;
   console.log({ isFetching });
   return (
     <Grid container spacing={1}>
@@ -140,7 +153,9 @@ export const TopicsPage = () => {
             <RRVMenu
               handleClose={handleMenuClose}
               menuId={breadcrumbMenu?.id}
-              menus={[{ id: '', name: 'All' }].concat(categories).map((c) => ({ ...c, onClick: () => handleCategoryClick(c) }))}
+              menus={[{ id: '', name: 'All' }]
+                .concat(categories)
+                .map((c) => ({ ...c, onClick: () => handleCategoryClick(c) }))}
               anchorEl={breadcrumbMenu?.anchorEl}
               open={Boolean(breadcrumbMenu?.anchorEl)}
               lebelledBy={breadcrumbMenu?.lebelledBy}
@@ -149,9 +164,10 @@ export const TopicsPage = () => {
           <Grid item md={12}>
             <Grid container>
               <Masonry columns={3}>
-                {topics?.length > 0 && topics.map((topic) => (
-                  <TopicItem key={topic.slug} topic={topic} hasMore />
-                ))}
+                {topics?.length > 0 &&
+                  topics.map((topic) => (
+                    <TopicItem key={topic.slug} topic={topic} hasMore />
+                  ))}
               </Masonry>
               <RRVPagination
                 handleChangePage={handleChangePage}

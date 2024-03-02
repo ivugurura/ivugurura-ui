@@ -40,4 +40,5 @@ const buildState = (state) => {
   return newActions;
 };
 
-export const buildAppStates = () => appStates.map((s) => ({ ...s, actions: buildState(s) }));
+export const buildAppStates = () =>
+  appStates.map((s) => ({ ...s, actions: buildState(s) }));

@@ -37,9 +37,7 @@ export const TopicEditor2 = () => {
 
   useEffect(() => {
     if (topicSlug && topic) {
-      const {
-        title, categoryId, content, coverImage, slug,
-      } = topic;
+      const { title, categoryId, content, coverImage, slug } = topic;
       setValues({ slug, title, categoryId });
       setSunEdContent(content);
       dispatch(setFilePath(coverImage));
@@ -78,8 +76,13 @@ export const TopicEditor2 = () => {
     <PageHelmet title="Edit page title">
       <Header />
       <AboutTopic values={values} setValues={setValues} />
-      <CoverImage open={open.addImg} handleClose={() => handleOpen('addImg', false)} />
-      <Button onClick={() => handleOpen('addImg', true)}>Add cover image</Button>
+      <CoverImage
+        open={open.addImg}
+        handleClose={() => handleOpen('addImg', false)}
+      />
+      <Button onClick={() => handleOpen('addImg', true)}>
+        Add cover image
+      </Button>
       <TopicDetails
         topic={values}
         editorState={editorState}
@@ -93,7 +96,9 @@ export const TopicEditor2 = () => {
         onClose={() => handleOpen('preview', false)}
         topic={{ ...values, content: sunEdContent, coverImage: filePathName }}
       />
-      <Button disabled={isLoading} onClick={handleSave}>{isLoading ? 'Saving...' : 'Save'}</Button>
+      <Button disabled={isLoading} onClick={handleSave}>
+        {isLoading ? 'Saving...' : 'Save'}
+      </Button>
     </PageHelmet>
   );
 };

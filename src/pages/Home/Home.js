@@ -1,10 +1,6 @@
 import React from 'react';
 
-import {
-  Card,
-  Grid,
-  Typography,
-} from '@mui/material';
+import { Card, Grid, Typography } from '@mui/material';
 
 import { RRVAudioPlayer } from '../../common/components/RRVAudioPlayer';
 import { Page } from '../../common/components/wrappers';
@@ -13,7 +9,10 @@ import { Page } from '../../common/components/wrappers';
 
 // HomeCarousel,
 import {
-  HomeCarousel, HomeRecentTopics, HomeYoutube, RadioHome,
+  HomeCarousel,
+  HomeRecentTopics,
+  HomeYoutube,
+  RadioHome,
 } from './components';
 import { HomeContentLayout } from './components/HomeContentLayout';
 
@@ -36,17 +35,20 @@ export const Home = () => {
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6}>
           <Grid container spacing={1}>
-            <Grid item xs={12} sm={12} md={6} lg={6}><RadioHome /></Grid>
+            <Grid item xs={12} sm={12} md={6} lg={6}>
+              <RadioHome />
+            </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6}>
               <Card>
-                <Typography
-                  component="span"
-                  variant="h3"
-                  color="text.primary"
-                >
+                <Typography component="span" variant="h3" color="text.primary">
                   Evangelists of the Revival and Reformation
                 </Typography>
-                <Typography component="span" variant="h4"> — And this gospel of the kingdom shall be preached in all the world for a witness unto all nations; and then shall the end come.</Typography>
+                <Typography component="span" variant="h4">
+                  {' '}
+                  — And this gospel of the kingdom shall be preached in all the
+                  world for a witness unto all nations; and then shall the end
+                  come.
+                </Typography>
                 <HomeCarousel />
               </Card>
             </Grid>
@@ -62,7 +64,12 @@ export const Home = () => {
             <RRVAudioPlayer />
           </Grid>
           <Grid item xs={12} sm={12} md={7}>
-            <HomeYoutube heightRatio={0.534} widthRatio={0.57} normalHeight={420} randomize />
+            <HomeYoutube
+              heightRatio={0.534}
+              widthRatio={0.57}
+              normalHeight={420}
+              randomize
+            />
           </Grid>
         </Grid>
       </HomeContentLayout>

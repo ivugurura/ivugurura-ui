@@ -2,7 +2,12 @@ import React from 'react';
 
 import { Close as CloseIcon } from '@mui/icons-material';
 import {
-  Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
 } from '@mui/material';
 
 import TopicItem from '../../TopicItem';
@@ -15,9 +20,7 @@ export const TopicEditPreview = ({ topic = {}, open, onClose }) => (
     maxWidth="md"
   >
     <DialogTitle sx={{ m: 0, p: 2 }} id="topic-overview-title">
-      Preview:
-      {' '}
-      {topic.title}
+      Preview: {topic.title}
     </DialogTitle>
     <IconButton
       aria-label="close"

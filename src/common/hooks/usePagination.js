@@ -8,7 +8,11 @@ export const usePagination = (page = 1, pageSize = 10) => {
   };
 
   const handleChangeRowsPerPage = ({ target }) => {
-    setPagination((prev) => ({ ...prev, pageSize: parseInt(target.value, 10), page: 1 }));
+    setPagination((prev) => ({
+      ...prev,
+      pageSize: parseInt(target.value, 10),
+      page: 1,
+    }));
   };
 
   const resetRowsPerPage = () => {
@@ -16,6 +20,9 @@ export const usePagination = (page = 1, pageSize = 10) => {
   };
 
   return {
-    pagination, handleChangePage, handleChangeRowsPerPage, resetRowsPerPage,
+    pagination,
+    handleChangePage,
+    handleChangeRowsPerPage,
+    resetRowsPerPage,
   };
 };

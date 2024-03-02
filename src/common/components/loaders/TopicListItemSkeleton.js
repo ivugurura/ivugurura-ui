@@ -7,8 +7,17 @@ export const TopicListItemSkeleton = ({ totalItem = 1 }) => (
     {Array.from({ length: totalItem }, (_, i) => (
       <CardHeader
         key={i}
-        avatar={<Skeleton animation="wave" variant="circular" width={40} height={40} />}
-        title={<Skeleton animation="wave" height={15} style={{ marginBottom: 6 }} />}
+        avatar={
+          <Skeleton
+            animation="wave"
+            variant="circular"
+            width={40}
+            height={40}
+          />
+        }
+        title={
+          <Skeleton animation="wave" height={15} style={{ marginBottom: 6 }} />
+        }
         subheader={<Skeleton animation="wave" height={15} width="40%" />}
       />
     ))}

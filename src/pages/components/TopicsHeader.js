@@ -1,8 +1,6 @@
 import React from 'react';
 
-import {
-  Breadcrumbs, Link, Stack, Typography,
-} from '@mui/material';
+import { Breadcrumbs, Link, Stack, Typography } from '@mui/material';
 
 export const TopicsHeader = () => {
   console.log('Topics Header');
@@ -22,5 +20,9 @@ export const TopicsHeader = () => {
       Breadcrumb
     </Typography>,
   ];
-  return <Stack spacing={2}><Breadcrumbs separator=">">{breadcrumbs}</Breadcrumbs></Stack>;
+  return (
+    <Stack spacing={2}>
+      <Breadcrumbs separator=">">{breadcrumbs}</Breadcrumbs>
+    </Stack>
+  );
 };

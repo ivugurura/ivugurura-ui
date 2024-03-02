@@ -11,7 +11,9 @@ import { DashboardContainer } from '../components/DashboardContainer';
 import { commentariesColumns } from './schema';
 
 const alertInitial = {
-  current: null, message: '', open: false,
+  current: null,
+  message: '',
+  open: false,
 };
 export const Commentaries = () => {
   const [alertData, setAlertData] = useState(alertInitial);

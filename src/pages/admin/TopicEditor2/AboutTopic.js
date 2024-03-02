@@ -1,7 +1,15 @@
 import React from 'react';
 
 import {
-  Card, CardContent, CardHeader, FormControl, Grid, InputLabel, MenuItem, Select, TextField,
+  Card,
+  CardContent,
+  CardHeader,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
 } from '@mui/material';
 
 import { actions, initials } from '../../../redux/apiSliceBuilder';
@@ -29,9 +37,7 @@ export const AboutTopic = ({ values = {}, setValues }) => {
           </Grid>
           <Grid item md={4} xs={12}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel id="blog-category">
-                Topic category
-              </InputLabel>
+              <InputLabel id="blog-category">Topic category</InputLabel>
               <Select
                 labelId="blog-category"
                 name="categoryId"
@@ -40,7 +46,9 @@ export const AboutTopic = ({ values = {}, setValues }) => {
               >
                 <MenuItem value="">---</MenuItem>
                 {categories.map((cat) => (
-                  <MenuItem value={cat.id} key={cat.id}>{cat.name}</MenuItem>
+                  <MenuItem value={cat.id} key={cat.id}>
+                    {cat.name}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>

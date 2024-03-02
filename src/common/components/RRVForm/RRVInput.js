@@ -24,13 +24,12 @@ export const RRVInput = (props) => {
       id={id || inputProps.name}
       {...inputProps}
     >
-      {select && (
+      {select &&
         options.map((option) => (
           <MenuItem key={option[valueSelector]} value={option[valueSelector]}>
             {option[labelSelector]}
           </MenuItem>
-        ))
-      )}
+        ))}
     </TextField>
   );
 };

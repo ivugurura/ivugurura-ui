@@ -7,24 +7,29 @@ import {
   RssFeed as RssFeedIcon,
   Category as CategoryIcon,
 } from '@mui/icons-material';
-import {
-  Avatar, Grid, CardHeader, IconButton, Card,
-} from '@mui/material';
+import { Avatar, Grid, CardHeader, IconButton, Card } from '@mui/material';
 import { red } from '@mui/material/colors';
-import { useParams } from 'react-router';
+import moment from 'moment';
+import { useNavigate, useParams } from 'react-router';
 
-import { TopicDetailSkeleton, TopicListItemSkeleton } from '../../common/components/loaders';
+import {
+  TopicDetailSkeleton,
+  TopicListItemSkeleton,
+} from '../../common/components/loaders';
 import { RRVBreadcrumbs } from '../../common/components/RRVBreadcrumbs';
 import { toLink } from '../../helpers/utils/constants';
 import { actions, initials } from '../../redux/apiSliceBuilder';
 import TopicItem from '../TopicItem';
 
-const initialTopicHomeNavs = [{
-  name: 'Topics',
-  route: toLink('topics'),
-  primaryIcon: HomeIcon,
-}];
+const initialTopicHomeNavs = [
+  {
+    name: 'Topics',
+    route: toLink('topics'),
+    primaryIcon: HomeIcon,
+  },
+];
 export const TopicDetailPage = () => {
+  const navigation = useNavigate();
   const { slug } = useParams();
   const { data, isFetching } = actions.useViewTopicQuery({ slug });
   const [topicNavs, setTopicNavs] = React.useState(initialTopicHomeNavs);
@@ -33,15 +38,18 @@ export const TopicDetailPage = () => {
   useEffect(() => {
     if (topic?.slug) {
       const relatedCount = topic.category.relatedTopics.length;
-      const newNavs = [{
-        name: `${topic.category.name}(${relatedCount === 10 ? '10+' : relatedCount})`,
-        route: toLink(`topics/?t=${topic.category?.slug}`),
-        primaryIcon: CategoryIcon,
-        secondaryIcon: ExpandMoreIcon,
-      }, {
-        primaryIcon: RssFeedIcon,
-        name: topic.title,
-      }];
+      const newNavs = [
+        {
+          name: `${topic.category.name}(${relatedCount === 10 ? '10+' : relatedCount})`,
+          route: toLink(`topics/?t=${topic.category?.slug}`),
+          primaryIcon: CategoryIcon,
+          secondaryIcon: ExpandMoreIcon,
+        },
+        {
+          primaryIcon: RssFeedIcon,
+          name: topic.title,
+        },
+      ];
       setTopicNavs(initialTopicHomeNavs.concat(newNavs));
     }
   }, [topic?.slug]);
@@ -54,33 +62,47 @@ export const TopicDetailPage = () => {
             <RRVBreadcrumbs crumbs={topicNavs} />
           </Grid>
           <Grid item md={12}>
-            {isFetching ? <TopicDetailSkeleton /> : topic && <TopicItem topic={topic} imageHeight="380" showComments />}
+            {isFetching ? (
+              <TopicDetailSkeleton />
+            ) : (
+              topic && (
+                <TopicItem topic={topic} imageHeight="380" showComments />
+              )
+            )}
           </Grid>
         </Grid>
       </Grid>
       <Grid item md={3}>
         <Grid container spacing={1}>
-          {isFetching ? <TopicListItemSkeleton totalItem={9} />
-            : topic?.category?.relatedTopics.map((rt) => (
+          {isFetching ? (
+            <TopicListItemSkeleton totalItem={9} />
+          ) : (
+            topic?.category?.relatedTopics.map((rt) => (
               <Grid item key={rt.slug} sx={{ width: '100%' }}>
-                <Card>
+                <Card sx={{ cursor: 'pointer' }}>
                   <CardHeader
-                    avatar={(
+                    avatar={
                       <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
                         R
                       </Avatar>
-                    )}
-                    action={(
+                    }
+                    action={
                       <IconButton aria-label="settings">
                         <MoreVertIcon />
                       </IconButton>
-                    )}
+                    }
+                    onClick={() => {
+                      navigation(toLink(`topics/${rt.slug}`), {
+                        replace: true,
+                      });
+                    }}
                     title={rt.title}
-                    subheader="September 14, 2016"
+                    subheader={`Lastly updated ${moment(rt.updatedAt).format('DD.MM.YYYY')}`}
                   />
                 </Card>
               </Grid>
-            ))}
+            ))
+          )}
         </Grid>
       </Grid>
     </Grid>

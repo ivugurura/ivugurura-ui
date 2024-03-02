@@ -5,6 +5,7 @@ import { Grid } from '@mui/material';
 import { RRVFileUpload } from '../RRVFileUpload';
 
 import { RRVInput } from './RRVInput';
+import { RRVPassword } from './RRVPassword';
 import { RRVSwitch } from './RRVSwitch';
 
 export const RRVForm = ({ fields = [], states = null, setStates = () => {} }) => {
@@ -39,6 +40,8 @@ export const RRVForm = ({ fields = [], states = null, setStates = () => {} }) =>
         return <RRVFileUpload key={`fu-${idx}`} type={vProps.type} title={vProps.label} accept={accept} />;
       case 'switch-field':
         return <RRVSwitch key={`sf-${idx}`} onChange={handleChange(vProps)} {...vProps} />;
+      case 'password':
+        return <RRVPassword key={`sf-${idx}`} onChange={handleChange(vProps)} {...vProps} />;
       case 'text-field':
       default:
         return <RRVInput key={`ft-${idx}`} onChange={handleChange(vProps)} {...vProps} />;

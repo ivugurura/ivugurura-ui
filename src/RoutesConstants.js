@@ -1,4 +1,5 @@
 export const PageRoutes = {
+  Audios: 'audios',
   Topics: 'topics',
   Topic: 'topics/:slug',
   Login: 'login',

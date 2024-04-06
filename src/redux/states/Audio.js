@@ -19,5 +19,12 @@ export const AudioState = {
         hasBody: true,
       },
     },
+    share: {
+      api: {
+        verb: VERBS.get,
+        endpoint: '/albums/share/:slug',
+        isMutation: true,
+      },
+    },
   },
 };

@@ -88,6 +88,7 @@ export const toLink = (link = '', isAdmin = false) =>
   `${isAdmin ? '/admin/' : '/'}${systemLanguage}/${link}`;
 export const toAssetPath = (name = '', isImage = true) =>
   `${isImage ? IMAGE_PATH : AUDIO_PATH}/${name}`;
+export const DL_ROUTE = `${process.env.REACT_APP_API_URL}/api/v1/albums/download/`;
 
 const messageId = 13;
 export const notifier = {

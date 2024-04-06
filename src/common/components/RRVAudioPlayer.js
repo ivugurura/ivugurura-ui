@@ -5,6 +5,7 @@ import {
   PlayArrow,
   SkipNext,
   SkipPrevious,
+  Download as DownloadIcon,
 } from '@mui/icons-material';
 import {
   Button,
@@ -18,14 +19,18 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
+  ButtonGroup,
 } from '@mui/material';
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 
-import { toAssetPath } from '../../helpers/utils/constants';
+import { DL_ROUTE, toAssetPath } from '../../helpers/utils/constants';
 import { actions, initials } from '../../redux/apiSliceBuilder';
+
+import { RRVShare } from './RRVShare';
 
 export const RRVAudioPlayer = () => {
   const [currentAudio, setCurrentAudio] = useState({ index: -1, audio: null });
+  const [shareSong] = actions.useShareAudioMutation();
   const { data, isFetching } = actions.useListAudiosQuery({
     page: 1,
     pageSize: 3,
@@ -98,14 +103,36 @@ export const RRVAudioPlayer = () => {
       )}
       <CardContent>
         <List>
-          {audios?.map((audio) => (
+          {audios?.map((audio, audioIdx) => (
             <>
               <ListItem
                 key={audio.id}
                 selected={audio.id === currentAudio.audio?.id}
                 secondaryAction={
                   <IconButton edge="end">
-                    <PlayArrow />
+                    <ButtonGroup size="small">
+                      <Button
+                        startIcon={<PlayArrow />}
+                        onClick={() =>
+                          setCurrentAudio({ index: audioIdx, audio })
+                        }
+                      >
+                        Play
+                      </Button>
+                      <Button
+                        startIcon={<DownloadIcon />}
+                        target="_blank"
+                        rel="noreferrer"
+                        href={DL_ROUTE + audio.slug}
+                      >
+                        Download
+                      </Button>
+                      <RRVShare
+                        title={audio.title}
+                        href={DL_ROUTE + audio.slug}
+                        onShare={() => shareSong({ slug: audio.slug })}
+                      />
+                    </ButtonGroup>
                   </IconButton>
                 }
                 alignItems="flex-start"

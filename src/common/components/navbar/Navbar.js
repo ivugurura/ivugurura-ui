@@ -1,51 +1,41 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 
-import { systemLanguage } from '../../../helpers/utils/constants';
-import { PageRoutes } from '../../../RoutesConstants';
+import { RRVDropdown } from '../RRVDropdown';
 
-const pages = [
-  { name: 'Home', path: `${systemLanguage}/${PageRoutes.Index}` },
-  { name: 'Topics', path: `${systemLanguage}/${PageRoutes.Topics}` },
-  { name: 'Topic', path: `${systemLanguage}/${PageRoutes.Topic}` },
-];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-export const NavBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+export const NavBar = ({ navCategories = [] }) => {
+  const categories = useMemo(
+    () =>
+      navCategories.map((category) => (
+        <RRVDropdown
+          key={category.id}
+          title={category.name}
+          options={category.categories.map((cat) => (
+            <Typography key={cat.id}>{cat.name}</Typography>
+          ))}
+        />
+      )),
+    [navCategories.length],
+  );
 
   return (
-    <AppBar position="sticky">
+    <AppBar
+      position="sticky"
+      sx={{ background: 'linear-gradient(59deg, #3a6073, #16222a)' }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -69,42 +59,30 @@ export const NavBar = () => {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
+            <RRVDropdown
+              title={
+                <IconButton color="inherit">
+                  <MenuIcon />
+                </IconButton>
+              }
               size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+              options={categories}
+              menuProps={{
+                sx: {
+                  display: { xs: 'block', md: 'none' },
+                },
+                transformOrigin: {
+                  vertical: 'top',
+                  horizontal: 'left',
+                },
+                anchorOrigin: {
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                },
+                keepMounted: true,
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map(({ name, path }) => (
-                <MenuItem key={name} onClick={handleCloseNavMenu}>
-                  <Link to={path}>
-                    <Typography textAlign="center">{name}</Typography>
-                  </Link>
-                </MenuItem>
-              ))}
-            </Menu>
+              buttonProps={{ endIcon: undefined }}
+            />
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
@@ -126,46 +104,40 @@ export const NavBar = () => {
             Ubugorozi
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map(({ name, path }) => (
-              <Link key={name} to={path}>
-                <Button
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  {name}
-                </Button>
-              </Link>
-            ))}
+            {categories}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+            <RRVDropdown
+              title={
+                <Tooltip title="Open settings">
+                  <IconButton sx={{ p: 0 }}>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src="/static/images/avatar/2.jpg"
+                    />
+                  </IconButton>
+                </Tooltip>
+              }
+              menuProps={{
+                sx: {
+                  mt: '45px',
+                },
+                transformOrigin: {
+                  vertical: 'top',
+                  horizontal: 'right',
+                },
+                anchorOrigin: {
+                  vertical: 'top',
+                  horizontal: 'right',
+                },
+                keepMounted: true,
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
+              buttonProps={{ endIcon: undefined, sx: { p: 0 } }}
+              options={settings.map((setting) => (
+                <Typography key={setting}>{setting}</Typography>
               ))}
-            </Menu>
+            />
           </Box>
         </Toolbar>
       </Container>

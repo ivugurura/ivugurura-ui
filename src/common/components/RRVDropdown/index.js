@@ -52,6 +52,8 @@ export const RRVDropdown = ({
   options = [],
   variant = 'contained',
   size = 'small',
+  buttonProps = {},
+  menuProps = {},
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -73,6 +75,7 @@ export const RRVDropdown = ({
         variant={variant}
         size={size}
         endIcon={<KeyboardArrowDownIcon />}
+        {...buttonProps}
       >
         {title}
       </Button>
@@ -84,6 +87,7 @@ export const RRVDropdown = ({
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        {...menuProps}
       >
         {options.map((option, optionIdx) => (
           <MenuItem key={`mi-${optionIdx}`} onClick={handleClose} disableRipple>

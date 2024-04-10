@@ -1,21 +1,33 @@
 import React, { useMemo } from 'react';
 
-import AdbIcon from '@mui/icons-material/Adb';
-import MenuIcon from '@mui/icons-material/Menu';
-import AppBar from '@mui/material/AppBar';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import Toolbar from '@mui/material/Toolbar';
-import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
-import { Link } from 'react-router-dom';
+import { Menu as MenuIcon } from '@mui/icons-material';
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 
 import { RRVDropdown } from '../RRVDropdown';
+import { RRVSearch } from '../RRVSearch';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
+const AdditionalMenu = () => (
+  <>
+    <Button variant="text" color="primary">
+      <Typography>Audio</Typography>
+    </Button>
+    <Button variant="text">
+      <Typography>Contact Us</Typography>
+    </Button>
+  </>
+);
 export const NavBar = ({ navCategories = [] }) => {
   const categories = useMemo(
     () =>
@@ -23,6 +35,7 @@ export const NavBar = ({ navCategories = [] }) => {
         <RRVDropdown
           key={category.id}
           title={category.name}
+          variant="text"
           options={category.categories.map((cat) => (
             <Typography key={cat.id}>{cat.name}</Typography>
           ))}
@@ -38,11 +51,9 @@ export const NavBar = ({ navCategories = [] }) => {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
-            component={Link}
             to="/"
             sx={{
               mr: 2,
@@ -55,9 +66,8 @@ export const NavBar = ({ navCategories = [] }) => {
               textDecoration: 'none',
             }}
           >
-            Ubugorozi
+            UBUGOROZI
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <RRVDropdown
               title={
@@ -84,11 +94,9 @@ export const NavBar = ({ navCategories = [] }) => {
               buttonProps={{ endIcon: undefined }}
             />
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
-            component={Link}
             to="/"
             sx={{
               mr: 2,
@@ -101,24 +109,33 @@ export const NavBar = ({ navCategories = [] }) => {
               textDecoration: 'none',
             }}
           >
-            Ubugorozi
+            UBUGOROZI
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {categories}
+            <AdditionalMenu />
+            <RRVSearch />
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <RRVDropdown
+              title="Language"
+              variant="text"
+              options={['English', 'Kinyarwanda']}
+            />
+            <RRVDropdown
               title={
                 <Tooltip title="Open settings">
-                  <IconButton sx={{ p: 0 }}>
+                  <IconButton size="small" sx={{ p: 0 }}>
                     <Avatar
                       alt="Remy Sharp"
+                      sx={{ width: 32, height: 32 }}
                       src="/static/images/avatar/2.jpg"
                     />
                   </IconButton>
                 </Tooltip>
               }
+              variant="text"
               menuProps={{
                 sx: {
                   mt: '45px',

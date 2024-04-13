@@ -146,7 +146,7 @@ export const TopicsPage = () => {
   console.log({ isFetching });
   return (
     <Grid container spacing={1}>
-      <Grid item md={9}>
+      <Grid item md={9} sm={12}>
         <Grid container>
           <Grid item md={12}>
             <RRVBreadcrumbs crumbs={topicsNavs} />
@@ -181,7 +181,7 @@ export const TopicsPage = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item md={3}>
+      <Grid item md={3} sm={12}>
         <Grid container spacing={1}>
           <CategoryItem
             category={{ id: null, name: 'All' }}

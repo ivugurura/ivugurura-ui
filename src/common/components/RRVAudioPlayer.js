@@ -104,7 +104,7 @@ export const RRVAudioPlayer = () => {
       <CardContent>
         <List>
           {audios?.map((audio, audioIdx) => (
-            <>
+            <React.Fragment key={audio.id}>
               <ListItem
                 key={audio.id}
                 selected={audio.id === currentAudio.audio?.id}
@@ -146,7 +146,7 @@ export const RRVAudioPlayer = () => {
                 />
               </ListItem>
               <Divider variant="insert" component="li" />
-            </>
+            </React.Fragment>
           ))}
         </List>
       </CardContent>

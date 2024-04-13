@@ -3,28 +3,28 @@ import React, { useMemo } from 'react';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import {
   AppBar,
-  Avatar,
+  // Avatar,
   Box,
   Button,
   Container,
   IconButton,
   Toolbar,
-  Tooltip,
+  // Tooltip,
   Typography,
 } from '@mui/material';
 
 import { RRVDropdown } from '../RRVDropdown';
 import { RRVSearch } from '../RRVSearch';
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const AdditionalMenu = () => (
   <>
-    <Button variant="text" color="primary">
-      <Typography>Audio</Typography>
+    <Button variant="text">
+      <Typography sx={{ color: 'white' }}>Audio</Typography>
     </Button>
     <Button variant="text">
-      <Typography>Contact Us</Typography>
+      <Typography sx={{ color: 'white' }}>Contact Us</Typography>
     </Button>
   </>
 );
@@ -36,6 +36,9 @@ export const NavBar = ({ navCategories = [] }) => {
           key={category.id}
           title={category.name}
           variant="text"
+          buttonProps={{
+            sx: { color: 'white' },
+          }}
           options={category.categories.map((cat) => (
             <Typography key={cat.id}>{cat.name}</Typography>
           ))}
@@ -80,6 +83,7 @@ export const NavBar = ({ navCategories = [] }) => {
               menuProps={{
                 sx: {
                   display: { xs: 'block', md: 'none' },
+                  color: 'inherit',
                 },
                 transformOrigin: {
                   vertical: 'top',
@@ -122,8 +126,11 @@ export const NavBar = ({ navCategories = [] }) => {
               title="Language"
               variant="text"
               options={['English', 'Kinyarwanda']}
+              buttonProps={{
+                sx: { color: 'white' },
+              }}
             />
-            <RRVDropdown
+            {/* <RRVDropdown
               title={
                 <Tooltip title="Open settings">
                   <IconButton size="small" sx={{ p: 0 }}>
@@ -154,7 +161,7 @@ export const NavBar = ({ navCategories = [] }) => {
               options={settings.map((setting) => (
                 <Typography key={setting}>{setting}</Typography>
               ))}
-            />
+            /> */}
           </Box>
         </Toolbar>
       </Container>

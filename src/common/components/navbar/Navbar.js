@@ -3,31 +3,42 @@ import React, { useMemo } from 'react';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import {
   AppBar,
-  // Avatar,
   Box,
   Button,
   Container,
-  // IconButton,
   Toolbar,
-  // Tooltip,
   Typography,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
+import {
+  systemLanguage,
+  systemLanguages,
+  toLink,
+} from '../../../helpers/utils/constants';
 import { RRVDropdown } from '../RRVDropdown';
 import { RRVSearch } from '../RRVSearch';
 
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const AdditionalMenu = () => (
-  <>
-    <Button variant="text">
-      <Typography sx={{ color: 'white' }}>Audio</Typography>
-    </Button>
-    <Button variant="text">
-      <Typography sx={{ color: 'white' }}>Contact Us</Typography>
-    </Button>
-  </>
-);
+const AdditionalMenu = () => {
+  const navigate = useNavigate();
+
+  return (
+    <>
+      <Button
+        variant="text"
+        onClick={() => navigate(toLink('audios'))}
+        sx={{ textTransform: 'none' }}
+      >
+        <Typography sx={{ color: 'white' }}>Audio</Typography>
+      </Button>
+      <Button variant="text">
+        <Typography sx={{ color: 'white' }}>Contact Us</Typography>
+      </Button>
+    </>
+  );
+};
 export const NavBar = ({ navCategories = [] }) => {
   const categories = useMemo(
     () =>
@@ -47,6 +58,10 @@ export const NavBar = ({ navCategories = [] }) => {
     [navCategories.length],
   );
 
+  const currentLang = useMemo(
+    () => systemLanguages.find((lang) => lang.abbr === systemLanguage),
+    [systemLanguage],
+  );
   return (
     <AppBar
       position="sticky"
@@ -119,9 +134,21 @@ export const NavBar = ({ navCategories = [] }) => {
 
           <Box sx={{ flexGrow: 0 }}>
             <RRVDropdown
-              title="Language"
+              title={
+                <>
+                  <img src={currentLang?.flag} alt={currentLang?.abbr} />{' '}
+                  {currentLang?.lang}
+                </>
+              }
               variant="text"
-              options={['English', 'Kinyarwanda']}
+              options={systemLanguages.map((sl) => (
+                <Button
+                  startIcon={<img src={sl.flag} alt={sl.abbr} />}
+                  key={sl.abbr}
+                >
+                  {sl.lang}
+                </Button>
+              ))}
               buttonProps={{
                 sx: { color: 'white' },
               }}

@@ -13,7 +13,6 @@ import {
   CardContent,
   CardHeader,
   Divider,
-  IconButton,
   List,
   ListItem,
   ListItemIcon,
@@ -70,8 +69,6 @@ export const RRVAudioPlayer = () => {
       <SkipNext />
     </Button>,
   ];
-  //   const DL_ROUTE = `${process.env.REACT_APP_API_URL}/api/v1/albums/download/`;
-  console.log({ audios });
   return isFetching ? (
     'Loading'
   ) : (
@@ -109,31 +106,29 @@ export const RRVAudioPlayer = () => {
                 key={audio.id}
                 selected={audio.id === currentAudio.audio?.id}
                 secondaryAction={
-                  <IconButton edge="end">
-                    <ButtonGroup size="small">
-                      <Button
-                        startIcon={<PlayArrow />}
-                        onClick={() =>
-                          setCurrentAudio({ index: audioIdx, audio })
-                        }
-                      >
-                        Play
-                      </Button>
-                      <Button
-                        startIcon={<DownloadIcon />}
-                        target="_blank"
-                        rel="noreferrer"
-                        href={DL_ROUTE + audio.slug}
-                      >
-                        Download
-                      </Button>
-                      <RRVShare
-                        title={audio.title}
-                        href={DL_ROUTE + audio.slug}
-                        onShare={() => shareSong({ slug: audio.slug })}
-                      />
-                    </ButtonGroup>
-                  </IconButton>
+                  <ButtonGroup size="small">
+                    <Button
+                      startIcon={<PlayArrow />}
+                      onClick={() =>
+                        setCurrentAudio({ index: audioIdx, audio })
+                      }
+                    >
+                      Play
+                    </Button>
+                    <Button
+                      startIcon={<DownloadIcon />}
+                      target="_blank"
+                      rel="noreferrer"
+                      href={DL_ROUTE + audio.slug}
+                    >
+                      Download
+                    </Button>
+                    <RRVShare
+                      title={audio.title}
+                      href={DL_ROUTE + audio.slug}
+                      onShare={() => shareSong({ slug: audio.slug })}
+                    />
+                  </ButtonGroup>
                 }
                 alignItems="flex-start"
               >

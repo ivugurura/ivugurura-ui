@@ -7,7 +7,7 @@ import {
   Box,
   Button,
   Container,
-  IconButton,
+  // IconButton,
   Toolbar,
   // Tooltip,
   Typography,
@@ -73,11 +73,7 @@ export const NavBar = ({ navCategories = [] }) => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <RRVDropdown
-              title={
-                <IconButton color="inherit">
-                  <MenuIcon />
-                </IconButton>
-              }
+              title={<MenuIcon />}
               size="large"
               options={categories}
               menuProps={{

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Search as SearchIcon,
@@ -6,6 +6,7 @@ import {
   Category as CategoryIcon,
 } from '@mui/icons-material';
 import {
+  CircularProgress,
   Dialog,
   DialogContent,
   DialogTitle,
@@ -35,10 +36,10 @@ const ListItemStyled = styled(ListItem)(({ theme }) => ({
 }));
 export const SearchModal = ({ open, onClose }) => {
   const navigate = useNavigate();
+  const [searchKey, setSearchKey] = useState('');
 
-  const { data, isFetching } = actions.useSearchSystemQuery();
+  const { data, isFetching } = actions.useSearchSystemQuery({ searchKey });
   const { data: searched } = data || initials.dataObj;
-  console.log({ isFetching });
 
   const handleNavigate = (type, slug) => {
     if (type === 'topic') {
@@ -61,14 +62,19 @@ export const SearchModal = ({ open, onClose }) => {
             alignItems: 'center',
           }}
         >
-          <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-            <SearchIcon />
-          </IconButton>
+          {isFetching ? (
+            <CircularProgress color="primary" />
+          ) : (
+            <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+              <SearchIcon />
+            </IconButton>
+          )}
           <InputBase
             sx={{ ml: 1, flex: 1 }}
             placeholder="Search anything: topics and topic categories"
             inputProps={{ 'aria-label': 'search google maps' }}
             autoFocus
+            onChange={({ target }) => setSearchKey(target.value)}
           />
           <IconButton sx={{ p: '10px' }} aria-label="Close">
             Esc

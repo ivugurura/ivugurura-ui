@@ -46,7 +46,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export const RRVSearch = () => (
+export const RRVSearch = ({ ...searchProps }) => (
   <Search>
     <SearchIconWrapper>
       <SearchIcon />
@@ -54,6 +54,7 @@ export const RRVSearch = () => (
     <StyledInputBase
       placeholder="Search…"
       inputProps={{ 'aria-label': 'search' }}
+      {...searchProps}
     />
   </Search>
 );

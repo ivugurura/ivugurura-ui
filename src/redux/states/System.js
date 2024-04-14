@@ -38,5 +38,11 @@ export const SystemState = {
         hasBody: true,
       },
     },
+    search: {
+      api: {
+        verb: VERBS.get,
+        endpoint: `/manage/search?${getParams(['searchKey'], false)}`,
+      },
+    },
   },
 };

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { Menu as MenuIcon } from '@mui/icons-material';
 import {
@@ -18,6 +18,8 @@ import {
 } from '../../../helpers/utils/constants';
 import { RRVDropdown } from '../RRVDropdown';
 import { RRVSearch } from '../RRVSearch';
+
+import { SearchModal } from './SearchModal';
 
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -41,6 +43,7 @@ const AdditionalMenu = () => {
 };
 export const NavBar = ({ navCategories = [] }) => {
   const navigate = useNavigate();
+  const [openSearch, setOpenSearch] = useState(false);
   const categories = useMemo(
     () =>
       navCategories.map((category) => (
@@ -136,7 +139,7 @@ export const NavBar = ({ navCategories = [] }) => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {categories}
             <AdditionalMenu />
-            <RRVSearch />
+            <RRVSearch onClick={() => setOpenSearch(true)} />
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -195,6 +198,7 @@ export const NavBar = ({ navCategories = [] }) => {
           </Box>
         </Toolbar>
       </Container>
+      <SearchModal open={openSearch} onClose={() => setOpenSearch(false)} />
     </AppBar>
   );
 };

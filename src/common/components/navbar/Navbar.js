@@ -40,6 +40,7 @@ const AdditionalMenu = () => {
   );
 };
 export const NavBar = ({ navCategories = [] }) => {
+  const navigate = useNavigate();
   const categories = useMemo(
     () =>
       navCategories.map((category) => (
@@ -51,7 +52,13 @@ export const NavBar = ({ navCategories = [] }) => {
             sx: { color: 'white' },
           }}
           options={category.categories.map((cat) => (
-            <Typography key={cat.id}>{cat.name}</Typography>
+            <Button
+              variant="text"
+              key={cat.id}
+              onClick={() => navigate(toLink(`topics?t=${cat.slug}`))}
+            >
+              {cat.name}
+            </Button>
           ))}
         />
       )),

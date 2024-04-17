@@ -4,6 +4,7 @@ import {
   Facebook as FacebookIcon,
   WhatsApp as WhatsAppIcon,
   Twitter as TwitterIcon,
+  Share as ShareIcon,
 } from '@mui/icons-material';
 import {
   FacebookShareButton,
@@ -13,7 +14,12 @@ import {
 
 import { RRVDropdown } from './RRVDropdown';
 
-export const RRVShare = ({ onShare, href = '', title = '' }) => {
+export const RRVShare = ({
+  onShare,
+  href = '',
+  title = '',
+  displayText = true,
+}) => {
   const shareOptions = [
     {
       wrapper: WhatsappShareButton,
@@ -27,7 +33,7 @@ export const RRVShare = ({ onShare, href = '', title = '' }) => {
     },
     { wrapper: TwitterShareButton, startIcon: TwitterIcon, title: 'Twitter' },
   ].map(
-    ({ wrapper: ShareWrapper, startIcon: ShareIcon, title: shareTitle }) => (
+    ({ wrapper: ShareWrapper, startIcon: StartIcon, title: shareTitle }) => (
       <ShareWrapper
         hashtag={`#${title}`}
         onClick={onShare}
@@ -35,9 +41,15 @@ export const RRVShare = ({ onShare, href = '', title = '' }) => {
         url={href}
         key={title}
       >
-        <ShareIcon /> {shareTitle}
+        <StartIcon /> {shareTitle}
       </ShareWrapper>
     ),
   );
-  return <RRVDropdown title="Share" options={shareOptions} />;
+  return (
+    <RRVDropdown
+      buttonProps={{ startIcon: <ShareIcon /> }}
+      title={displayText && 'Share'}
+      options={shareOptions}
+    />
+  );
 };

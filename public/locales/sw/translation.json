@@ -28,6 +28,7 @@
 	"audios": "Audio",
 	"actions": {
 		"btnSend": "Tuma",
-		"viewMore": "Tazama masomo yote"
+		"viewMore": "Tazama masomo yote",
+		"more": "Tazama"
 	}
 }

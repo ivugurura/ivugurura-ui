@@ -28,6 +28,7 @@
   "audios":"Audio",
   "actions":{
     "btnSend": "Mwohereze",
-    "viewMore": "Reba ibyigisho byose"
+    "viewMore": "Reba ibyigisho byose",
+    "more": "Ibikurikira"
   }
 }

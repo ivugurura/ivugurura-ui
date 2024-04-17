@@ -28,6 +28,7 @@
   "audios":"Audio",
   "actions":{
     "btnSend": "Send",
-    "viewMore": "View more"
+    "viewMore": "View more",
+    "more": "More"
   }
 }

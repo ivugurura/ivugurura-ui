@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
 
-// import "./i18n";
 // import { ThemeProvider as ThemeProviderV4, StylesProvider } from '@material-ui/core/styles';
 import { CssBaseline, LinearProgress } from '@mui/material';
 import {
@@ -19,6 +18,7 @@ import { store } from './redux/store';
 // import { generateClassName, themeV4, themeV5 } from './common/theme';
 import { AppRoutes } from './routes';
 // import { Route } from "react-router";
+import './i18n';
 
 const App = () => {
   // const states = buildAppStates();

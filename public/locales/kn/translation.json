@@ -21,11 +21,13 @@
   "createdAt": "Cyateguwe kuri ",
   "commentSuccess": "Igitekerezo cyanyu twacyakiriye. Murakoze",
   "mostReadTopics": "Ibyigisho byasomwe cyane",
-  "btnSend": "Mwohereze",
-  "viewMore": "Reba ibyigisho byose",
   "followUs": "Dukurikire kuri",
   "communique":"Kurikirana ababwirizabutumwa bwiza bw Ivugurura n Ubugorozi",
   "noData":"Nta bihari byo kwerekana",
   "songsAndTopics":"Indirimbo n ibyigisho bitandukanye",
-  "audios":"Audio"
+  "audios":"Audio",
+  "actions":{
+    "btnSend": "Mwohereze",
+    "viewMore": "Reba ibyigisho byose"
+  }
 }

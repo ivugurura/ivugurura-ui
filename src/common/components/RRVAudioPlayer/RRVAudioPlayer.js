@@ -22,12 +22,11 @@ import {
 } from '@mui/material';
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 
-import { DL_ROUTE, toAssetPath } from '../../helpers/utils/constants';
-import { actions, initials } from '../../redux/apiSliceBuilder';
+import { DL_ROUTE, toAssetPath } from '../../../helpers/utils/constants';
+import { actions, initials } from '../../../redux/apiSliceBuilder';
+import { RRVShare } from '../RRVShare';
 
-import { RRVShare } from './RRVShare';
-
-export const RRVAudioPlayer = () => {
+export const RRVAudioPlayer = ({ displayText = true }) => {
   const [currentAudio, setCurrentAudio] = useState({ index: -1, audio: null });
   const [shareSong] = actions.useShareAudioMutation();
   const { data, isFetching } = actions.useListAudiosQuery({
@@ -58,6 +57,7 @@ export const RRVAudioPlayer = () => {
       size="small"
       disabled={currentAudio.index === 0}
       onClick={() => handleNewAudio('prev')}
+      key="prev"
     >
       <SkipPrevious />
     </Button>,
@@ -65,6 +65,7 @@ export const RRVAudioPlayer = () => {
       size="small"
       disabled={currentAudio.index === (audios?.length || 0) - 1}
       onClick={() => handleNewAudio()}
+      key="next"
     >
       <SkipNext />
     </Button>,
@@ -113,7 +114,7 @@ export const RRVAudioPlayer = () => {
                         setCurrentAudio({ index: audioIdx, audio })
                       }
                     >
-                      Play
+                      {displayText && 'Play'}
                     </Button>
                     <Button
                       startIcon={<DownloadIcon />}
@@ -121,12 +122,13 @@ export const RRVAudioPlayer = () => {
                       rel="noreferrer"
                       href={DL_ROUTE + audio.slug}
                     >
-                      Download
+                      {displayText && 'Download'}
                     </Button>
                     <RRVShare
                       title={audio.title}
                       href={DL_ROUTE + audio.slug}
                       onShare={() => shareSong({ slug: audio.slug })}
+                      displayText={displayText}
                     />
                   </ButtonGroup>
                 }

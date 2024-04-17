@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Grid } from '@mui/material';
 
+import { TopicsCardSkeleton } from '../../../common/components/loaders';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
 import TopicItem from '../../TopicItem';
 
@@ -11,19 +12,23 @@ export const HomeRecentTopics = ({
   md = 3,
   truncate = 148,
 }) => {
-  const { data } = actions.useGetRecentTopicsQuery({
+  const { data, isFetching } = actions.useGetRecentTopicsQuery({
     truncate,
   });
 
   const { data: topics } = data || initials.dataArr;
   return (
     <Grid container spacing={1}>
-      {topics?.length > 0 &&
+      {isFetching ? (
+        <TopicsCardSkeleton isHomePage totalItems={4} />
+      ) : (
+        topics?.length > 0 &&
         topics.map((topic) => (
           <Grid key={topic.title} item xs={xs} sm={sm} md={md}>
             <TopicItem topic={topic} hasMore />
           </Grid>
-        ))}
+        ))
+      )}
     </Grid>
   );
 };

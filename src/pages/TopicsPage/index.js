@@ -9,6 +9,10 @@ import { Masonry } from '@mui/lab';
 import { Avatar, Grid, CardHeader, IconButton, Card } from '@mui/material';
 import { red } from '@mui/material/colors';
 
+import {
+  TopicListItemSkeleton,
+  TopicsCardSkeleton,
+} from '../../common/components/loaders';
 import { RRVBreadcrumbs } from '../../common/components/RRVBreadcrumbs/Breadcrumbs';
 import { RRVMenu } from '../../common/components/RRVMenu/RRVMenu';
 import { RRVPagination } from '../../common/components/RRVPagination';
@@ -80,9 +84,10 @@ export const TopicsPage = () => {
     pageSize,
     category: selectedCategoryId,
   });
-  const { data: catData } = actions.useListCategoryQuery({
-    categoryType: 'with-topics',
-  });
+  const { data: catData, isFetching: categoriesLoading } =
+    actions.useListCategoryQuery({
+      categoryType: 'with-topics',
+    });
   const { data: topics, totalItems } = data || initials.dataArr;
   const { data: categories } = catData || initials.dataArr;
   const handleMenuOpen = (event) => {
@@ -143,7 +148,6 @@ export const TopicsPage = () => {
   };
   const breadcrumbMenu =
     topicsNavs[(topicsNavs?.length ?? 0) - 1]?.breadcumbMenu;
-  console.log({ isFetching });
   return (
     <Grid container spacing={1}>
       <Grid item md={9} sm={12}>
@@ -163,39 +167,51 @@ export const TopicsPage = () => {
           </Grid>
           <Grid item md={12}>
             <Grid container>
-              <Masonry columns={3}>
-                {topics?.length > 0 &&
-                  topics.map((topic) => (
-                    <TopicItem key={topic.slug} topic={topic} hasMore />
-                  ))}
-              </Masonry>
-              <RRVPagination
-                handleChangePage={handleChangePage}
-                handleChangeRowsPerPage={handleChangeRowsPerPage}
-                dataCount={totalItems}
-                page={page}
-                pageSize={pageSize}
-                labelRowsPerPage="N topics per page:"
-              />
+              {isFetching ? (
+                <TopicsCardSkeleton />
+              ) : (
+                <>
+                  <Masonry columns={3}>
+                    {topics?.length > 0 &&
+                      topics.map((topic) => (
+                        <TopicItem key={topic.slug} topic={topic} hasMore />
+                      ))}
+                  </Masonry>
+                  <RRVPagination
+                    handleChangePage={handleChangePage}
+                    handleChangeRowsPerPage={handleChangeRowsPerPage}
+                    dataCount={totalItems}
+                    page={page}
+                    pageSize={pageSize}
+                    labelRowsPerPage="N topics per page:"
+                  />
+                </>
+              )}
             </Grid>
           </Grid>
         </Grid>
       </Grid>
       <Grid item md={3} sm={12}>
         <Grid container spacing={1}>
-          <CategoryItem
-            category={{ id: null, name: 'All' }}
-            selectedId={selectedCategoryId}
-            onClick={handleCategoryClick}
-          />
-          {categories?.map((cat) => (
-            <CategoryItem
-              key={cat.id}
-              category={cat}
-              selectedId={selectedCategoryId}
-              onClick={handleCategoryClick}
-            />
-          ))}
+          {categoriesLoading ? (
+            <TopicListItemSkeleton totalItem={6} />
+          ) : (
+            <>
+              <CategoryItem
+                category={{ id: null, name: 'All' }}
+                selectedId={selectedCategoryId}
+                onClick={handleCategoryClick}
+              />
+              {categories?.map((cat) => (
+                <CategoryItem
+                  key={cat.id}
+                  category={cat}
+                  selectedId={selectedCategoryId}
+                  onClick={handleCategoryClick}
+                />
+              ))}
+            </>
+          )}
         </Grid>
       </Grid>
     </Grid>

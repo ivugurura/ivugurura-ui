@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Card, Grid, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { RRVAudioPlayer } from '../../common/components/RRVAudioPlayer';
 import { Page } from '../../common/components/wrappers';
@@ -24,7 +25,7 @@ import { HomeContentLayout } from './components/HomeContentLayout';
 //   color: theme.palette.text.secondary,
 // }));
 export const Home = () => {
-  console.log('Home');
+  const { t } = useTranslation();
   return (
     <Page title="Home">
       <Grid container spacing={1}>
@@ -41,13 +42,11 @@ export const Home = () => {
             <Grid item xs={12} sm={12} md={6} lg={6}>
               <Card>
                 <Typography component="span" variant="h3" color="text.primary">
-                  Evangelists of the Revival and Reformation
+                  {t('reformers')}
                 </Typography>
                 <Typography component="span" variant="h4">
                   {' '}
-                  — And this gospel of the kingdom shall be preached in all the
-                  world for a witness unto all nations; and then shall the end
-                  come.
+                  — {t('mathew2414')}
                 </Typography>
                 <HomeCarousel />
               </Card>

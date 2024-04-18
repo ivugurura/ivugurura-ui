@@ -14,6 +14,7 @@ import { red } from '@mui/material/colors';
 import classNames from 'classnames';
 import parse from 'html-react-parser';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { toAssetPath, toLink, truncate } from '../helpers/utils/constants';
@@ -27,7 +28,7 @@ const TopicItem = ({
   hasMore = false,
   showComments = false,
 }) => {
-  console.log('Topic');
+  const { t } = useTranslation();
 
   return (
     <Card className={classNames(className)}>
@@ -59,7 +60,7 @@ const TopicItem = ({
             component={Link}
             to={toLink(`topics/${topic.slug}`)}
           >
-            More
+            {t('more')}
           </Button>
         )}
         {showComments && <Comments slug={topic.slug} />}

@@ -32,9 +32,9 @@ const initialCrumbsProps = {
   onClick: undefined,
   anchorEl: null,
 };
-const initialTopicHomeNavs = (tr) => [
+const initialTopicHomeNavs = [
   {
-    name: tr('topics'),
+    name: 'Topics',
     route: toLink('topics'),
     primaryIcon: HomeIcon,
     breadcumbMenu: null,
@@ -71,7 +71,7 @@ const CategoryItem = ({ category, selectedId, onClick }) => (
 );
 export const TopicsPage = () => {
   const { t } = useTranslation();
-  const [topicsNavs, setTopicsNavs] = React.useState(initialTopicHomeNavs(t));
+  const [topicsNavs, setTopicsNavs] = React.useState(initialTopicHomeNavs);
   const { t: categorySlug } = useQueryParams();
   const [selectedCategoryId, setSelectedCategoryId] = React.useState(null);
   const {

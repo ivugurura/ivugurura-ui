@@ -23,7 +23,7 @@ export const topicEditorButtons = [
 
 export const systemLanguages = [
   {
-    lang: 'Kinyarwanda',
+    lang: 'Ikinyarwanda',
     abbr: 'kn',
     flag: `${flagUrl}/RW.png`,
   },
@@ -33,12 +33,12 @@ export const systemLanguages = [
     flag: `${flagUrl}/GB.png`,
   },
   {
-    lang: 'French',
+    lang: 'Français',
     abbr: 'fr',
     flag: `${flagUrl}/FR.png`,
   },
   {
-    lang: 'Kiswahili',
+    lang: 'Swahili',
     abbr: 'sw',
     flag: `${flagUrl}/KE.png`,
   },

@@ -3,6 +3,7 @@ import React from 'react';
 import { Search as SearchIcon } from '@mui/icons-material';
 import { InputBase } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -46,15 +47,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export const RRVSearch = ({ ...searchProps }) => (
-  <Search>
-    <SearchIconWrapper>
-      <SearchIcon />
-    </SearchIconWrapper>
-    <StyledInputBase
-      placeholder="Search…"
-      inputProps={{ 'aria-label': 'search' }}
-      {...searchProps}
-    />
-  </Search>
-);
+export const RRVSearch = ({ ...searchProps }) => {
+  const { t } = useTranslation();
+  return (
+    <Search>
+      <SearchIconWrapper>
+        <SearchIcon />
+      </SearchIconWrapper>
+      <StyledInputBase
+        placeholder={`${t('search')}...`}
+        inputProps={{ 'aria-label': 'search' }}
+        {...searchProps}
+      />
+    </Search>
+  );
+};

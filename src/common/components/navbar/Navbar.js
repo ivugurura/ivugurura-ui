@@ -9,6 +9,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -25,6 +26,7 @@ import { SearchModal } from './SearchModal';
 
 const AdditionalMenu = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -33,10 +35,10 @@ const AdditionalMenu = () => {
         onClick={() => navigate(toLink('audios'))}
         sx={{ textTransform: 'none' }}
       >
-        <Typography sx={{ color: 'white' }}>Audio</Typography>
+        <Typography sx={{ color: 'white' }}>{t('audios')}</Typography>
       </Button>
       <Button variant="text">
-        <Typography sx={{ color: 'white' }}>Contact Us</Typography>
+        <Typography sx={{ color: 'white' }}>{t('contactUs')}</Typography>
       </Button>
     </>
   );

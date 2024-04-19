@@ -22,6 +22,7 @@ import {
 } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { toLink } from '../../../helpers/utils/constants';
@@ -36,6 +37,7 @@ const ListItemStyled = styled(ListItem)(({ theme }) => ({
 }));
 export const SearchModal = ({ open, onClose }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [searchKey, setSearchKey] = useState('');
 
   const { data, isFetching } = actions.useSearchSystemQuery({ searchKey });
@@ -52,6 +54,7 @@ export const SearchModal = ({ open, onClose }) => {
 
   const totalCategories = searched.categories?.length || 0;
   const totalTopics = searched.topics?.length || 0;
+  const searchTitle = t('searchTitle');
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>
@@ -71,8 +74,8 @@ export const SearchModal = ({ open, onClose }) => {
           )}
           <InputBase
             sx={{ ml: 1, flex: 1 }}
-            placeholder="Search anything: topics and topic categories"
-            inputProps={{ 'aria-label': 'search google maps' }}
+            placeholder={searchTitle}
+            inputProps={{ 'aria-label': searchTitle }}
             autoFocus
             onChange={({ target }) => setSearchKey(target.value)}
           />

@@ -8,6 +8,7 @@ import {
 import { Masonry } from '@mui/lab';
 import { Avatar, Grid, CardHeader, IconButton, Card } from '@mui/material';
 import { red } from '@mui/material/colors';
+import { useTranslation } from 'react-i18next';
 
 import {
   TopicListItemSkeleton,
@@ -31,9 +32,9 @@ const initialCrumbsProps = {
   onClick: undefined,
   anchorEl: null,
 };
-const initialTopicHomeNavs = [
+const initialTopicHomeNavs = (tr) => [
   {
-    name: 'Topics',
+    name: tr('topics'),
     route: toLink('topics'),
     primaryIcon: HomeIcon,
     breadcumbMenu: null,
@@ -69,7 +70,8 @@ const CategoryItem = ({ category, selectedId, onClick }) => (
   </Grid>
 );
 export const TopicsPage = () => {
-  const [topicsNavs, setTopicsNavs] = React.useState(initialTopicHomeNavs);
+  const { t } = useTranslation();
+  const [topicsNavs, setTopicsNavs] = React.useState(initialTopicHomeNavs(t));
   const { t: categorySlug } = useQueryParams();
   const [selectedCategoryId, setSelectedCategoryId] = React.useState(null);
   const {
@@ -90,6 +92,8 @@ export const TopicsPage = () => {
     });
   const { data: topics, totalItems } = data || initials.dataArr;
   const { data: categories } = catData || initials.dataArr;
+  const all = t('all');
+  const allTopics = t('allTopics');
   const handleMenuOpen = (event) => {
     setTopicsNavs((prev) => {
       const copyPrev = [...prev];
@@ -112,7 +116,7 @@ export const TopicsPage = () => {
     // setBreadcumbMenu((prev) => ({ ...prev, anchorEl: event.currentTarget }));
     setTopicsNavs((prev) => {
       const copyPrev = [...prev];
-      const navIndex = prev.findIndex((nav) => nav.name === 'All');
+      const navIndex = prev.findIndex((nav) => nav.name === all);
       const nav = prev[navIndex];
       copyPrev[navIndex] = {
         ...nav,
@@ -128,7 +132,7 @@ export const TopicsPage = () => {
         initialTopicHomeNavs.concat([
           {
             primaryIcon: RssFeedIcon,
-            name: category?.name || 'All',
+            name: category?.name || allTopics,
             onClick: handleMenuOpen,
             breadcumbMenu: initialCrumbsProps,
           },
@@ -157,7 +161,7 @@ export const TopicsPage = () => {
             <RRVMenu
               handleClose={handleMenuClose}
               menuId={breadcrumbMenu?.id}
-              menus={[{ id: '', name: 'All' }]
+              menus={[{ id: '', name: allTopics }]
                 .concat(categories)
                 .map((c) => ({ ...c, onClick: () => handleCategoryClick(c) }))}
               anchorEl={breadcrumbMenu?.anchorEl}
@@ -198,7 +202,7 @@ export const TopicsPage = () => {
           ) : (
             <>
               <CategoryItem
-                category={{ id: null, name: 'All' }}
+                category={{ id: null, name: allTopics }}
                 selectedId={selectedCategoryId}
                 onClick={handleCategoryClick}
               />

@@ -44,7 +44,7 @@ const TopicItem = ({
           </IconButton>
         }
         title={truncate(topic.title, 34)}
-        subheader={`Lastly updated ${moment(topic.updatedAt).format('DD.MM.YYYY')}`}
+        subheader={`${t('updatedAt')} ${moment(topic.updatedAt).format('DD.MM.YYYY')}`}
       />
       <CardMedia
         component="img"
@@ -60,7 +60,7 @@ const TopicItem = ({
             component={Link}
             to={toLink(`topics/${topic.slug}`)}
           >
-            {t('more')}
+            {t('actions.more')}
           </Button>
         )}
         {showComments && <Comments slug={topic.slug} />}

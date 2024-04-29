@@ -28,7 +28,7 @@ const initialTopicHomeNavs = [
     primaryIcon: HomeIcon,
   },
 ];
-export const TopicDetailPage = () => {
+const TopicDetailPage = () => {
   const navigation = useNavigate();
   const { slug } = useParams();
   const { data, isFetching } = actions.useViewTopicQuery({ slug });
@@ -108,3 +108,5 @@ export const TopicDetailPage = () => {
     </Grid>
   );
 };
+
+export default TopicDetailPage;

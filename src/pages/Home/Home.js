@@ -75,3 +75,5 @@ export const Home = () => {
     </Page>
   );
 };
+
+export default Home;

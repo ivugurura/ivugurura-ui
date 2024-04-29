@@ -5,7 +5,7 @@ import { Grid } from '@mui/material';
 import { RRVAudioPlayer } from '../../common/components/RRVAudioPlayer';
 import { HomeRecentTopics } from '../Home/components/Topics';
 
-export const AudiosPage = () => {
+const AudiosPage = () => {
   console.log('Audio player');
   return (
     <Grid container spacing={2}>
@@ -18,3 +18,5 @@ export const AudiosPage = () => {
     </Grid>
   );
 };
+
+export default AudiosPage;

@@ -1,22 +1,44 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import { Box } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 
-import { AudiosPage } from '../../../pages/AudiosPage';
-import { Home } from '../../../pages/Home';
-import { TopicDetailPage } from '../../../pages/TopicDetails';
-import { TopicsPage } from '../../../pages/TopicsPage';
 import { PageRoutes } from '../../../RoutesConstants';
+
+const userRoutes = [
+  {
+    path: undefined,
+    component: React.lazy(() => import('../../../pages/Home')),
+  },
+  {
+    path: PageRoutes.Topics,
+    component: React.lazy(() => import('../../../pages/TopicsPage')),
+  },
+  {
+    path: PageRoutes.Topic,
+    component: React.lazy(() => import('../../../pages/TopicDetails')),
+  },
+  {
+    path: PageRoutes.Audios,
+    component: React.lazy(() => import('../../../pages/AudiosPage')),
+  },
+];
 
 export const UserLayout = () => (
   <Box>
     <h2>Users layout</h2>
     <Routes>
-      <Route index element={<Home />} />
-      <Route path={PageRoutes.Audios} element={<AudiosPage />} />
-      <Route path={PageRoutes.Topics} element={<TopicsPage />} />
-      <Route path={PageRoutes.Topic} element={<TopicDetailPage />} />
+      {userRoutes.map(({ path, component: Component }) => (
+        <Route
+          index={path === undefined}
+          path={path}
+          element={
+            <Suspense>
+              <Component />
+            </Suspense>
+          }
+        />
+      ))}
     </Routes>
   </Box>
 );

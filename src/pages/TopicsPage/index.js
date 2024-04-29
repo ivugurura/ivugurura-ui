@@ -69,7 +69,8 @@ const CategoryItem = ({ category, selectedId, onClick }) => (
     </Card>
   </Grid>
 );
-export const TopicsPage = () => {
+
+const TopicsPage = () => {
   const { t } = useTranslation();
   const [topicsNavs, setTopicsNavs] = React.useState(initialTopicHomeNavs);
   const { t: categorySlug } = useQueryParams();
@@ -221,3 +222,5 @@ export const TopicsPage = () => {
     </Grid>
   );
 };
+
+export default TopicsPage;

@@ -2,6 +2,7 @@
 import React from 'react';
 
 import { Container, Grid } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import './styles.css';
@@ -105,6 +106,7 @@ export const navCategoriesd = [
   },
 ];
 export const MainFooter = ({ navCategories = [] }) => {
+  const { t } = useTranslation();
   // const { navCategories } = useSelector(({ category }) => category);
   console.log('Footer');
   return (
@@ -134,7 +136,7 @@ export const MainFooter = ({ navCategories = [] }) => {
               </Grid>
             </Grid>
             <Grid item lg={2} md={2} sm={12} xs={12}>
-              <h5>Follow us</h5>
+              <h5>{t('followUs')}</h5>
               <ul className="social-network social-circle">
                 {socialMedias.map((social) => (
                   <li key={social.name}>
@@ -150,7 +152,7 @@ export const MainFooter = ({ navCategories = [] }) => {
                 ))}
               </ul>
               <address>
-                Contact Us:
+                {t('contactUs')}:
                 <a
                   href="mailto:abagorozi@yahoo.com"
                   rel="noreferrer"

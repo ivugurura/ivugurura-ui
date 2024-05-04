@@ -7,12 +7,13 @@ import {
   ThemeProvider as ThemeProviderV5,
 } from '@mui/material/styles';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+// import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import { theme } from './common';
-import { ErrorBoundary } from './common/components';
+import { ErrorBoundary, LangProvider } from './common/components';
 // import { buildAppStates } from './redux/stateBuilder';
+import { systemLanguage } from './helpers/utils/constants';
 import { store } from './redux/store';
 // import { ErrorBoundary } from './common/components/errors';
 // import { generateClassName, themeV4, themeV5 } from './common/theme';
@@ -22,9 +23,10 @@ import './i18n';
 
 const App = () => {
   // const states = buildAppStates();
-  if (window.location.pathname === '/') {
-    window.location.href = '/kn';
-    console.log('Root directory');
+  const path = window.location.pathname;
+  const slPath = `/${systemLanguage}`;
+  if (path === '/' || !path.startsWith(slPath)) {
+    window.location.href = slPath;
   }
   // console.log('AppStates', states);
   return (
@@ -37,9 +39,9 @@ const App = () => {
           <StyledEngineProvider>
             <ToastContainer />
             <Suspense fallback={<LinearProgress />}>
-              <BrowserRouter>
+              <LangProvider>
                 <AppRoutes />
-              </BrowserRouter>
+              </LangProvider>
             </Suspense>
           </StyledEngineProvider>
         </ErrorBoundary>

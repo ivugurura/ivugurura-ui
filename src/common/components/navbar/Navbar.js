@@ -12,11 +12,8 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import {
-  systemLanguage,
-  systemLanguages,
-  toLink,
-} from '../../../helpers/utils/constants';
+import { systemLanguages, toLink } from '../../../helpers/utils/constants';
+import { useLang } from '../providers';
 import { RRVDropdown } from '../RRVDropdown';
 import { RRVSearch } from '../RRVSearch';
 
@@ -24,10 +21,7 @@ import { SearchModal } from './SearchModal';
 
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const AdditionalMenu = () => {
-  const navigate = useNavigate();
-  const { t } = useTranslation();
-
+const AdditionalMenu = ({ navigate, t }) => {
   return (
     <>
       <Button
@@ -44,6 +38,8 @@ const AdditionalMenu = () => {
   );
 };
 export const NavBar = ({ navCategories = [] }) => {
+  const { t } = useTranslation();
+  const { lang, changeLang } = useLang();
   const navigate = useNavigate();
   const [openSearch, setOpenSearch] = useState(false);
   const categories = useMemo(
@@ -71,8 +67,8 @@ export const NavBar = ({ navCategories = [] }) => {
   );
 
   const currentLang = useMemo(
-    () => systemLanguages.find((lang) => lang.abbr === systemLanguage),
-    [systemLanguage],
+    () => systemLanguages.find(({ abbr }) => abbr === lang),
+    [lang],
   );
   return (
     <AppBar
@@ -140,7 +136,7 @@ export const NavBar = ({ navCategories = [] }) => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {categories}
-            <AdditionalMenu />
+            <AdditionalMenu navigate={navigate} t={t} />
             <RRVSearch onClick={() => setOpenSearch(true)} />
           </Box>
 
@@ -157,6 +153,7 @@ export const NavBar = ({ navCategories = [] }) => {
                 <Button
                   startIcon={<img src={sl.flag} alt={sl.abbr} />}
                   key={sl.abbr}
+                  onClick={() => changeLang(sl.abbr)}
                 >
                   {sl.lang}
                 </Button>

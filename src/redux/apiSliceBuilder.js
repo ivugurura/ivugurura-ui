@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { formulateQuery, startCase } from '../helpers/utils';
+import { systemLanguage } from '../helpers/utils/constants';
 
 import * as initialStates from './initialStates';
 import { buildAppStates } from './stateBuilder';
@@ -11,7 +12,6 @@ if (localStorage.user) {
   const user = JSON.parse(localStorage.user);
   token = user.token;
 }
-const lang = localStorage.lang || 'kn';
 
 const buildApiEndPoints = (build, state) => {
   const { actions } = state;
@@ -34,7 +34,7 @@ const baseQuery = fetchBaseQuery({
   baseUrl: `${process.env.REACT_APP_API_URL}/api/v1`,
   headers: {
     Authorization: token,
-    'Accept-Language': lang,
+    'Accept-Language': systemLanguage,
   },
 });
 const buildAppApis = () =>

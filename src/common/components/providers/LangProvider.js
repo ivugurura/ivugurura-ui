@@ -1,33 +1,45 @@
-import React, { createContext, useCallback, useMemo, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
 
-const LangContext = createContext(undefined);
+import { systemLanguage } from '../../../helpers/utils/constants';
 
-export const LangProvider = ({ children, match }) => {
-  const [lang, setLang] = useState('kn');
-  // const navigate = useNavigate();
+const initialStates = {
+  lang: systemLanguage,
+  changeLang: () => {},
+};
+const LangContext = createContext(initialStates);
+
+export function useLang() {
+  return useContext(LangContext);
+}
+
+export const LangProvider = ({ children }) => {
+  const { i18n } = useTranslation();
+  const [lang] = useState(systemLanguage);
 
   const changeLang = useCallback(
     (newLang) => {
       if (newLang !== lang) {
-        setLang(newLang);
-        localStorage.setItem('lang', newLang);
+        i18n.changeLanguage(newLang);
         window.location.href = `/${newLang}`;
       }
     },
     [lang],
   );
-  console.log({ match });
-  // useEffect(() => {
-  //   if (LoggedIn) {
-  //     return navigate("/");
-  //   }
-  // }, [LoggedIn]);
+
+  if (!lang) return <div />;
   const values = useMemo(() => ({ lang, changeLang }));
   return (
     <LangContext.Provider value={values}>
-      <BrowserRouter basename={lang}>{children}</BrowserRouter>
+      <BrowserRouter>{children}</BrowserRouter>
     </LangContext.Provider>
   );
 };

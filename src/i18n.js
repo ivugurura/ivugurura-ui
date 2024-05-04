@@ -3,7 +3,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
 
-const defaultLng = 'kn';
+import { systemLanguage } from './helpers/utils/constants';
 
 i18n
   // load translation using http -> see /public/locales
@@ -18,7 +18,7 @@ i18n
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     debug: true,
-    lng: defaultLng,
+    lng: systemLanguage,
     fallbackLng: 'en',
   });
 

@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 const flagUrl = `${process.env.PUBLIC_URL}/img/flags/16`;
 
-export const systemLanguage = localStorage.getItem('lang') || 'kn';
+export const systemLanguage = localStorage.getItem('i18nextLng') || 'en';
 
 export const topicEditorButtons = [
   ['undo', 'redo'],

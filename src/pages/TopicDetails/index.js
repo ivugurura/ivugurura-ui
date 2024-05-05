@@ -10,6 +10,7 @@ import {
 import { Avatar, Grid, CardHeader, IconButton, Card } from '@mui/material';
 import { red } from '@mui/material/colors';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
 import {
@@ -21,18 +22,19 @@ import { toLink } from '../../helpers/utils/constants';
 import { actions, initials } from '../../redux/apiSliceBuilder';
 import TopicItem from '../TopicItem';
 
-const initialTopicHomeNavs = [
+const initialTopicHomeNavs = (t) => [
   {
-    name: 'Topics',
+    name: t('topics'),
     route: toLink('topics'),
     primaryIcon: HomeIcon,
   },
 ];
 const TopicDetailPage = () => {
+  const { t } = useTranslation();
   const navigation = useNavigate();
   const { slug } = useParams();
   const { data, isFetching } = actions.useViewTopicQuery({ slug });
-  const [topicNavs, setTopicNavs] = React.useState(initialTopicHomeNavs);
+  const [topicNavs, setTopicNavs] = React.useState(initialTopicHomeNavs(t));
 
   const { data: topic } = data || initials.dataObj;
   useEffect(() => {
@@ -50,7 +52,7 @@ const TopicDetailPage = () => {
           name: topic.title,
         },
       ];
-      setTopicNavs(initialTopicHomeNavs.concat(newNavs));
+      setTopicNavs(initialTopicHomeNavs(t).concat(newNavs));
     }
   }, [topic?.slug]);
 
@@ -96,8 +98,8 @@ const TopicDetailPage = () => {
                         replace: true,
                       });
                     }}
-                    title={rt.title}
-                    subheader={`Lastly updated ${moment(rt.updatedAt).format('DD.MM.YYYY')}`}
+                    title={<strong>{rt.title}</strong>}
+                    subheader={`${t('updatedAt')} ${moment(rt.updatedAt).format('DD.MM.YYYY')}`}
                   />
                 </Card>
               </Grid>

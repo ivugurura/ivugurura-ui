@@ -32,9 +32,9 @@ const initialCrumbsProps = {
   onClick: undefined,
   anchorEl: null,
 };
-const initialTopicHomeNavs = [
+const initialTopicHomeNavs = (t) => [
   {
-    name: 'Topics',
+    name: t('topics'),
     route: toLink('topics'),
     primaryIcon: HomeIcon,
     breadcumbMenu: null,
@@ -72,7 +72,7 @@ const CategoryItem = ({ category, selectedId, onClick }) => (
 
 const TopicsPage = () => {
   const { t } = useTranslation();
-  const [topicsNavs, setTopicsNavs] = React.useState(initialTopicHomeNavs);
+  const [topicsNavs, setTopicsNavs] = React.useState(initialTopicHomeNavs(t));
   const { t: categorySlug } = useQueryParams();
   const [selectedCategoryId, setSelectedCategoryId] = React.useState(null);
   const {
@@ -130,7 +130,7 @@ const TopicsPage = () => {
     if (topics.length > 0) {
       const category = categories.find((cat) => cat.id === selectedCategoryId);
       setTopicsNavs(
-        initialTopicHomeNavs.concat([
+        initialTopicHomeNavs(t).concat([
           {
             primaryIcon: RssFeedIcon,
             name: category?.name || allTopics,

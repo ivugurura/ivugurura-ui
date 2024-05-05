@@ -17,11 +17,16 @@ import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { toAssetPath, toLink, truncate } from '../helpers/utils/constants';
+import {
+  toAssetPath,
+  toLink,
+  // truncate
+} from '../../helpers/utils/constants';
+import { Comments } from '../TopicDetails/Comments';
 
-import { Comments } from './TopicDetails/Comments';
+import styles from './TopicItem.module.scss';
 
-const TopicItem = ({
+export const TopicItem = ({
   className = '',
   topic,
   imageHeight = '194',
@@ -43,8 +48,9 @@ const TopicItem = ({
             <MoreVertIcon />
           </IconButton>
         }
-        title={truncate(topic.title, 34)}
+        title={topic.title}
         subheader={`${t('updatedAt')} ${moment(topic.updatedAt).format('DD.MM.YYYY')}`}
+        className={styles.title}
       />
       <CardMedia
         component="img"
@@ -68,5 +74,3 @@ const TopicItem = ({
     </Card>
   );
 };
-
-export default TopicItem;

@@ -4,8 +4,6 @@ import { Breadcrumbs, Button, Chip, Typography } from '@mui/material';
 import { emphasize, styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 
-// import { BreadcrumbMenu } from './BreadcrumbMenu';
-
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
     theme.palette.mode === 'light'
@@ -57,26 +55,10 @@ export const RRVBreadcrumbs = ({ crumbs = [] }) => (
             deleteIcon={
               SecondaryIcon ? <SecondaryIcon fontSize="small" /> : null
             }
+            sx={{ cursor: 'pointer' }}
           />
         );
       })}
     </Breadcrumbs>
   </div>
 );
-//   <div style={{ width: '100%', backgroundColor: '#f5f5f5' }}>
-//     <Breadcrumbs aria-label="breadcrumb">
-//       <StyledBreadcrumb
-//         component="a"
-//         href="#"
-//         label="Home"
-//         icon={<HomeIcon fontSize="small" />}
-//       />
-//       <StyledBreadcrumb component="a" href="#" label="Catalog" />
-//       <StyledBreadcrumb
-//         label="Accessories"
-//         deleteIcon={<ExpandMoreIcon />}
-//         onDelete={handleClick}
-//       />
-//     </Breadcrumbs>
-//   </div>
-// );

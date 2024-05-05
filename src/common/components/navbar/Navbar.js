@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { systemLanguages, toLink } from '../../../helpers/utils/constants';
 import { useLang } from '../providers';
@@ -77,7 +77,8 @@ export const NavBar = ({ navCategories = [] }) => {
           <Typography
             variant="h6"
             noWrap
-            to="/"
+            component={Link}
+            to={`/${lang}`}
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },

@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react';
 
 import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { RRVForm } from '../../common/components/RRVForm';
 import { toFCap } from '../../helpers/utils';
+import { notifier } from '../../helpers/utils/constants';
 import { actions, initials } from '../../redux/apiSliceBuilder';
 
 import { commentSchema, commentState } from './schema';
 import { styles } from './TopicDetails.style';
 
 export const Comments = ({ slug }) => {
+  const { t } = useTranslation();
   const [comment, setComment] = React.useState(commentState);
   const [save, saveRes] = actions.useAddCommentTopicMutation();
 
@@ -17,6 +20,7 @@ export const Comments = ({ slug }) => {
 
   useEffect(() => {
     if (saveRes.isSuccess) {
+      notifier.success(t('commentSuccess'));
       setComment(commentState);
       saveRes.reset();
     }
@@ -32,7 +36,7 @@ export const Comments = ({ slug }) => {
     <Grid item xs={12}>
       {hasComments && (
         <Typography variant="h4" align="center">
-          Comments
+          {t('comments')}
         </Typography>
       )}
       {comments.map((c) => (
@@ -60,11 +64,11 @@ export const Comments = ({ slug }) => {
       ))}
       {hasComments && <hr />}
       <Typography variant="h4" align="center">
-        Leave us a comment to this topic
+        {t('leaveComment')}
       </Typography>
-      <Typography>We will not share your email</Typography>
+      <Typography>{t('notEmailPublish')}</Typography>
       <RRVForm
-        fields={commentSchema()}
+        fields={commentSchema(t)}
         states={comment}
         setStates={setComment}
       />
@@ -72,7 +76,7 @@ export const Comments = ({ slug }) => {
         onClick={() => save({ ...comment, slug })}
         disabled={saveRes.isLoading}
       >
-        {saveRes.isLoading ? 'Saving,...' : 'Send'}
+        {t(saveRes.isLoading ? 'actions.loading' : 'actions.btnSend')}
       </Button>
     </Grid>
   );

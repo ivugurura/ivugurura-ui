@@ -18,6 +18,7 @@
   "recentTopics": "Ibyigisho biheruka",
   "relatedTopics": "Ibyigisho bijyanye",
   "writingsCat": "Inyandiko",
+  "comments": "Ibitekerezo",
   "leaveComment": "Siga igitekerezo kuri iki kigisho",
   "notEmailPublish": "Email yanyu ntawe izerekwa",
   "createdAt": "Cyateguwe kuri ",
@@ -31,7 +32,14 @@
   "updatedAt":"Cyateguriwe kuri",
   "actions":{
     "btnSend": "Mwohereze",
+    "loading": "Mube mwihanganye,...",
     "viewMore": "Reba ibyigisho byose",
     "more": "Ibikurikira"
+  },
+  "fields": {
+    "email": "Email",
+    "commentBody": "Igitekerezo",
+    "names": "Amazina yanyu",
+    "website": "Urubuga rwanyu(niba ruhari)"
   }
 }

@@ -1,8 +1,8 @@
-export const commentSchema = () => [
+export const commentSchema = (t) => [
   [
     {
       name: 'content',
-      label: 'Comment',
+      label: t('fields.commentBody'),
       multiline: true,
       rows: 5,
     },
@@ -10,15 +10,15 @@ export const commentSchema = () => [
   [
     {
       name: 'names',
-      label: 'Names',
+      label: t('fields.names'),
     },
     {
       name: 'email',
-      label: 'E-mail',
+      label: t('fields.email'),
     },
     {
       name: 'website',
-      label: 'Website',
+      label: t('fields.website'),
     },
   ],
 ];

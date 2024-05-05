@@ -7,7 +7,7 @@ export const PageHelmet = ({ title, children }) => {
   return (
     <>
       <Helmet>
-        <title>{title} - Kumbe</title>
+        <title>{title} - Ubugorozi</title>
       </Helmet>
       {children}
     </>

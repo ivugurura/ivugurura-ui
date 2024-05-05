@@ -11,9 +11,11 @@ import {
 } from '@mui/icons-material';
 import { Collapse, Divider, List, Toolbar, Typography } from '@mui/material';
 
+import { useLang } from '../../providers/LangProvider';
+
 import { ListItemLink } from './ListItemLink';
 
-const dashboardMenus = (lang = 'kn') => [
+const dashboardMenus = (lang = 'en') => [
   {
     type: 'Main',
     routes: [
@@ -64,13 +66,14 @@ const dashboardMenus = (lang = 'kn') => [
 ];
 export const AdminMenuDrawer = () => {
   const [open, setOpen] = React.useState(false);
+  const { lang } = useLang();
   const handleOpen = () => {
     setOpen((prevOpen) => !prevOpen);
   };
   return (
     <div>
       <Toolbar />
-      {dashboardMenus().map((menu) => (
+      {dashboardMenus(lang).map((menu) => (
         <React.Fragment key={menu.type}>
           <Divider />
           <Typography variant="body1" mt={1}>

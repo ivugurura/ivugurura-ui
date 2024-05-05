@@ -4,6 +4,11 @@ import { toast } from 'react-toastify';
 const flagUrl = `${process.env.PUBLIC_URL}/img/flags/16`;
 
 export const systemLanguage = localStorage.getItem('i18nextLng') || 'en';
+export const isAdminUrl = () => {
+  const { pathname } = window.location;
+  const urls = ['login', 'admin'];
+  return urls.some((url) => pathname.includes(url));
+};
 
 export const topicEditorButtons = [
   ['undo', 'redo'],

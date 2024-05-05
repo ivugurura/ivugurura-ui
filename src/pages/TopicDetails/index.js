@@ -8,7 +8,6 @@ import {
   Category as CategoryIcon,
 } from '@mui/icons-material';
 import { Avatar, Grid, CardHeader, IconButton, Card } from '@mui/material';
-import { red } from '@mui/material/colors';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -84,12 +83,12 @@ const TopicDetailPage = () => {
                 <Card sx={{ cursor: 'pointer' }}>
                   <CardHeader
                     avatar={
-                      <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                        R
+                      <Avatar className="bg-gradient" aria-label={rt.title}>
+                        {rt.title?.charAt(0)}
                       </Avatar>
                     }
                     action={
-                      <IconButton aria-label="settings">
+                      <IconButton aria-label={rt.title}>
                         <MoreVertIcon />
                       </IconButton>
                     }

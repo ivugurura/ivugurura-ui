@@ -7,7 +7,6 @@ import {
 } from '@mui/icons-material';
 import { Masonry } from '@mui/lab';
 import { Avatar, Grid, CardHeader, IconButton, Card } from '@mui/material';
-import { red } from '@mui/material/colors';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -52,10 +51,10 @@ const CategoryItem = ({ category, selectedId, onClick }) => (
       <CardHeader
         avatar={
           <Avatar
-            sx={{ bgcolor: red[500] }}
+            className="bg-gradient"
             aria-label={`Image for ${category.name}`}
           >
-            R
+            {category.name?.charAt(0)}
           </Avatar>
         }
         action={

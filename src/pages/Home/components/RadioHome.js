@@ -8,7 +8,6 @@ import {
   CardHeader,
   Typography,
 } from '@mui/material';
-import { blue } from '@mui/material/colors';
 import { useTranslation } from 'react-i18next';
 
 import { Radio } from '../../../common/components/Radio';
@@ -20,7 +19,7 @@ export const RadioHome = () => {
     <Card>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe">
+          <Avatar className="bg-gradient" aria-label="Radiolize">
             RRV
           </Avatar>
         }

@@ -10,7 +10,6 @@ import {
   CardMedia,
   IconButton,
 } from '@mui/material';
-import { red } from '@mui/material/colors';
 import classNames from 'classnames';
 import parse from 'html-react-parser';
 import moment from 'moment';
@@ -39,12 +38,12 @@ export const TopicItem = ({
     <Card className={classNames(className)}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+          <Avatar className="bg-gradient" aria-label={topic.title}>
+            {topic.title?.charAt(0)}
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
+          <IconButton aria-label={topic.title}>
             <MoreVertIcon />
           </IconButton>
         }

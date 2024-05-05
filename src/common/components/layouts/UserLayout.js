@@ -25,8 +25,8 @@ const userRoutes = [
 ];
 
 export const UserLayout = () => (
-  <Box>
-    <h2>Users layout</h2>
+  <Box px={2} py={1}>
+    {/* <h2>Users layout</h2> */}
     <Routes>
       {userRoutes.map(({ path, component: Component }) => (
         <Route

@@ -74,7 +74,7 @@ const TopicDetailPage = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item md={3}>
+      <Grid item md={3} className="bg-gradient">
         <Grid container spacing={1}>
           {isFetching ? (
             <TopicListItemSkeleton totalItem={9} />

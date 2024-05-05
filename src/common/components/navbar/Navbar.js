@@ -71,10 +71,7 @@ export const NavBar = ({ navCategories = [] }) => {
     [lang],
   );
   return (
-    <AppBar
-      position="sticky"
-      sx={{ background: 'linear-gradient(59deg, #3a6073, #16222a)' }}
-    >
+    <AppBar position="sticky" className="bg-gradient">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography

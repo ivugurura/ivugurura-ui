@@ -5,6 +5,8 @@ import { Route, Routes } from 'react-router-dom';
 
 import { PageRoutes } from '../../../RoutesConstants';
 
+import { SuspenseFallback } from './SuspenseFallback';
+
 const userRoutes = [
   {
     path: undefined,
@@ -25,15 +27,16 @@ const userRoutes = [
 ];
 
 export const UserLayout = () => (
-  <Box px={2} py={1}>
+  <Box px={2} py={1} sx={{ minHeight: '70vh' }}>
     {/* <h2>Users layout</h2> */}
     <Routes>
       {userRoutes.map(({ path, component: Component }) => (
         <Route
+          key={path}
           index={path === undefined}
           path={path}
           element={
-            <Suspense>
+            <Suspense fallback={<SuspenseFallback />}>
               <Component />
             </Suspense>
           }

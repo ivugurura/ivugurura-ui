@@ -52,7 +52,7 @@ export const HomeYoutube = ({
         ...playerSizes,
         playerVars: {
           // https://developers.google.com/youtube/player_parameters
-          autoplay: 1,
+          autoplay: 0,
         },
       }}
     />

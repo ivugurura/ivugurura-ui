@@ -24,10 +24,12 @@ import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 
 import { DL_ROUTE, toAssetPath } from '../../../helpers/utils/constants';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { RRVShare } from '../RRVShare';
 
 export const RRVAudioPlayer = ({ displayText = true }) => {
   const [currentAudio, setCurrentAudio] = useState({ index: -1, audio: null });
+  const { isMobile } = useMediaQuery();
   const [shareSong] = actions.useShareAudioMutation();
   const { data, isFetching } = actions.useListAudiosQuery({
     page: 1,
@@ -51,6 +53,7 @@ export const RRVAudioPlayer = ({ displayText = true }) => {
       });
     }
   };
+  console.log({ isMobile });
   const customControls = [
     RHAP_UI.LOOP,
     <Button
@@ -107,7 +110,10 @@ export const RRVAudioPlayer = ({ displayText = true }) => {
                 key={audio.id}
                 selected={audio.id === currentAudio.audio?.id}
                 secondaryAction={
-                  <ButtonGroup size="small">
+                  <ButtonGroup
+                    size="small"
+                    // orientation={isMobile ? 'vertical' : 'horizontal'}
+                  >
                     <Button
                       startIcon={<PlayArrow />}
                       onClick={() =>
@@ -134,7 +140,7 @@ export const RRVAudioPlayer = ({ displayText = true }) => {
                 }
                 alignItems="flex-start"
               >
-                <ListItemIcon>
+                <ListItemIcon sx={{ minWidth: isMobile ? undefined : '56px' }}>
                   <MusicNote />
                 </ListItemIcon>
                 <ListItemText

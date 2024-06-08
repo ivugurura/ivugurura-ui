@@ -30,6 +30,8 @@
   "songsAndTopics":"Indirimbo n ibyigisho bitandukanye",
   "audios":"Audio",
   "updatedAt":"Cyateguriwe kuri",
+  "at": "kuri",
+  "by": "Yateguwe na",
   "actions":{
     "btnSend": "Mwohereze",
     "loading": "Mube mwihanganye,...",

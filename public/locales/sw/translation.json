@@ -30,6 +30,8 @@
 	"songsAndTopics": "Nyimbo na mafundisho ni tofauti",
 	"audios": "Audio",
 	"updatedAt": "Imesasishwa saa",
+	"at": "saa",
+	"by": "Imetayarishwa na",
 	"actions": {
 		"btnSend": "Tuma",
 		"loading": "Inapakia,...",

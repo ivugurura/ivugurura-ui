@@ -30,6 +30,8 @@
   "songsAndTopics": "Songs and different topics",
   "audios": "Audio",
   "updatedAt": "Lastly updated",
+  "at": "at",
+  "by": "By",
   "actions": {
     "btnSend": "Send",
     "loading": "Loading,...",

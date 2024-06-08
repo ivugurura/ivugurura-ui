@@ -126,7 +126,7 @@ export const SearchModal = ({ open, onClose }) => {
                       >
                         {moment(topic.updatedAt).format('DD.MM.YYYY')}
                       </Typography>
-                      {` — ${topic.content}`}
+                      {topic.content && ` — ${topic.content}`}
                     </>
                   }
                 />

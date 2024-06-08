@@ -20,7 +20,7 @@ export const HomeRecentTopics = ({
   return (
     <Grid container spacing={1}>
       {isFetching ? (
-        <TopicsCardSkeleton isHomePage totalItems={4} />
+        <TopicsCardSkeleton totalItems={4} itemsSize={{ xs, sm, md }} />
       ) : (
         topics?.length > 0 &&
         topics.map((topic) => (

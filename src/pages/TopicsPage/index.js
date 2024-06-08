@@ -1,12 +1,8 @@
 import React, { useEffect } from 'react';
 
-import {
-  Home as HomeIcon,
-  MoreVert as MoreVertIcon,
-  RssFeed as RssFeedIcon,
-} from '@mui/icons-material';
+import { Home as HomeIcon, RssFeed as RssFeedIcon } from '@mui/icons-material';
 import { Masonry } from '@mui/lab';
-import { Avatar, Grid, CardHeader, IconButton, Card } from '@mui/material';
+import { Avatar, Grid, CardHeader, Card } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -57,13 +53,7 @@ const CategoryItem = ({ category, selectedId, onClick }) => (
             {category.name?.charAt(0)}
           </Avatar>
         }
-        action={
-          <IconButton aria-label={category.name}>
-            <MoreVertIcon />
-          </IconButton>
-        }
         title={category.name}
-        subheader="September 14, 2016"
       />
     </Card>
   </Grid>
@@ -75,11 +65,11 @@ const TopicsPage = () => {
   const { t: categorySlug } = useQueryParams();
   const [selectedCategoryId, setSelectedCategoryId] = React.useState(null);
   const {
-    pagination: { page, pageSize },
+    pagination: { page, pageSize, tablePage },
     handleChangePage,
     handleChangeRowsPerPage,
     resetRowsPerPage,
-  } = usePagination(1, 15);
+  } = usePagination();
   const { data, isFetching } = actions.useListTopicsQuery({
     truncate: 148,
     page,
@@ -91,8 +81,8 @@ const TopicsPage = () => {
       categoryType: 'with-topics',
     });
   const { data: topics, totalItems } = data || initials.dataArr;
+  console.log({ page, pageSize, totalItems });
   const { data: categories } = catData || initials.dataArr;
-  const all = t('all');
   const allTopics = t('allTopics');
   const handleMenuOpen = (event) => {
     setTopicsNavs((prev) => {
@@ -103,7 +93,7 @@ const TopicsPage = () => {
         ...nav,
         breadcumbMenu: {
           ...nav.breadcumbMenu,
-          'aria-controls': nav.breadcumbMenu.menuId,
+          'aria-controls': nav.breadcumbMenu?.menuId,
           'aria-haspopup': 'true',
           'aria-expanded': 'true',
           anchorEl: event.currentTarget,
@@ -116,7 +106,7 @@ const TopicsPage = () => {
     // setBreadcumbMenu((prev) => ({ ...prev, anchorEl: event.currentTarget }));
     setTopicsNavs((prev) => {
       const copyPrev = [...prev];
-      const navIndex = prev.findIndex((nav) => nav.name === all);
+      const navIndex = prev.findIndex((nav) => nav.name === allTopics);
       const nav = prev[navIndex];
       copyPrev[navIndex] = {
         ...nav,
@@ -185,7 +175,7 @@ const TopicsPage = () => {
                     handleChangePage={handleChangePage}
                     handleChangeRowsPerPage={handleChangeRowsPerPage}
                     dataCount={totalItems}
-                    page={page}
+                    page={tablePage}
                     pageSize={pageSize}
                     labelRowsPerPage="N topics per page:"
                   />

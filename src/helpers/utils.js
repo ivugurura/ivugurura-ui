@@ -102,7 +102,7 @@ export const formatParamaterizedUrl = (
    */
 
   for (const sp of searchParams) {
-    endpoint = endpoint.replace(`:${sp}`, params[sp] || '');
+    endpoint = endpoint.replace(`:${sp}`, params[sp] ?? '');
   }
 
   return endpoint;

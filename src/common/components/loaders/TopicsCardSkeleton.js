@@ -2,10 +2,13 @@ import React from 'react';
 
 import { Card, Grid, CardContent, CardHeader, Skeleton } from '@mui/material';
 
-export const TopicsCardSkeleton = ({ totalItems = 3, isHomePage = false }) => (
+export const TopicsCardSkeleton = ({
+  totalItems = 3,
+  itemsSize = { md: 4, xs: 12 },
+}) => (
   <Grid container spacing={2}>
     {Array.from({ length: totalItems }, (_, i) => (
-      <Grid item md={isHomePage ? 3 : 4} xs={12} key={i}>
+      <Grid item {...itemsSize} key={i}>
         <Card sx={{ width: '100%' }}>
           <CardHeader
             avatar={

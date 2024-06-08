@@ -7,9 +7,7 @@ import { useWindowSize } from '../../common/hooks/useWindowSize';
 import { HomeRecentTopics } from '../Home/components/Topics';
 
 const AudiosPage = () => {
-  console.log('Audio player');
   const { width } = useWindowSize();
-  console.log({ width });
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={7}>

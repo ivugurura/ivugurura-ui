@@ -20,7 +20,9 @@ import {
   Typography,
   ButtonGroup,
 } from '@mui/material';
+import moment from 'moment';
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
+import { useTranslation } from 'react-i18next';
 
 import { DL_ROUTE, toAssetPath } from '../../../helpers/utils/constants';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
@@ -28,6 +30,7 @@ import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { RRVShare } from '../RRVShare';
 
 export const RRVAudioPlayer = ({ displayText = true }) => {
+  const { t } = useTranslation();
   const [currentAudio, setCurrentAudio] = useState({ index: -1, audio: null });
   const { isMobile } = useMediaQuery();
   const [shareSong] = actions.useShareAudioMutation();
@@ -94,9 +97,12 @@ export const RRVAudioPlayer = ({ displayText = true }) => {
                   variant="body2"
                   color="text.primary"
                 >
-                  {`By ${currentAudio.audio.author}`}
+                  <i>{t('by')}</i>
+                  <strong>{currentAudio.audio.author}</strong>
                 </Typography>
-                {" — Wish I could come, but I'm out of town this…"}
+                {` ${t('at')} ${moment(currentAudio.audio.createdAt).format(
+                  'DD.MM.YYYY',
+                )}`}
               </>
             }
           />
@@ -145,7 +151,12 @@ export const RRVAudioPlayer = ({ displayText = true }) => {
                 </ListItemIcon>
                 <ListItemText
                   primary={audio.title}
-                  secondary={`By ${audio.author}`}
+                  primaryTypographyProps={{ style: { width: '62%' } }}
+                  secondary={
+                    <>
+                      <i>{t('by')}</i> {audio.author}
+                    </>
+                  }
                 />
               </ListItem>
               <Divider variant="insert" component="li" />

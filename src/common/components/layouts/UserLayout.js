@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 
 import { Box } from '@mui/material';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { PageRoutes } from '../../../RoutesConstants';
 
@@ -32,7 +32,7 @@ export const UserLayout = () => (
     <Routes>
       {userRoutes.map(({ path, component: Component }) => (
         <Route
-          key={path}
+          key={path || 'index'}
           index={path === undefined}
           path={path}
           element={
@@ -42,6 +42,7 @@ export const UserLayout = () => (
           }
         />
       ))}
+      <Route path="*" element={<Navigate to="" replace />} />
     </Routes>
   </Box>
 );

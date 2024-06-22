@@ -1,3 +1,4 @@
+import { Facebook, Instagram, Twitter } from '@mui/icons-material';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 
@@ -70,19 +71,19 @@ export const socialMedias = [
   {
     name: 'Facebook',
     url: 'https://web.facebook.com/ivugurura.ubugorozi.10',
-    faIcon: 'facebook',
+    icon: Facebook,
     classeName: 'icoFacebook',
   },
   {
     name: 'Instagram',
     url: 'https://www.instagram.com/reformation_voice',
-    faIcon: 'instagram',
+    icon: Instagram,
     classeName: 'icoInstagram',
   },
   {
-    name: 'Twitter',
-    url: 'https://twitter.com/Rev_Reformation',
-    faIcon: 'twitter',
+    name: 'X',
+    url: 'https://x.com/Rev_Reformation',
+    icon: Twitter,
     classeName: 'icoTwitter',
   },
 ];

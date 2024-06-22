@@ -42,15 +42,10 @@ export const MainFooter = ({ navCategories = [] }) => {
             <Grid item lg={2} md={2} sm={12} xs={12}>
               <h5>{t('followUs')}</h5>
               <ul className="social-network social-circle">
-                {socialMedias.map((social) => (
-                  <li key={social.name}>
-                    <a
-                      target="_blank"
-                      rel="noreferrer"
-                      href={social.url}
-                      title={social.name}
-                    >
-                      <i className={`fa fa-${social.faIcon}`} />
+                {socialMedias.map(({ name, url, icon: Icon }) => (
+                  <li key={name}>
+                    <a target="_blank" rel="noreferrer" href={url} title={name}>
+                      <Icon />
                     </a>
                   </li>
                 ))}

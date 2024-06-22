@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 
 import {
@@ -6,15 +5,7 @@ import {
   EditNoteOutlined,
   PublishOutlined,
 } from '@mui/icons-material';
-import {
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  Container,
-  Grid,
-} from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { Box, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -23,7 +14,6 @@ import {
 } from '../../../common/components/RRVTable';
 import { dashboardActions } from '../../../helpers/topics';
 import { notifier, toLink } from '../../../helpers/utils/constants';
-import { dataGenerator } from '../../../helpers/utils/dataGenerater';
 import { actions } from '../../../redux/actions';
 import { initials } from '../../../redux/apiSliceBuilder';
 import { AlertConfirm } from '../components/AlertConfirm';
@@ -32,12 +22,6 @@ import { DashboardContainer } from '../components/DashboardContainer';
 import { DashboardCount } from './DashboardCount';
 import { dashboardTopicsColumns } from './schema';
 
-const toDataCounts = (counts = {}) =>
-  Object.keys(counts).map((key) => ({
-    title: key,
-    counts: counts[key],
-    difference: 0,
-  }));
 const dashboardMenus = [
   {
     title: 'Edit',
@@ -63,17 +47,15 @@ const alertInitial = {
   message: '',
   open: false,
 };
-export const HomeDashboard = () => {
+export const HomeDashboard = ({ countFetch }) => {
   const navigate = useNavigate();
   const [alertData, setAlertData] = useState(alertInitial);
-  const { data, isFetching, isSuccess, ...restCountsQ } =
-    actions.useGetCountsSystemQuery();
+  const { data: counts, isFetching, isSuccess, ...restCountsQ } = countFetch;
   const { data: overviewData, ...restTopicQ } =
     actions.useGetOverviewTopicQuery({ truncate: 200 });
   const [updateTopic, updateRes] = actions.useUpdateTopicMutation();
   const [setOrRemoveTopicDisplay, displayRes] =
     actions.useSetHomeTopicMutation();
-  const { data: counts } = data || initials.dataArr;
   const { data: topics } = overviewData || initials.dataArr;
 
   useEffect(() => {
@@ -105,12 +87,6 @@ export const HomeDashboard = () => {
       message: `Are you sure you want to ${action.toUpperCase()} 
       "${title.toUpperCase()}"?`,
     }));
-    console.log({
-      isFetching,
-      isSuccess,
-      type,
-      actionParams,
-    });
   };
 
   const handleConfirmAction = () => {
@@ -144,7 +120,7 @@ export const HomeDashboard = () => {
         loading={updateRes.isLoading || displayRes.isLoading}
       />
       <Grid container spacing={1}>
-        {toDataCounts(counts).map((dt) => (
+        {counts.map((dt) => (
           <Grid item key={dt.title} xs={12} sm={4} lg={2}>
             <DashboardCount
               title={dt.title}

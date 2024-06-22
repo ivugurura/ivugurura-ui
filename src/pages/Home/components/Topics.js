@@ -1,8 +1,11 @@
 import React from 'react';
 
-import { Grid } from '@mui/material';
+import { Grid, Box, Button } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import { TopicsCardSkeleton } from '../../../common/components/loaders';
+import { useLang } from '../../../common/components/providers/LangProvider';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
 import TopicItem from '../../TopicItem';
 
@@ -12,6 +15,8 @@ export const HomeRecentTopics = ({
   md = 3,
   truncate = 148,
 }) => {
+  const { lang } = useLang();
+  const { t } = useTranslation();
   const { data, isFetching } = actions.useGetRecentTopicsQuery({
     truncate,
   });
@@ -29,6 +34,18 @@ export const HomeRecentTopics = ({
           </Grid>
         ))
       )}
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Box textAlign="center" paddingTop={2}>
+          <Button component={Link} to={`/${lang}/topics`}>
+            {t('actions.viewMore')}
+          </Button>
+        </Box>
+      </Grid>
     </Grid>
   );
 };

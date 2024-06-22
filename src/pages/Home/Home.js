@@ -54,8 +54,8 @@ export const Home = () => {
           </Grid>
         </Grid>
       </Grid>
-      <HomeContentLayout>
-        <HomeRecentTopics />
+      <HomeContentLayout cardContentProps={{ sx: { paddingBottom: 0 } }}>
+        <HomeRecentTopics truncate={140} />
       </HomeContentLayout>
       <HomeContentLayout>
         <Grid container spacing={1}>

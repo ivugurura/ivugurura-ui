@@ -1,17 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { formulateQuery, startCase } from '../helpers/utils';
-import { systemLanguage } from '../helpers/utils/constants';
+import { lStorage, systemLanguage } from '../helpers/utils/constants';
 
 import * as initialStates from './initialStates';
 import { buildAppStates } from './stateBuilder';
 
 const states = buildAppStates();
-let token = 'null';
-if (localStorage.user) {
-  const user = JSON.parse(localStorage.user);
-  token = user.token;
-}
 
 const buildApiEndPoints = (build, state) => {
   const { actions } = state;
@@ -33,7 +28,7 @@ const baseQuery = fetchBaseQuery({
   // Fill in your own server starting URL here
   baseUrl: `${process.env.REACT_APP_API_URL}/api/v1`,
   headers: {
-    Authorization: token,
+    Authorization: lStorage.token,
     'Accept-Language': systemLanguage,
   },
 });

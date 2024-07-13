@@ -96,6 +96,10 @@ export const toAssetPath = (name = '', isImage = true) =>
   `${isImage ? IMAGE_PATH : AUDIO_PATH}/${name}`;
 export const DL_ROUTE = `${process.env.REACT_APP_API_URL}/api/v1/albums/download/`;
 
+export const lStorage = {
+  token: localStorage.getItem('user-token') || '',
+};
+
 const messageId = 13;
 export const notifier = {
   error: (msg) =>

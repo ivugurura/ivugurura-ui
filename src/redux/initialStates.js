@@ -50,7 +50,7 @@ export const initialUserState = {
   isAuthenticated: false,
   userFetched: false,
   errorMesg: '',
-  info: {},
+  user: {},
 };
 export const initialDashState = {
   countLoading: false,

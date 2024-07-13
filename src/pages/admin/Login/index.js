@@ -28,20 +28,20 @@ const redirectToDashboard = () => {
     window.location.replace(toLink('', true));
   }, 5000);
 };
-export const Login = () => {
+export const Login = ({ shouldRedirect = true }) => {
   const [loginInfo, setLoginInfo] = useState(initialStates);
 
   const [loginUser, res] = actions.useLoginSystemMutation();
 
   const dispatch = useDispatch();
 
-  const { isAuthenticated, info } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && shouldRedirect) {
       redirectToDashboard();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, shouldRedirect]);
 
   useEffect(() => {
     if (res.isSuccess) {
@@ -49,8 +49,12 @@ export const Login = () => {
         message,
         data: { token, ...user },
       } = res.data;
-      notifier.success(`${message}. Be redirected in 3 seconds`);
-      localStorage.setItem('user', JSON.stringify(res.data.data));
+      let messageToShow = message;
+      if (shouldRedirect) {
+        messageToShow += '. Be redirected in 3 seconds';
+      }
+      notifier.success(messageToShow);
+      localStorage.setItem('user-token', token);
       dispatch(setUser(user));
     }
   }, [res.isSuccess]);
@@ -59,7 +63,6 @@ export const Login = () => {
     event.preventDefault();
     loginUser(loginInfo);
   };
-  console.log({ isAuthenticated, info });
   return (
     <Container component="main" maxWidth="xs">
       <Box

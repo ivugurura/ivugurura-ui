@@ -9,16 +9,20 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 
-// import { useStyles } from '../../styles';
+import { Login } from '../../../pages/admin';
+import { useAuth } from '../providers';
 
 import { AdminMenuDrawer } from './components/AdminMenuDrawer';
+import { SuspenseFallback } from './SuspenseFallback';
 
 const drawerWidth = 240;
 export const AdminMainLayout = () => {
-  // const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { isLoading } = useAuth();
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -44,47 +48,49 @@ export const AdminMainLayout = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h3" noWrap component="div">
-            RRV - Admin Dashboard
+            RRV - Admin Dashboard{isAuthenticated ? ` - ${user.names}` : ''}
           </Typography>
         </Toolbar>
       </AppBar>
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
-      >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Drawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': {
-              boxSizing: 'border-box',
-              width: drawerWidth,
-            },
-          }}
+      {isAuthenticated && (
+        <Box
+          component="nav"
+          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+          aria-label="RRV Menu"
         >
-          <AdminMenuDrawer />
-        </Drawer>
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': {
-              boxSizing: 'border-box',
-              width: drawerWidth,
-            },
-          }}
-          open
-        >
-          <AdminMenuDrawer />
-        </Drawer>
-      </Box>
+          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+          <Drawer
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: 'block', sm: 'none' },
+              '& .MuiDrawer-paper': {
+                boxSizing: 'border-box',
+                width: drawerWidth,
+              },
+            }}
+          >
+            <AdminMenuDrawer />
+          </Drawer>
+          <Drawer
+            variant="permanent"
+            sx={{
+              display: { xs: 'none', sm: 'block' },
+              '& .MuiDrawer-paper': {
+                boxSizing: 'border-box',
+                width: drawerWidth,
+              },
+            }}
+            open
+          >
+            <AdminMenuDrawer />
+          </Drawer>
+        </Box>
+      )}
       <Box
         component="main"
         sx={{
@@ -93,7 +99,9 @@ export const AdminMainLayout = () => {
           width: { sm: `calc(100% - ${drawerWidth}px)`, marginTop: '30px' },
         }}
       >
-        <Outlet />
+        {!isAuthenticated && !isLoading && <Login shouldRedirect={false} />}
+        {isLoading && <SuspenseFallback message="Loading your content..." />}
+        {isAuthenticated && <Outlet />}
       </Box>
     </Box>
   );

@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Stack, Box, CircularProgress } from '@mui/material';
 
-export const SuspenseFallback = () => {
+export const SuspenseFallback = ({ message }) => {
   return (
-    <div
+    <Box
       style={{
         display: 'flex',
         justifyContent: 'center',
@@ -33,19 +33,23 @@ export const SuspenseFallback = () => {
         />
         <Box
           sx={{
-            width: '100 px',
+            width: '100%',
           }}
         >
           <Box
             sx={{
               display: 'flex',
+              flexDirection: 'column',
               justifyContent: 'center',
+              alignContent: 'center',
+              textAlign: 'center',
             }}
           >
             <CircularProgress />
+            {message && message}
           </Box>
         </Box>
       </Stack>
-    </div>
+    </Box>
   );
 };

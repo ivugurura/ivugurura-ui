@@ -49,6 +49,11 @@ export const systemLanguages = [
     flag: `${flagUrl}/KE.png`,
   },
 ];
+
+/**
+ * Roles
+ */
+export const systemRoles = { superAdmin: 1, admin: 2, editor: 3 };
 export const truncate = (str = '', n = 1) =>
   str.length > n ? `${str.substr(0, n - 1)}...` : str;
 export const formatDate = (theDate) => {

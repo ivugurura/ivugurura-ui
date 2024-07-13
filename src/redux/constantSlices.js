@@ -7,7 +7,7 @@ const initialFileState = {
 
 const initialUserState = {
   isAuthenticated: false,
-  info: {},
+  user: {},
 };
 
 export const filePathSlice = createSlice({
@@ -33,11 +33,11 @@ export const authUserSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.isAuthenticated = true;
-      state.info = action.payload;
+      state.user = action.payload;
     },
     resetUser: (state) => {
       state.isAuthenticated = false;
-      state.info = {};
+      state.user = {};
     },
   },
 });

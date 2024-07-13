@@ -28,10 +28,7 @@ const App = () => {
   if (!isAdminUrl() && (path === '/' || !path.startsWith(slPath))) {
     window.location.href = slPath;
   }
-  // console.log('AppStates', states);
   return (
-    // <StylesProvider generateClassName={generateClassName}>
-    //   <ThemeProviderV4 theme={themeV4}>
     <ThemeProviderV5 theme={theme}>
       <Provider store={store}>
         <ErrorBoundary location={null}>
@@ -47,8 +44,6 @@ const App = () => {
         </ErrorBoundary>
       </Provider>
     </ThemeProviderV5>
-    //   </ThemeProviderV4>
-    // </StylesProvider>
   );
 };
 

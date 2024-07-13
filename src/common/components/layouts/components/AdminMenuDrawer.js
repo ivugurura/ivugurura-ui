@@ -10,12 +10,14 @@ import {
   PeopleOutline as PeopleIcon,
 } from '@mui/icons-material';
 import { Collapse, Divider, List, Toolbar, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
 
+import { systemRoles } from '../../../../helpers/utils/constants';
 import { useLang } from '../../providers/LangProvider';
 
 import { ListItemLink } from './ListItemLink';
 
-const dashboardMenus = (lang = 'en') => [
+const dashboardMenus = (lang = 'en', role = undefined) => [
   {
     type: 'Main',
     routes: [
@@ -51,21 +53,26 @@ const dashboardMenus = (lang = 'en') => [
         to: `${lang}/commentaries`,
         icon: ChatBubbleIcon,
       },
-      {
-        name: 'Setting',
-        to: `${lang}/setting`,
-        icon: SettingIcon,
-      },
-      {
-        name: 'System users',
-        to: `${lang}/users`,
-        icon: PeopleIcon,
-      },
+      ...(role <= systemRoles.admin
+        ? [
+            {
+              name: 'Setting',
+              to: `${lang}/setting`,
+              icon: SettingIcon,
+            },
+            {
+              name: 'System users',
+              to: `${lang}/users`,
+              icon: PeopleIcon,
+            },
+          ]
+        : []),
     ],
   },
 ];
 export const AdminMenuDrawer = () => {
   const [open, setOpen] = React.useState(false);
+  const { user } = useSelector((state) => state.auth);
   const { lang } = useLang();
   const handleOpen = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -73,7 +80,7 @@ export const AdminMenuDrawer = () => {
   return (
     <div>
       <Toolbar />
-      {dashboardMenus(lang).map((menu) => (
+      {dashboardMenus(lang, user?.role).map((menu) => (
         <React.Fragment key={menu.type}>
           <Divider />
           <Typography variant="body1" mt={1}>

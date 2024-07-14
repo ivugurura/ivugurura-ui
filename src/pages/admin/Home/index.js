@@ -51,8 +51,9 @@ export const HomeDashboard = ({ countFetch }) => {
   const navigate = useNavigate();
   const [alertData, setAlertData] = useState(alertInitial);
   const { data: counts, isFetching, isSuccess, ...restCountsQ } = countFetch;
-  const { data: overviewData, ...restTopicQ } =
-    actions.useGetOverviewTopicQuery({ truncate: 200 });
+  const { data: overviewData, ...overviewQ } = actions.useGetOverviewTopicQuery(
+    { truncate: 200 },
+  );
   const [updateTopic, updateRes] = actions.useUpdateTopicMutation();
   const [setOrRemoveTopicDisplay, displayRes] =
     actions.useSetHomeTopicMutation();
@@ -61,7 +62,7 @@ export const HomeDashboard = ({ countFetch }) => {
   useEffect(() => {
     if (updateRes.isSuccess || displayRes.isSuccess) {
       setAlertData(alertInitial);
-      restTopicQ.refetch();
+      overviewQ.refetch();
       if (displayRes.isSuccess) {
         displayRes.reset();
       }
@@ -134,6 +135,7 @@ export const HomeDashboard = ({ countFetch }) => {
         <RRVTable
           columns={dashboardTopicsColumns()}
           data={topics}
+          isLoading={overviewQ.isFetching}
           enableRowActions
           renderRowActionMenuItems={renderRowActionMenus(
             handleMenuAction,

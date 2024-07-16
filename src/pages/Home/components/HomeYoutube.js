@@ -21,14 +21,17 @@ export const HomeYoutube = ({
     data: { items: [], isFetching: false },
   };
   useEffect(() => {
-    let height = heightRatio * winHeight;
-    let width = widthRatio * winWidth;
+    let height = winHeight * heightRatio;
+    let width = winWidth * widthRatio;
     if (winWidth < 900) {
-      width = winWidth;
+      width = winWidth - 30;
     }
     if (winHeight < 789) {
-      height = normalHeight;
+      height = normalHeight * heightRatio;
     }
+    // const height = contentHeight * heightRatio;
+    // const width = contentWeight * widthRatio;
+
     setPlayerSizes({ height, width });
   }, [widthRatio, heightRatio, normalHeight]);
 
@@ -42,14 +45,14 @@ export const HomeYoutube = ({
       }
     }
   }, [ytData, randomize]);
-
+  console.log({ playerSizes });
   return isFetching ? (
     <YoutubeLoader />
   ) : (
     <YouTube
       videoId={videoId}
       opts={{
-        ...playerSizes,
+        // ...playerSizes,
         playerVars: {
           // https://developers.google.com/youtube/player_parameters
           autoplay: 0,

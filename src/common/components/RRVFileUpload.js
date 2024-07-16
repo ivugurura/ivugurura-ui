@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 
 import { Box, Button, Grid, LinearProgress, Typography } from '@mui/material';
@@ -82,7 +81,6 @@ export const RRVFileUpload = ({
   };
   return (
     <Grid container>
-      {/* <Form.File id="audioFile" label={title} onChange={onChange} /> */}
       <Grid item xs={12}>
         <MuiFileInput
           label={title}

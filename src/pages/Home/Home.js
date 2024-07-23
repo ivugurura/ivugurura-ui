@@ -65,7 +65,7 @@ export const Home = () => {
             <HomeYoutube
               heightRatio={0.86}
               widthRatio={0.57}
-              normalHeight={420}
+              normalHeight={440}
               randomize
             />
           </Grid>

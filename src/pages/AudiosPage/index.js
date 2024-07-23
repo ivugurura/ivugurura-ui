@@ -11,7 +11,7 @@ const AudiosPage = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={7}>
-        <RRVAudioPlayer displayText={width > 425} />
+        <RRVAudioPlayer displayText={width > 425} nOfAudios={20} />
       </Grid>
       <Grid item xs={12} md={5}>
         <HomeRecentTopics xs={12} sm={12} md={12} truncate={164} />

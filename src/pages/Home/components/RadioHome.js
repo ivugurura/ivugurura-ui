@@ -3,10 +3,10 @@ import React from 'react';
 import {
   Avatar,
   Button,
+  Box,
   Card,
   CardContent,
   CardHeader,
-  Typography,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -26,12 +26,12 @@ export const RadioHome = () => {
         title="Radiolize"
         subheader={t('logoTitle')}
       />
-      <Radio />
-      <CardContent>
-        <Typography variant="h5" color="text.secondary">
+      <CardContent sx={{ maxHeight: 287, overflow: 'scroll' }}>
+        <Radio />
+        <Box>
           {t('radioMsg')}
-        </Typography>
-        <Button>{t('listenRadio')}</Button>
+          <Button>{t('listenRadio')}</Button>
+        </Box>
       </CardContent>
     </Card>
   );

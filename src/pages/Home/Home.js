@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, Grid, Typography } from '@mui/material';
+import { Box, Card, Grid, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { RRVAudioPlayer } from '../../common/components/RRVAudioPlayer';
@@ -17,37 +17,39 @@ import {
 } from './components';
 import { HomeContentLayout } from './components/HomeContentLayout';
 
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-//   ...theme.typography.body2,
-//   padding: theme.spacing(1),
-//   textAlign: 'center',
-//   color: theme.palette.text.secondary,
-// }));
 export const Home = () => {
   const { t } = useTranslation();
   return (
     <Page title="Home">
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={6} lg={6}>
-          <Grid item xs={12} sm={12} md={12} lg={12}>
-            <HomeYoutube />
-          </Grid>
+          <HomeYoutube />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6}>
+        <Grid item xs={12} sm={12} md={6}>
           <Grid container spacing={1}>
-            <Grid item xs={12} sm={12} md={6} lg={6}>
+            <Grid item md={6}>
               <RadioHome />
             </Grid>
-            <Grid item xs={12} sm={12} md={6} lg={6}>
+            <Grid item md={6}>
               <Card>
-                <Typography component="span" variant="h3" color="text.primary">
-                  {t('reformers')}
-                </Typography>
-                <Typography component="span" variant="h4">
-                  {' '}
-                  — {t('mathew2414')}
-                </Typography>
+                <Box
+                  sx={{
+                    maxHeight: { xs: '100%', sm: 110 },
+                    overflow: 'scroll',
+                  }}
+                >
+                  <Typography
+                    component="span"
+                    variant="h3"
+                    color="text.primary"
+                  >
+                    {t('reformers')}
+                  </Typography>
+                  <Typography component="span" variant="h4">
+                    {' '}
+                    — {t('mathew2414')}
+                  </Typography>
+                </Box>
                 <HomeCarousel />
               </Card>
             </Grid>
@@ -64,7 +66,7 @@ export const Home = () => {
           </Grid>
           <Grid item xs={12} sm={12} md={7}>
             <HomeYoutube
-              heightRatio={0.534}
+              heightRatio={0.86}
               widthRatio={0.57}
               normalHeight={420}
               randomize

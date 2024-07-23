@@ -8,8 +8,8 @@ import { useWindowSize } from '../../../common/hooks/useWindowSize';
 import { YoutubeLoader } from './HomeLoaders';
 
 export const HomeYoutube = ({
-  widthRatio = 0.5,
-  heightRatio = 0.47,
+  widthRatio = 0.485,
+  heightRatio = 0.7,
   normalHeight = 370,
   randomize = false,
 }) => {
@@ -21,19 +21,14 @@ export const HomeYoutube = ({
     data: { items: [], isFetching: false },
   };
   useEffect(() => {
-    let height = winHeight * heightRatio;
     let width = winWidth * widthRatio;
+    let height = winHeight * heightRatio;
     if (winWidth < 900) {
       width = winWidth - 30;
+      height = normalHeight;
     }
-    if (winHeight < 789) {
-      height = normalHeight * heightRatio;
-    }
-    // const height = contentHeight * heightRatio;
-    // const width = contentWeight * widthRatio;
-
     setPlayerSizes({ height, width });
-  }, [widthRatio, heightRatio, normalHeight]);
+  }, [widthRatio, heightRatio, winHeight, winWidth, normalHeight]);
 
   useEffect(() => {
     if (ytData?.items.length > 0) {

@@ -5,10 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { RRVAudioPlayer } from '../../common/components/RRVAudioPlayer';
 import { Page } from '../../common/components/wrappers';
-// import { useHomeStyles } from '../styles';
-// import TopicItem from '../TopicItem';
 
-// HomeCarousel,
 import {
   HomeCarousel,
   HomeRecentTopics,

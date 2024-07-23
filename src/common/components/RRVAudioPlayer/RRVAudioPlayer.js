@@ -9,10 +9,12 @@ import {
 } from '@mui/icons-material';
 import {
   Button,
+  Box,
   Card,
   CardContent,
   CardHeader,
   Divider,
+  Grid,
   List,
   ListItem,
   ListItemIcon,
@@ -23,20 +25,27 @@ import {
 import moment from 'moment';
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import { DL_ROUTE, toAssetPath } from '../../../helpers/utils/constants';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
+import { useLang } from '../providers';
 import { RRVShare } from '../RRVShare';
 
-export const RRVAudioPlayer = ({ displayText = true }) => {
+export const RRVAudioPlayer = ({
+  displayText = true,
+  hasMore,
+  nOfAudios = 3,
+}) => {
   const { t } = useTranslation();
+  const { lang } = useLang();
   const [currentAudio, setCurrentAudio] = useState({ index: -1, audio: null });
   const { isMobile } = useMediaQuery();
   const [shareSong] = actions.useShareAudioMutation();
   const { data, isFetching } = actions.useListAudiosQuery({
     page: 1,
-    pageSize: 3,
+    pageSize: nOfAudios,
   });
   const { data: audios } = data || initials.dataArr;
   useEffect(() => {
@@ -163,6 +172,20 @@ export const RRVAudioPlayer = ({ displayText = true }) => {
             </React.Fragment>
           ))}
         </List>
+        {hasMore && (
+          <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Box textAlign="center" paddingTop={2}>
+              <Button component={Link} to={`/${lang}/audios`}>
+                {t('actions.viewMoreAudios')}
+              </Button>
+            </Box>
+          </Grid>
+        )}
       </CardContent>
     </Card>
   );

@@ -34,7 +34,7 @@ jobs:
           echo HTTPS=true >> .env
       - name: Install packages and run build the app
         run: |
-          yarn install --production=true
+          yarn
           yarn build
           tar zcvf build.tar.gz build/
       - uses: appleboy/scp-action@master

@@ -1,10 +1,5 @@
 name: Ivugurura Client CI/CD
 
-# Revert this workflow to the revamp branch when it's ready
-# echo "Install new dependencies if any"
-# nvm use 14.17.6
-# npm install --omit=dev
-
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push events but only for the develop branch
@@ -18,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.17.6]
+        node-version: [18.20.4]
 
     steps:
       - name: Use Node.js ${{ matrix.node-version }}
@@ -36,6 +31,9 @@ jobs:
             cd ~/ivugururaUi
             echo "Pull new changes"
             git pull origin develop
+            yarn install --production=true
             echo "Build the new changes and replace the old ones"
-            npm run build
+            yarn build
+            echo "Restart the server"
+            pm2 restart 0
             echo "Done"

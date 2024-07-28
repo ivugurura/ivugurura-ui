@@ -24,6 +24,7 @@
     "un-compress": "tar zxvf build.tar.gz"
   },
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@fontsource/roboto": "^5.0.8",

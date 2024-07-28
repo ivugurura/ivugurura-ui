@@ -118,7 +118,8 @@ export const NavBar = ({ navCategories = [] }) => {
           <Typography
             variant="h5"
             noWrap
-            to="/"
+            component={Link}
+            to={`/${lang}`}
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },

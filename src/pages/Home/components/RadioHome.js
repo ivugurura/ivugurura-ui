@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { Radio } from '../../../common/components/Radio';
+import { RadioKing } from '../../../common/components/Radio';
 
 export const RadioHome = () => {
   const { t } = useTranslation();
@@ -19,15 +19,16 @@ export const RadioHome = () => {
     <Card>
       <CardHeader
         avatar={
-          <Avatar className="bg-gradient" aria-label="Radiolize">
+          <Avatar className="bg-gradient" aria-label="Radioking">
             RRV
           </Avatar>
         }
-        title="Radiolize"
+        title="Radioking"
         subheader={t('logoTitle')}
       />
       <CardContent sx={{ maxHeight: 287, overflow: 'scroll' }}>
-        <Radio />
+        {/* <Radio /> */}
+        <RadioKing />
         <Box>
           {t('radioMsg')}
           <Button>{t('listenRadio')}</Button>

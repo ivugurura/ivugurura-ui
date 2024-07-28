@@ -24,5 +24,5 @@ export const fr = {
   createdAt: 'Cree a ',
   commentSuccess: 'Votre commentaire a été reçu. Merci',
   mostReadTopics: 'Les ecrits le plus consulter',
-  btnSend: 'Envoyez'
+  btnSend: 'Envoyez',
 };

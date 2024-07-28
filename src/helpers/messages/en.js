@@ -24,5 +24,5 @@ export const en = {
   createdAt: 'Created at ',
   commentSuccess: 'Your comment has been received. Thanks',
   mostReadTopics: 'Most read posts',
-  btnSend: 'Send'
+  btnSend: 'Send',
 };

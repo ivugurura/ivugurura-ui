@@ -1,0 +1,33 @@
+{
+  "search.exclude": {
+    "**/node_modules": true,
+    "dist": true,
+    "**/coverage": true,
+    "**/.nyc_output": true,
+    "**/.eslintcache": true
+  },
+  "files.exclude": {
+    "**/*.scss.d.ts": true
+  },
+  "editor.formatOnSave": true,
+  // "jest.jestCommandLine": "npm run test",
+  // "jest.showCoverageOnLoad": false,
+  "npm.packageManager": "npm",
+  "npm.runSilent": true,
+  "eslint.lintTask.enable": false,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "eslint.codeActionsOnSave.mode": "problems",
+  "eslint.options": {
+    "cache": true
+  },
+  "[nix]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  }
+}

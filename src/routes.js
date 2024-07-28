@@ -1,105 +1,35 @@
-import React, { lazy } from "react";
-import { Redirect } from "react-router-dom";
-import { systemLanguage } from "utils/constants";
-import { Main, AdminMain } from "./layouts";
+import React from 'react';
 
-export const routes = [
-  {
-    path: "/",
-    exact: true,
-    component: () => <Redirect to={`/${systemLanguage}`} />,
-  },
-  {
-    path: "/admin",
-    component: AdminMain,
-    routes: [
-      {
-        path: "/admin",
-        exact: true,
-        component: lazy(() => import("views/Dashboard")),
-      },
-      {
-        path: "/admin/add-topic",
-        exact: true,
-        component: lazy(() => import("views/AddEditTopic")),
-      },
-      {
-        path: "/admin/audios",
-        exact: true,
-        component: lazy(() => import("views/AdminAudio")),
-      },
-      {
-        path: "/admin/users",
-        exact: true,
-        component: lazy(() => import("views/SystemUsers")),
-      },
-      {
-        path: "/admin/setting",
-        exact: true,
-        component: lazy(() => import("views/AdminSetting")),
-      },
-      {
-        path: "/admin/commentaries",
-        exact: true,
-        component: lazy(() => import("views/AdminCommentaries")),
-      },
-      {
-        path: "/admin/edit-topic/:topicSlug",
-        exact: true,
-        component: lazy(() => import("views/AddEditTopic")),
-      },
-      {
-        component: () => <Redirect to={`/${systemLanguage}`} />,
-      },
-    ],
-  },
-  {
-    path: "/:language",
-    component: Main,
-    routes: [
-      {
-        path: "/:language",
-        exact: true,
-        component: lazy(() => import("views/Home")),
-      },
-      {
-        path: "/:language/login",
-        exact: true,
-        component: lazy(() => import("views/Login")),
-      },
-      {
-        path: "/:language/topics",
-        exact: true,
-        component: lazy(() => import("views/ViwTopics")),
-      },
-      {
-        path: "/:language/topics/:topicSlug",
-        exact: true,
-        component: lazy(() => import("views/TopicView")),
-      },
-      {
-        path: "/:language/topics/categories/:categorySlug",
-        exact: true,
-        component: lazy(() => import("views/ViwTopics")),
-      },
-      {
-        path: "/:language/radio",
-        exact: true,
-        component: lazy(() => import("views/RadioRRV")),
-      },
-      {
-        path: "/:language/audios",
-        exact: true,
-        component: lazy(() => import("views/Audios")),
-      },
-      {
-        path: "/:language/errors/error-400",
-        exact: true,
-        component: lazy(() => import("views/NotFound")),
-      },
-      {
-        component: () => <Redirect to={`/${systemLanguage}`} />,
-      },
-    ],
-  },
-];
+import { Route, Routes } from 'react-router-dom';
+
+import {
+  AdminLayout,
+  AdminMainLayout,
+  AuthProvider,
+  useLang,
+  UserLayout,
+  UserMainLayout,
+} from './common/components';
+import { Login } from './pages/admin/Login';
+
+export const AppRoutes = () => {
+  const { lang } = useLang();
+  return (
+    <Routes>
+      <Route path="/" element={<UserMainLayout />}>
+        <Route path={`${lang}/*`} element={<UserLayout />} />
+      </Route>
+      <Route path="login" element={<Login />} />
+      <Route
+        path="admin/"
+        element={
+          <AuthProvider>
+            <AdminMainLayout />
+          </AuthProvider>
+        }
+      >
+        <Route path={`${lang}/*`} element={<AdminLayout />} />
+      </Route>
+    </Routes>
+  );
+};

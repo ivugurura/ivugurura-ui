@@ -1,0 +1,43 @@
+.root {
+    
+    & .rdw-option-wrapper {
+        background: 'transparent';
+        border: 'none';
+        min-width: '26';
+        padding: '6';
+    }
+    & .rdw-option-active {
+        box-shadow: 'none';
+        background-color: '';
+    }
+    
+    & .rdw-dropdown-wrapper {
+        box-shadow: 'none';
+        background: 'transparent',
+    }
+    
+    & .rdw-dropdown-optionwrapper {
+        overflow-y: 'auto';
+        box-shadow: '';
+        padding: '1rem',
+    }
+    & .rdw-editor-main {
+        padding: '2rem';
+        height: 300;
+        color: '',
+    }
+}
+
+
+
+.toolbar {
+    margin-bottom: 0;
+    border-left: 'none';
+    border-top: 'none';
+    border-right: 'none';
+}
+
+.editor {
+    background-color:lightblue;
+    min-height: 85vh;
+}

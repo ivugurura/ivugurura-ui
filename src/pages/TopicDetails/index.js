@@ -57,7 +57,7 @@ const TopicDetailPage = () => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item md={9}>
+      <Grid item xs={12} md={9}>
         <Grid container>
           <Grid item md={12}>
             <RRVBreadcrumbs crumbs={topicNavs} />
@@ -73,7 +73,7 @@ const TopicDetailPage = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item md={3} className="bg-gradient">
+      <Grid item xs={12} md={3} className="bg-gradient">
         <Grid container spacing={1}>
           {isFetching ? (
             <TopicListItemSkeleton totalItem={9} />

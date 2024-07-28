@@ -50,7 +50,7 @@ export const NavBar = ({ navCategories = [] }) => {
           title={category.name}
           variant="text"
           buttonProps={{
-            sx: { color: 'white' },
+            sx: { color: { md: 'white' } },
           }}
           options={category.categories.map((cat) => (
             <Button

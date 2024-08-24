@@ -7,8 +7,8 @@ import {
   ImageListItem,
   ImageListItemBar,
 } from '@mui/material';
-import RMCarousel from 'react-material-ui-carousel';
 
+import { RRVCarousel } from '../../../common/components/RRVCarousel';
 import { toAssetPath } from '../../../helpers/utils/constants';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
 
@@ -44,20 +44,16 @@ const CarsouselItem = ({ topic = null }) => (
 export const HomeCarousel = () => {
   const { data, isFetching } = actions.useGetCsTopicsQuery({ truncate: 56 });
   const { data: topics } = data || initials.dataArr;
-  return (
-    <>
-      {isFetching ? (
-        <CarsoulLoader />
-      ) : (
-        topics?.length > 0 && (
-          <RMCarousel indicators={false}>
-            {topics.map((topic) => (
-              <CarsouselItem key={topic.title} topic={topic} />
-            ))}
-          </RMCarousel>
-        )
-      )}
-      {!isFetching && topics?.length === 0 && <CarsouselItem />}
-    </>
+
+  if (isFetching) return <CarsoulLoader />;
+
+  return topics?.length > 0 ? (
+    <RRVCarousel indicators={false}>
+      {topics.map((topic) => (
+        <CarsouselItem key={topic.title} topic={topic} />
+      ))}
+    </RRVCarousel>
+  ) : (
+    <CarsouselItem />
   );
 };

@@ -39,9 +39,8 @@ export const rtkQueryErrorLogger = () => (next) => (action) => {
     if (action.payload?.data) {
       errorMessage = action.payload?.data.error;
     }
-    toast(errorMessage, {
-      type: toast.TYPE.ERROR,
-      position: toast.POSITION.BOTTOM_RIGHT,
+    toast.error(errorMessage, {
+      position: 'bottom-right',
       toastId: 13,
     });
   }

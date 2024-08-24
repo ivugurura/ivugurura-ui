@@ -1,6 +1,6 @@
 import React, { useState, useContext, createContext, useEffect } from 'react';
 
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { useDispatch } from 'react-redux';
 
 import { validateUserAuthentication } from '../../../helpers/utils';

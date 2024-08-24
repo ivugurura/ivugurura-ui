@@ -108,15 +108,13 @@ export const lStorage = {
 const messageId = 13;
 export const notifier = {
   error: (msg) =>
-    toast(msg, {
-      type: toast.TYPE.ERROR,
-      position: toast.POSITION.BOTTOM_RIGHT,
+    toast.error(msg, {
+      position: 'bottom-right',
       toastId: messageId,
     }),
   success: (msg) =>
     toast(msg, {
-      type: toast.TYPE.DEFAULT,
-      position: toast.POSITION.BOTTOM_LEFT,
+      position: 'bottom-left',
       toastId: messageId,
     }),
 };

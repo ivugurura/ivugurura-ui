@@ -56,8 +56,11 @@ const Login = ({ shouldRedirect = true }) => {
       notifier.success(messageToShow);
       localStorage.setItem('user-token', token);
       dispatch(setUser(user));
+      if (!shouldRedirect) {
+        window.location.reload();
+      }
     }
-  }, [res.isSuccess]);
+  }, [res.isSuccess, shouldRedirect]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

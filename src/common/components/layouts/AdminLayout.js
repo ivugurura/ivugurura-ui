@@ -1,7 +1,7 @@
 import React, { Suspense, useMemo } from 'react';
 
 import { Box } from '@mui/material';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { actions, initials } from '../../../redux/apiSliceBuilder';
 import { PageRoutes } from '../../../RoutesConstants';
@@ -76,6 +76,7 @@ export const AdminLayout = () => {
             }
           />
         ))}
+        <Route path="*" element={<Navigate to="" replace />} />
       </Routes>
     </Box>
   );

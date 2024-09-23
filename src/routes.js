@@ -24,11 +24,11 @@ export const AppRoutes = () => {
         path="admin/"
         element={
           <AuthProvider>
-            <AdminMainLayout />
+            <AdminMainLayout lang={lang} />
           </AuthProvider>
         }
       >
-        <Route path={`${lang}/*`} element={<AdminLayout />} />
+        <Route path={':lang/*'} element={<AdminLayout />} />
       </Route>
     </Routes>
   );

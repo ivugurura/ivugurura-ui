@@ -47,7 +47,7 @@ const alertInitial = {
   message: '',
   open: false,
 };
-export const HomeDashboard = ({ countFetch }) => {
+const HomeDashboard = ({ countFetch }) => {
   const navigate = useNavigate();
   const [alertData, setAlertData] = useState(alertInitial);
   const { data: counts, isFetching, isSuccess, ...restCountsQ } = countFetch;
@@ -146,3 +146,5 @@ export const HomeDashboard = ({ countFetch }) => {
     </DashboardContainer>
   );
 };
+
+export default HomeDashboard;

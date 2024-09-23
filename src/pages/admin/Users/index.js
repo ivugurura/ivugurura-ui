@@ -90,3 +90,5 @@ export const SystemUsers = () => {
     </DashboardContainer>
   );
 };
+
+export default SystemUsers;

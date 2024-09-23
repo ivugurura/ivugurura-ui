@@ -15,7 +15,7 @@ const alertInitial = {
   message: '',
   open: false,
 };
-export const Commentaries = () => {
+const Commentaries = () => {
   const [alertData, setAlertData] = useState(alertInitial);
   const { data, isFetching, refetch } = actions.useGetCommentsTopicQuery();
   const [publish, publishRes] = actions.usePublishTopicMutation();
@@ -64,3 +64,5 @@ export const Commentaries = () => {
     </DashboardContainer>
   );
 };
+
+export default Commentaries;

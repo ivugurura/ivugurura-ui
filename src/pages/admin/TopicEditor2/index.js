@@ -18,7 +18,7 @@ import { TopicDetails } from './TopicDetails';
 import { TopicEditPreview } from './TopicEditPreview';
 
 const initialValues = { title: '', categoryId: '' };
-export const TopicEditor2 = () => {
+const TopicEditor2 = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [values, setValues] = useState(initialValues);
@@ -102,3 +102,5 @@ export const TopicEditor2 = () => {
     </PageHelmet>
   );
 };
+
+export default TopicEditor2;

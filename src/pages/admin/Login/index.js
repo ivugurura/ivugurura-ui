@@ -28,7 +28,7 @@ const redirectToDashboard = () => {
     window.location.replace(toLink('', true));
   }, 5000);
 };
-export const Login = ({ shouldRedirect = true }) => {
+const Login = ({ shouldRedirect = true }) => {
   const [loginInfo, setLoginInfo] = useState(initialStates);
 
   const [loginUser, res] = actions.useLoginSystemMutation();
@@ -116,3 +116,5 @@ export const Login = ({ shouldRedirect = true }) => {
     </Container>
   );
 };
+
+export default Login;

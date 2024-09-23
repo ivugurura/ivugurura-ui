@@ -12,13 +12,13 @@ import {
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 
-import { Login } from '../../../pages/admin';
 import { useAuth } from '../providers';
 
 import { AdminMenuDrawer } from './components/AdminMenuDrawer';
 import { SuspenseFallback } from './SuspenseFallback';
 
 const drawerWidth = 240;
+const LoginPage = React.lazy(() => import('../../../pages/admin'));
 export const AdminMainLayout = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { isLoading } = useAuth();
@@ -99,7 +99,7 @@ export const AdminMainLayout = () => {
           width: { sm: `calc(100% - ${drawerWidth}px)`, marginTop: '30px' },
         }}
       >
-        {!isAuthenticated && !isLoading && <Login shouldRedirect={false} />}
+        {!isAuthenticated && !isLoading && <LoginPage shouldRedirect={false} />}
         {isLoading && <SuspenseFallback message="Loading your content..." />}
         {isAuthenticated && <Outlet />}
       </Box>

@@ -1,20 +1,40 @@
-import React, { useMemo } from 'react';
+import React, { Suspense, useMemo } from 'react';
 
 import { Box } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 
-import {
-  Commentaries,
-  HomeDashboard,
-  MediaEditor,
-  Settings,
-  SystemUsers,
-  // TopicEditor,
-  TopicEditor2,
-} from '../../../pages/admin';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
 import { PageRoutes } from '../../../RoutesConstants';
 
+import { SuspenseFallback } from './SuspenseFallback';
+
+const DashboardPage = React.lazy(() => import('../../../pages/admin/Home'));
+const dashboardRoutes = [
+  {
+    path: PageRoutes.admin.Commentaries,
+    component: React.lazy(() => import('../../../pages/admin/Commentaries')),
+  },
+  {
+    path: PageRoutes.admin.Audio,
+    component: React.lazy(() => import('../../../pages/admin/MediaEditor')),
+  },
+  {
+    path: PageRoutes.admin.Setting,
+    component: React.lazy(() => import('../../../pages/admin/Settings')),
+  },
+  {
+    path: PageRoutes.admin.Users,
+    component: React.lazy(() => import('../../../pages/admin/Users')),
+  },
+  {
+    path: PageRoutes.admin.AddTopic,
+    component: React.lazy(() => import('../../../pages/admin/TopicEditor2')),
+  },
+  {
+    path: PageRoutes.admin.EditTopic,
+    component: React.lazy(() => import('../../../pages/admin/TopicEditor2')),
+  },
+];
 export const AdminLayout = () => {
   const { data, ...restCountsQ } = actions.useGetCountsSystemQuery();
   const { data: counts } = data || initials.dataObj;
@@ -38,20 +58,24 @@ export const AdminLayout = () => {
         <Route
           index
           element={
-            <HomeDashboard
-              countFetch={{ data: toDataCounts, ...restCountsQ }}
-            />
+            <Suspense fallback={<SuspenseFallback />}>
+              <DashboardPage
+                countFetch={{ data: toDataCounts, ...restCountsQ }}
+              />
+            </Suspense>
           }
         />
-        <Route path={PageRoutes.admin.AddTopic} element={<TopicEditor2 />} />
-        <Route path={PageRoutes.admin.EditTopic} element={<TopicEditor2 />} />
-        <Route path={PageRoutes.admin.Audio} element={<MediaEditor />} />
-        <Route
-          path={PageRoutes.admin.Commentaries}
-          element={<Commentaries />}
-        />
-        <Route path={PageRoutes.admin.Setting} element={<Settings />} />
-        <Route path={PageRoutes.admin.Users} element={<SystemUsers />} />
+        {dashboardRoutes.map(({ path, component: Component }) => (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <Suspense fallback={<SuspenseFallback />}>
+                <Component />
+              </Suspense>
+            }
+          />
+        ))}
       </Routes>
     </Box>
   );

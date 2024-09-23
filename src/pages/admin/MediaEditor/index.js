@@ -22,7 +22,7 @@ import { AddEditMedia } from './AddEditMedia';
 import { audioColumns } from './schema';
 
 const initialEditorStates = { openAlbum: false, openMedia: false };
-export const MediaEditor = () => {
+const MediaEditor = () => {
   const [currentAudio, setCurrentAudio] = useState({ index: -1, audio: null });
   const [editorState, setEditorState] = useState(initialEditorStates);
 
@@ -117,3 +117,5 @@ export const MediaEditor = () => {
     </DashboardContainer>
   );
 };
+
+export default MediaEditor;

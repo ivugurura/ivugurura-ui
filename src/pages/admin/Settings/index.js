@@ -15,7 +15,7 @@ const alertInitial = {
   message: '',
   open: false,
 };
-export const Settings = () => {
+const Settings = () => {
   const [alertData, setAlertData] = useState(alertInitial);
   const { data, isFetching, refetch } = actions.useGetPubsConfigQuery();
   const [publish, publishRes] = actions.usePublishTopicMutation();
@@ -74,3 +74,5 @@ export const Settings = () => {
     </DashboardContainer>
   );
 };
+
+export default Settings;

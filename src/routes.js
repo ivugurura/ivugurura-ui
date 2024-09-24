@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import {
   AdminLayout,
@@ -14,10 +14,12 @@ import {
 const LoginPage = React.lazy(() => import('./pages/admin/Login'));
 export const AppRoutes = () => {
   const { lang } = useLang();
+
   return (
     <Routes>
-      <Route path="/" element={<UserMainLayout />}>
-        <Route path={`${lang}/*`} element={<UserLayout />} />
+      <Route path="/" element={<UserMainLayout lang={lang} />}>
+        <Route path="" element={<Navigate to={lang} replace />} />
+        <Route path={':lang/*'} element={<UserLayout />} />
       </Route>
       <Route path="login" element={<LoginPage />} />
       <Route
@@ -28,6 +30,7 @@ export const AppRoutes = () => {
           </AuthProvider>
         }
       >
+        <Route path="" element={<Navigate to={lang} replace />} />
         <Route path={':lang/*'} element={<AdminLayout />} />
       </Route>
     </Routes>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Menu as MenuIcon } from '@mui/icons-material';
 import {
@@ -10,9 +10,10 @@ import {
   Typography,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import Login from '../../../pages/admin/Login';
+import { useLangRedirect } from '../../hooks/useLangRedirect';
 import { useAuth } from '../providers';
 
 import { AdminMenuDrawer } from './components/AdminMenuDrawer';
@@ -22,18 +23,9 @@ const drawerWidth = 240;
 export const AdminMainLayout = ({ lang }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { isLoading } = useAuth();
-  const { lang: urlLang } = useParams();
-  const location = useLocation();
-  const navigate = useNavigate();
-  // const { lang } = useLang();
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    if (urlLang !== lang) {
-      const newPath = location.pathname.replace(urlLang, lang);
-      navigate(newPath, { replace: true });
-    }
-  }, [urlLang, lang, navigate]);
+  useLangRedirect(lang);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

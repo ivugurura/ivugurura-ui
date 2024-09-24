@@ -5,12 +5,15 @@ import { Outlet } from 'react-router-dom';
 
 import { actions } from '../../../redux/actions';
 import { initials } from '../../../redux/apiSliceBuilder';
+import { useLangRedirect } from '../../hooks/useLangRedirect';
 import { MainFooter } from '../Footer';
 import { NavBar } from '../navbar';
 
-export const UserMainLayout = () => {
+export const UserMainLayout = ({ lang }) => {
   const { data: catData } = actions.useGetNavsConfigQuery();
   const { data: categories } = catData || initials.dataArr;
+
+  useLangRedirect(lang);
   return (
     <Box>
       <NavBar navCategories={categories} />

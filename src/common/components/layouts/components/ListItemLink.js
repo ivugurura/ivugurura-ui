@@ -15,6 +15,7 @@ export const ListItemLink = ({
   icon: Icon,
   open,
   to,
+  canExpand,
   ...otherProps
 }) => (
   <ListItem disablePadding component={RouterLink} to={to} {...otherProps}>
@@ -23,7 +24,7 @@ export const ListItemLink = ({
         <Icon fontSize="small" />
       </ListItemIcon>
       <ListItemText primary={primary} />
-      {!to && (open ? <ExpandLess /> : <ExpandMore />)}
+      {!to && canExpand && (open ? <ExpandLess /> : <ExpandMore />)}
     </ListItemButton>
   </ListItem>
 );

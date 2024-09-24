@@ -12,10 +12,11 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { systemLanguages, toLink } from '../../../helpers/utils/constants';
+import { toLink } from '../../../helpers/utils/constants';
 import { useLang } from '../providers';
 import { RRVDropdown } from '../RRVDropdown';
 import { RRVSearch } from '../RRVSearch';
+import { SelectLanguage } from '../SelectLanguage';
 
 import { SearchModal } from './SearchModal';
 
@@ -39,7 +40,7 @@ const AdditionalMenu = ({ navigate, t }) => {
 };
 export const NavBar = ({ navCategories = [] }) => {
   const { t } = useTranslation();
-  const { lang, changeLang } = useLang();
+  const { lang } = useLang();
   const navigate = useNavigate();
   const [openSearch, setOpenSearch] = useState(false);
   const categories = useMemo(
@@ -66,10 +67,6 @@ export const NavBar = ({ navCategories = [] }) => {
     [navCategories.length],
   );
 
-  const currentLang = useMemo(
-    () => systemLanguages.find(({ abbr }) => abbr === lang),
-    [lang],
-  );
   return (
     <AppBar position="sticky" className="bg-gradient">
       <Container maxWidth="xl">
@@ -140,27 +137,7 @@ export const NavBar = ({ navCategories = [] }) => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <RRVDropdown
-              title={
-                <>
-                  <img src={currentLang?.flag} alt={currentLang?.abbr} />{' '}
-                  {currentLang?.lang}
-                </>
-              }
-              variant="text"
-              options={systemLanguages.map((sl) => (
-                <Button
-                  startIcon={<img src={sl.flag} alt={sl.abbr} />}
-                  key={sl.abbr}
-                  onClick={() => changeLang(sl.abbr)}
-                >
-                  {sl.lang}
-                </Button>
-              ))}
-              buttonProps={{
-                sx: { color: 'white' },
-              }}
-            />
+            <SelectLanguage />
             {/* <RRVDropdown
               title={
                 <Tooltip title="Open settings">

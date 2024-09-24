@@ -26,10 +26,14 @@ export const LangProvider = ({ children }) => {
   const [lang] = useState(systemLanguage);
 
   const changeLang = useCallback(
-    (newLang) => {
+    (newLang, isAdmin) => {
       if (newLang !== lang) {
         i18n.changeLanguage(newLang);
-        window.location.href = `/${newLang}`;
+        if (isAdmin) {
+          window.location.reload();
+        } else {
+          window.location.href = `/${newLang}`;
+        }
       }
     },
     [lang],

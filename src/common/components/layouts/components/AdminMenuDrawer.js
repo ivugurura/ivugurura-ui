@@ -14,12 +14,13 @@ import { useSelector } from 'react-redux';
 
 import { systemRoles } from '../../../../helpers/utils/constants';
 import { useLang } from '../../providers/LangProvider';
+import { SelectLanguage } from '../../SelectLanguage';
 
 import { ListItemLink } from './ListItemLink';
 
 const dashboardMenus = (lang = 'en', role = undefined) => [
   {
-    type: 'Main',
+    type: 'Site related',
     routes: [
       {
         name: 'Home',
@@ -95,6 +96,7 @@ export const AdminMenuDrawer = () => {
                   icon={menuRoute.icon}
                   to={menuRoute.routes?.length > 0 ? undefined : menuRoute.to}
                   open={open}
+                  canExpand
                   onClick={handleOpen}
                 />
                 {menuRoute.routes?.length > 0 && (
@@ -122,6 +124,16 @@ export const AdminMenuDrawer = () => {
           </List>
         </React.Fragment>
       ))}
+      <Divider />
+      <Typography variant="body1" mt={1}>
+        Others
+      </Typography>
+      <List>
+        <ListItemLink
+          primary={<SelectLanguage color="#16222a" home="admin" />}
+          icon={SettingIcon}
+        />
+      </List>
     </div>
   );
 };

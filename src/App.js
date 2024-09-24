@@ -13,7 +13,7 @@ import { ToastContainer } from 'react-toastify';
 import { theme } from './common';
 import { ErrorBoundary, LangProvider } from './common/components';
 // import { buildAppStates } from './redux/stateBuilder';
-// import { isAdminUrl, systemLanguage } from './helpers/utils/constants';
+import { isAdminUrl, systemLanguage } from './helpers/utils/constants';
 import { store } from './redux/store';
 // import { ErrorBoundary } from './common/components/errors';
 // import { generateClassName, themeV4, themeV5 } from './common/theme';
@@ -23,11 +23,11 @@ import './i18n';
 
 const App = () => {
   // const states = buildAppStates();
-  // const path = window.location.pathname;
-  // const slPath = `/${systemLanguage}`;
-  // if (!isAdminUrl() && (path === '/' || !path.startsWith(slPath))) {
-  //   window.location.href = slPath;
-  // }
+  const path = window.location.pathname;
+  const slPath = `/${systemLanguage}`;
+  if (!isAdminUrl() && (path === '/' || !path.startsWith(slPath))) {
+    window.location.href = slPath;
+  }
   return (
     <ThemeProviderV5 theme={theme}>
       <Provider store={store}>

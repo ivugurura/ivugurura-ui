@@ -23,7 +23,7 @@ export function useLang() {
 
 export const LangProvider = ({ children }) => {
   const { i18n } = useTranslation();
-  const [lang] = useState(systemLanguage);
+  const [lang] = useMemo(() => systemLanguage);
 
   const changeLang = useCallback(
     (newLang, isAdmin) => {

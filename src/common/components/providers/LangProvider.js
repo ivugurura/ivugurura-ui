@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from 'react';
+import React, { createContext, useCallback, useContext, useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
@@ -23,7 +17,7 @@ export function useLang() {
 
 export const LangProvider = ({ children }) => {
   const { i18n } = useTranslation();
-  const [lang] = useMemo(() => systemLanguage);
+  const lang = useMemo(() => systemLanguage);
 
   const changeLang = useCallback(
     (newLang, isAdmin) => {
@@ -41,6 +35,7 @@ export const LangProvider = ({ children }) => {
 
   if (!lang) return <div />;
   const values = useMemo(() => ({ lang, changeLang }));
+
   return (
     <LangContext.Provider value={values}>
       <BrowserRouter>{children}</BrowserRouter>

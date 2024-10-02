@@ -34,6 +34,9 @@
   "by": "By",
   "actions": {
     "btnSend": "Send",
+    "btnCancel": "Cancel",
+    "btnPreview":"Preview",
+    "btnSave":"Save",
     "loading": "Loading,...",
     "viewMore": "View more",
     "viewMoreAudios": "View more",
@@ -44,5 +47,41 @@
     "commentBody": "Comment",
     "names": "Names",
     "website": "Website"
+  },
+  "admin":{
+    "nav":{
+      "webRelated":"Website related",
+      "website": "Website",
+      "home":"Home",
+      "media":"Media",
+      "audio":"Audio",
+      "commentaries":"Commentaries",
+      "webSettings":"Web Settings",
+      "system":"System users",
+      "systemSettings":"System Settings"
+    },
+    "home":{
+      "title":"Admin dashboard",
+      "tabTitle":"Topic title",
+      "tabDescription":"Small description",
+      "tUserViews":"User views",
+      "tPublished":"Published date",
+      "tActions":"Actions"
+    },
+    "topic":{
+      "subtitle":"New topic",
+      "title":"Add a new topics",
+      "about":"About topic",
+      "phTitle": "Topic title",
+      "phCategory":"Topic description",
+      "addImage":"Add cover image",
+      "ciTitle":"Select or upload a cover image for a topic",
+      "ciSubtitle":"The image you will select will appear on the topic as the background cover image",
+      "ciTabUpload":"Upload from your computer",
+      "ciTabSelect":"Choose from the uploaded image",
+      "ciPhFile":"Insert a file",
+      "detail": "Topic detail",
+      "phDetail":"Please type here"
+    }
   }
 }

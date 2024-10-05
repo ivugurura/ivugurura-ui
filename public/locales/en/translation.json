@@ -33,6 +33,7 @@
   "at": "at",
   "by": "By",
   "actions": {
+    "label":"Actions",
     "btnSend": "Send",
     "btnCancel": "Cancel",
     "btnPreview":"Preview",
@@ -40,7 +41,14 @@
     "loading": "Loading,...",
     "viewMore": "View more",
     "viewMoreAudios": "View more",
-    "more": "More"
+    "more": "More",
+    "edit": "Edit",
+    "publish":"Publish",
+    "unpublish":"Unpublish",
+    "addHome":"Set to home",
+    "removeHome":"Remove from home",
+    "addNMedia":"Add new media",
+    "addNAlbum":"Add new album"
   },
   "fields": {
     "email": "E-mail",
@@ -60,13 +68,16 @@
       "system":"System users",
       "systemSettings":"System Settings"
     },
+    "confirm":{
+      "title":"Confirm action",
+      "description":"Are you sure you want to "
+    },
     "home":{
       "title":"Admin dashboard",
-      "tabTitle":"Topic title",
-      "tabDescription":"Small description",
+      "tTitle":"Topic title",
+      "tDescription":"Small description",
       "tUserViews":"User views",
-      "tPublished":"Published date",
-      "tActions":"Actions"
+      "tPublished":"Published date"
     },
     "topic":{
       "subtitle":"New topic",
@@ -82,6 +93,14 @@
       "ciPhFile":"Insert a file",
       "detail": "Topic detail",
       "phDetail":"Please type here"
+    },
+    "media":{
+      "title":"All media",
+      "tTitle":"Title",
+      "tType":"Type",
+      "tAuthor":"Author",
+      "tDownloads":"Downloads",
+      "tShares":"Shares"
     }
   }
 }

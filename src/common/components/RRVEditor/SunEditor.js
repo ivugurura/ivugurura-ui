@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useTranslation } from 'react-i18next';
 import SunEditor from 'suneditor-react';
 
 import { http } from '../../../helpers';
@@ -22,7 +23,7 @@ const topicEditorButtons = [
 ];
 
 export const RRVSunEditor = ({ topic, sunEdContent, setSunEdContent }) => {
-  console.log('ssds');
+  const { t } = useTranslation();
   const onImageUploadBefore = (files, _info, uploadHandler) => {
     const imgFile = files[0];
     (async () => {
@@ -57,7 +58,7 @@ export const RRVSunEditor = ({ topic, sunEdContent, setSunEdContent }) => {
       name="content"
       value={topic.content}
       setContents={sunEdContent}
-      placeholder="Please type here..."
+      placeholder={t('admin.topic.phDetail')}
       onChange={(content) => setSunEdContent(content)}
       onImageUploadBefore={onImageUploadBefore}
       onImageUploadError={(errorMsg, result) =>

@@ -9,6 +9,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 
@@ -21,6 +22,7 @@ import { SuspenseFallback } from './SuspenseFallback';
 
 const drawerWidth = 240;
 export const AdminMainLayout = ({ lang }) => {
+  const { t } = useTranslation();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { isLoading } = useAuth();
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -51,7 +53,8 @@ export const AdminMainLayout = ({ lang }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h3" noWrap component="div">
-            RRV - Admin Dashboard{isAuthenticated ? ` - ${user.names}` : ''}
+            RRV - {t('admin.home.title')}
+            {isAuthenticated ? ` - ${user.names}` : ''}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -103,7 +106,7 @@ export const AdminMainLayout = ({ lang }) => {
         }}
       >
         {!isAuthenticated && !isLoading && <Login shouldRedirect={false} />}
-        {isLoading && <SuspenseFallback message="Loading your content..." />}
+        {isLoading && <SuspenseFallback message={t('admin.home.loading')} />}
         {isAuthenticated && <Outlet />}
       </Box>
     </Box>

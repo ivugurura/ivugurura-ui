@@ -10,6 +10,7 @@ import {
   PeopleOutline as PeopleIcon,
 } from '@mui/icons-material';
 import { Collapse, Divider, List, Toolbar, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import { systemRoles } from '../../../../helpers/utils/constants';
@@ -18,27 +19,31 @@ import { SelectLanguage } from '../../SelectLanguage';
 
 import { ListItemLink } from './ListItemLink';
 
-const dashboardMenus = (lang = 'en', role = undefined) => [
+const dashboardMenus = (lang = 'en', role = undefined, t = () => {}) => [
   {
-    type: 'Site related',
+    type: t('admin.nav.webRelated'),
     routes: [
       {
-        name: 'Home',
+        name: t('admin.nav.home'),
+        key: 'home',
         to: lang,
         icon: HomeIcon,
       },
       {
-        name: 'Add new topic',
+        name: t('admin.topic.title'),
+        key: 'add-new-topic',
         to: `${lang}/add-topic`,
         icon: AddHomeIcon,
       },
       {
-        name: 'Media',
+        name: t('admin.nav.media'),
+        key: 'media',
         to: `${lang}/audio`,
         icon: PlayLessonIcon,
         routes: [
           {
-            name: 'Audio',
+            name: t('admin.nav.audio'),
+            key: 'audio',
             to: `${lang}/audio`,
             icon: MusicNoteIcon,
           },
@@ -47,22 +52,26 @@ const dashboardMenus = (lang = 'en', role = undefined) => [
     ],
   },
   {
-    type: 'Extra',
+    type: t('admin.nav.webSettings'),
+    key: 'webSettings',
     routes: [
       {
-        name: 'Commentaries',
+        name: t('admin.nav.commentaries'),
+        key: 'commentaries',
         to: `${lang}/commentaries`,
         icon: ChatBubbleIcon,
       },
       ...(role <= systemRoles.admin
         ? [
             {
-              name: 'Setting',
+              name: t('admin.nav.webSettings'),
+              key: 'setting',
               to: `${lang}/setting`,
               icon: SettingIcon,
             },
             {
-              name: 'System users',
+              name: t('admin.nav.systemUsers'),
+              key: 'system-users',
               to: `${lang}/users`,
               icon: PeopleIcon,
             },
@@ -70,8 +79,20 @@ const dashboardMenus = (lang = 'en', role = undefined) => [
         : []),
     ],
   },
+  {
+    type: t('admin.nav.systemSettings'),
+    key: 'settings',
+    routes: [
+      {
+        name: <SelectLanguage color="#16222a" home="admin" />,
+        key: 'select-lang',
+        icon: SettingIcon,
+      },
+    ],
+  },
 ];
 export const AdminMenuDrawer = () => {
+  const { t } = useTranslation();
   const [open, setOpen] = React.useState(false);
   const { user } = useSelector((state) => state.auth);
   const { lang } = useLang();
@@ -81,17 +102,16 @@ export const AdminMenuDrawer = () => {
   return (
     <div>
       <Toolbar />
-      {dashboardMenus(lang, user?.role).map((menu) => (
-        <React.Fragment key={menu.type}>
+      {dashboardMenus(lang, user?.role, t).map((menu) => (
+        <React.Fragment key={menu.key}>
           <Divider />
           <Typography variant="body1" mt={1}>
             {menu.type}
           </Typography>
           <List>
             {menu.routes.map((menuRoute) => (
-              <React.Fragment key={menuRoute.name}>
+              <React.Fragment key={menuRoute.key}>
                 <ListItemLink
-                  key={menuRoute.name}
                   primary={menuRoute.name}
                   icon={menuRoute.icon}
                   to={menuRoute.routes?.length > 0 ? undefined : menuRoute.to}
@@ -109,7 +129,7 @@ export const AdminMenuDrawer = () => {
                     <List disablePadding>
                       {menuRoute.routes.map((menuRoute2) => (
                         <ListItemLink
-                          key={menuRoute2.name}
+                          key={menuRoute2.key}
                           primary={menuRoute2.name}
                           to={menuRoute2.to}
                           icon={menuRoute.icon}
@@ -124,16 +144,6 @@ export const AdminMenuDrawer = () => {
           </List>
         </React.Fragment>
       ))}
-      <Divider />
-      <Typography variant="body1" mt={1}>
-        Others
-      </Typography>
-      <List>
-        <ListItemLink
-          primary={<SelectLanguage color="#16222a" home="admin" />}
-          icon={SettingIcon}
-        />
-      </List>
     </div>
   );
 };

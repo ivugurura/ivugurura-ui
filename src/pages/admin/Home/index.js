@@ -6,6 +6,7 @@ import {
   PublishOutlined,
 } from '@mui/icons-material';
 import { Box, Grid } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -22,20 +23,20 @@ import { DashboardContainer } from '../components/DashboardContainer';
 import { DashboardCount } from './DashboardCount';
 import { dashboardTopicsColumns } from './schema';
 
-const dashboardMenus = [
+const dashboardMenus = (t) => [
   {
-    title: 'Edit',
+    title: t('actions.edit'),
     icon: EditNoteOutlined,
     action: 'edit',
   },
   {
-    title: ({ isPublished }) => `${isPublished ? 'Unpublish' : 'Publish'}`,
+    title: ({ isPublished }) => t(`actions.${isPublished ? '' : 'un'}publish`),
     icon: PublishOutlined,
     action: 'publish',
   },
   {
     title: ({ entities }) =>
-      `${entities?.length ? 'Remove from' : 'Set to'} home`,
+      t(`actions.${entities?.length ? 'remove' : 'add'}Home`),
     icon: DeleteOutlineOutlined,
     canDisable: ({ isPublished }) => !isPublished,
     action: 'home',
@@ -48,6 +49,7 @@ const alertInitial = {
   open: false,
 };
 const HomeDashboard = ({ countFetch }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [alertData, setAlertData] = useState(alertInitial);
   const { data: counts, isFetching, isSuccess, ...restCountsQ } = countFetch;
@@ -101,7 +103,7 @@ const HomeDashboard = ({ countFetch }) => {
     }
     if (action === 'home') {
       if (!current?.isPublished) {
-        notifier.error('Please publish the topic first');
+        notifier.error(t('admin.home.publishDisclaimer'));
         return;
       }
       setOrRemoveTopicDisplay({
@@ -112,7 +114,7 @@ const HomeDashboard = ({ countFetch }) => {
     }
   };
   return (
-    <DashboardContainer title="Admin dashboard">
+    <DashboardContainer title={t('admin.home.title')}>
       <AlertConfirm
         {...alertData}
         setOpen={() => setAlertData((prev) => ({ ...prev, ...alertInitial }))}
@@ -133,13 +135,13 @@ const HomeDashboard = ({ countFetch }) => {
       </Grid>
       <Box sx={{ marginTop: '1rem' }}>
         <RRVTable
-          columns={dashboardTopicsColumns()}
+          columns={dashboardTopicsColumns(t)}
           data={topics}
           isLoading={overviewQ.isFetching}
           enableRowActions
           renderRowActionMenuItems={renderRowActionMenus(
             handleMenuAction,
-            dashboardMenus,
+            dashboardMenus(t),
           )}
         />
       </Box>

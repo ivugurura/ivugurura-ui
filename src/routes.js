@@ -19,7 +19,7 @@ export const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<UserMainLayout lang={lang} />}>
         <Route path="" element={<Navigate to={lang} replace />} />
-        <Route path={':lang/*'} element={<UserLayout />} />
+        <Route path=":lang/*" element={<UserLayout />} />
       </Route>
       <Route path="login" element={<LoginPage />} />
       <Route
@@ -31,7 +31,7 @@ export const AppRoutes = () => {
         }
       >
         <Route path="" element={<Navigate to={lang} replace />} />
-        <Route path={':lang/*'} element={<AdminLayout />} />
+        <Route path=":lang/*" element={<AdminLayout />} />
       </Route>
     </Routes>
   );

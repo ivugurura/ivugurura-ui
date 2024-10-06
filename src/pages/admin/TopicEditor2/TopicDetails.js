@@ -1,30 +1,15 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Paper,
-} from '@mui/material';
-import SunEditor from 'suneditor-react';
+import { Box, Card, CardContent, CardHeader, Paper } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
-import { RRVEditor } from '../../../common/components/RRVEditor';
 import { RRVSunEditor } from '../../../common/components/RRVEditor/SunEditor';
 
-export const TopicDetails = ({
-  topic,
-  editorState,
-  setEditorState,
-  sunEdContent,
-  setSunEdContent,
-}) => {
-  console.log('Topic Details');
+export const TopicDetails = ({ topic, sunEdContent, setSunEdContent }) => {
+  const { t } = useTranslation();
   return (
     <Card>
-      <CardHeader title="Topic detail" />
+      <CardHeader title={t('admin.topic.detail')} />
       <CardContent>
         <Paper component={Box} mt={3}>
           {/* <RRVEditor

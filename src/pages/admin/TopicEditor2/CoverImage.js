@@ -11,12 +11,14 @@ import {
   DialogTitle,
   Tab,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { RRVFileUpload } from '../../../common/components/RRVFileUpload';
 
 import { TopicImages } from './TabImages';
 
 export const CoverImage = ({ open, handleClose }) => {
+  const { t } = useTranslation();
   const [value, setValue] = React.useState('upload');
   return (
     <Dialog
@@ -26,12 +28,11 @@ export const CoverImage = ({ open, handleClose }) => {
       aria-describedby="dl-description"
     >
       <DialogTitle id="dl-title" sx={{ mt: 2 }}>
-        Select or upload a cover image for a topic
+        {t('admin.topic.ciTitle')}
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="dl-description">
-          Let Google help apps determine location. This means sending anonymous
-          location data to Google, even when no apps are running.
+          {t('admin.topic.ciSubtitle')}
         </DialogContentText>
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -42,8 +43,8 @@ export const CoverImage = ({ open, handleClose }) => {
               indicatorColor="secondary"
               aria-label="secondary tabs example"
             >
-              <Tab value="upload" label="Upload from your computer" />
-              <Tab value="current" label="Choose from the uploaded images" />
+              <Tab value="upload" label={t('admin.topic.ciTabUpload')} />
+              <Tab value="current" label={t('admin.topic.ciTabSelect')} />
             </TabList>
           </Box>
           <TabPanel value="upload">
@@ -55,9 +56,9 @@ export const CoverImage = ({ open, handleClose }) => {
         </TabContext>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Disagree</Button>
+        <Button onClick={handleClose}>{t('actions.btnCancel')}</Button>
         <Button onClick={handleClose} autoFocus>
-          Agree
+          {t('actions.btnPreview')}
         </Button>
       </DialogActions>
     </Dialog>

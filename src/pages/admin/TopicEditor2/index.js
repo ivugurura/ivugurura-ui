@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { EditorState } from 'draft-js';
 // import { stateToHTML } from 'draft-js-export-html';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -19,6 +20,7 @@ import { TopicEditPreview } from './TopicEditPreview';
 
 const initialValues = { title: '', categoryId: '' };
 const TopicEditor2 = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [values, setValues] = useState(initialValues);
@@ -70,7 +72,7 @@ const TopicEditor2 = () => {
     }
     return createTopic(payload);
   };
-  console.log({ isFetching, topic });
+  console.log({ isFetching });
   const isLoading = res.isLoading || updateRes.isLoading;
   return (
     <PageHelmet title="Edit page title">
@@ -81,7 +83,7 @@ const TopicEditor2 = () => {
         handleClose={() => handleOpen('addImg', false)}
       />
       <Button onClick={() => handleOpen('addImg', true)}>
-        Add cover image
+        {t('admin.topic.addImage')}
       </Button>
       <TopicDetails
         topic={values}
@@ -90,14 +92,16 @@ const TopicEditor2 = () => {
         sunEdContent={sunEdContent}
         setSunEdContent={setSunEdContent}
       />
-      <Button onClick={() => handleOpen('preview', true)}>Preview</Button>
+      <Button onClick={() => handleOpen('preview', true)}>
+        {t('actions.btnPreview')}
+      </Button>
       <TopicEditPreview
         open={open.preview}
         onClose={() => handleOpen('preview', false)}
         topic={{ ...values, content: sunEdContent, coverImage: filePathName }}
       />
       <Button disabled={isLoading} onClick={handleSave}>
-        {isLoading ? 'Saving...' : 'Save'}
+        {t(`actions.${isLoading ? 'loading' : 'btnSave'}`)}
       </Button>
     </PageHelmet>
   );

@@ -33,16 +33,76 @@
 	"at": "saa",
 	"by": "Imetayarishwa na",
 	"actions": {
+		"label": "Vitendo",
 		"btnSend": "Tuma",
+		"btnCancel": "Ghairi",
+		"btnPreview":"Hakiki",
+		"btnSave":"Hifadhi",
 		"loading": "Inapakia,...",
 		"viewMore": "Tazama masomo yote",
 		"viewMoreAudios": "Tazama Nyimbo yote",
-		"more": "Tazama"
+		"more": "Tazama",
+		"edit": "Hindura",
+		"publish":"Chapisha",
+		"unpublish":"Batilisha uchapishaji ",
+		"addHome":"Weka kwa homepage",
+		"removeHome":"Ondoa home",
+		"addNMedia":"Ongeza media mpya",
+		"addNAlbum":"Ongeza albamu mpya"
 	},
 	"fields": {
 		"email": "E-mail",
 		"commentBody": "Maoni",
 		"names": "Majina yako",
 		"website": "Tovuti yako (ikiwa ipo)"
-	}
+	},
+	"admin":{
+    "nav":{
+      "webRelated":"Kuhusiana na tovuti",
+      "website": "Tovuti",
+      "home":"Nyumbani",
+      "media":"Media",
+      "audio":"Audio",
+      "commentaries":"Maoni",
+      "webSettings":"Mipangilio ya Wavuti",
+      "systemUsers":"Watumiaji wa mfumo",
+      "systemSettings":"Mipangilio ya Mfumo"
+    },
+    "confirm":{
+      "title":"Thibitisha kitendo",
+      "description":"Je, una uhakika unataka "
+    },
+    "home":{
+      "title":"Dashibodi ya msimamizi",
+	  "publishDisclaimer": "Tafadhali chapisha mada kwanza",
+	  "loading": "Inapakia maudhui yako...",
+      "tTitle":"Kichwa cha mada",
+      "tDescription":"Maelezo madogo",
+      "tViews":"Maoni ya mtumiaji",
+      "tPublished":"Tarehe iliyochapishwa"
+    },
+    "topic":{
+      "subtitle":"Mada mpya",
+      "title":"Ongeza mada mpya",
+      "about":"Kuhusu mada",
+      "phTitle": "Kichwa cha mada",
+      "phCategory":"Maelezo ya mada",
+      "addImage":"Ongeza picha ya jalada",
+      "ciTitle":"Chagua au pakia picha ya jalada kwa mada",
+      "ciSubtitle":"Picha utakayochagua itaonekana kwenye mada kama picha ya jalada la usuli",
+      "ciTabUpload":"Pakia kutoka kwa kompyuta yako",
+      "ciTabSelect":"Chagua kutoka kwa picha iliyopakiwa",
+      "ciPhFile":"Weka faili",
+      "detail": "Maelezo ya mada",
+      "phDetail":"Tafadhali andika hapa"
+    },
+    "media":{
+      "title":"Vyombo vyote vya habari",
+      "tTitle":"Kichwa",
+      "tType":"Aina",
+      "tAuthor":"Mwandishi",
+      "tDownloads":"Vipakuliwa",
+      "tShares":"Hisa"
+    }
+  }
 }

@@ -33,16 +33,76 @@
   "at": "at",
   "by": "By",
   "actions": {
+    "label":"Actions",
     "btnSend": "Send",
+    "btnCancel": "Cancel",
+    "btnPreview":"Preview",
+    "btnSave":"Save",
     "loading": "Loading,...",
     "viewMore": "View more",
     "viewMoreAudios": "View more",
-    "more": "More"
+    "more": "More",
+    "edit": "Edit",
+    "publish":"Publish",
+    "unpublish":"Unpublish",
+    "addHome":"Set to home",
+    "removeHome":"Remove from home",
+    "addNMedia":"Add new media",
+    "addNAlbum":"Add new album"
   },
   "fields": {
     "email": "E-mail",
     "commentBody": "Comment",
     "names": "Names",
     "website": "Website"
+  },
+  "admin":{
+    "nav":{
+      "webRelated":"Website related",
+      "website": "Website",
+      "home":"Home",
+      "media":"Media",
+      "audio":"Audio",
+      "commentaries":"Commentaries",
+      "webSettings":"Web Settings",
+      "systemUsers":"System users",
+      "systemSettings":"System Settings"
+    },
+    "confirm":{
+      "title":"Confirm action",
+      "description":"Are you sure you want to "
+    },
+    "home":{
+      "title":"Admin dashboard",
+      "publishDisclaimer": "Please publish the topic first",
+      "loading": "Loading your content...",
+      "tTitle":"Topic title",
+      "tDescription":"Small description",
+      "tViews":"User views",
+      "tPublished":"Published date"
+    },
+    "topic":{
+      "subtitle":"New topic",
+      "title":"Add a new topic",
+      "about":"About topic",
+      "phTitle": "Topic title",
+      "phCategory":"Topic description",
+      "addImage":"Add cover image",
+      "ciTitle":"Select or upload a cover image for a topic",
+      "ciSubtitle":"The image you will select will appear on the topic as the background cover image",
+      "ciTabUpload":"Upload from your computer",
+      "ciTabSelect":"Choose from the uploaded image",
+      "ciPhFile":"Insert a file",
+      "detail": "Topic detail",
+      "phDetail":"Please type here..."
+    },
+    "media":{
+      "title":"All media",
+      "tTitle":"Title",
+      "tType":"Type",
+      "tAuthor":"Author",
+      "tDownloads":"Downloads",
+      "tShares":"Shares"
+    }
   }
 }

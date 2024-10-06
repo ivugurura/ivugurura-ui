@@ -3,13 +3,13 @@ import React, { useMemo } from 'react';
 
 import moment from 'moment';
 
-export const dashboardTopicsColumns = () => [
-  { accessorKey: 'title', header: 'Topic Title', size: 150 },
-  { accessorKey: 'content', header: 'Small description', size: 400 },
-  { accessorKey: 'views', header: 'User views', size: 70 },
+export const dashboardTopicsColumns = (t) => [
+  { accessorKey: 'title', header: t('admin.home.tTitle'), size: 150 },
+  { accessorKey: 'content', header: t('admin.home.tDescription'), size: 400 },
+  { accessorKey: 'views', header: t('admin.home.tViews'), size: 70 },
   {
     id: 'updatedAt',
-    header: 'Published',
+    header: t('admin.home.tPublished'),
     Cell: ({ row }) => moment(row.original.updatedAt).format('MMMM Do YYYY'),
     size: 80,
   },

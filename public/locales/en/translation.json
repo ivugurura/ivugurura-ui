@@ -65,7 +65,7 @@
       "audio":"Audio",
       "commentaries":"Commentaries",
       "webSettings":"Web Settings",
-      "system":"System users",
+      "systemUsers":"System users",
       "systemSettings":"System Settings"
     },
     "confirm":{
@@ -74,14 +74,16 @@
     },
     "home":{
       "title":"Admin dashboard",
+      "publishDisclaimer": "Please publish the topic first",
+      "loading": "Loading your content...",
       "tTitle":"Topic title",
       "tDescription":"Small description",
-      "tUserViews":"User views",
+      "tViews":"User views",
       "tPublished":"Published date"
     },
     "topic":{
       "subtitle":"New topic",
-      "title":"Add a new topics",
+      "title":"Add a new topic",
       "about":"About topic",
       "phTitle": "Topic title",
       "phCategory":"Topic description",
@@ -92,7 +94,7 @@
       "ciTabSelect":"Choose from the uploaded image",
       "ciPhFile":"Insert a file",
       "detail": "Topic detail",
-      "phDetail":"Please type here"
+      "phDetail":"Please type here..."
     },
     "media":{
       "title":"All media",

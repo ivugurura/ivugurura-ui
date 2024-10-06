@@ -33,16 +33,76 @@
   "at": "kuri",
   "by": "Yateguwe na",
   "actions":{
+    "label": "Icyakorwa",
     "btnSend": "Mwohereze",
+    "btnCancel": "Hagarika",
+		"btnPreview":"Reba uko bimeze",
+		"btnSave":"Bika",
     "loading": "Mube mwihanganye,...",
     "viewMore": "Reba ibyigisho byose",
     "viewMoreAudios": "Reba Audio zose",
-    "more": "Ibikurikira"
+    "more": "Ibikurikira",
+    "edit": "Hindura",
+    "publish":"Publish",
+    "unpublish":"Unpublish",
+    "addHome":"Set to home",
+    "removeHome":"Remove from home",
+    "addNMedia":"Shyiraho Media nshya",
+    "addNAlbum":"kora Album nshya"
   },
   "fields": {
     "email": "Email",
     "commentBody": "Igitekerezo",
     "names": "Amazina yanyu",
     "website": "Urubuga rwanyu(niba ruhari)"
+  },
+  "admin":{
+    "nav":{
+      "webRelated":"Ibijyanye n urubuga",
+      "website": "Urubuga",
+      "home":"Ahabanza",
+      "media":"Media",
+      "audio":"Audio",
+      "commentaries":"Ibitekerezo",
+      "webSettings":"Settings z urubuga",
+      "systemUsers":"Abakozi",
+      "systemSettings":"Settings rusanga"
+    },
+    "confirm":{
+      "title":"Mwemeze ikigiye gukorwa",
+      "description":"Mu by ukuri murashaka "
+    },
+    "home":{
+      "title":"Ubuyobozi bw urubuga",
+      "publishDisclaimer": "Mubanze mu publishinge iki cyigisho",
+      "loading": "Mube mwihanganye,...",
+      "tTitle":"Umutwe w icyigisho",
+      "tDescription":"Icyigisho mu nshamake",
+      "tViews":"Abasomye",
+      "tPublished":"Igihe cyandikiwe"
+    },
+    "topic":{
+      "subtitle":"Icyigisho gishya",
+      "title":"Shyiraho Icyigisho gishya",
+      "about":"Ibijyanye n Icyigisho",
+      "phTitle": "Umutwe w Icyigisho",
+      "phCategory":"Icyigisho kirambuye",
+      "addImage":"SHyiraho ifoto y icyigisho",
+      "ciTitle":"Hitamo ifoto izajya igaragara ku cyigisho",
+      "ciSubtitle":"Ifoto muza guhitamo izajya igaragara hejuru ku cyigisho mbere y andi magagambo yose",
+      "ciTabUpload":"Hitamo mu mafoto yo muri mudasobwa yawe",
+      "ciTabSelect":"Hitamo mu mafoto asanzweho",
+      "ciPhFile":"Kanda hano ushireho file",
+      "detail": "ICyigisho mu buryo burambuye",
+      "phDetail":"mwandike hano"
+    },
+    "media":{
+      "title":"Media zose",
+      "tTitle":"Izina",
+      "tType":"Type",
+      "tAuthor":"Umuhimbyi",
+      "tDownloads":"Downloads",
+      "tShares":"Shares"
+    }
   }
 }

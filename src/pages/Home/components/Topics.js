@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { TopicsCardSkeleton } from '../../../common/components/loaders';
-import { useLang } from '../../../common/components/providers/LangProvider';
+import { toLink } from '../../../helpers/utils/constants';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
 import TopicItem from '../../TopicItem';
 
@@ -15,7 +15,6 @@ export const HomeRecentTopics = ({
   md = 3,
   truncate = 148,
 }) => {
-  const { lang } = useLang();
   const { t } = useTranslation();
   const { data, isFetching } = actions.useGetRecentTopicsQuery({
     truncate,
@@ -41,7 +40,7 @@ export const HomeRecentTopics = ({
         alignItems="center"
       >
         <Box textAlign="center" paddingTop={2}>
-          <Button component={Link} to={`/${lang}/topics`}>
+          <Button component={Link} to={toLink('topics')}>
             {t('actions.viewMore')}
           </Button>
         </Box>

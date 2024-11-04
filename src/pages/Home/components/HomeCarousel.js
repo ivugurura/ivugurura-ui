@@ -7,9 +7,10 @@ import {
   ImageListItem,
   ImageListItemBar,
 } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 import { RRVCarousel } from '../../../common/components/RRVCarousel';
-import { toAssetPath } from '../../../helpers/utils/constants';
+import { toAssetPath, toLink } from '../../../helpers/utils/constants';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
 
 import { CarsoulLoader } from './HomeLoaders';
@@ -20,7 +21,10 @@ const DEFAULT = {
   subtitle: '',
 };
 const CarsouselItem = ({ topic = null }) => (
-  <ImageListItem>
+  <ImageListItem
+    component={Link}
+    to={topic ? toLink(`topics/${topic.slug}`) : '#'}
+  >
     <CardMedia
       component="img"
       height="250"

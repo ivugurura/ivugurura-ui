@@ -34,6 +34,9 @@ export const TopicItem = ({
 }) => {
   const { t } = useTranslation();
 
+  const linkProps = hasMore
+    ? { component: Link, to: toLink(`topics/${topic.slug}`) }
+    : {};
   return (
     <Card className={classNames(className)}>
       <CardHeader
@@ -50,6 +53,7 @@ export const TopicItem = ({
         title={topic.title}
         subheader={`${t('updatedAt')} ${moment(topic.updatedAt).format('DD.MM.YYYY')}`}
         className={styles.title}
+        {...linkProps}
       />
       <CardMedia
         component="img"
@@ -60,11 +64,7 @@ export const TopicItem = ({
       <CardContent>
         {parse(topic.content || 'No content available')}
         {hasMore && (
-          <Button
-            size="small"
-            component={Link}
-            to={toLink(`topics/${topic.slug}`)}
-          >
+          <Button size="small" {...linkProps}>
             {t('actions.more')}
           </Button>
         )}

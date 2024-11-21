@@ -30,7 +30,7 @@ const dashboardMenus = (t) => [
     action: 'edit',
   },
   {
-    title: ({ isPublished }) => t(`actions.${isPublished ? '' : 'un'}publish`),
+    title: ({ isPublished }) => t(`actions.${isPublished ? 'un' : ''}publish`),
     icon: PublishOutlined,
     action: 'publish',
   },

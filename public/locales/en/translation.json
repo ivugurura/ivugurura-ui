@@ -13,7 +13,7 @@
   "contactUs": "Contact us",
   "radioName": "Reformation Voice Radio",
   "listen": "Press here to listen",
-  "radioMsg": "The radio broadcast songs and different topics. Health, family, prophecy and other useful topics.",
+  "radioMsg": "The radio broadcasts songs and different topics. Health, family, prophecy and other useful topics.",
   "audioVideoTxt": "Reformers audios and videos",
   "recentTopics": "Recent topics",
   "relatedTopics": "Related topics",
@@ -33,22 +33,25 @@
   "at": "at",
   "by": "By",
   "actions": {
-    "label":"Actions",
+    "label": "Actions",
     "btnSend": "Send",
     "btnCancel": "Cancel",
-    "btnPreview":"Preview",
-    "btnSave":"Save",
+    "btnPreview": "Preview",
+    "btnSave": "Save",
     "loading": "Loading,...",
     "viewMore": "View more",
     "viewMoreAudios": "View more",
     "more": "More",
     "edit": "Edit",
-    "publish":"Publish",
-    "unpublish":"Unpublish",
-    "addHome":"Set to home",
-    "removeHome":"Remove from home",
-    "addNMedia":"Add new media",
-    "addNAlbum":"Add new album"
+    "publish": "Publish",
+    "unpublish": "Unpublish",
+    "addHome": "Set to home",
+    "removeHome": "Remove from home",
+    "addNMedia": "Add new media",
+    "addNAlbum": "Add new album",
+    "play": "Play",
+    "download": "Download",
+    "share": "Share"
   },
   "fields": {
     "email": "E-mail",
@@ -56,53 +59,53 @@
     "names": "Names",
     "website": "Website"
   },
-  "admin":{
-    "nav":{
-      "webRelated":"Website related",
+  "admin": {
+    "nav": {
+      "webRelated": "Website related",
       "website": "Website",
-      "home":"Home",
-      "media":"Media",
-      "audio":"Audio",
-      "commentaries":"Commentaries",
-      "webSettings":"Web Settings",
-      "systemUsers":"System users",
-      "systemSettings":"System Settings"
+      "home": "Home",
+      "media": "Media",
+      "audio": "Audio",
+      "commentaries": "Commentaries",
+      "webSettings": "Web Settings",
+      "systemUsers": "System users",
+      "systemSettings": "System Settings"
     },
-    "confirm":{
-      "title":"Confirm action",
-      "description":"Are you sure you want to "
+    "confirm": {
+      "title": "Confirm action",
+      "description": "Are you sure you want to "
     },
-    "home":{
-      "title":"Admin dashboard",
+    "home": {
+      "title": "Admin dashboard",
       "publishDisclaimer": "Please publish the topic first",
       "loading": "Loading your content...",
-      "tTitle":"Topic title",
-      "tDescription":"Small description",
-      "tViews":"User views",
-      "tPublished":"Published date"
+      "tTitle": "Topic title",
+      "tDescription": "Small description",
+      "tViews": "User views",
+      "tPublished": "Published date"
     },
-    "topic":{
-      "subtitle":"New topic",
-      "title":"Add a new topic",
-      "about":"About topic",
+    "topic": {
+      "subtitle": "New topic",
+      "title": "Add a new topic",
+      "about": "About topic",
       "phTitle": "Topic title",
-      "phCategory":"Topic description",
-      "addImage":"Add cover image",
-      "ciTitle":"Select or upload a cover image for a topic",
-      "ciSubtitle":"The image you will select will appear on the topic as the background cover image",
-      "ciTabUpload":"Upload from your computer",
-      "ciTabSelect":"Choose from the uploaded image",
-      "ciPhFile":"Insert a file",
-      "detail": "Topic detail",
-      "phDetail":"Please type here..."
+      "phCategory": "Topic description",
+      "addImage": "Add cover image",
+      "ciTitle": "Select or upload a cover image for a topic",
+      "ciSubtitle": "The image you will select will appear on the topic as the background cover image",
+      "ciTabUpload": "Upload from your computer",
+      "ciTabSelect": "Choose from the uploaded images",
+      "ciPhFile": "Insert a file",
+      "detail": "Topic details",
+      "phDetail": "Please type here..."
     },
-    "media":{
-      "title":"All media",
-      "tTitle":"Title",
-      "tType":"Type",
-      "tAuthor":"Author",
-      "tDownloads":"Downloads",
-      "tShares":"Shares"
+    "media": {
+      "title": "All media",
+      "tTitle": "Title",
+      "tType": "Type",
+      "tAuthor": "Author",
+      "tDownloads": "Downloads",
+      "tShares": "Shares"
     }
   }
 }

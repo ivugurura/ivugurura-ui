@@ -3,11 +3,11 @@
   "home": "Ahabanza",
   "topics": "Ibyigisho",
   "allTopics": "Ibyigisho byose",
-  "reformers":"Abavugabutumwa b'Ivugurura n' Ubugorozi",
+  "reformers": "Abavugabutumwa b'Ivugurura n' Ubugorozi",
   "mathew2414": "Kandi ubu butumwa bwiza bw’ubwami buzigishwa mu isi yose, ngo bube ubuhamya bwo guhamiriza amahanga yose, ni bwo imperuka izaherako ize.",
   "search": "Shakisha",
-  "searchTitle":"Shaka ibyigisho ukoresheje umutwe w ikigisho",
-  "searchPHolder":"Andika umutwe w ikigisho",
+  "searchTitle": "Shaka ibyigisho ukoresheje umutwe w ikigisho",
+  "searchPHolder": "Andika umutwe w ikigisho",
   "logoTitle": "Ijwi ry Ubugorozi",
   "listenRadio": "Umva radio",
   "contactUs": "Twandikire",
@@ -25,30 +25,33 @@
   "commentSuccess": "Igitekerezo cyanyu twacyakiriye. Murakoze",
   "mostReadTopics": "Ibyigisho byasomwe cyane",
   "followUs": "Dukurikire kuri",
-  "communique":"Kurikirana ababwirizabutumwa bwiza bw Ivugurura n Ubugorozi",
-  "noData":"Nta bihari byo kwerekana",
-  "songsAndTopics":"Indirimbo n ibyigisho bitandukanye",
-  "audios":"Audio",
-  "updatedAt":"Cyateguriwe kuri",
+  "communique": "Kurikirana ababwirizabutumwa bwiza bw Ivugurura n Ubugorozi",
+  "noData": "Nta bihari byo kwerekana",
+  "songsAndTopics": "Indirimbo n ibyigisho bitandukanye",
+  "audios": "Audio",
+  "updatedAt": "Cyateguriwe kuri",
   "at": "kuri",
   "by": "Yateguwe na",
-  "actions":{
+  "actions": {
     "label": "Icyakorwa",
     "btnSend": "Mwohereze",
     "btnCancel": "Hagarika",
-		"btnPreview":"Reba uko bimeze",
-		"btnSave":"Bika",
+    "btnPreview": "Reba uko bimeze",
+    "btnSave": "Bika",
     "loading": "Mube mwihanganye,...",
     "viewMore": "Reba ibyigisho byose",
     "viewMoreAudios": "Reba Audio zose",
     "more": "Ibikurikira",
     "edit": "Hindura",
-    "publish":"Publish",
-    "unpublish":"Unpublish",
-    "addHome":"Set to home",
-    "removeHome":"Remove from home",
-    "addNMedia":"Shyiraho Media nshya",
-    "addNAlbum":"kora Album nshya"
+    "publish": "Publish",
+    "unpublish": "Unpublish",
+    "addHome": "Set to home",
+    "removeHome": "Remove from home",
+    "addNMedia": "Shyiraho Media nshya",
+    "addNAlbum": "kora Album nshya",
+    "play": "Kina",
+    "download": "Download",
+    "share": "Sangira"
   },
   "fields": {
     "email": "Email",
@@ -56,53 +59,53 @@
     "names": "Amazina yanyu",
     "website": "Urubuga rwanyu(niba ruhari)"
   },
-  "admin":{
-    "nav":{
-      "webRelated":"Ibijyanye n urubuga",
+  "admin": {
+    "nav": {
+      "webRelated": "Ibijyanye n urubuga",
       "website": "Urubuga",
-      "home":"Ahabanza",
-      "media":"Media",
-      "audio":"Audio",
-      "commentaries":"Ibitekerezo",
-      "webSettings":"Settings z urubuga",
-      "systemUsers":"Abakozi",
-      "systemSettings":"Settings rusanga"
+      "home": "Ahabanza",
+      "media": "Media",
+      "audio": "Audio",
+      "commentaries": "Ibitekerezo",
+      "webSettings": "Settings z urubuga",
+      "systemUsers": "Abakozi",
+      "systemSettings": "Settings rusanga"
     },
-    "confirm":{
-      "title":"Mwemeze ikigiye gukorwa",
-      "description":"Mu by ukuri murashaka "
+    "confirm": {
+      "title": "Mwemeze ikigiye gukorwa",
+      "description": "Mu by ukuri murashaka "
     },
-    "home":{
-      "title":"Ubuyobozi bw urubuga",
+    "home": {
+      "title": "Ubuyobozi bw urubuga",
       "publishDisclaimer": "Mubanze mu publishinge iki cyigisho",
       "loading": "Mube mwihanganye,...",
-      "tTitle":"Umutwe w icyigisho",
-      "tDescription":"Icyigisho mu nshamake",
-      "tViews":"Abasomye",
-      "tPublished":"Igihe cyandikiwe"
+      "tTitle": "Umutwe w icyigisho",
+      "tDescription": "Icyigisho mu nshamake",
+      "tViews": "Abasomye",
+      "tPublished": "Igihe cyandikiwe"
     },
-    "topic":{
-      "subtitle":"Icyigisho gishya",
-      "title":"Shyiraho Icyigisho gishya",
-      "about":"Ibijyanye n Icyigisho",
+    "topic": {
+      "subtitle": "Icyigisho gishya",
+      "title": "Shyiraho Icyigisho gishya",
+      "about": "Ibijyanye n Icyigisho",
       "phTitle": "Umutwe w Icyigisho",
-      "phCategory":"Icyigisho kirambuye",
-      "addImage":"SHyiraho ifoto y icyigisho",
-      "ciTitle":"Hitamo ifoto izajya igaragara ku cyigisho",
-      "ciSubtitle":"Ifoto muza guhitamo izajya igaragara hejuru ku cyigisho mbere y andi magagambo yose",
-      "ciTabUpload":"Hitamo mu mafoto yo muri mudasobwa yawe",
-      "ciTabSelect":"Hitamo mu mafoto asanzweho",
-      "ciPhFile":"Kanda hano ushireho file",
+      "phCategory": "Icyigisho kirambuye",
+      "addImage": "SHyiraho ifoto y icyigisho",
+      "ciTitle": "Hitamo ifoto izajya igaragara ku cyigisho",
+      "ciSubtitle": "Ifoto muza guhitamo izajya igaragara hejuru ku cyigisho mbere y andi magagambo yose",
+      "ciTabUpload": "Hitamo mu mafoto yo muri mudasobwa yawe",
+      "ciTabSelect": "Hitamo mu mafoto asanzweho",
+      "ciPhFile": "Kanda hano ushireho file",
       "detail": "ICyigisho mu buryo burambuye",
-      "phDetail":"mwandike hano"
+      "phDetail": "mwandike hano"
     },
-    "media":{
-      "title":"Media zose",
-      "tTitle":"Izina",
-      "tType":"Type",
-      "tAuthor":"Umuhimbyi",
-      "tDownloads":"Downloads",
-      "tShares":"Shares"
+    "media": {
+      "title": "Media zose",
+      "tTitle": "Izina",
+      "tType": "Type",
+      "tAuthor": "Umuhimbyi",
+      "tDownloads": "Downloads",
+      "tShares": "Shares"
     }
   }
 }

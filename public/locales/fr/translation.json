@@ -89,7 +89,7 @@
       "title":"Ajouter un nouveau sujet",
       "about":"À propos du sujet",
       "phTitle": "Titre du sujet",
-      "phCategory":"Description du sujet",
+      "phCategory":"La categorie du sujet",
       "addImage":"Ajouter une image de couverture",
       "ciTitle":"Sélectionnez ou téléchargez une image de couverture pour le sujet",
       "ciSubtitle":"L'image que vous sélectionnerez apparaîtra sur le sujet comme image de couverture d'arrière-plan.",

@@ -82,7 +82,10 @@
       "tTitle": "Umutwe w icyigisho",
       "tDescription": "Icyigisho mu nshamake",
       "tViews": "Abasomye",
-      "tPublished": "Igihe cyandikiwe"
+      "tPublished": "Igihe cyandikiwe",
+      "tStatus": "Imiterere",
+      "published": "Cyatangajwe",
+      "unpublished": "Ntikiratangazwa"
     },
     "topic": {
       "subtitle": "Icyigisho gishya",

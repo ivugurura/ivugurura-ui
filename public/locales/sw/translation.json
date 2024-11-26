@@ -79,7 +79,10 @@
       "tTitle":"Kichwa cha mada",
       "tDescription":"Maelezo madogo",
       "tViews":"Maoni ya mtumiaji",
-      "tPublished":"Tarehe iliyochapishwa"
+      "tPublished":"Tarehe iliyochapishwa",
+	  "tStatus": "Hali",
+      "published": "Imechapishwa",
+      "unpublished": "Haijachapishwa"
     },
     "topic":{
       "subtitle":"Mada mpya",

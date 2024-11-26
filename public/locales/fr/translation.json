@@ -82,7 +82,10 @@
       "tTitle":"Titre du sujet",
       "tDescription":"Petite description",
       "tViews":"Vues des utilisateurs",
-      "tPublished":"Date de publication"
+      "tPublished":"Date de publication",
+      "tStatus": "Statut",
+      "published": "Publié",
+      "unpublished": "Inédite"
     },
     "topic":{
       "subtitle":"Un nouveau sujet",

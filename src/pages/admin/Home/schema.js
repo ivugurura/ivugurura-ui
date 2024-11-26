@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useMemo } from 'react';
 
+import { Chip } from '@mui/material';
 import moment from 'moment';
 
 export const dashboardTopicsColumns = (t) => [
@@ -10,7 +11,18 @@ export const dashboardTopicsColumns = (t) => [
   {
     id: 'updatedAt',
     header: t('admin.home.tPublished'),
-    Cell: ({ row }) => moment(row.original.updatedAt).format('MMMM Do YYYY'),
+    Cell: ({ row }) => moment(row.original.updatedAt).format('DD.MM.YYYY'),
+    size: 80,
+  },
+  {
+    id: 'status',
+    header: t('admin.home.tStatus'),
+    Cell: ({ row }) => (
+      <Chip
+        label={t(`admin.home.${row.original.isPublished ? '' : 'un'}published`)}
+        color={row.original.isPublished ? 'success' : 'default'}
+      />
+    ),
     size: 80,
   },
 ];

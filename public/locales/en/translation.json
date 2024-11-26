@@ -82,7 +82,10 @@
       "tTitle": "Topic title",
       "tDescription": "Small description",
       "tViews": "User views",
-      "tPublished": "Published date"
+      "tPublished": "Published date",
+      "tStatus": "Status",
+      "published": "Published",
+      "unpublished": "Unpublished"
     },
     "topic": {
       "subtitle": "New topic",

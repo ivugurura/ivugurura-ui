@@ -67,9 +67,9 @@
       "media":"Media",
       "audio":"Audios",
       "commentaries":"Commentaires",
-      "webSettings":"Paramètres Web",
+      "webSettings":"Paramètres de Web",
       "systemUsers":"Utilisateurs du système",
-      "systemSettings":"Paramètres système"
+      "systemSettings":"Paramètres de système"
     },
     "confirm":{
       "title":"Confirmer l'action",

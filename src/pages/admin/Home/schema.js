@@ -20,7 +20,7 @@ export const dashboardTopicsColumns = (t) => [
     Cell: ({ row }) => (
       <Chip
         label={t(`admin.home.${row.original.isPublished ? '' : 'un'}published`)}
-        color={row.original.isPublished ? 'success' : 'default'}
+        color={row.original.isPublished ? 'primary' : 'default'}
       />
     ),
     size: 80,

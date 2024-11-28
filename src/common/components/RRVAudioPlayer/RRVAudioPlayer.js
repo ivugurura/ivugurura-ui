@@ -6,6 +6,7 @@ import {
   SkipNext,
   SkipPrevious,
   Download as DownloadIcon,
+  PauseCircle,
 } from '@mui/icons-material';
 import {
   Button,
@@ -65,7 +66,6 @@ export const RRVAudioPlayer = ({
       });
     }
   };
-  console.log({ isMobile });
   const customControls = [
     RHAP_UI.LOOP,
     <Button
@@ -119,58 +119,63 @@ export const RRVAudioPlayer = ({
       )}
       <CardContent>
         <List>
-          {audios?.map((audio, audioIdx) => (
-            <React.Fragment key={audio.id}>
-              <ListItem
-                key={audio.id}
-                selected={audio.id === currentAudio.audio?.id}
-                secondaryAction={
-                  <ButtonGroup
-                    size="small"
-                    // orientation={isMobile ? 'vertical' : 'horizontal'}
-                  >
-                    <Button
-                      startIcon={<PlayArrow />}
-                      onClick={() =>
-                        setCurrentAudio({ index: audioIdx, audio })
-                      }
+          {audios?.map((audio, audioIdx) => {
+            const isCurrent = audio.id === currentAudio.audio?.id;
+            return (
+              <React.Fragment key={audio.id}>
+                <ListItem
+                  key={audio.id}
+                  selected={isCurrent}
+                  secondaryAction={
+                    <ButtonGroup
+                      size="small"
+                      // orientation={isMobile ? 'vertical' : 'horizontal'}
                     >
-                      {displayText && 'Play'}
-                    </Button>
-                    <Button
-                      startIcon={<DownloadIcon />}
-                      target="_blank"
-                      rel="noreferrer"
-                      href={DL_ROUTE + audio.slug}
-                    >
-                      {displayText && 'Download'}
-                    </Button>
-                    <RRVShare
-                      title={audio.title}
-                      href={DL_ROUTE + audio.slug}
-                      onShare={() => shareSong({ slug: audio.slug })}
-                      displayText={displayText}
-                    />
-                  </ButtonGroup>
-                }
-                alignItems="flex-start"
-              >
-                <ListItemIcon sx={{ minWidth: isMobile ? undefined : '56px' }}>
-                  <MusicNote />
-                </ListItemIcon>
-                <ListItemText
-                  primary={audio.title}
-                  primaryTypographyProps={{ style: { width: '62%' } }}
-                  secondary={
-                    <>
-                      <i>{t('by')}</i> {audio.author}
-                    </>
+                      <Button
+                        startIcon={isCurrent ? <PauseCircle /> : <PlayArrow />}
+                        onClick={() =>
+                          setCurrentAudio({ index: audioIdx, audio })
+                        }
+                      >
+                        {displayText && t('actions.play')}
+                      </Button>
+                      <Button
+                        startIcon={<DownloadIcon />}
+                        target="_blank"
+                        rel="noreferrer"
+                        href={DL_ROUTE + audio.slug}
+                      >
+                        {displayText && t('actions.download')}
+                      </Button>
+                      <RRVShare
+                        title={audio.title}
+                        href={DL_ROUTE + audio.slug}
+                        onShare={() => shareSong({ slug: audio.slug })}
+                        displayText={displayText}
+                      />
+                    </ButtonGroup>
                   }
-                />
-              </ListItem>
-              <Divider variant="insert" component="li" />
-            </React.Fragment>
-          ))}
+                  alignItems="flex-start"
+                >
+                  <ListItemIcon
+                    sx={{ minWidth: isMobile ? undefined : '56px' }}
+                  >
+                    <MusicNote />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={audio.title}
+                    primaryTypographyProps={{ style: { width: '62%' } }}
+                    secondary={
+                      <>
+                        <i>{t('by')}</i> {audio.author}
+                      </>
+                    }
+                  />
+                </ListItem>
+                <Divider variant="insert" component="li" />
+              </React.Fragment>
+            );
+          })}
         </List>
         {hasMore && (
           <Grid

@@ -87,7 +87,7 @@ export const NavBar = ({ navCategories = [] }) => {
               textDecoration: 'none',
             }}
           >
-            UBUGOROZI
+            {t('logo').toUpperCase()}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <RRVDropdown

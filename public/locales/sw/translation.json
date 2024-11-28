@@ -82,8 +82,8 @@
       "tViews":"Maoni ya mtumiaji",
       "tPublished":"Tarehe iliyochapishwa",
 	  "tStatus": "Hali",
-      "published": "Imechapishwa",
-      "unpublished": "Haijachapishwa"
+      "published": "Imetangazwa",
+      "unpublished": "Haijatangazwa"
     },
     "topic":{
       "subtitle":"Mada mpya",

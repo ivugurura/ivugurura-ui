@@ -85,5 +85,12 @@ export const TopicState = {
         hasBody: true,
       },
     },
+    deleteComments: {
+      api: {
+        verb: VERBS.delete,
+        endpoint: '/topics/comments',
+        hasBody: true,
+      },
+    },
   },
 };

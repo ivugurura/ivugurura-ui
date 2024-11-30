@@ -2,9 +2,16 @@ import React from 'react';
 
 import { MaterialReactTable } from 'material-react-table';
 
-export const RRVTable = ({ isLoading, ...rest }) => (
+export const RRVTable = ({
+  isLoading,
+  globalFilter,
+  setGlobalFilter,
+  ...rest
+}) => (
   <MaterialReactTable
-    state={{ isLoading }}
+    state={{ isLoading, globalFilter }}
+    onGlobalFilterChange={setGlobalFilter}
+    manualFiltering
     positionActionsColumn="last"
     {...rest}
   />

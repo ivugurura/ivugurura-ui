@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useMemo } from 'react';
 
-import { Button, Tooltip, Typography } from '@mui/material';
+import { Button, ButtonGroup, Tooltip, Typography } from '@mui/material';
 
 export const commentariesColumns = (setAction) => [
   {
@@ -40,12 +40,15 @@ export const commentariesColumns = (setAction) => [
     id: 'isPublished',
     header: 'Published',
     Cell: ({ row: { original } }) => (
-      <Button
-        onClick={() => setAction(original)}
-        color={original.isPublished ? 'primary' : 'secondary'}
-      >
-        {original.isPublished ? 'Unpublish' : 'Publish'}
-      </Button>
+      <ButtonGroup size="small">
+        <Button
+          onClick={() => setAction(original, 'publish')}
+          color={original.isPublished ? 'primary' : 'secondary'}
+        >
+          {original.isPublished ? 'Unpublish' : 'Publish'}
+        </Button>
+        <Button onClick={() => setAction(original, 'reply')}>Reply</Button>
+      </ButtonGroup>
     ),
     size: 80,
   },

@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  TextField,
 } from '@mui/material';
 
 export const AlertConfirm = ({
@@ -16,11 +17,13 @@ export const AlertConfirm = ({
   message = '',
   loading = false,
   title = 'Confirm action',
+  hasInput,
 }) => (
   <Dialog aria-labelledby="dialog-title" onClose={setOpen} open={open}>
     <DialogTitle id="dialog-title">{title}</DialogTitle>
     <DialogContent>
       <DialogContentText>{message}</DialogContentText>
+      {hasInput && <TextField />}
     </DialogContent>
     <DialogActions>
       <Button color="primary" onClick={setOpen}>

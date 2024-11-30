@@ -49,12 +49,13 @@ const alertInitial = {
   open: false,
 };
 const HomeDashboard = ({ countFetch }) => {
+  const [globalFilter, setGlobalFilter] = useState('');
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [alertData, setAlertData] = useState(alertInitial);
   const { data: counts, isFetching, isSuccess, ...restCountsQ } = countFetch;
   const { data: overviewData, ...overviewQ } = actions.useGetOverviewTopicQuery(
-    { truncate: 200 },
+    { truncate: 200, search: globalFilter },
   );
   const [updateTopic, updateRes] = actions.useUpdateTopicMutation();
   const [setOrRemoveTopicDisplay, displayRes] =
@@ -113,6 +114,8 @@ const HomeDashboard = ({ countFetch }) => {
       });
     }
   };
+  console.log({ globalFilter });
+
   return (
     <DashboardContainer title={t('admin.home.title')}>
       <AlertConfirm
@@ -137,6 +140,8 @@ const HomeDashboard = ({ countFetch }) => {
         <RRVTable
           columns={dashboardTopicsColumns(t)}
           data={topics}
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
           isLoading={overviewQ.isFetching}
           enableRowActions
           renderRowActionMenuItems={renderRowActionMenus(

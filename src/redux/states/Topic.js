@@ -92,5 +92,12 @@ export const TopicState = {
         hasBody: true,
       },
     },
+    replyComment: {
+      api: {
+        verb: VERBS.post,
+        endpoint: '/topics/:slug/comments/:id',
+        hasBody: true,
+      },
+    },
   },
 };

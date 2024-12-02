@@ -16,39 +16,52 @@ const alertInitial = {
   message: '',
   open: false,
 };
+const initialReplyState = { content: '', replyType: '' };
 const Commentaries = () => {
   const [alertData, setAlertData] = useState(alertInitial);
+  const [reply, setReply] = useState(initialReplyState);
   const [rowSelection, setRowSelection] = useState({});
   const { data, isFetching, refetch } = actions.useGetCommentsTopicQuery();
   const [publish, publishRes] = actions.usePublishTopicMutation();
   const [deleteComments, delResult] = actions.useDeleteCommentsTopicMutation();
+  const [replyComment, replyResult] = actions.useReplyCommentTopicMutation();
   const { data: comments, totalItems } = data || initials.dataArr;
 
   useEffect(() => {
-    if (publishRes.isSuccess || delResult.isSuccess) {
+    if (publishRes.isSuccess || delResult.isSuccess || replyResult.isSuccess) {
       setAlertData(alertInitial);
       publishRes.reset();
       delResult.reset();
+      replyResult.reset();
+      setRowSelection({});
       refetch();
     }
-  }, [publishRes.isSuccess, delResult.isSuccess]);
+  }, [publishRes.isSuccess, delResult.isSuccess, replyResult.isSuccess]);
 
   const handleConfirm = () => {
-    if (alertData.current.id) {
-      publish({ commentId: alertData.current.id });
-    } else {
-      const commentIds = alertData.current.map((c) => c.original.id);
+    const { current, actionType } = alertData;
+    if (actionType === 'publish') {
+      publish({ commentId: current.id });
+    } else if (actionType === 'delete') {
+      const commentIds = current.map((c) => c.original.id);
       deleteComments({ commentIds });
+    } else if (actionType === 'reply') {
+      replyComment({
+        ...reply,
+        id: current.id,
+        slug: current.topic.slug,
+      });
     }
   };
 
   const handleSetAction = (comment, type) => {
-    console.log({ type });
+    console.log({ comment });
+
     const action = comment.isPublished ? 'UNPUBLISH' : 'PUBLISH';
     let message = `Are you sure you want to ${action} the comment: 
       "${comment.content}"?`;
     if (type === 'reply') {
-      message = 'Please type the reply below';
+      message = `Message: ${comment.content.toUpperCase()}`;
     }
     const newStates = { current: comment, message, open: true };
     setAlertData((prev) => ({ ...prev, ...newStates, actionType: type }));
@@ -58,11 +71,18 @@ const Commentaries = () => {
     setAlertData((prev) => ({
       ...prev,
       current: rows,
+      actionType: 'delete',
       message: `Are you sure you want to delete those ${rows.length} comments`,
       open: true,
     }));
   };
-  console.log({ rowSelection });
+
+  const replyProps = {
+    reply,
+    onChange: ({ target: { name, value } }) => {
+      setReply((prev) => ({ ...prev, [name]: value }));
+    },
+  };
 
   return (
     <DashboardContainer title="Commentaries to the topics">
@@ -71,8 +91,11 @@ const Commentaries = () => {
         setOpen={() => setAlertData((prev) => ({ ...prev, ...alertInitial }))}
         title={alertData.title}
         onConfirmYes={handleConfirm}
-        loading={publishRes.isLoading}
+        loading={
+          publishRes.isLoading || delResult.isLoading || replyResult.isLoading
+        }
         hasInput={alertData.actionType === 'reply'}
+        inputProps={replyProps}
       />
       <Grid container spacing={1}>
         <Grid item xs={12} lg={10}>

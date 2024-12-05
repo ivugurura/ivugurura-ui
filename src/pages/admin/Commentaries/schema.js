@@ -47,7 +47,9 @@ export const commentariesColumns = (setAction) => [
         >
           {original.isPublished ? 'Unpublish' : 'Publish'}
         </Button>
-        <Button onClick={() => setAction(original, 'reply')}>Reply</Button>
+        <Button onClick={() => setAction(original, 'reply')}>
+          {original.privateReply ? 'Replied' : 'Reply'}
+        </Button>
       </ButtonGroup>
     ),
     size: 80,

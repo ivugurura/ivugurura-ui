@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 
 import { RRVTable } from '../../../common/components/RRVTable';
+import { useMuiSearchPagination } from '../../../common/hooks/useMuiSearchPagination';
 import { actions } from '../../../redux/actions';
 import { initials } from '../../../redux/apiSliceBuilder';
 import { AlertConfirm } from '../components/AlertConfirm';
@@ -17,6 +18,26 @@ const alertInitial = {
   open: false,
 };
 const initialReplyState = { content: '', replyType: '' };
+
+const ReplyDisclaimer = ({ privateReply }) => (
+  <div>
+    <p>
+      This comment had already been privaty replied to. The replies:
+      <ul>
+        {privateReply.split('~').map((comment, idx) => (
+          <li>{`${idx + 1}. ${comment}`}</li>
+        ))}
+      </ul>
+    </p>
+    <p>
+      If you realy want to reply on it again, please type the reply,{' '}
+      <span style={{ color: '#c617a9' }}>
+        the email will also be sent to the commentor
+      </span>
+    </p>
+  </div>
+);
+
 const Commentaries = () => {
   const [alertData, setAlertData] = useState(alertInitial);
   const [reply, setReply] = useState(initialReplyState);
@@ -36,6 +57,7 @@ const Commentaries = () => {
       delResult.reset();
       replyResult.reset();
       setRowSelection({});
+      setReply(initialReplyState);
       refetch();
     }
   }, [publishRes.isSuccess, delResult.isSuccess, replyResult.isSuccess]);
@@ -64,6 +86,9 @@ const Commentaries = () => {
       "${comment.content}"?`;
     if (type === 'reply') {
       message = `Message: ${comment.content.toUpperCase()}`;
+      if (comment.privateReply) {
+        message = <ReplyDisclaimer privateReply={comment.privateReply} />;
+      }
     }
     const newStates = { current: comment, message, open: true };
     setAlertData((prev) => ({ ...prev, ...newStates, actionType: type }));

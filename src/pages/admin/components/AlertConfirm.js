@@ -40,7 +40,7 @@ export const AlertConfirm = ({
           <FormControl fullWidth variant="outlined">
             <TextField
               fullWidth
-              label="Type a reply here"
+              label="Reply"
               variant="standard"
               name="content"
               value={reply.content}

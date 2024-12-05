@@ -21,7 +21,9 @@ const Commentaries = () => {
   const [alertData, setAlertData] = useState(alertInitial);
   const [reply, setReply] = useState(initialReplyState);
   const [rowSelection, setRowSelection] = useState({});
-  const { data, isFetching, refetch } = actions.useGetCommentsTopicQuery();
+  const { pagination, paginator, setPagination } = useMuiSearchPagination();
+  const { data, isFetching, refetch } =
+    actions.useGetCommentsTopicQuery(paginator);
   const [publish, publishRes] = actions.usePublishTopicMutation();
   const [deleteComments, delResult] = actions.useDeleteCommentsTopicMutation();
   const [replyComment, replyResult] = actions.useReplyCommentTopicMutation();
@@ -108,6 +110,9 @@ const Commentaries = () => {
             setRowSelection={setRowSelection}
             onHandleSelected={handleRowSelections}
             btnSelectionLabel="Delete selected"
+            pagination={pagination}
+            setPagination={setPagination}
+            rowCount={totalItems || 0}
           />
         </Grid>
         <Grid item xs={12} lg={2}>

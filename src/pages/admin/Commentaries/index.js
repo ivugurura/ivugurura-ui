@@ -74,8 +74,6 @@ const Commentaries = () => {
   };
 
   const handleSetAction = (comment, type) => {
-    console.log({ comment });
-
     const action = comment.isPublished ? 'UNPUBLISH' : 'PUBLISH';
     let message = `Are you sure you want to ${action} the comment: 
       "${comment.content}"?`;

@@ -14,9 +14,11 @@ export const useAlertDialog = () => {
   };
 
   const setAlertValues = (values = {}) => {
-    const newValues = Object.entries(values).map(([key, value]) => ({
-      [key]: value,
-    }));
+    const newValues = Object.entries(values).reduce(
+      (prev, [key, value]) => ({ ...prev, [key]: value }),
+      {},
+    );
+
     setAlertData((prev) => ({ ...prev, ...newValues }));
   };
 

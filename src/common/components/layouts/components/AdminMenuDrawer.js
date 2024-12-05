@@ -22,6 +22,7 @@ import { ListItemLink } from './ListItemLink';
 const dashboardMenus = (lang = 'en', role = undefined, t = () => {}) => [
   {
     type: t('admin.nav.webRelated'),
+    key: 'webRelated',
     routes: [
       {
         name: t('admin.nav.home'),

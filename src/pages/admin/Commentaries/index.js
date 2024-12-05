@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 
 import { RRVTable } from '../../../common/components/RRVTable';
+import { useAlertDialog } from '../../../common/hooks/useAlertDialog';
 import { useMuiSearchPagination } from '../../../common/hooks/useMuiSearchPagination';
 import { actions } from '../../../redux/actions';
 import { initials } from '../../../redux/apiSliceBuilder';
@@ -11,12 +12,6 @@ import { DashboardContainer } from '../components/DashboardContainer';
 
 import { commentariesColumns } from './schema';
 
-const alertInitial = {
-  current: null,
-  actionType: '',
-  message: '',
-  open: false,
-};
 const initialReplyState = { content: '', replyType: '' };
 
 const ReplyDisclaimer = ({ privateReply }) => (
@@ -39,10 +34,10 @@ const ReplyDisclaimer = ({ privateReply }) => (
 );
 
 const Commentaries = () => {
-  const [alertData, setAlertData] = useState(alertInitial);
   const [reply, setReply] = useState(initialReplyState);
   const [rowSelection, setRowSelection] = useState({});
   const { pagination, paginator, setPagination } = useMuiSearchPagination();
+  const { alertValues, reset, setAlertValues } = useAlertDialog();
   const { data, isFetching, refetch } =
     actions.useGetCommentsTopicQuery(paginator);
   const [publish, publishRes] = actions.usePublishTopicMutation();
@@ -52,7 +47,7 @@ const Commentaries = () => {
 
   useEffect(() => {
     if (publishRes.isSuccess || delResult.isSuccess || replyResult.isSuccess) {
-      setAlertData(alertInitial);
+      reset();
       publishRes.reset();
       delResult.reset();
       replyResult.reset();
@@ -63,7 +58,7 @@ const Commentaries = () => {
   }, [publishRes.isSuccess, delResult.isSuccess, replyResult.isSuccess]);
 
   const handleConfirm = () => {
-    const { current, actionType } = alertData;
+    const { current, actionType } = alertValues;
     if (actionType === 'publish') {
       publish({ commentId: current.id });
     } else if (actionType === 'delete') {
@@ -90,18 +85,16 @@ const Commentaries = () => {
         message = <ReplyDisclaimer privateReply={comment.privateReply} />;
       }
     }
-    const newStates = { current: comment, message, open: true };
-    setAlertData((prev) => ({ ...prev, ...newStates, actionType: type }));
+    setAlertValues({ current: comment, message, open: true, actionType: type });
   };
 
   const handleRowSelections = (rows) => {
-    setAlertData((prev) => ({
-      ...prev,
+    setAlertValues({
       current: rows,
       actionType: 'delete',
       message: `Are you sure you want to delete those ${rows.length} comments`,
       open: true,
-    }));
+    });
   };
 
   const replyProps = {
@@ -114,14 +107,14 @@ const Commentaries = () => {
   return (
     <DashboardContainer title="Commentaries to the topics">
       <AlertConfirm
-        {...alertData}
-        setOpen={() => setAlertData((prev) => ({ ...prev, ...alertInitial }))}
-        title={alertData.title}
+        {...alertValues}
+        setOpen={() => reset()}
+        title={alertValues.title}
         onConfirmYes={handleConfirm}
         loading={
           publishRes.isLoading || delResult.isLoading || replyResult.isLoading
         }
-        hasInput={alertData.actionType === 'reply'}
+        hasInput={alertValues.actionType === 'reply'}
         inputProps={replyProps}
       />
       <Grid container spacing={1}>

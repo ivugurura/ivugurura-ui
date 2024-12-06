@@ -13,6 +13,7 @@ import moment from 'moment';
 import AudioPlayer from 'react-h5-audio-player';
 
 import { RRVTable } from '../../../common/components/RRVTable/Table';
+import { useMuiSearchPagination } from '../../../common/hooks/useMuiSearchPagination';
 import { toAssetPath } from '../../../helpers/utils/constants';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
 import { DashboardContainer } from '../components/DashboardContainer';
@@ -25,12 +26,13 @@ const initialEditorStates = { openAlbum: false, openMedia: false };
 const MediaEditor = () => {
   const [currentAudio, setCurrentAudio] = useState({ index: -1, audio: null });
   const [editorState, setEditorState] = useState(initialEditorStates);
+  const { paginator, ...tableProps } = useMuiSearchPagination();
 
   const {
     data,
     isFetching,
     refetch: refetchMedia,
-  } = actions.useListAudiosQuery({ page: 1, pageSize: 10 });
+  } = actions.useListAudiosQuery(paginator);
   const { data: albumData, refetch } = actions.useGetAlbumsMediaQuery();
   const { data: audios, totalItems } = data || initials.dataArr;
 
@@ -80,7 +82,8 @@ const MediaEditor = () => {
             columns={audioColumns()}
             data={audios}
             isLoading={isFetching}
-            pageCount={totalItems}
+            {...tableProps}
+            rowCount={totalItems}
           />
         </Grid>
         <Grid item xs={12} lg={4}>

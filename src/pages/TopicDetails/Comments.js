@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 
-import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
+import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 
 import { RRVForm } from '../../common/components/RRVForm';
-import { toFCap } from '../../helpers/utils';
 import { notifier } from '../../helpers/utils/constants';
 import { actions, initials } from '../../redux/apiSliceBuilder';
 
@@ -34,34 +34,41 @@ export const Comments = ({ slug }) => {
   const hasComments = comments?.length > 0;
   return (
     <Grid item xs={12}>
-      {hasComments && (
-        <Typography variant="h4" align="center">
-          {t('comments')}
-        </Typography>
-      )}
-      {comments.map((c) => (
-        <Box key={c.id} sx={styles.commentRoot}>
-          <Avatar>{toFCap(c.names)}</Avatar>
-          <Box pl={2}>
-            <Box>
-              <Typography
-                variant="subtitle2"
-                fontWeight={700}
-                fontSize="0.875rem"
-              >
+      <Box sx={styles.root}>
+        {hasComments && (
+          <Typography variant="h2" sx={styles.title}>
+            {t('comments')}
+          </Typography>
+        )}
+        {comments.map((c) => (
+          <Box key={c.id} sx={styles.comment}>
+            <Box sx={styles.commentBody}>
+              <Typography variant="body1" sx={styles.commentAuthor}>
                 {c.names}
               </Typography>
+              <Typography variant="body1" sx={styles.commentText}>
+                {c.content}
+              </Typography>
+              <Typography variant="caption" sx={styles.commentTimestamp}>
+                {moment(c.createdAt).fromNow()}
+              </Typography>
             </Box>
-            <Typography
-              variant="subtitle2"
-              fontWeight={500}
-              fontSize="0.875rem"
-            >
-              {c.content}
-            </Typography>
+            {c.replies.map((r) => (
+              <Box key={r.id} sx={styles.reply}>
+                <Typography variant="body1" sx={styles.replyAuthor}>
+                  {t('logo')}
+                </Typography>
+                <Typography variant="body1" sx={styles.replyText}>
+                  {r.content}
+                </Typography>
+                <Typography variant="caption" sx={styles.replyTimestamp}>
+                  {moment(r.createdAt).fromNow()}
+                </Typography>
+              </Box>
+            ))}
           </Box>
-        </Box>
-      ))}
+        ))}
+      </Box>
       {hasComments && <hr />}
       <Typography variant="h4" align="center">
         {t('leaveComment')}

@@ -85,5 +85,19 @@ export const TopicState = {
         hasBody: true,
       },
     },
+    deleteComments: {
+      api: {
+        verb: VERBS.delete,
+        endpoint: '/topics/comments',
+        hasBody: true,
+      },
+    },
+    replyComment: {
+      api: {
+        verb: VERBS.post,
+        endpoint: '/topics/:slug/comments/:id',
+        hasBody: true,
+      },
+    },
   },
 };

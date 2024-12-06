@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import {
   DeleteOutlineOutlined,
@@ -13,6 +13,8 @@ import {
   RRVTable,
   renderRowActionMenus,
 } from '../../../common/components/RRVTable';
+import { useAlertDialog } from '../../../common/hooks/useAlertDialog';
+import { useMuiSearchPagination } from '../../../common/hooks/useMuiSearchPagination';
 import { dashboardActions } from '../../../helpers/topics';
 import { notifier, toLink } from '../../../helpers/utils/constants';
 import { actions } from '../../../redux/actions';
@@ -42,29 +44,24 @@ const dashboardMenus = (t) => [
     action: 'home',
   },
 ];
-const alertInitial = {
-  current: null,
-  action: '',
-  message: '',
-  open: false,
-};
+
 const HomeDashboard = ({ countFetch }) => {
-  const [globalFilter, setGlobalFilter] = useState('');
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [alertData, setAlertData] = useState(alertInitial);
+  const { alertValues, reset, setAlertValues } = useAlertDialog();
+  const { paginator, ...tableProps } = useMuiSearchPagination();
   const { data: counts, isFetching, isSuccess, ...restCountsQ } = countFetch;
   const { data: overviewData, ...overviewQ } = actions.useGetOverviewTopicQuery(
-    { truncate: 200, search: globalFilter },
+    { truncate: 200, ...paginator },
   );
   const [updateTopic, updateRes] = actions.useUpdateTopicMutation();
   const [setOrRemoveTopicDisplay, displayRes] =
     actions.useSetHomeTopicMutation();
-  const { data: topics } = overviewData || initials.dataArr;
+  const { data: topics, totalItems } = overviewData || initials.dataArr;
 
   useEffect(() => {
     if (updateRes.isSuccess || displayRes.isSuccess) {
-      setAlertData(alertInitial);
+      reset();
       overviewQ.refetch();
       if (displayRes.isSuccess) {
         displayRes.reset();
@@ -83,26 +80,25 @@ const HomeDashboard = ({ countFetch }) => {
       return;
     }
     const { action, title } = dashboardActions(type, actionParams.row.original);
-    setAlertData((prev) => ({
-      ...prev,
+    setAlertValues({
       current: actionParams.row.original,
       open: true,
       action: type,
       message: `Are you sure you want to ${action.toUpperCase()} 
       "${title.toUpperCase()}"?`,
-    }));
+    });
   };
 
   const handleConfirmAction = () => {
-    const { current, action } = alertData;
-    if (action === 'publish') {
+    const { current, actionType } = alertValues;
+    if (actionType === 'publish') {
       updateTopic({
         slug: current.slug,
         isPublished: !current.isPublished,
       });
       return;
     }
-    if (action === 'home') {
+    if (actionType === 'home') {
       if (!current?.isPublished) {
         notifier.error(t('admin.home.publishDisclaimer'));
         return;
@@ -114,14 +110,12 @@ const HomeDashboard = ({ countFetch }) => {
       });
     }
   };
-  console.log({ globalFilter });
 
   return (
     <DashboardContainer title={t('admin.home.title')}>
       <AlertConfirm
-        {...alertData}
-        setOpen={() => setAlertData((prev) => ({ ...prev, ...alertInitial }))}
-        title={alertData.title}
+        {...alertValues}
+        setOpen={() => reset()}
         onConfirmYes={handleConfirmAction}
         loading={updateRes.isLoading || displayRes.isLoading}
       />
@@ -140,14 +134,14 @@ const HomeDashboard = ({ countFetch }) => {
         <RRVTable
           columns={dashboardTopicsColumns(t)}
           data={topics}
-          globalFilter={globalFilter}
-          setGlobalFilter={setGlobalFilter}
           isLoading={overviewQ.isFetching}
           enableRowActions
           renderRowActionMenuItems={renderRowActionMenus(
             handleMenuAction,
             dashboardMenus(t),
           )}
+          {...tableProps}
+          rowCount={totalItems || 0}
         />
       </Box>
     </DashboardContainer>

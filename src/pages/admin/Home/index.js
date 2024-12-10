@@ -83,7 +83,7 @@ const HomeDashboard = ({ countFetch }) => {
     setAlertValues({
       current: actionParams.row.original,
       open: true,
-      action: type,
+      actionType: type,
       message: `Are you sure you want to ${action.toUpperCase()} 
       "${title.toUpperCase()}"?`,
     });

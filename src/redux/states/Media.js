@@ -22,5 +22,12 @@ export const MediaState = {
         endpoint: '/albums',
       },
     },
+    syncAssets: {
+      api: {
+        verb: VERBS.post,
+        endpoint: '/albums/sync',
+        hasBody: true,
+      },
+    },
   },
 };

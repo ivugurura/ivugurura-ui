@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Grid, Card, CardHeader, CardContent } from '@mui/material';
+import { Grid, Card, CardHeader, CardContent, Button } from '@mui/material';
 
 import { RRVTable } from '../../../common/components/RRVTable';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
@@ -9,6 +9,7 @@ import { DashboardContainer } from '../components/DashboardContainer';
 
 import { NavConfigs } from './NavConfigs';
 import { pubsColumns } from './schema';
+import { SyncAudios } from './SyncAudio';
 
 const alertInitial = {
   current: null,
@@ -17,6 +18,7 @@ const alertInitial = {
 };
 const Settings = () => {
   const [alertData, setAlertData] = useState(alertInitial);
+  const [openSync, setOpenSync] = useState(false);
   const { data, isFetching, refetch } = actions.useGetPubsConfigQuery();
   const [publish, publishRes] = actions.usePublishTopicMutation();
 
@@ -57,7 +59,14 @@ const Settings = () => {
       <Grid container spacing={1}>
         <Grid item xs={12} lg={9}>
           <Card>
-            <CardHeader title="Public communication" />
+            <CardHeader
+              title="Public communication"
+              action={
+                <Button onClick={() => setOpenSync(true)}>
+                  Process audio sync
+                </Button>
+              }
+            />
             <CardContent>
               <RRVTable
                 columns={pubsColumns(handleSetAction)}
@@ -71,6 +80,7 @@ const Settings = () => {
           <NavConfigs />
         </Grid>
       </Grid>
+      <SyncAudios open={openSync} onClose={() => setOpenSync(false)} />
     </DashboardContainer>
   );
 };

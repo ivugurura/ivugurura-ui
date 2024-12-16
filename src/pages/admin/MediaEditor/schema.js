@@ -1,3 +1,7 @@
+import React from 'react';
+
+import { FormControl, MenuItem, Select, TextField } from '@mui/material';
+
 export const mediaSchema = (albums = []) => [
   [
     {
@@ -48,4 +52,94 @@ export const audioColumns = () => [
   { accessorKey: 'shares', header: 'Shares' },
   { accessorKey: 'createdAt', header: 'Date' },
   { accessorKey: 'actions', header: 'Actions' },
+];
+
+export const allAudioColumns = (inputChange, languages, albums) => [
+  { accessorKey: 'fileName', header: 'File name' },
+  {
+    header: 'Title',
+    Cell: ({ row: { original } }) => {
+      return (
+        <TextField
+          id="title"
+          size="small"
+          name="title"
+          value={original.title || ''}
+          onChange={inputChange(original, 'title')}
+        />
+      );
+    },
+  },
+  {
+    header: 'Language',
+    Cell: ({ row: { original } }) => (
+      <FormControl size="small">
+        <Select
+          labelId="lang-selector-label"
+          id="lang-selector"
+          value={original.languageId || ''}
+          onChange={inputChange(original, 'languageId')}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {languages.map((l) => (
+            <MenuItem value={l.id}>{l.name}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    ),
+  },
+  {
+    header: 'Author',
+    Cell: ({ row: { original } }) => (
+      <TextField
+        id="author"
+        size="small"
+        name="author"
+        value={original.author || ''}
+        onChange={inputChange(original, 'author')}
+      />
+    ),
+  },
+  {
+    header: 'Language',
+    Cell: ({ row: { original } }) => (
+      <FormControl size="small">
+        <Select
+          labelId="lang-selector-label"
+          id="lang-selector"
+          value={original.languageId || ''}
+          onChange={inputChange(original, 'languageId')}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {languages.map((l) => (
+            <MenuItem value={l.id}>{l.name}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    ),
+  },
+  {
+    header: 'Album',
+    Cell: ({ row: { original } }) => (
+      <FormControl size="small">
+        <Select
+          labelId="album-selector-label"
+          id="album-selector"
+          value={original.albumId || ''}
+          onChange={inputChange(original, 'albumId')}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {albums.map((a) => (
+            <MenuItem value={a.id}>{a.name}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    ),
+  },
 ];

@@ -12,6 +12,13 @@ export const AudioState = {
         endpoint: `/albums/medias/audio?${getParams(['search'])}`,
       },
     },
+    listAll: {
+      suffix: 's',
+      api: {
+        verb: VERBS.get,
+        endpoint: `/albums/medias/all/audio?${getParams()}`,
+      },
+    },
     create: {
       api: {
         verb: VERBS.post,

@@ -35,6 +35,7 @@ export const SyncAudios = ({ open, onClose }) => {
   const {
     data,
     isFetching,
+    isSuccess,
     refetch: refetchMedia,
   } = actions.useListAllAudiosQuery(paginator);
   const { data: filesRes, isFetching: fetchingFiles } =
@@ -45,12 +46,13 @@ export const SyncAudios = ({ open, onClose }) => {
   const { data: audios } = data || initials.dataArr;
 
   useEffect(() => {
-    if (audioFiles.length && audios.length) {
+    if (audioFiles.length && isSuccess) {
       const processed = [];
       audioFiles.forEach((file) => {
         const theAud = audios.find((a) => a.mediaLink === file.fileName);
         if (!theAud) {
-          processed.push(file);
+          const title = file.fileName.split('-')[0] || '';
+          processed.push({ ...file, title });
         }
       });
       setDiffAudios(processed);

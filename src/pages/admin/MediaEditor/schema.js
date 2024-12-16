@@ -55,8 +55,9 @@ export const audioColumns = () => [
 ];
 
 export const allAudioColumns = (inputChange, languages, albums) => [
-  { accessorKey: 'fileName', header: 'File name' },
+  { id: 'fileName', accessorKey: 'fileName', header: 'File name' },
   {
+    id: 'title',
     header: 'Title',
     Cell: ({ row: { original } }) => {
       return (
@@ -71,6 +72,7 @@ export const allAudioColumns = (inputChange, languages, albums) => [
     },
   },
   {
+    id: 'languageId',
     header: 'Language',
     Cell: ({ row: { original } }) => (
       <FormControl size="small">
@@ -84,13 +86,16 @@ export const allAudioColumns = (inputChange, languages, albums) => [
             <em>None</em>
           </MenuItem>
           {languages.map((l) => (
-            <MenuItem value={l.id}>{l.name}</MenuItem>
+            <MenuItem key={l.id} value={l.id}>
+              {l.name}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>
     ),
   },
   {
+    id: 'author',
     header: 'Author',
     Cell: ({ row: { original } }) => (
       <TextField
@@ -103,26 +108,7 @@ export const allAudioColumns = (inputChange, languages, albums) => [
     ),
   },
   {
-    header: 'Language',
-    Cell: ({ row: { original } }) => (
-      <FormControl size="small">
-        <Select
-          labelId="lang-selector-label"
-          id="lang-selector"
-          value={original.languageId || ''}
-          onChange={inputChange(original, 'languageId')}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {languages.map((l) => (
-            <MenuItem value={l.id}>{l.name}</MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    ),
-  },
-  {
+    id: 'albumId',
     header: 'Album',
     Cell: ({ row: { original } }) => (
       <FormControl size="small">

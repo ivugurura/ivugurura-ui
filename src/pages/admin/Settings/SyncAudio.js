@@ -11,6 +11,7 @@ import {
 
 import { RRVTable } from '../../../common/components/RRVTable/Table';
 import { useMuiSearchPagination } from '../../../common/hooks/useMuiSearchPagination';
+import { notifier } from '../../../helpers/utils/constants';
 import { actions } from '../../../redux/actions';
 import { initials } from '../../../redux/apiSliceBuilder';
 import { allAudioColumns } from '../MediaEditor/schema';
@@ -58,6 +59,10 @@ export const SyncAudios = ({ open, onClose }) => {
 
   useEffect(() => {
     if (syncRes.isSuccess) {
+      const { succeeded, failed } = syncRes.data.data;
+      const message = `Succeeded:${succeeded}, failed:${failed}`;
+
+      notifier.success(message);
       refetchMedia();
       syncRes.reset();
     }

@@ -22,7 +22,9 @@ const Label = styled(Paper)(({ theme }) => ({
 
 export const TopicImages = () => {
   const dispatch = useDispatch();
-  const { data, isFetching } = actions.useGetImagesMediaQuery();
+  const { data, isFetching } = actions.useGetResourcesMediaQuery({
+    resourceType: 'image',
+  });
   const { data: topicImages } = data || initials.dataArr;
   const filePathName = useSelector((state) => state.filer.fileName);
 

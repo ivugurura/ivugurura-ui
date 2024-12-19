@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Typography,
 } from '@mui/material';
 
 import { RRVTable } from '../../../common/components/RRVTable/Table';
@@ -31,7 +32,7 @@ const albums = [
 export const SyncAudios = ({ open, onClose }) => {
   const [diffAudios, setDiffAudios] = useState([]);
   const [syncAssets, syncRes] = actions.useSyncAssetsMediaMutation();
-  const { paginator, ...tableProps } = useMuiSearchPagination();
+  const { paginator, ...tableProps } = useMuiSearchPagination(1, 300);
   const {
     data,
     isFetching,
@@ -110,6 +111,9 @@ export const SyncAudios = ({ open, onClose }) => {
         <DialogContentText>
           While migrating the server some data has lost include audios. The
           modal wil help us to bring them back
+          <Typography variant="h4">
+            Total records. Files: {audioFiles.length}, Audios: {audios.length}
+          </Typography>
         </DialogContentText>
         <RRVTable
           columns={allAudioColumns(handleInputChange, langs, albums)}

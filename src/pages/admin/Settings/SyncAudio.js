@@ -57,7 +57,7 @@ export const SyncAudios = ({ open, onClose }) => {
       });
       setDiffAudios(processed);
     }
-  }, [audioFiles.length, audios.length]);
+  }, [audioFiles.length, audios.length, isSuccess]);
 
   useEffect(() => {
     if (syncRes.isSuccess) {

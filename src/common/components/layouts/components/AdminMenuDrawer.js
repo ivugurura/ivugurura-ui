@@ -94,12 +94,14 @@ const dashboardMenus = (lang = 'en', role = undefined, t = () => {}) => [
 ];
 export const AdminMenuDrawer = () => {
   const { t } = useTranslation();
-  const [open, setOpen] = React.useState(false);
+  const [currentlyOpen, setCurrentlyOpen] = React.useState(null);
   const { user } = useSelector((state) => state.auth);
   const { lang } = useLang();
-  const handleOpen = () => {
-    setOpen((prevOpen) => !prevOpen);
+
+  const handleOpen = (key) => {
+    setCurrentlyOpen((prev) => (prev === key ? null : key));
   };
+
   return (
     <div>
       <Toolbar />
@@ -116,14 +118,14 @@ export const AdminMenuDrawer = () => {
                   primary={menuRoute.name}
                   icon={menuRoute.icon}
                   to={menuRoute.routes?.length > 0 ? undefined : menuRoute.to}
-                  open={open}
-                  canExpand
-                  onClick={handleOpen}
+                  open={currentlyOpen === menuRoute.key}
+                  canExpand={menu.key !== 'settings'}
+                  onClick={() => handleOpen(menuRoute.key)}
                 />
                 {menuRoute.routes?.length > 0 && (
                   <Collapse
                     component="li"
-                    in={open}
+                    in={currentlyOpen === menuRoute.key}
                     timeout="auto"
                     unmountOnExit
                   >

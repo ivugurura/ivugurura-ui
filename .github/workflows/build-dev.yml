@@ -65,5 +65,6 @@ jobs:
             echo "Unzip the build"
             tar zxvf build-staging.tar.gz
             echo "Restart the server"
+            export NODE_ENV=staging
             pm2 restart 1
             echo "Done"

@@ -65,5 +65,6 @@ jobs:
             echo "Unzip the build"
             tar zxvf build.tar.gz
             echo "Restart the server"
+            export NODE_ENV=production
             pm2 restart 0
             echo "Done"

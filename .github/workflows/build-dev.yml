@@ -60,8 +60,8 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd ${{ secrets.PROJECT_ROOT_DIR }}
-            echo "Restart the server"
             echo "Unzip the build"
             tar zxvf build-staging.tar.gz
+            echo "Restart the server"
             pm2 restart 1
             echo "Done"

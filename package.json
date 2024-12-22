@@ -19,6 +19,7 @@
     "build": "react-scripts build",
     "build-prod": "npm run build && npm run compress",
     "mv-build": "rm -rf ../ivugururaApi/build && mv build ../ivugururaApi/build",
+    "mv-build-staging": "rm -rf ../ivugururaApi/build-staging && mv build ../ivugururaApi/build-staging",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "compress": "tar zcvf build.tar.gz build/",

@@ -2,6 +2,8 @@ import React from 'react';
 
 import { TextField, MenuItem } from '@mui/material';
 
+import { styles } from './styles';
+
 export const RRVInput = (props) => {
   const {
     id,
@@ -9,13 +11,14 @@ export const RRVInput = (props) => {
     select = false,
     options = [],
     value = '',
-    size = 'small',
+    size = 'medium',
     valueSelector = 'id',
     labelSelector = 'name',
     ...inputProps
   } = props;
   return (
     <TextField
+      sx={styles.textfield}
       type={type}
       fullWidth
       select={select}

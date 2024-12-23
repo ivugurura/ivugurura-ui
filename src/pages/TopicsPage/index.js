@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 
 import { Home as HomeIcon, RssFeed as RssFeedIcon } from '@mui/icons-material';
-import { Masonry } from '@mui/lab';
-import { Avatar, Grid, CardHeader, Card } from '@mui/material';
+// import { Masonry } from '@mui/lab';
+import { Grid, Box, Typography, Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -15,8 +15,11 @@ import { RRVPagination } from '../../common/components/RRVPagination';
 import { PageHelmet } from '../../common/components/wrappers';
 import { usePagination } from '../../common/hooks/usePagination';
 import { useQueryParams } from '../../common/hooks/useQueryParams';
+import { palette } from '../../common/theme/palette';
 import { toLink } from '../../helpers/utils/constants';
 import { actions, initials } from '../../redux/apiSliceBuilder';
+import SearchBar from '../components/searchBar';
+import { styles } from '../TopicDetails/TopicDetails.style';
 import TopicItem from '../TopicItem';
 
 const initialCrumbsProps = {
@@ -37,26 +40,21 @@ const initialTopicHomeNavs = (t) => [
   },
 ];
 const CategoryItem = ({ category, selectedId, onClick }) => (
-  <Grid item xs={12} md={12}>
-    <Card
-      sx={{
-        background: category.id === selectedId ? 'silver' : 'transparent',
-        cursor: 'pointer',
-      }}
-      onClick={() => onClick(category)}
-    >
-      <CardHeader
-        avatar={
-          <Avatar
-            className="bg-gradient"
-            aria-label={`Image for ${category.name}`}
-          >
-            {category.name?.charAt(0)}
-          </Avatar>
-        }
-        title={category.name}
-      />
-    </Card>
+  <Grid item xs={10} md={10}>
+    <Box onClick={() => onClick(category)}>
+      <Typography
+        sx={{
+          color:
+            category.id === selectedId
+              ? palette.blackColor
+              : palette.text.secondary,
+          cursor: 'pointer',
+          pb: 2,
+        }}
+      >
+        {category.name.toUpperCase()}
+      </Typography>
+    </Box>
   </Grid>
 );
 
@@ -145,75 +143,104 @@ const TopicsPage = () => {
     topicsNavs[(topicsNavs?.length ?? 0) - 1]?.breadcumbMenu;
   return (
     <PageHelmet title={t('topics')}>
-      <Grid container spacing={1}>
-        <Grid item md={9} sm={12}>
-          <Grid container>
-            <Grid item md={12}>
-              <RRVBreadcrumbs crumbs={topicsNavs} />
-              <RRVMenu
-                handleClose={handleMenuClose}
-                menuId={breadcrumbMenu?.id}
-                menus={[{ id: '', name: allTopics }]
-                  .concat(categories)
-                  .map((c) => ({
-                    ...c,
-                    onClick: () => handleCategoryClick(c),
-                  }))}
-                anchorEl={breadcrumbMenu?.anchorEl}
-                open={Boolean(breadcrumbMenu?.anchorEl)}
-                lebelledBy={breadcrumbMenu?.lebelledBy}
-              />
-            </Grid>
-            <Grid item md={12}>
-              <Grid container>
-                {isFetching ? (
-                  <TopicsCardSkeleton />
-                ) : (
-                  <>
-                    <Masonry columns={3}>
-                      {topics?.length > 0 &&
-                        topics.map((topic) => (
-                          <TopicItem key={topic.slug} topic={topic} hasMore />
-                        ))}
-                    </Masonry>
-                    <RRVPagination
-                      handleChangePage={handleChangePage}
-                      handleChangeRowsPerPage={handleChangeRowsPerPage}
-                      dataCount={totalItems}
-                      page={tablePage}
-                      pageSize={pageSize}
-                      labelRowsPerPage="N topics per page:"
+      <Box>
+        <Grid item md={12}>
+          <RRVBreadcrumbs crumbs={topicsNavs} />
+          <RRVMenu
+            handleClose={handleMenuClose}
+            menuId={breadcrumbMenu?.id}
+            menus={[{ id: '', name: allTopics }]
+              .concat(categories)
+              .map((c) => ({
+                ...c,
+                onClick: () => handleCategoryClick(c),
+              }))}
+            anchorEl={breadcrumbMenu?.anchorEl}
+            open={Boolean(breadcrumbMenu?.anchorEl)}
+            lebelledBy={breadcrumbMenu?.lebelledBy}
+          />
+        </Grid>
+        <Box display="flex" flexDirection="column" alignItems="center" py={4}>
+          <Typography variant="subtitle2" py={4}>
+            {t('readOurBlog')}
+          </Typography>
+          <Typography variant="h1" fontWeight={800}>
+            {t('teachings').toUpperCase()}
+          </Typography>
+        </Box>
+
+        <Grid container spacing={2}>
+          <Grid item md={3.6} sm={12} mt={8}>
+            <Grid container>
+              {categoriesLoading ? (
+                <TopicListItemSkeleton totalItem={6} />
+              ) : (
+                <Box sx={{ display: 'flex', width: '100%' }}>
+                  <Divider
+                    orientation="vertical"
+                    sx={styles.dividers}
+                    flexItem
+                  />
+
+                  <Box sx={{ flexGrow: 1 }}>
+                    <CategoryItem
+                      category={{ id: null, name: allTopics }}
+                      selectedId={selectedCategoryId}
+                      onClick={handleCategoryClick}
                     />
-                  </>
-                )}
+                    {categories?.map((cat) => (
+                      <CategoryItem
+                        key={cat.id}
+                        category={cat}
+                        selectedId={selectedCategoryId}
+                        onClick={handleCategoryClick}
+                      />
+                    ))}
+                  </Box>
+                </Box>
+              )}
+            </Grid>
+          </Grid>
+
+          <Grid item md={8} sm={12}>
+            <SearchBar />
+            <Grid container pt={2}>
+              <Grid item md={12}>
+                <Grid container>
+                  {isFetching ? (
+                    <TopicsCardSkeleton />
+                  ) : (
+                    <>
+                      {topics?.length > 0 && (
+                        <Grid container spacing={3}>
+                          {topics.map((topic) => (
+                            <Grid item md={5}>
+                              <TopicItem
+                                key={topic.slug}
+                                topic={topic}
+                                hasMore
+                              />
+                            </Grid>
+                          ))}
+                        </Grid>
+                      )}
+
+                      <RRVPagination
+                        handleChangePage={handleChangePage}
+                        handleChangeRowsPerPage={handleChangeRowsPerPage}
+                        dataCount={totalItems}
+                        page={tablePage}
+                        pageSize={pageSize}
+                        labelRowsPerPage="N topics per page:"
+                      />
+                    </>
+                  )}
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item md={3} sm={12}>
-          <Grid container spacing={1}>
-            {categoriesLoading ? (
-              <TopicListItemSkeleton totalItem={6} />
-            ) : (
-              <>
-                <CategoryItem
-                  category={{ id: null, name: allTopics }}
-                  selectedId={selectedCategoryId}
-                  onClick={handleCategoryClick}
-                />
-                {categories?.map((cat) => (
-                  <CategoryItem
-                    key={cat.id}
-                    category={cat}
-                    selectedId={selectedCategoryId}
-                    onClick={handleCategoryClick}
-                  />
-                ))}
-              </>
-            )}
-          </Grid>
-        </Grid>
-      </Grid>
+      </Box>
     </PageHelmet>
   );
 };

@@ -1,5 +1,18 @@
 .title {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.linearBack {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+  padding: 10px;
+}
+.moreBtn {
+  text-transform: none;
+  color: #161722;
+  padding: 10px;
 }

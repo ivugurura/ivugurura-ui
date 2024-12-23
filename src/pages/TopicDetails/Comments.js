@@ -70,21 +70,29 @@ export const Comments = ({ slug }) => {
         ))}
       </Box>
       {hasComments && <hr />}
-      <Typography variant="h4" align="center">
-        {t('leaveComment')}
-      </Typography>
-      <Typography>{t('notEmailPublish')}</Typography>
-      <RRVForm
-        fields={commentSchema(t)}
-        states={comment}
-        setStates={setComment}
-      />
-      <Button
-        onClick={() => save({ ...comment, slug })}
-        disabled={saveRes.isLoading}
-      >
-        {t(saveRes.isLoading ? 'actions.loading' : 'actions.btnSend')}
-      </Button>
+      <Box style={styles.commentSpace}>
+        <Typography variant="h4" align="center">
+          {t('leaveComment')}
+        </Typography>
+        <Typography>{t('notEmailPublish')}</Typography>
+        <RRVForm
+          fields={commentSchema(t)}
+          states={comment}
+          setStates={setComment}
+        />
+        <Box sx={styles.btnContainer}>
+          <Button
+            variant="contained"
+            sx={styles.submitBtn}
+            onClick={() => save({ ...comment, slug })}
+            disabled={saveRes.isLoading}
+          >
+            {t(
+              saveRes.isLoading ? 'actions.loading' : 'actions.btnSend',
+            ).toUpperCase()}
+          </Button>
+        </Box>
+      </Box>
     </Grid>
   );
 };

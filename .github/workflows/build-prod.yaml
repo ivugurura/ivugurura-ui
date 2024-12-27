@@ -44,8 +44,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: 'build.tar.gz'
-          target: '${{ secrets.PROJECT_ROOT_DIR }}'
+          source: build.tar.gz
+          target: ${{ secrets.PROJECT_ROOT_DIR }}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@master

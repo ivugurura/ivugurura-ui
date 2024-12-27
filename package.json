@@ -14,16 +14,18 @@
     "start": "babel-node server.js",
     "dev": "react-scripts start",
     "lint": "eslint .",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "lint:fix": "eslint --fix .",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}'",
     "build": "react-scripts build",
     "build-prod": "npm run build && npm run compress",
     "mv-build": "rm -rf ../ivugururaApi/build && mv build ../ivugururaApi/build",
-    "mv-build-staging": "rm -rf ../ivugururaApi/build-staging && mv build ../ivugururaApi/build-staging",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "compress": "tar zcvf build.tar.gz build/",
-    "un-compress": "tar zxvf build.tar.gz"
+    "un-compress": "tar zxvf build.tar.gz",
+    "mv-build-staging": "rm -rf ../ivugururaApi/build-staging && mv build ../ivugururaApi/build-staging",
+    "compress-staging": "tar zcvf build-staging.tar.gz build-staging/",
+    "un-compress-staging": "tar zxvf build-staging.tar.gz"
   },
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",

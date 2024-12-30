@@ -4,10 +4,12 @@ const white = '#FFFFFF';
 const black = '#000000';
 const blackColor = '#161722';
 const grey = '#A6A6A7';
+const darkBlue = '#18232C';
 export const palette = {
   black,
   white,
   blackColor,
+  darkBlue,
   primary: {
     contrastText: white,
     dark: colors.blue[900],

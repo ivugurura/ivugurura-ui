@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { toLink } from '../../../helpers/utils/constants';
+import { palette } from '../../theme/palette';
 import { useLang } from '../providers';
 import { RRVDropdown } from '../RRVDropdown';
 import { RRVSearch } from '../RRVSearch';
@@ -25,11 +26,7 @@ import { SearchModal } from './SearchModal';
 const AdditionalMenu = ({ navigate, t }) => {
   return (
     <>
-      <Button
-        variant="text"
-        onClick={() => navigate(toLink('audios'))}
-        sx={{ textTransform: 'none' }}
-      >
+      <Button variant="text" onClick={() => navigate(toLink('audios'))}>
         <Typography sx={{ color: 'white' }}>{t('audios')}</Typography>
       </Button>
       <Button variant="text">
@@ -51,11 +48,15 @@ export const NavBar = ({ navCategories = [] }) => {
           title={category.name}
           variant="text"
           buttonProps={{
-            sx: { color: { md: 'white' } },
+            sx: { color: { md: 'white' }, ml: 2 },
           }}
           options={category.categories.map((cat) => (
             <Button
               variant="text"
+              sx={{
+                color: palette.blackColor,
+                textTransform: 'none',
+              }}
               key={cat.id}
               onClick={() => navigate(toLink(`topics?t=${cat.slug}`))}
             >
@@ -85,6 +86,7 @@ export const NavBar = ({ navCategories = [] }) => {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
+              p: 1,
             }}
           >
             {t('logo').toUpperCase()}
@@ -121,7 +123,7 @@ export const NavBar = ({ navCategories = [] }) => {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
+              // fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',

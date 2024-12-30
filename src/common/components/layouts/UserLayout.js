@@ -27,7 +27,7 @@ const userRoutes = [
 ];
 
 export const UserLayout = () => (
-  <Box px={2} py={1} sx={{ minHeight: '70vh' }}>
+  <Box sx={{ minHeight: '70vh' }}>
     {/* <h2>Users layout</h2> */}
     <Routes>
       {userRoutes.map(({ path, component: Component }) => (

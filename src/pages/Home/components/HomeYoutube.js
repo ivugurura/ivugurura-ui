@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 
+import { Box, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import YouTube from 'react-youtube';
 
 import { useWindowSize } from '../../../common/hooks/useWindowSize';
@@ -39,18 +41,41 @@ export const HomeYoutube = ({
       }
     }
   }, [ytData, randomize]);
-  return isFetching ? (
-    <YoutubeLoader />
-  ) : (
-    <YouTube
-      videoId={videoId}
-      opts={{
-        ...playerSizes,
-        playerVars: {
-          // https://developers.google.com/youtube/player_parameters
-          autoplay: 0,
-        },
-      }}
-    />
+  const { t } = useTranslation();
+  return (
+    <Box className="sermons" py={6}>
+      {isFetching ? (
+        <YoutubeLoader />
+      ) : (
+        <Box>
+          <Box textAlign="center">
+            <Typography variant="subtitle2" fontWeight={400} fontSize={14}>
+              {' '}
+              {t('watchListen')}
+            </Typography>
+            <Typography
+              variant="subtitle2"
+              fontWeight={700}
+              fontSize={36}
+              py={3}
+            >
+              {' '}
+              {t('watchLatest')}
+            </Typography>
+          </Box>
+
+          <YouTube
+            videoId={videoId}
+            opts={{
+              ...playerSizes,
+              playerVars: {
+                // https://developers.google.com/youtube/player_parameters
+                autoplay: 0,
+              },
+            }}
+          />
+        </Box>
+      )}
+    </Box>
   );
 };

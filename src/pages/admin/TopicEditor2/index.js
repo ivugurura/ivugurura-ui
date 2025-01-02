@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { PageHelmet } from '../../../common/components/PageHelmet';
 import { toLink } from '../../../helpers/utils/constants';
 import { setFilePath } from '../../../redux/actions';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
@@ -75,7 +74,7 @@ const TopicEditor2 = () => {
   console.log({ isFetching });
   const isLoading = res.isLoading || updateRes.isLoading;
   return (
-    <PageHelmet title="Edit page title">
+    <>
       <Header />
       <AboutTopic values={values} setValues={setValues} />
       <CoverImage
@@ -103,7 +102,7 @@ const TopicEditor2 = () => {
       <Button disabled={isLoading} onClick={handleSave}>
         {t(`actions.${isLoading ? 'loading' : 'btnSave'}`)}
       </Button>
-    </PageHelmet>
+    </>
   );
 };
 

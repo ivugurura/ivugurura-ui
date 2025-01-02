@@ -12,6 +12,7 @@ import {
 import { RRVBreadcrumbs } from '../../common/components/RRVBreadcrumbs/Breadcrumbs';
 import { RRVMenu } from '../../common/components/RRVMenu/RRVMenu';
 import { RRVPagination } from '../../common/components/RRVPagination';
+import { PageHelmet } from '../../common/components/wrappers';
 import { usePagination } from '../../common/hooks/usePagination';
 import { useQueryParams } from '../../common/hooks/useQueryParams';
 import { toLink } from '../../helpers/utils/constants';
@@ -143,72 +144,77 @@ const TopicsPage = () => {
   const breadcrumbMenu =
     topicsNavs[(topicsNavs?.length ?? 0) - 1]?.breadcumbMenu;
   return (
-    <Grid container spacing={1}>
-      <Grid item md={9} sm={12}>
-        <Grid container>
-          <Grid item md={12}>
-            <RRVBreadcrumbs crumbs={topicsNavs} />
-            <RRVMenu
-              handleClose={handleMenuClose}
-              menuId={breadcrumbMenu?.id}
-              menus={[{ id: '', name: allTopics }]
-                .concat(categories)
-                .map((c) => ({ ...c, onClick: () => handleCategoryClick(c) }))}
-              anchorEl={breadcrumbMenu?.anchorEl}
-              open={Boolean(breadcrumbMenu?.anchorEl)}
-              lebelledBy={breadcrumbMenu?.lebelledBy}
-            />
-          </Grid>
-          <Grid item md={12}>
-            <Grid container>
-              {isFetching ? (
-                <TopicsCardSkeleton />
-              ) : (
-                <>
-                  <Masonry columns={3}>
-                    {topics?.length > 0 &&
-                      topics.map((topic) => (
-                        <TopicItem key={topic.slug} topic={topic} hasMore />
-                      ))}
-                  </Masonry>
-                  <RRVPagination
-                    handleChangePage={handleChangePage}
-                    handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    dataCount={totalItems}
-                    page={tablePage}
-                    pageSize={pageSize}
-                    labelRowsPerPage="N topics per page:"
-                  />
-                </>
-              )}
+    <PageHelmet title={t('topics')}>
+      <Grid container spacing={1}>
+        <Grid item md={9} sm={12}>
+          <Grid container>
+            <Grid item md={12}>
+              <RRVBreadcrumbs crumbs={topicsNavs} />
+              <RRVMenu
+                handleClose={handleMenuClose}
+                menuId={breadcrumbMenu?.id}
+                menus={[{ id: '', name: allTopics }]
+                  .concat(categories)
+                  .map((c) => ({
+                    ...c,
+                    onClick: () => handleCategoryClick(c),
+                  }))}
+                anchorEl={breadcrumbMenu?.anchorEl}
+                open={Boolean(breadcrumbMenu?.anchorEl)}
+                lebelledBy={breadcrumbMenu?.lebelledBy}
+              />
+            </Grid>
+            <Grid item md={12}>
+              <Grid container>
+                {isFetching ? (
+                  <TopicsCardSkeleton />
+                ) : (
+                  <>
+                    <Masonry columns={3}>
+                      {topics?.length > 0 &&
+                        topics.map((topic) => (
+                          <TopicItem key={topic.slug} topic={topic} hasMore />
+                        ))}
+                    </Masonry>
+                    <RRVPagination
+                      handleChangePage={handleChangePage}
+                      handleChangeRowsPerPage={handleChangeRowsPerPage}
+                      dataCount={totalItems}
+                      page={tablePage}
+                      pageSize={pageSize}
+                      labelRowsPerPage="N topics per page:"
+                    />
+                  </>
+                )}
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid item md={3} sm={12}>
-        <Grid container spacing={1}>
-          {categoriesLoading ? (
-            <TopicListItemSkeleton totalItem={6} />
-          ) : (
-            <>
-              <CategoryItem
-                category={{ id: null, name: allTopics }}
-                selectedId={selectedCategoryId}
-                onClick={handleCategoryClick}
-              />
-              {categories?.map((cat) => (
+        <Grid item md={3} sm={12}>
+          <Grid container spacing={1}>
+            {categoriesLoading ? (
+              <TopicListItemSkeleton totalItem={6} />
+            ) : (
+              <>
                 <CategoryItem
-                  key={cat.id}
-                  category={cat}
+                  category={{ id: null, name: allTopics }}
                   selectedId={selectedCategoryId}
                   onClick={handleCategoryClick}
                 />
-              ))}
-            </>
-          )}
+                {categories?.map((cat) => (
+                  <CategoryItem
+                    key={cat.id}
+                    category={cat}
+                    selectedId={selectedCategoryId}
+                    onClick={handleCategoryClick}
+                  />
+                ))}
+              </>
+            )}
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </PageHelmet>
   );
 };
 

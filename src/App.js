@@ -6,6 +6,7 @@ import {
   StyledEngineProvider,
   ThemeProvider as ThemeProviderV5,
 } from '@mui/material/styles';
+import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 // import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -37,7 +38,9 @@ const App = () => {
             <ToastContainer />
             <Suspense fallback={<LinearProgress />}>
               <LangProvider>
-                <AppRoutes />
+                <HelmetProvider>
+                  <AppRoutes />
+                </HelmetProvider>
               </LangProvider>
             </Suspense>
           </StyledEngineProvider>

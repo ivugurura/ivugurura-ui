@@ -4,7 +4,7 @@ import { Box, Card, Grid, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { RRVAudioPlayer } from '../../common/components/RRVAudioPlayer';
-import { Page } from '../../common/components/wrappers';
+import { PageHelmet } from '../../common/components/wrappers';
 import { actions } from '../../redux/apiSliceBuilder';
 
 import {
@@ -19,7 +19,7 @@ export const Home = () => {
   const { t } = useTranslation();
   const youtubeData = actions.useListYoutubesQuery();
   return (
-    <Page title="Home">
+    <PageHelmet>
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={6} lg={6}>
           <HomeYoutube youtubeData={youtubeData} />
@@ -74,7 +74,7 @@ export const Home = () => {
           </Grid>
         </Grid>
       </HomeContentLayout>
-    </Page>
+    </PageHelmet>
   );
 };
 

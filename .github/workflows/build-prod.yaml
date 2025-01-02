@@ -33,6 +33,7 @@ jobs:
           echo INLINE_RUNTIME_CHUNK=true >> .env
           echo SKIP_PREFLIGHT_CHECK=true >> .env
           echo HTTPS=true >> .env
+          echo REACT_APP_ENV=production >> .env
       - name: Install packages and run build the app
         run: |
           yarn

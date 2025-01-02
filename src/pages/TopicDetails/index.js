@@ -17,6 +17,7 @@ import {
   TopicListItemSkeleton,
 } from '../../common/components/loaders';
 import { RRVBreadcrumbs } from '../../common/components/RRVBreadcrumbs';
+import { PageHelmet } from '../../common/components/wrappers';
 import { toLink } from '../../helpers/utils/constants';
 import { actions, initials } from '../../redux/apiSliceBuilder';
 import TopicItem from '../TopicItem';
@@ -56,57 +57,59 @@ const TopicDetailPage = () => {
   }, [topic?.slug]);
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12} md={9}>
-        <Grid container>
-          <Grid item md={12}>
-            <RRVBreadcrumbs crumbs={topicNavs} />
+    <PageHelmet title={topic?.title}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={9}>
+          <Grid container>
+            <Grid item md={12}>
+              <RRVBreadcrumbs crumbs={topicNavs} />
+            </Grid>
+            <Grid item md={12}>
+              {isFetching ? (
+                <TopicDetailSkeleton />
+              ) : (
+                topic && (
+                  <TopicItem topic={topic} imageHeight="380" showComments />
+                )
+              )}
+            </Grid>
           </Grid>
-          <Grid item md={12}>
+        </Grid>
+        <Grid item xs={12} md={3} className="bg-gradient">
+          <Grid container spacing={1}>
             {isFetching ? (
-              <TopicDetailSkeleton />
+              <TopicListItemSkeleton totalItem={9} />
             ) : (
-              topic && (
-                <TopicItem topic={topic} imageHeight="380" showComments />
-              )
+              topic?.category?.relatedTopics.map((rt) => (
+                <Grid item key={rt.slug} sx={{ width: '100%' }}>
+                  <Card sx={{ cursor: 'pointer' }}>
+                    <CardHeader
+                      avatar={
+                        <Avatar className="bg-gradient" aria-label={rt.title}>
+                          {rt.title?.charAt(0)}
+                        </Avatar>
+                      }
+                      action={
+                        <IconButton aria-label={rt.title}>
+                          <MoreVertIcon />
+                        </IconButton>
+                      }
+                      onClick={() => {
+                        navigation(toLink(`topics/${rt.slug}`), {
+                          replace: true,
+                        });
+                      }}
+                      title={<strong>{rt.title}</strong>}
+                      subheader={`${t('updatedAt')} ${moment(rt.updatedAt).format('DD.MM.YYYY')}`}
+                    />
+                  </Card>
+                </Grid>
+              ))
             )}
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={12} md={3} className="bg-gradient">
-        <Grid container spacing={1}>
-          {isFetching ? (
-            <TopicListItemSkeleton totalItem={9} />
-          ) : (
-            topic?.category?.relatedTopics.map((rt) => (
-              <Grid item key={rt.slug} sx={{ width: '100%' }}>
-                <Card sx={{ cursor: 'pointer' }}>
-                  <CardHeader
-                    avatar={
-                      <Avatar className="bg-gradient" aria-label={rt.title}>
-                        {rt.title?.charAt(0)}
-                      </Avatar>
-                    }
-                    action={
-                      <IconButton aria-label={rt.title}>
-                        <MoreVertIcon />
-                      </IconButton>
-                    }
-                    onClick={() => {
-                      navigation(toLink(`topics/${rt.slug}`), {
-                        replace: true,
-                      });
-                    }}
-                    title={<strong>{rt.title}</strong>}
-                    subheader={`${t('updatedAt')} ${moment(rt.updatedAt).format('DD.MM.YYYY')}`}
-                  />
-                </Card>
-              </Grid>
-            ))
-          )}
-        </Grid>
-      </Grid>
-    </Grid>
+    </PageHelmet>
   );
 };
 

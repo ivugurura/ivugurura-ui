@@ -1,14 +1,13 @@
 import * as React from 'react';
 
-import { MoreVert as MoreVertIcon } from '@mui/icons-material';
+import { ArrowOutward } from '@mui/icons-material';
 import {
-  Avatar,
+  Box,
   Button,
   Card,
   CardContent,
-  CardHeader,
   CardMedia,
-  IconButton,
+  Typography,
 } from '@mui/material';
 import classNames from 'classnames';
 import parse from 'html-react-parser';
@@ -38,38 +37,49 @@ export const TopicItem = ({
     ? { component: Link, to: toLink(`topics/${topic.slug}`) }
     : {};
   return (
-    <Card className={classNames(className)}>
-      <CardHeader
-        avatar={
-          <Avatar className="bg-gradient" aria-label={topic.title}>
-            {topic.title?.charAt(0)}
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label={topic.title}>
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={topic.title}
-        subheader={`${t('updatedAt')} ${moment(topic.updatedAt).format('DD.MM.YYYY')}`}
-        className={styles.title}
-        {...linkProps}
-      />
-      <CardMedia
-        component="img"
-        height={imageHeight}
-        image={toAssetPath(topic.coverImage)}
-        alt={topic.title}
-      />
+    <Card sx={{ boxShadow: 'none' }} className={classNames(className)}>
+      <Box sx={{ position: 'relative' }}>
+        <CardMedia
+          component="img"
+          height={imageHeight}
+          image={toAssetPath(topic.coverImage)}
+          alt={topic.title}
+        />
+
+        <Box className={styles.linearBack}>
+          <Typography
+            variant="h6"
+            fontWeight={600}
+            className={styles.topic}
+            {...linkProps}
+          >
+            {topic.title}
+          </Typography>
+          <Typography
+            variant="subtitle2"
+            fontWeight={400}
+            fontSize={12}
+            className={styles.topic}
+          >
+            {`${moment(topic.updatedAt).format('DD MMM YYYY')}`}
+          </Typography>
+        </Box>
+      </Box>
       <CardContent>
         {parse(topic.content || 'No content available')}
-        {hasMore && (
-          <Button size="small" {...linkProps}>
-            {t('actions.more')}
-          </Button>
-        )}
+
         {showComments && <Comments slug={topic.slug} />}
       </CardContent>
+      {hasMore && (
+        <Button
+          size="small"
+          {...linkProps}
+          className={styles.moreBtn}
+          endIcon={<ArrowOutward fontSize="small" />}
+        >
+          {t('actions.more')}
+        </Button>
+      )}
     </Card>
   );
 };

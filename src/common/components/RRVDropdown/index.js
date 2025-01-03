@@ -54,6 +54,7 @@ export const RRVDropdown = ({
   size = 'small',
   buttonProps = {},
   menuProps = {},
+  share,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -74,7 +75,7 @@ export const RRVDropdown = ({
         onClick={handleClick}
         variant={variant}
         size={size}
-        endIcon={<KeyboardArrowDownIcon />}
+        endIcon={!share && <KeyboardArrowDownIcon />}
         {...buttonProps}
       >
         {title}

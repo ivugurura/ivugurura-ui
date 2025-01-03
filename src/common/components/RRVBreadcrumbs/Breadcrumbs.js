@@ -13,7 +13,7 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
     backgroundColor,
     height: theme.spacing(3),
     color: theme.palette.text.primary,
-    fontWeight: theme.typography.fontWeightRegular,
+    fontWeight: theme.typography.fontWeightMedium,
     '&:hover, &:focus': {
       backgroundColor: emphasize(backgroundColor, 0.06),
     },
@@ -25,7 +25,7 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
 }); // TypeScript only: need a type cast here because https://github.com/Microsoft/TypeScript/issues/26591
 
 export const RRVBreadcrumbs = ({ crumbs = [] }) => (
-  <div style={{ width: '100%', backgroundColor: '#f5f5f5' }}>
+  <div style={{ width: '100%', marginTop: '1rem' }}>
     <Breadcrumbs separator="›" aria-label="breadcrumb">
       {crumbs.map((crumb, index) => {
         const {

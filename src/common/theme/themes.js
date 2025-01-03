@@ -21,4 +21,50 @@ import { typography } from './typography';
 export const theme = createThemeV5({
   palette,
   typography,
+  components: {
+    MuiButton: {
+      variants: [
+        {
+          props: { variant: 'text' },
+          style: {
+            textTransform: 'none',
+            color: palette.blackColor,
+            '&:hover': {
+              backgroundColor: 'transparent',
+            },
+          },
+        },
+        {
+          props: { variant: 'contained' },
+          style: {
+            background: palette.darkBlue,
+            fontWeight: 400,
+            padding: '12px 10px',
+            borderRadius: '12px',
+            boxShadow: 'none',
+            color: '#fff',
+            '&:hover': {
+              boxShadow: 'none',
+              backgroundColor: '#161722a9',
+            },
+          },
+        },
+        {
+          props: { variant: 'outlined' },
+          style: {
+            color: palette.darkBlue,
+            fontWeight: 600,
+            p: 1.8,
+            borderRadius: '12px',
+            boxShadow: 'none',
+            border: `2px solid ${palette.darkBlue}`,
+            '&:hover': {
+              boxShadow: 'none',
+              backgroundColor: '#161722a9',
+            },
+          },
+        },
+      ],
+    },
+  },
 });

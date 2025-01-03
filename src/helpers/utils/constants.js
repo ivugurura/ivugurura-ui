@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Twitter } from '@mui/icons-material';
+import { Facebook, Instagram, X } from '@mui/icons-material';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 
@@ -88,7 +88,7 @@ export const socialMedias = [
   {
     name: 'X',
     url: 'https://x.com/Rev_Reformation',
-    icon: Twitter,
+    icon: X,
     classeName: 'icoTwitter',
   },
 ];
@@ -118,3 +118,4 @@ export const notifier = {
       toastId: messageId,
     }),
 };
+export const dateFormat = (value) => moment(value).format('DD MMMM YYYY');

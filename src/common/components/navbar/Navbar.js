@@ -25,15 +25,15 @@ import { SearchModal } from './SearchModal';
 const AdditionalMenu = ({ navigate, t }) => {
   return (
     <>
-      <Button
-        variant="text"
-        onClick={() => navigate(toLink('audios'))}
-        sx={{ textTransform: 'none' }}
-      >
-        <Typography sx={{ color: 'white' }}>{t('audios')}</Typography>
+      <Button variant="text" onClick={() => navigate(toLink('audios'))}>
+        <Typography sx={{ color: 'white', textTransform: 'uppercase' }}>
+          {t('audios')}
+        </Typography>
       </Button>
       <Button variant="text">
-        <Typography sx={{ color: 'white' }}>{t('contactUs')}</Typography>
+        <Typography sx={{ color: 'white', textTransform: 'uppercase' }}>
+          {t('contactUs')}
+        </Typography>
       </Button>
     </>
   );
@@ -51,7 +51,7 @@ export const NavBar = ({ navCategories = [] }) => {
           title={category.name}
           variant="text"
           buttonProps={{
-            sx: { color: { md: 'white' } },
+            sx: { color: { md: 'white' }, ml: 2, textTransform: 'uppercase' },
           }}
           options={category.categories.map((cat) => (
             <Button
@@ -85,6 +85,7 @@ export const NavBar = ({ navCategories = [] }) => {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
+              p: 1,
             }}
           >
             {t('logo').toUpperCase()}
@@ -121,7 +122,7 @@ export const NavBar = ({ navCategories = [] }) => {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
+              // fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',

@@ -24,8 +24,8 @@ export const HomeRecentTopics = ({
 
   return (
     <Box>
-      <Box display="flex" flexDirection="column" alignItems="center" py={4}>
-        <Typography variant="subtitle2" py={4}>
+      <Box display="flex" flexDirection="column" alignItems="center" pb={4}>
+        <Typography variant="subtitle2" py={2}>
           {t('readOurBlog')}
         </Typography>
         <Typography variant="h1" fontWeight={800}>

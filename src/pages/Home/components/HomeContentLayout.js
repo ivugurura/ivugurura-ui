@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Card, CardContent } from '@mui/material';
+import { Box } from '@mui/material';
 
 export const HomeContentLayout = ({ children, cardContentProps = {} }) => (
-  <Card color="red">
+  <Box>
     {/* <CardHeader title="Audio and video" subheader="Recents" /> */}
-    <CardContent {...cardContentProps}>{children}</CardContent>
-  </Card>
+    <Box {...cardContentProps}>{children}</Box>
+  </Box>
 );

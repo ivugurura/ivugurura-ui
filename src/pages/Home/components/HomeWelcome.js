@@ -14,24 +14,18 @@ export const HomeWelcomePage = () => {
         </Typography>
         <Typography
           variant="subtitle2"
-          py={4}
+          py={2}
           fontSize={36}
           fontWeight={700}
           lineHeight={1.2}
         >
-          {t('mission')}
+          {t('mathew2414')}
         </Typography>
         <Box display="flex">
           <Button variant="contained" startIcon={<PlayArrow />}>
             {t('listenRadio')}
           </Button>
-          <Button
-            variant="outlined"
-            startIcon={<PlayArrow />}
-            sx={{
-              mx: 2,
-            }}
-          >
+          <Button variant="outlined" startIcon={<PlayArrow />} sx={{ mx: 2 }}>
             {t('watch')}
           </Button>
         </Box>

@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { TopicsCardSkeleton } from '../../../common/components/loaders';
-import { palette } from '../../../common/theme/palette';
 import { toLink } from '../../../helpers/utils/constants';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
 import TopicItem from '../../TopicItem';
@@ -51,11 +50,7 @@ export const HomeRecentTopics = ({
           alignItems="flex-end"
         >
           <Box paddingTop={2}>
-            <Button
-              sx={{ textTransform: 'none', color: palette.blackColor }}
-              component={Link}
-              to={toLink('topics')}
-            >
+            <Button variant="text" component={Link} to={toLink('topics')}>
               {t('actions.viewMore')}
             </Button>
           </Box>

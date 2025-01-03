@@ -21,14 +21,14 @@ export const HomeLatestBlog = ({
   const { data: topics } = data || initials.dataArr;
 
   return (
-    <Box p={8}>
+    <Box py={4} px={8}>
       <Typography variant="subtitle2" fontSize={36} fontWeight={600}>
         {t('latest')}
       </Typography>
       <Typography
-        variant="subtitle2"
+        variant="subtitle1"
         py={4}
-        fontSize={18}
+        fontSize={16}
         fontWeight={400}
         lineHeight={1.2}
       >

@@ -44,13 +44,13 @@ export const typography = {
     lineHeight: '20px',
   },
   subtitle1: {
-    color: palette.text.primary,
+    color: palette.darkGreen,
     fontSize: '16px',
     letterSpacing: '-0.05px',
     lineHeight: '25px',
   },
   subtitle2: {
-    color: palette.text.secondary,
+    color: palette.darkBlue,
     fontWeight: 400,
     fontSize: '14px',
     letterSpacing: '-0.05px',

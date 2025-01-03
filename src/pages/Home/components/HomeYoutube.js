@@ -66,6 +66,7 @@ export const HomeYoutube = ({
 
           <YouTube
             videoId={videoId}
+            iframeClassName="youtube"
             opts={{
               ...playerSizes,
               playerVars: {

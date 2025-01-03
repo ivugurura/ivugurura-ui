@@ -18,7 +18,7 @@ export const RadioHome = () => {
 
   return (
     <Box px={8}>
-      <Box display="flex" justifyContent="center" pb={6}>
+      <Box display="flex" justifyContent="center" pb={4}>
         <Typography variant="subtitle2" fontWeight={700} fontSize={36}>
           {t('logoTitle').toUpperCase()}
         </Typography>

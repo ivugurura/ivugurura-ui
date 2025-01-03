@@ -15,7 +15,6 @@ import { RRVPagination } from '../../common/components/RRVPagination';
 import { PageHelmet } from '../../common/components/wrappers';
 import { usePagination } from '../../common/hooks/usePagination';
 import { useQueryParams } from '../../common/hooks/useQueryParams';
-import { palette } from '../../common/theme/palette';
 import { toLink } from '../../helpers/utils/constants';
 import { actions, initials } from '../../redux/apiSliceBuilder';
 import SearchBar from '../components/searchBar';
@@ -43,14 +42,7 @@ const CategoryItem = ({ category, selectedId, onClick }) => (
   <Grid item xs={10} md={10}>
     <Box onClick={() => onClick(category)}>
       <Typography
-        sx={{
-          color:
-            category.id === selectedId
-              ? palette.blackColor
-              : palette.text.secondary,
-          cursor: 'pointer',
-          pb: 2,
-        }}
+        sx={category.id === selectedId ? styles.select : styles.unselect}
       >
         {category.name.toUpperCase()}
       </Typography>

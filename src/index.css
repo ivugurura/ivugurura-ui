@@ -17,11 +17,16 @@ a {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 60vh;
+  height: 45vh;
 }
 .sermons {
   background-color: #eff7fc;
   display: flex;
   justify-content: center;
   margin: 1rem 0;
+}
+
+.youtube {
+  width: 1189px;
+  height: 644px;
 }

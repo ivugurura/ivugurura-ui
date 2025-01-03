@@ -1,3 +1,5 @@
+import { palette } from '../../common/theme/palette';
+
 export const styles = {
   root: {
     margin: '20px auto',
@@ -69,5 +71,24 @@ export const styles = {
     display: 'flex',
     justifyContent: 'flex-end',
     paddingTop: '10px',
+  },
+  dividers: {
+    borderColor: palette.blackColor,
+    borderWidth: '0.5px',
+    margin: '0 10px',
+    height: 'auto',
+  },
+  slug: {
+    cursor: 'pointer',
+  },
+  unselect: {
+    color: palette.text.secondary,
+    cursor: 'pointer',
+    paddingBottom: '20px',
+  },
+  select: {
+    color: palette.blackColor,
+    cursor: 'pointer',
+    paddingBottom: '20px',
   },
 };

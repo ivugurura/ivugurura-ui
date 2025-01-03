@@ -50,7 +50,7 @@ export const MainFooter = ({ navCategories = [] }) => {
                   </li>
                 ))}
               </ul>
-              <address>
+              <p>
                 {t('contactUs')}:
                 <br />
                 <a
@@ -60,7 +60,7 @@ export const MainFooter = ({ navCategories = [] }) => {
                 >
                   abagorozi@yahoo.com
                 </a>
-              </address>
+              </p>
             </Grid>
           </Grid>
           <Grid container>

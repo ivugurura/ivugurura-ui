@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+import { ArrowOutward } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -15,7 +15,6 @@ import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { palette } from '../../common/theme/palette';
 import {
   toAssetPath,
   toLink,
@@ -51,16 +50,16 @@ export const TopicItem = ({
           <Typography
             variant="h6"
             fontWeight={600}
-            sx={{ color: palette.white }}
+            className={styles.topic}
             {...linkProps}
           >
             {topic.title}
           </Typography>
           <Typography
-            variant="subtitle1"
+            variant="subtitle2"
             fontWeight={400}
             fontSize={12}
-            sx={{ color: palette.white }}
+            className={styles.topic}
           >
             {`${moment(topic.updatedAt).format('DD MMM YYYY')}`}
           </Typography>
@@ -76,7 +75,7 @@ export const TopicItem = ({
           size="small"
           {...linkProps}
           className={styles.moreBtn}
-          endIcon={<ArrowOutwardIcon fontSize="small" />}
+          endIcon={<ArrowOutward fontSize="small" />}
         >
           {t('actions.more')}
         </Button>

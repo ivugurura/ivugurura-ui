@@ -13,7 +13,6 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { toLink } from '../../../helpers/utils/constants';
-import { palette } from '../../theme/palette';
 import { useLang } from '../providers';
 import { RRVDropdown } from '../RRVDropdown';
 import { RRVSearch } from '../RRVSearch';
@@ -27,10 +26,14 @@ const AdditionalMenu = ({ navigate, t }) => {
   return (
     <>
       <Button variant="text" onClick={() => navigate(toLink('audios'))}>
-        <Typography sx={{ color: 'white' }}>{t('audios')}</Typography>
+        <Typography sx={{ color: 'white', textTransform: 'uppercase' }}>
+          {t('audios')}
+        </Typography>
       </Button>
       <Button variant="text">
-        <Typography sx={{ color: 'white' }}>{t('contactUs')}</Typography>
+        <Typography sx={{ color: 'white', textTransform: 'uppercase' }}>
+          {t('contactUs')}
+        </Typography>
       </Button>
     </>
   );
@@ -48,15 +51,11 @@ export const NavBar = ({ navCategories = [] }) => {
           title={category.name}
           variant="text"
           buttonProps={{
-            sx: { color: { md: 'white' }, ml: 2 },
+            sx: { color: { md: 'white' }, ml: 2, textTransform: 'uppercase' },
           }}
           options={category.categories.map((cat) => (
             <Button
               variant="text"
-              sx={{
-                color: palette.blackColor,
-                textTransform: 'none',
-              }}
               key={cat.id}
               onClick={() => navigate(toLink(`topics?t=${cat.slug}`))}
             >

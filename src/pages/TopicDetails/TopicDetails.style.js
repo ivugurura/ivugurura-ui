@@ -2,17 +2,14 @@ import { palette } from '../../common/theme/palette';
 
 export const styles = {
   root: {
-    margin: '20px auto',
-    background: '#fff',
-    padding: '20px',
+    margin: '20px 0',
     borderRadius: '8px',
-    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
   },
   title: {
     fontSize: '24px',
     marginBottom: '20px',
     textAlign: 'center',
-    color: '#555',
+    color: palette.blackColor,
   },
   comment: {
     border: '1px solid #ddd',

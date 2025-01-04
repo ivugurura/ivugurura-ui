@@ -125,9 +125,13 @@ const TopicDetailPage = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Comments slug={topic.slug} />
-        </Box>
+        <Grid container spacing={2} display="flex" justifyContent="center">
+          <Grid item xs={10}>
+            <Box>
+              <Comments slug={topic.slug} />
+            </Box>
+          </Grid>
+        </Grid>
       </Box>
     </PageHelmet>
   );

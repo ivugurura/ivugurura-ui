@@ -45,7 +45,6 @@ const PageHelmet = ({ title, description, keywords, children, ...rest }) => {
 
 PageHelmet.propTypes = {
   children: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired,
 };
 
 export default PageHelmet;

@@ -127,9 +127,11 @@ const TopicDetailPage = () => {
         </Grid>
         <Grid container spacing={2} display="flex" justifyContent="center">
           <Grid item xs={10}>
-            <Box>
-              <Comments slug={topic.slug} />
-            </Box>
+            {topic.slug && (
+              <Box>
+                <Comments slug={topic.slug} />
+              </Box>
+            )}
           </Grid>
         </Grid>
       </Box>

@@ -74,6 +74,7 @@ export const RRVAudioPlayer = ({
     pageSize: nOfAudios,
   });
   const { data: audios, totalItems } = data || initials.dataArr;
+
   useEffect(() => {
     if (audios?.length > 0) {
       setCurrentAudio({ index: 0, audio: audios[0] });
@@ -107,16 +108,33 @@ export const RRVAudioPlayer = ({
   const closeVolumeControl = () => {
     setShowVolumeControl(false);
   };
-  const handlePlayPause = () => {
-    if (audioPlayerRef.current) {
-      if (isPlaying) {
-        audioPlayerRef.current.audio.current.pause();
+  const handlePlayPause = async (audio) => {
+    try {
+      if (!audio) return;
+
+      if (!currentAudio.audio || audio.id !== currentAudio.audio.id) {
+        setCurrentAudio({
+          index: audios.findIndex((a) => a.id === audio.id),
+          audio,
+        });
+        setIsPlaying(true);
       } else {
-        audioPlayerRef.current.audio.current.play();
+        // eslint-disable-next-line no-lonely-if
+        if (audioPlayerRef.current) {
+          if (isPlaying) {
+            audioPlayerRef.current.audio.current.pause();
+          } else {
+            audioPlayerRef.current.audio.current.play();
+          }
+          setIsPlaying(!isPlaying);
+        }
       }
-      setIsPlaying(!isPlaying);
+    } catch (error) {
+      console.error('Error handling audio:', error);
+      setIsPlaying(false);
     }
   };
+
   const handleLoop = () => {
     if (audioPlayerRef.current) {
       const audio = audioPlayerRef.current.audio.current;
@@ -250,11 +268,12 @@ export const RRVAudioPlayer = ({
         <Grid item md={7.8} sm={12}>
           <SearchBar />
           <List>
-            {audios?.map((audio, audioIdx) => {
+            {audios?.map((audio) => {
               const isCurrent = audio.id === currentAudio.audio?.id;
               return (
                 <React.Fragment key={audio.id}>
                   <ListItem
+                    onClick={() => handlePlayPause(audio)}
                     sx={{
                       ...useStyles.listItem,
                       ...(isCurrent && useStyles.selectedListItem),
@@ -267,12 +286,10 @@ export const RRVAudioPlayer = ({
                         // orientation={isMobile ? 'vertical' : 'horizontal'}
                       >
                         <IconButton
-                          onClick={() =>
-                            setCurrentAudio({ index: audioIdx, audio })
-                          }
+                          onClick={() => handlePlayPause(audio)}
                           sx={useStyles.listIcon}
                         >
-                          {isCurrent ? <Pause /> : <PlayArrow />}
+                          {isCurrent && isPlaying ? <Pause /> : <PlayArrow />}
                         </IconButton>
 
                         <IconButton

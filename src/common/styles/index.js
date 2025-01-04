@@ -164,6 +164,7 @@ export const useStyles = {
     margin: 1,
     borderRadius: '32px',
     paddingBottom: 0,
+    cursor: 'pointer',
   },
   selectedListItem: {
     border: '2px solid #1F323C',
@@ -171,6 +172,7 @@ export const useStyles = {
   listOverview: {
     background: 'transparent',
     paddingBottom: 0,
+    cursor: 'pointer',
   },
 
   cardAudio: {
@@ -184,6 +186,7 @@ export const useStyles = {
   audioText: {
     color: '#DEFFF9',
   },
+
   playWrapper: {
     display: 'flex',
     flexDirection: 'column',

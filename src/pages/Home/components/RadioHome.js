@@ -269,7 +269,7 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
                           <Box
                             px={1}
                             sx={useStyles.audioText}
-                            onClick={handlePlayPause}
+                            onClick={() => handlePlayPause(audio)}
                           >
                             {isPlaying && isCurrent ? (
                               <PauseCircle fontSize="large" />

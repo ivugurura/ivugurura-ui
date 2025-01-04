@@ -26,7 +26,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { useLang } from '../../../common/components';
+import { useLang } from '../../../common/components/providers';
 import { RadioKing } from '../../../common/components/Radio';
 import AudioPlay from '../../../common/components/RRVAudioPlayer/audio';
 import { AudioVisualizer } from '../../../common/components/RRVAudioPlayer/audioVisualizerBar';

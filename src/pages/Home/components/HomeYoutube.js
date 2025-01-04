@@ -56,7 +56,13 @@ export const HomeYoutube = ({
             <Typography
               variant="subtitle2"
               fontWeight={700}
-              fontSize={36}
+              sx={{
+                fontSize: {
+                  xs: '20px',
+                  sm: '28px',
+                  md: '36px',
+                },
+              }}
               py={3}
             >
               {' '}

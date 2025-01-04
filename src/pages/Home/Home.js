@@ -32,11 +32,9 @@ export const Home = () => {
             <RadioHome />
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
-            <Grid container spacing={1}>
-              <Grid item md={12}>
-                <HomeYoutube youtubeData={youtubeData} />
-              </Grid>
-              {/* <Grid item md={6}>
+            <HomeYoutube youtubeData={youtubeData} />
+
+            {/* <Grid item md={6}>
                 <Card>
                   <Box
                     sx={{
@@ -59,7 +57,6 @@ export const Home = () => {
                   <HomeCarousel />
                 </Card>
               </Grid> */}
-            </Grid>
           </Grid>
         </Grid>
         <HomeContentLayout cardContentProps={{ sx: { paddingBottom: 0 } }}>

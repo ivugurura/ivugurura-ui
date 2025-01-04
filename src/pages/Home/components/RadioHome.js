@@ -132,13 +132,34 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
   return (
     <Box px={8}>
       <Box display="flex" justifyContent="center" pb={4}>
-        <Typography variant="subtitle2" fontWeight={700} fontSize={36}>
+        <Typography
+          variant="subtitle2"
+          fontWeight={700}
+          sx={{
+            fontSize: {
+              xs: '20px',
+              sm: '28px',
+              md: '36px',
+            },
+          }}
+        >
           {t('logoTitle').toUpperCase()}
         </Typography>
       </Box>
       <Grid container spacing={2}>
-        <Grid item xs={7}>
-          <Typography variant="subtitle2" fontWeight={700} fontSize={26} pb={4}>
+        <Grid item md={7} xs={12}>
+          <Typography
+            variant="subtitle2"
+            fontWeight={700}
+            sx={{
+              fontSize: {
+                xs: '16px',
+                sm: '20px',
+                md: '26px',
+              },
+            }}
+            pb={4}
+          >
             {t('latestAudio')}
           </Typography>
           <Card sx={useStyles.cardAudio}>
@@ -151,11 +172,17 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
                 </>
               ) : (
                 currentAudio.audio && (
-                  <Box display="flex" justifyContent="space-between">
+                  <Box
+                    display="flex"
+                    justifyContent="space-between"
+                    flexDirection={{ xs: 'column', sm: 'row' }} // Stack content on small screens
+                    alignItems={{ xs: 'flex-start', sm: 'center' }} // Adjust alignment for small screens
+                    gap={2}
+                  >
                     <Box>
                       <Typography
                         sx={useStyles.white}
-                        fontSize={20}
+                        fontSize={{ xs: 16, sm: 20 }}
                         fontWeight={600}
                         letterSpacing={-1}
                       >
@@ -163,7 +190,7 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
                       </Typography>
                       <Typography
                         sx={useStyles.audioText}
-                        fontSize={16}
+                        fontSize={{ xs: 12, sm: 16 }}
                         fontWeight={500}
                         py={2}
                       >
@@ -171,17 +198,37 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
                         {dateFormat(currentAudio.audio.createdAt)}
                       </Typography>
                     </Box>
-                    <img src="/img/audio.svg" alt="" />
-                    <IconButton
-                      sx={useStyles.audioText}
-                      onClick={handlePlayPause}
+                    <Box
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                      width={{ xs: '100%', sm: 'auto' }}
                     >
-                      {isPlaying ? (
-                        <PauseCircle fontSize="large" />
-                      ) : (
-                        <PlayCircle fontSize="large" />
-                      )}
-                    </IconButton>
+                      <img
+                        src="/img/audio.svg"
+                        alt=""
+                        style={{
+                          width: '100%',
+                          maxWidth: isMobile && '90px',
+                          height: 'auto',
+                        }}
+                      />
+                      <IconButton
+                        sx={{
+                          ...useStyles.audioText,
+
+                          fontSize: { xs: 'small', sm: 'large' },
+                        }}
+                        onClick={handlePlayPause}
+                      >
+                        {isPlaying ? (
+                          <PauseCircle fontSize="large" />
+                        ) : (
+                          <PlayCircle fontSize="large" />
+                        )}
+                      </IconButton>
+                    </Box>
+
                     <AudioPlay
                       ref={audioPlayerRef}
                       src={toAssetPath(currentAudio.audio.mediaLink, false)}
@@ -198,13 +245,19 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
                     <React.Fragment key={audio.id}>
                       <ListItem
                         onClick={() => handlePlayPause(audio)}
-                        sx={useStyles.listOverview}
-                        key={audio.id}
+                        sx={{
+                          ...useStyles.listOverview,
+                          flexDirection: { xs: 'column', sm: 'row' },
+                          alignItems: { xs: 'flex-start', sm: 'center' },
+                          gap: { xs: 2, sm: 0 },
+                        }}
                         secondaryAction={
                           <Box
                             size="small"
                             display="flex"
-                            // orientation={isMobile ? 'vertical' : 'horizontal'}
+                            flexDirection={{ xs: 'column', sm: 'row' }}
+                            alignItems="center"
+                            gap={1}
                           >
                             <Box>
                               <IconButton
@@ -222,7 +275,10 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
                               {showVolumeControl === audio.id && (
                                 <Box
                                   pt={3}
-                                  sx={useStyles.volumeContainer}
+                                  sx={{
+                                    ...useStyles.volumeContainer,
+                                    width: { xs: '100%', sm: 'auto' },
+                                  }}
                                   ref={volumeControlRef}
                                 >
                                   <Slider
@@ -256,7 +312,13 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
                         alignItems="flex-start"
                       >
                         <ListItemIcon
-                          sx={{ minWidth: isMobile ? undefined : '56px' }}
+                          sx={{
+                            minWidth: { xs: '40px', sm: '56px' },
+                            flexDirection: { xs: 'column', sm: 'row' },
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: { xs: 1, sm: 0 },
+                          }}
                         >
                           <AudioVisualizer
                             isPlaying={isPlaying && isCurrent}
@@ -268,7 +330,11 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
                           />
                           <Box
                             px={1}
-                            sx={useStyles.audioText}
+                            sx={{
+                              ...useStyles.audioText,
+                              display: 'flex',
+                              justifyContent: 'center',
+                            }}
                             onClick={() => handlePlayPause(audio)}
                           >
                             {isPlaying && isCurrent ? (
@@ -282,7 +348,8 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
                         <Box
                           sx={{
                             display: 'flex',
-                            alignItems: 'center',
+                            flexDirection: { xs: 'column', sm: 'row' },
+                            alignItems: { xs: 'flex-start', sm: 'center' },
                             width: '100%',
                             gap: 1,
                           }}
@@ -290,7 +357,7 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
                           <ListItemText
                             primary={
                               <Typography
-                                fontSize={14}
+                                fontSize={{ xs: 12, sm: 14 }}
                                 fontWeight={700}
                                 color={
                                   isPlaying && isCurrent
@@ -304,7 +371,7 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
                             color="#fff"
                             secondary={
                               <Typography
-                                fontSize={12}
+                                fontSize={{ xs: 10, sm: 12 }}
                                 fontWeight={500}
                                 color={palette.listGrey}
                               >
@@ -315,6 +382,7 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
                           />
                           <Typography
                             variant="subtitle2"
+                            fontSize={{ xs: 10, sm: 12 }}
                             color={palette.listGrey}
                           >
                             {dateFormat(audio.createdAt)}
@@ -346,8 +414,19 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={4}>
-          <Typography variant="subtitle2" fontWeight={700} fontSize={26} pb={4}>
+        <Grid item md={4} xs={12}>
+          <Typography
+            variant="subtitle2"
+            fontWeight={700}
+            sx={{
+              fontSize: {
+                xs: '16px',
+                sm: '20px',
+                md: '26px',
+              },
+            }}
+            pb={4}
+          >
             {t('radio')}
           </Typography>
           <RadioKing />

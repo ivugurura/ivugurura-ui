@@ -23,12 +23,22 @@ export const HomeRecentTopics = ({
   const { data: topics } = data || initials.dataArr;
 
   return (
-    <Box>
+    <Box p={2}>
       <Box display="flex" flexDirection="column" alignItems="center" pb={4}>
         <Typography variant="subtitle2" py={2}>
           {t('readOurBlog')}
         </Typography>
-        <Typography variant="h1" fontWeight={800}>
+        <Typography
+          variant="h1"
+          sx={{
+            fontSize: {
+              xs: '20px',
+              sm: '28px',
+              md: '36px',
+            },
+          }}
+          fontWeight={800}
+        >
           {t('teachings').toUpperCase()}
         </Typography>
       </Box>

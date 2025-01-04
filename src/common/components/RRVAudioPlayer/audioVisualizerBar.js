@@ -2,7 +2,11 @@ import React from 'react';
 
 import { Box } from '@mui/material';
 
-export const AudioVisualizer = ({ isPlaying, isCurrent }) => {
+export const AudioVisualizer = ({
+  isPlaying,
+
+  background = '#000',
+}) => {
   const fixedHeights = ['30%', '70%', '50%', '60%'];
   const bars = 4;
 
@@ -22,14 +26,13 @@ export const AudioVisualizer = ({ isPlaying, isCurrent }) => {
           key={index}
           sx={{
             width: '3px',
-            backgroundColor: '#000',
+            backgroundColor: background,
             borderRadius: '2px',
             flex: 1,
-            height: isPlaying && isCurrent ? undefined : fixedHeights[index],
-            animation:
-              isPlaying && isCurrent
-                ? `barAnimation${index} 1.2s ease-in-out infinite`
-                : 'none',
+            height: isPlaying ? undefined : fixedHeights[index],
+            animation: isPlaying
+              ? `barAnimation${index} 1.2s ease-in-out infinite`
+              : 'none',
             '@keyframes barAnimation0': {
               '0%, 100%': { height: '30%' },
               '50%': { height: '80%' },

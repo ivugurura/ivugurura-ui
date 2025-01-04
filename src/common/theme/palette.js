@@ -7,6 +7,8 @@ const grey = '#A6A6A7';
 const darkBlue = '#18232C';
 const darkGray = '#101828';
 const darkGreen = '#475467';
+const listGrey = '#B3B3B3';
+const green = '#65D36E';
 export const palette = {
   black,
   white,
@@ -14,6 +16,8 @@ export const palette = {
   darkBlue,
   darkGray,
   darkGreen,
+  listGrey,
+  green,
   primary: {
     contrastText: white,
     dark: colors.blue[900],

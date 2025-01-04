@@ -20,6 +20,7 @@ export const RRVShare = ({
   href = '',
   title = '',
   displayText = true,
+  color,
 }) => {
   // const { t } = useTranslation();
   const shareOptions = [
@@ -49,7 +50,9 @@ export const RRVShare = ({
   );
   return (
     <RRVDropdown
-      buttonProps={{ startIcon: displayText && <ShareOutlined /> }}
+      buttonProps={{
+        startIcon: displayText && <ShareOutlined sx={{ color }} />,
+      }}
       // title={displayText && t('actions.share')}
       options={shareOptions}
       variant="text"

@@ -45,6 +45,8 @@
   "watchListen":"WATCH AND LISTEN",
   "watchLatest":"WATCH OUR LATEST SERMONS",
   "listenAudio":"Listen non stop to all reformation audios",
+  "latestAudio": "Latest Audios",
+  "radio":"Reformation Radio",
   "actions": {
     "label": "Actions",
     "btnSend": "Submit",

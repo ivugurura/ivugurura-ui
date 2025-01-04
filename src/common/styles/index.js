@@ -99,6 +99,9 @@ export const useStyles = {
   listIcon: {
     color: '#1D1B20',
   },
+  overviewIcon: {
+    color: '#fff',
+  },
   white: {
     color: '#fff',
   },
@@ -165,11 +168,18 @@ export const useStyles = {
   selectedListItem: {
     border: '2px solid #1F323C',
   },
+  listOverview: {
+    background: 'transparent',
+    paddingBottom: 0,
+  },
+
   cardAudio: {
     background: 'linear-gradient(to bottom, #395E71, #1A2932)',
     borderRadius: '48px',
     padding: '1rem',
-    margin: '16px',
+  },
+  cardContainer: {
+    margin: '4rem 0 0 0',
   },
   audioText: {
     color: '#DEFFF9',

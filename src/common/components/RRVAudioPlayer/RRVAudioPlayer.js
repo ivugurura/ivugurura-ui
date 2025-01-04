@@ -13,7 +13,7 @@ import {
   Pause,
 } from '@mui/icons-material';
 import {
-  Button,
+  // Button,
   Box,
   Divider,
   Grid,
@@ -30,36 +30,50 @@ import {
 } from '@mui/material';
 import AudioPlayer from 'react-h5-audio-player';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import {
   dateFormat,
   DL_ROUTE,
   toAssetPath,
 } from '../../../helpers/utils/constants';
+import SearchBar from '../../../pages/components/searchBar';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
+import { usePagination } from '../../hooks/usePagination';
 import { useStyles } from '../../styles/index';
-import { useLang } from '../providers';
+// import { useLang } from '../providers';
+import { RRVPagination } from '../RRVPagination';
 import { RRVShare } from '../RRVShare';
 
 import { AudioVisualizer } from './audioVisualizerBar';
 
 export const RRVAudioPlayer = ({
   displayText = true,
-  hasMore,
+  // hasMore,
   nOfAudios = 3,
 }) => {
   const { t } = useTranslation();
-  const { lang } = useLang();
+  // const { lang } = useLang();
   const [currentAudio, setCurrentAudio] = useState({ index: -1, audio: null });
   const { isMobile } = useMediaQuery();
   const [shareSong] = actions.useShareAudioMutation();
+  const [volume, setVolume] = useState(0);
+  const [showVolumeControl, setShowVolumeControl] = useState(false);
+  const audioPlayerRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isLooping, setIsLooping] = useState(false);
+
+  const {
+    pagination: { page, pageSize, tablePage },
+    handleChangePage,
+    handleChangeRowsPerPage,
+  } = usePagination();
   const { data, isFetching } = actions.useListAudiosQuery({
-    page: 1,
+    page,
     pageSize: nOfAudios,
   });
-  const { data: audios } = data || initials.dataArr;
+  const { data: audios, totalItems } = data || initials.dataArr;
   useEffect(() => {
     if (audios?.length > 0) {
       setCurrentAudio({ index: 0, audio: audios[0] });
@@ -78,11 +92,6 @@ export const RRVAudioPlayer = ({
     }
   };
 
-  const [volume, setVolume] = useState(0);
-  const [showVolumeControl, setShowVolumeControl] = useState(false);
-  const audioPlayerRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isLooping, setIsLooping] = useState(false);
   const handleVolumeChange = (_, newValue) => {
     const volumeValue = newValue / 100;
     setVolume(volumeValue);
@@ -176,7 +185,7 @@ export const RRVAudioPlayer = ({
   return isFetching ? (
     'Loading'
   ) : (
-    <Box>
+    <Box px={8}>
       <Box display="flex" flexDirection="column" alignItems="center" py={4}>
         <Typography variant="subtitle2" py={4}>
           {t('audio').toUpperCase()}
@@ -186,7 +195,7 @@ export const RRVAudioPlayer = ({
         </Typography>
       </Box>
       <Grid container spacing={2}>
-        <Grid item xs={4}>
+        <Grid item md={4} sm={12} sx={useStyles.cardContainer}>
           {currentAudio.audio && (
             <>
               <Card sx={useStyles.cardAudio}>
@@ -238,7 +247,8 @@ export const RRVAudioPlayer = ({
             </>
           )}
         </Grid>
-        <Grid item xs={7.8}>
+        <Grid item md={7.8} sm={12}>
+          <SearchBar />
           <List>
             {audios?.map((audio, audioIdx) => {
               const isCurrent = audio.id === currentAudio.audio?.id;
@@ -290,10 +300,7 @@ export const RRVAudioPlayer = ({
                     <ListItemIcon
                       sx={{ minWidth: isMobile ? undefined : '56px' }}
                     >
-                      <AudioVisualizer
-                        isPlaying={isPlaying}
-                        isCurrent={isCurrent}
-                      />
+                      <AudioVisualizer isPlaying={isPlaying && isCurrent} />
                     </ListItemIcon>
 
                     <Box
@@ -325,20 +332,27 @@ export const RRVAudioPlayer = ({
           </List>
         </Grid>
       </Grid>
-      {hasMore && (
-        <Grid
-          container
-          direction="column"
-          justifyContent="flex-end"
-          alignItems="flex-end"
-        >
-          <Box textAlign="center" paddingTop={2}>
+
+      <Grid
+        container
+        direction="column"
+        justifyContent="flex-end"
+        alignItems="flex-end"
+      >
+        <RRVPagination
+          handleChangePage={handleChangePage}
+          handleChangeRowsPerPage={handleChangeRowsPerPage}
+          dataCount={totalItems}
+          page={tablePage}
+          pageSize={pageSize}
+          labelRowsPerPage="N audios per page:"
+        />
+        {/* <Box textAlign="center" paddingTop={2}>
             <Button component={Link} to={`/${lang}/audios`}>
               {t('actions.viewMoreAudios')}
             </Button>
-          </Box>
-        </Grid>
-      )}
+          </Box> */}
+      </Grid>
     </Box>
   );
 };

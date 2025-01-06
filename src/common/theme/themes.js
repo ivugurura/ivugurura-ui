@@ -29,8 +29,15 @@ export const theme = createThemeV5({
           style: {
             textTransform: 'none',
             color: palette.blackColor,
+            fontSize: '14px',
             '&:hover': {
               backgroundColor: 'transparent',
+            },
+            '@media (max-width: 768px)': {
+              fontSize: '12px',
+            },
+            '@media (max-width: 480px)': {
+              fontSize: '12px',
             },
           },
         },
@@ -42,10 +49,17 @@ export const theme = createThemeV5({
             padding: '12px 10px',
             borderRadius: '12px',
             boxShadow: 'none',
+            fontSize: '14px',
             color: '#fff',
             '&:hover': {
               boxShadow: 'none',
               backgroundColor: '#161722a9',
+            },
+            '@media (max-width: 768px)': {
+              fontSize: '12px',
+            },
+            '@media (max-width: 480px)': {
+              fontSize: '12px',
             },
           },
         },
@@ -57,10 +71,17 @@ export const theme = createThemeV5({
             p: 1.8,
             borderRadius: '12px',
             boxShadow: 'none',
+            fontSize: '14px',
             border: `2px solid ${palette.darkBlue}`,
             '&:hover': {
               boxShadow: 'none',
               backgroundColor: '#161722a9',
+            },
+            '@media (max-width: 768px)': {
+              fontSize: '12px',
+            },
+            '@media (max-width: 480px)': {
+              fontSize: '12px',
             },
           },
         },

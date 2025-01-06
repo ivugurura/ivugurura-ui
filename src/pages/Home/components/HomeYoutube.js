@@ -52,18 +52,7 @@ export const HomeYoutube = ({
             <Typography variant="subtitle2" fontWeight={400} fontSize={14}>
               {t('watchListen').toUpperCase()}
             </Typography>
-            <Typography
-              variant="subtitle2"
-              fontWeight={700}
-              sx={{
-                fontSize: {
-                  xs: '20px',
-                  sm: '28px',
-                  md: '36px',
-                },
-              }}
-              py={3}
-            >
+            <Typography variant="h1" fontWeight={700} py={3}>
               {' '}
               {t('watchLatest')}
             </Typography>

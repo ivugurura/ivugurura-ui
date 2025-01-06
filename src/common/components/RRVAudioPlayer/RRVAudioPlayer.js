@@ -49,7 +49,6 @@ import { RRVShare } from '../RRVShare';
 import { AudioVisualizer } from './audioVisualizerBar';
 
 export const RRVAudioPlayer = ({
-  displayText = true,
   // hasMore,
   nOfAudios = 3,
 }) => {
@@ -213,7 +212,7 @@ export const RRVAudioPlayer = ({
         </Typography>
       </Box>
       <Grid container spacing={2}>
-        <Grid item md={4} sm={12} sx={useStyles.cardContainer}>
+        <Grid item md={4} sm={12} xs={12} sx={useStyles.cardContainer}>
           {currentAudio.audio && (
             <>
               <Card sx={useStyles.cardAudio}>
@@ -236,7 +235,15 @@ export const RRVAudioPlayer = ({
                     {dateFormat(currentAudio.audio.createdAt)}
                   </Typography>
                   <Box display="flex" justifyContent="space-between">
-                    <img src="/img/audio.svg" alt="" />
+                    <img
+                      src="/img/audio.svg"
+                      alt=""
+                      style={{
+                        width: '100%',
+                        maxWidth: isMobile && '90px',
+                        height: 'auto',
+                      }}
+                    />
                     <IconButton
                       sx={useStyles.audioText}
                       onClick={handlePlayPause}
@@ -265,7 +272,7 @@ export const RRVAudioPlayer = ({
             </>
           )}
         </Grid>
-        <Grid item md={7.8} sm={12}>
+        <Grid item md={7.8} sm={12} xs={12}>
           <SearchBar />
           <List>
             {audios?.map((audio) => {
@@ -277,12 +284,18 @@ export const RRVAudioPlayer = ({
                     sx={{
                       ...useStyles.listItem,
                       ...(isCurrent && useStyles.selectedListItem),
+                      flexDirection: { xs: 'column', sm: 'row' },
+                      alignItems: { xs: 'flex-start', sm: 'center' },
+                      gap: { xs: 2, sm: 0 },
                     }}
                     key={audio.id}
                     secondaryAction={
                       <Box
                         size="small"
-
+                        display="flex"
+                        flexDirection={{ xs: 'column', sm: 'row' }}
+                        alignItems="center"
+                        gap={1}
                         // orientation={isMobile ? 'vertical' : 'horizontal'}
                       >
                         <IconButton
@@ -297,18 +310,15 @@ export const RRVAudioPlayer = ({
                           rel="noreferrer"
                           href={DL_ROUTE + audio.slug}
                         >
-                          {displayText && (
-                            <FileDownloadOutlined
-                              sx={useStyles.listIcon}
-                              fontSize="small"
-                            />
-                          )}
+                          <FileDownloadOutlined
+                            sx={useStyles.listIcon}
+                            fontSize="small"
+                          />
                         </IconButton>
                         <RRVShare
                           title={audio.title}
                           href={DL_ROUTE + audio.slug}
                           onShare={() => shareSong({ slug: audio.slug })}
-                          displayText={displayText}
                         />
                       </Box>
                     }
@@ -323,7 +333,8 @@ export const RRVAudioPlayer = ({
                     <Box
                       sx={{
                         display: 'flex',
-                        alignItems: 'center',
+                        flexDirection: { xs: 'column', sm: 'row' },
+                        alignItems: { xs: 'flex-start', sm: 'center' },
                         width: '100%',
                         gap: 2,
                       }}

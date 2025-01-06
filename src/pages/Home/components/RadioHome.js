@@ -132,34 +132,13 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
   return (
     <Box px={8}>
       <Box display="flex" justifyContent="center" pb={4}>
-        <Typography
-          variant="subtitle2"
-          fontWeight={700}
-          sx={{
-            fontSize: {
-              xs: '20px',
-              sm: '28px',
-              md: '36px',
-            },
-          }}
-        >
+        <Typography variant="h1" fontWeight={700}>
           {t('logoTitle').toUpperCase()}
         </Typography>
       </Box>
       <Grid container spacing={2}>
         <Grid item md={7} xs={12}>
-          <Typography
-            variant="subtitle2"
-            fontWeight={700}
-            sx={{
-              fontSize: {
-                xs: '16px',
-                sm: '20px',
-                md: '26px',
-              },
-            }}
-            pb={4}
-          >
+          <Typography variant="h2" fontWeight={700} pb={4}>
             {t('latestAudio')}
           </Typography>
           <Card sx={useStyles.cardAudio}>
@@ -175,14 +154,14 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
                   <Box
                     display="flex"
                     justifyContent="space-between"
-                    flexDirection={{ xs: 'column', sm: 'row' }} // Stack content on small screens
-                    alignItems={{ xs: 'flex-start', sm: 'center' }} // Adjust alignment for small screens
+                    flexDirection={{ xs: 'column', sm: 'row' }}
+                    alignItems={{ xs: 'flex-start', sm: 'center' }}
                     gap={2}
                   >
                     <Box>
                       <Typography
                         sx={useStyles.white}
-                        fontSize={{ xs: 16, sm: 20 }}
+                        variant="subtitle1"
                         fontWeight={600}
                         letterSpacing={-1}
                       >
@@ -190,7 +169,7 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
                       </Typography>
                       <Typography
                         sx={useStyles.audioText}
-                        fontSize={{ xs: 12, sm: 16 }}
+                        variant="subtitle2"
                         fontWeight={500}
                         py={2}
                       >
@@ -351,13 +330,13 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
                             flexDirection: { xs: 'column', sm: 'row' },
                             alignItems: { xs: 'flex-start', sm: 'center' },
                             width: '100%',
-                            gap: 1,
+                            gap: 2,
                           }}
                         >
                           <ListItemText
                             primary={
                               <Typography
-                                fontSize={{ xs: 12, sm: 14 }}
+                                variant="subtitle2"
                                 fontWeight={700}
                                 color={
                                   isPlaying && isCurrent
@@ -415,18 +394,7 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
           </Card>
         </Grid>
         <Grid item md={4} xs={12}>
-          <Typography
-            variant="subtitle2"
-            fontWeight={700}
-            sx={{
-              fontSize: {
-                xs: '16px',
-                sm: '20px',
-                md: '26px',
-              },
-            }}
-            pb={4}
-          >
+          <Typography variant="h2" fontWeight={700} pb={4}>
             {t('radio')}
           </Typography>
           <RadioKing />

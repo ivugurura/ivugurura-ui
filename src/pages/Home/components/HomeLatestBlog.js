@@ -22,31 +22,15 @@ export const HomeLatestBlog = ({
 
   return (
     <Box py={4} px={8}>
-      <Typography
-        variant="subtitle2"
-        sx={{
-          fontSize: {
-            xs: '20px',
-            sm: '28px',
-            md: '36px',
-          },
-        }}
-        fontWeight={600}
-      >
+      <Typography variant="h1" fontWeight={600}>
         {t('latest')}
       </Typography>
 
       <Typography
         variant="subtitle1"
         sx={{
-          fontSize: {
-            xs: '12px',
-            sm: '14px',
-            md: '15px',
-            lg: '16px',
-          },
           fontWeight: 400,
-          lineHeight: 1.2,
+
           py: {
             xs: 2,
             sm: 3,

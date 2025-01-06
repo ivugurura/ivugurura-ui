@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { Box, Grid } from '@mui/material';
 // import { useTranslation } from 'react-i18next';
@@ -19,19 +19,29 @@ import { HomeContentLayout } from './components/HomeContentLayout';
 
 export const Home = () => {
   // const { t } = useTranslation();
+  const radioRef = useRef(null);
+  const youtubeRef = useRef(null);
   const youtubeData = actions.useListYoutubesQuery();
+
+  const scrollToSection = (section) => {
+    let ref = radioRef;
+    if (section === 'youtube') {
+      ref = youtubeRef;
+    }
+    ref.current.scrollIntoView({ behavior: 'smooth' });
+  };
   return (
     <PageHelmet>
       <Box>
-        <HomeWelcomePage />
+        <HomeWelcomePage onScrollTo={scrollToSection} />
         <Grid container spacing={1}>
           <Grid item xs={12} sm={12} md={12} lg={12}>
             <HomeLatestBlog />
           </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={12}>
+          <Grid item xs={12} sm={12} md={12} lg={12} ref={radioRef}>
             <RadioHome />
           </Grid>
-          <Grid item xs={12} sm={12} md={12}>
+          <Grid item xs={12} sm={12} md={12} ref={youtubeRef}>
             <HomeYoutube youtubeData={youtubeData} />
 
             {/* <Grid item md={6}>

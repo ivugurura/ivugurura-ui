@@ -4,7 +4,7 @@ import { PlayArrow } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-export const HomeWelcomePage = () => {
+export const HomeWelcomePage = ({ onScrollTo }) => {
   const { t } = useTranslation();
   return (
     <Box className="welcome">
@@ -57,6 +57,7 @@ export const HomeWelcomePage = () => {
               py: { xs: 1, sm: 1.5, md: 2 },
               minWidth: { xs: '120px', sm: '140px', md: '160px' },
             }}
+            onClick={() => onScrollTo('radio')}
           >
             {t('listenRadio')}
           </Button>
@@ -73,6 +74,7 @@ export const HomeWelcomePage = () => {
               py: { xs: 1, sm: 1.5, md: 2 },
               minWidth: { xs: '120px', sm: '140px', md: '160px' },
             }}
+            onClick={() => onScrollTo('youtube')}
           >
             {t('watch')}
           </Button>

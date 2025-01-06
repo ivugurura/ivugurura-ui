@@ -26,7 +26,7 @@ export const HomeRecentTopics = ({
     <Box p={2}>
       <Box display="flex" flexDirection="column" alignItems="center" pb={4}>
         <Typography variant="subtitle2" py={2}>
-          {t('readOurBlog')}
+          {t('readOurBlog').toUpperCase()}
         </Typography>
         <Typography
           variant="h1"
@@ -39,7 +39,7 @@ export const HomeRecentTopics = ({
           }}
           fontWeight={800}
         >
-          {t('teachings').toUpperCase()}
+          {t('teachings')}
         </Typography>
       </Box>
       <Grid container spacing={4} display="flex" justifyContent="center">

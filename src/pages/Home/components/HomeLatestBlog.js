@@ -14,7 +14,7 @@ export const HomeLatestBlog = ({
   truncate = 148,
 }) => {
   const { t } = useTranslation();
-  const { data, isFetching } = actions.useGetRecentTopicsQuery({
+  const { data, isFetching } = actions.useGetCsTopicsQuery({
     truncate,
   });
 
@@ -54,7 +54,7 @@ export const HomeLatestBlog = ({
           },
         }}
       >
-        {t('teachings')}
+        {t('teachings').toUpperCase()}
       </Typography>
 
       <Grid container spacing={2} display="flex" justifyContent="center">

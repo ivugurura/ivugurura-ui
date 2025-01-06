@@ -50,8 +50,7 @@ export const HomeYoutube = ({
         <Box>
           <Box textAlign="center">
             <Typography variant="subtitle2" fontWeight={400} fontSize={14}>
-              {' '}
-              {t('watchListen')}
+              {t('watchListen').toUpperCase()}
             </Typography>
             <Typography
               variant="subtitle2"

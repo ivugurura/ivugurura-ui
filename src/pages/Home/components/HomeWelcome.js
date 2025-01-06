@@ -21,7 +21,7 @@ export const HomeWelcomePage = () => {
           }}
           fontWeight={700}
         >
-          {t('welcome')}
+          {t('welcome').toUpperCase()}
         </Typography>
         <Typography
           variant="subtitle2"

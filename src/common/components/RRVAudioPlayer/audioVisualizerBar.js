@@ -2,11 +2,7 @@ import React from 'react';
 
 import { Box } from '@mui/material';
 
-export const AudioVisualizer = ({
-  isPlaying,
-
-  background = '#000',
-}) => {
+export const AudioVisualizer = ({ isPlaying, background = '#000' }) => {
   const fixedHeights = ['30%', '70%', '50%', '60%'];
   const bars = 4;
 

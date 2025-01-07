@@ -118,10 +118,7 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
   };
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        volumeControlRef.current &&
-        !volumeControlRef.current.contains(event.target)
-      ) {
+      if (!volumeControlRef.current?.contains(event.target)) {
         setShowVolumeControl(null);
       }
     };
@@ -195,10 +192,9 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
                       <IconButton
                         sx={{
                           ...useStyles.audioText,
-
                           fontSize: { xs: 'small', sm: 'large' },
                         }}
-                        onClick={handlePlayPause}
+                        onClick={() => handlePlayPause()}
                       >
                         {isPlaying ? (
                           <PauseCircle fontSize="large" />

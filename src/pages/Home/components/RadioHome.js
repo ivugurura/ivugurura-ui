@@ -63,33 +63,37 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
     }
   }, [audios]);
   const handlePlayPause = async (audio) => {
+    console.log({ audio }, currentAudio.audio);
+
     try {
-      if (audio.id !== currentAudio.audio?.id) {
-        setIsPlaying(false);
+      if (audio && audio.id !== currentAudio.audio?.id) {
+        // setIsPlaying(false);
 
         const newAudio = new Audio(toAssetPath(audio.mediaLink, false));
-
-        if (audioPlayerRef.current) {
-          audioPlayerRef.current.pause();
-          audioPlayerRef.current.src = '';
-          audioPlayerRef.current.load();
-        }
-
         audioPlayerRef.current = newAudio;
+
+        // if (audioPlayerRef.current) {
+        //   audioPlayerRef.current.pause();
+        //   audioPlayerRef.current.src = '';
+        //   audioPlayerRef.current.load();
+        // }
+
         setCurrentAudio({
           index: audios.findIndex((a) => a.id === audio.id),
           audio,
         });
 
-        await newAudio.play();
+        await audioPlayerRef.current.play();
         setIsPlaying(true);
       } else {
+        console.log({ isPlaying });
+
         if (isPlaying) {
           await audioPlayerRef.current?.pause();
         } else {
           await audioPlayerRef.current?.play();
         }
-        setIsPlaying(!isPlaying);
+        setIsPlaying((playing) => !playing);
       }
     } catch (error) {
       console.error('Error handling audio:', error);

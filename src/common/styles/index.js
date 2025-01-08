@@ -97,7 +97,7 @@ export const useStyles = {
     },
   },
   listIcon: {
-    color: '#1D1B20',
+    color: '#fff',
   },
   overviewIcon: {
     color: '#fff',

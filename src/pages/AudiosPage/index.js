@@ -53,10 +53,6 @@ const AudiosPage = () => {
     }
   }, [audios]);
 
-  const handleChangeAudio = (audio, index) => {
-    setCurrentAudio({ audio, index });
-  };
-
   console.log({ isFetching });
 
   return (
@@ -95,7 +91,7 @@ const AudiosPage = () => {
                     return (
                       <React.Fragment key={audio.id}>
                         <ListItem
-                          onClick={() => handleChangeAudio(audio, index)}
+                          onClick={() => setCurrentAudio({ audio, index })}
                           sx={{
                             ...useStyles.listItem,
                             ...(isCurrent && useStyles.selectedListItem),
@@ -114,7 +110,9 @@ const AudiosPage = () => {
                               // orientation={isMobile ? 'vertical' : 'horizontal'}
                             >
                               <IconButton
-                                onClick={() => handleChangeAudio(audio, index)}
+                                onClick={() =>
+                                  setCurrentAudio({ audio, index })
+                                }
                                 sx={useStyles.listIcon}
                               >
                                 {isCurrent && isPlaying ? (

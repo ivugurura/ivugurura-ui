@@ -8,6 +8,7 @@ import {
   VolumeUp,
   VolumeOff,
   Loop,
+  ArrowOutward,
 } from '@mui/icons-material';
 import {
   Box,
@@ -16,15 +17,30 @@ import {
   Card,
   CardContent,
   Slider,
+  Grid,
+  Button,
 } from '@mui/material';
 import AudioPlayer from 'react-h5-audio-player';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
-import { dateFormat, toAssetPath } from '../../../helpers/utils/constants';
+import {
+  dateFormat,
+  toAssetPath,
+  toLink,
+} from '../../../helpers/utils/constants';
 import { useStyles } from '../../styles/index';
 
+import { AudioList } from './AudioList';
 import { useRRVAudioPlayerCtx } from './provider';
 
-export const RRVAudioPlayer = ({ audios, currentAudio, setCurrentAudio }) => {
+export const RRVAudioPlayer = ({
+  audios,
+  currentAudio,
+  setCurrentAudio,
+  displayList = false,
+  displayMore = false,
+}) => {
   const {
     volume,
     isLooping,
@@ -37,6 +53,7 @@ export const RRVAudioPlayer = ({ audios, currentAudio, setCurrentAudio }) => {
     audioPlayerRef,
     changeMute,
   } = useRRVAudioPlayerCtx();
+  const { t } = useTranslation();
 
   const changePlayingAudio = (type = 'next') => {
     let newIndex = currentAudio.index + 1;
@@ -110,37 +127,61 @@ export const RRVAudioPlayer = ({ audios, currentAudio, setCurrentAudio }) => {
 
   return (
     <Card sx={useStyles.cardAudio}>
-      <CardContent>
-        <Typography
-          sx={useStyles.white}
-          fontSize={20}
-          fontWeight={600}
-          letterSpacing={-1}
-        >
-          {currentAudio.audio?.title}
-        </Typography>
-        <Typography
-          sx={useStyles.audioText}
-          fontSize={16}
-          fontWeight={500}
-          py={2}
-        >
-          {currentAudio.audio.author} -{' '}
-          {dateFormat(currentAudio.audio.createdAt)}
-        </Typography>
+      {currentAudio.audio && (
+        <CardContent>
+          <Typography
+            sx={useStyles.white}
+            fontSize={20}
+            fontWeight={600}
+            letterSpacing={-1}
+          >
+            {currentAudio.audio?.title}
+          </Typography>
+          <Typography
+            sx={useStyles.audioText}
+            fontSize={16}
+            fontWeight={500}
+            py={2}
+          >
+            {currentAudio.audio.author} -{' '}
+            {dateFormat(currentAudio.audio.createdAt)}
+          </Typography>
 
-        <Box sx={useStyles.playWrapper}>
-          <AudioPlayer
-            ref={audioPlayerRef}
-            showJumpControls={false}
-            volume={volume}
-            layout="stacked-reverse"
-            src={toAssetPath(currentAudio.audio.mediaLink, false)}
-            customAdditionalControls={[]}
-            customControlsSection={customControls}
-          />
-        </Box>
-      </CardContent>
+          <Box sx={useStyles.playWrapper}>
+            <AudioPlayer
+              ref={audioPlayerRef}
+              showJumpControls={false}
+              volume={volume}
+              layout="stacked-reverse"
+              src={toAssetPath(currentAudio.audio.mediaLink, false)}
+              customAdditionalControls={[]}
+              customControlsSection={customControls}
+            />
+          </Box>
+          {displayList && (
+            <AudioList {...{ audios, currentAudio, setCurrentAudio }} />
+          )}
+          {displayMore && (
+            <Grid
+              container
+              direction="column"
+              justifyContent="flex-end"
+              alignItems="flex-end"
+            >
+              <Box textAlign="center">
+                <Button
+                  component={Link}
+                  to={toLink('audios')}
+                  sx={useStyles.white}
+                  endIcon={<ArrowOutward fontSize="small" />}
+                >
+                  {t('actions.viewMoreAudios')}
+                </Button>
+              </Box>
+            </Grid>
+          )}
+        </CardContent>
+      )}
     </Card>
   );
 };

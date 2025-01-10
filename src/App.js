@@ -14,6 +14,7 @@ import { ToastContainer } from 'react-toastify';
 import { theme } from './common';
 import { ErrorBoundary, LangProvider } from './common/components';
 // import { buildAppStates } from './redux/stateBuilder';
+import { RRVAudioProvider } from './common/components/RRVAudioPlayer/provider';
 import { isAdminUrl, systemLanguage } from './helpers/utils/constants';
 import { store } from './redux/store';
 // import { ErrorBoundary } from './common/components/errors';
@@ -39,7 +40,9 @@ const App = () => {
             <Suspense fallback={<LinearProgress />}>
               <LangProvider>
                 <HelmetProvider>
-                  <AppRoutes />
+                  <RRVAudioProvider>
+                    <AppRoutes />
+                  </RRVAudioProvider>
                 </HelmetProvider>
               </LangProvider>
             </Suspense>

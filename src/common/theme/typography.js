@@ -4,16 +4,29 @@ export const typography = {
   h1: {
     color: palette.text.primary,
     fontWeight: 500,
-    fontSize: '35px',
+    fontSize: '36px',
     letterSpacing: '-0.24px',
     lineHeight: '40px',
+    '@media (max-width: 768px)': {
+      fontSize: '28px',
+      lineHeight: '34px',
+    },
+    '@media (max-width: 480px)': {
+      fontSize: '20px',
+      lineHeight: '30px',
+    },
   },
   h2: {
     color: palette.text.primary,
     fontWeight: 500,
-    fontSize: '29px',
+    fontSize: '26px',
     letterSpacing: '-0.24px',
-    lineHeight: '32px',
+    '@media (max-width: 768px)': {
+      fontSize: '20px',
+    },
+    '@media (max-width: 480px)': {
+      fontSize: '16px',
+    },
   },
   h3: {
     color: palette.text.primary,
@@ -45,16 +58,28 @@ export const typography = {
   },
   subtitle1: {
     color: palette.darkGreen,
-    fontSize: '16px',
+    fontSize: '18px',
     letterSpacing: '-0.05px',
-    lineHeight: '25px',
+    lineHeight: 1.2,
+    '@media (max-width: 768px)': {
+      fontSize: '16px',
+    },
+    '@media (max-width: 480px)': {
+      fontSize: '14px',
+    },
   },
   subtitle2: {
     color: palette.darkBlue,
     fontWeight: 400,
-    fontSize: '14px',
+    fontSize: '16px',
     letterSpacing: '-0.05px',
     lineHeight: '21px',
+    '@media (max-width: 768px)': {
+      fontSize: '14px',
+    },
+    '@media (max-width: 480px)': {
+      fontSize: '12px',
+    },
   },
   body1: {
     color: palette.text.primary,

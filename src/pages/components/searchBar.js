@@ -3,7 +3,10 @@ import React from 'react';
 import { Search } from '@mui/icons-material';
 import { TextField, InputAdornment } from '@mui/material';
 
+import { useMediaQuery } from '../../common/hooks/useMediaQuery';
+
 const SearchBar = () => {
+  const { isMobile } = useMediaQuery();
   return (
     <TextField
       variant="outlined"
@@ -21,7 +24,7 @@ const SearchBar = () => {
         },
       }}
       sx={{
-        width: '483px',
+        width: isMobile ? '100%' : '50%',
         '& .MuiOutlinedInput-root': {
           padding: '3px',
           '& fieldset': {

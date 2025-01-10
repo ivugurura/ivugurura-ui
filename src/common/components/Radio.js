@@ -21,6 +21,7 @@ export const RadioKing = () => {
           width: '100%',
           height: '16rem',
           border: 'none',
+          borderRadius: '32px',
         }}
       />
     </div>

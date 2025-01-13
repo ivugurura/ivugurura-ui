@@ -82,7 +82,11 @@ export const Home = () => {
           >
             <Card className="card">
               <CardContent>
-                <Box display="flex" justifyContent="space-between">
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  flexDirection={{ xs: 'column', sm: 'row' }}
+                >
                   <Typography variant="h2">{t('download')}</Typography>
                   <Box>
                     <img

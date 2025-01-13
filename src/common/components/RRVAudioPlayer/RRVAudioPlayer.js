@@ -81,12 +81,12 @@ export const RRVAudioPlayer = ({
     >
       <IconButton
         onClick={loopAudio}
-        sx={isLooping ? useStyles.listIcon : useStyles.unloop}
+        sx={isLooping ? useStyles.overviewIcon : useStyles.unloop}
       >
         <Loop />
       </IconButton>
       <IconButton
-        sx={useStyles.listIcon}
+        sx={useStyles.overviewIcon}
         disabled={currentAudio.index === 0}
         onClick={() => changePlayingAudio('prev')}
       >
@@ -94,7 +94,7 @@ export const RRVAudioPlayer = ({
       </IconButton>
       <IconButton
         onClick={() => playPauseAudio(currentAudio.audio)}
-        sx={useStyles.listIcon}
+        sx={useStyles.overviewIcon}
       >
         {isPlaying ? (
           <PauseCircle fontSize="large" />
@@ -103,14 +103,17 @@ export const RRVAudioPlayer = ({
         )}
       </IconButton>
       <IconButton
-        sx={useStyles.listIcon}
+        sx={useStyles.overviewIcon}
         disabled={currentAudio.index === (audios?.length || 0) - 1}
         onClick={() => changePlayingAudio('next')}
       >
         <SkipNext fontSize="large" />
       </IconButton>
       <Box sx={{ position: 'relative' }}>
-        <IconButton sx={useStyles.listIcon} onClick={() => changeMute(!mute)}>
+        <IconButton
+          sx={useStyles.overviewIcon}
+          onClick={() => changeMute(!mute)}
+        >
           {volume === 0 || mute ? <VolumeOff /> : <VolumeUp />}
         </IconButton>
         <Box sx={useStyles.volumeContainer}>
@@ -118,6 +121,7 @@ export const RRVAudioPlayer = ({
             value={volume * 100}
             onChange={changeVolume}
             aria-label="Volume"
+            orientation="vertical"
             sx={useStyles.slider}
           />
         </Box>

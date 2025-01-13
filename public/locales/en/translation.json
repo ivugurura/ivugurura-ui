@@ -46,6 +46,8 @@
   "listenAudio":"Listen non-stop to all reformation audios",
   "latestAudio": "Latest Audios",
   "radio":"Reformation Radio",
+  "download":"Download our app today!",
+  "downloadSubtext":"get easy and fast access to our content in realtime through our mobile app!",
   "actions": {
     "label": "Actions",
     "btnSend": "Send",

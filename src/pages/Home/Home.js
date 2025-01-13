@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 
-import { Box, Grid } from '@mui/material';
-// import { useTranslation } from 'react-i18next';
+import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 // import { RRVAudioPlayer } from '../../common/components/RRVAudioPlayer';
 import { PageHelmet } from '../../common/components/wrappers';
@@ -18,7 +18,7 @@ import {
 import { HomeContentLayout } from './components/HomeContentLayout';
 
 export const Home = () => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
   const radioRef = useRef(null);
   const youtubeRef = useRef(null);
   const youtubeData = actions.useListYoutubesQuery();
@@ -72,7 +72,41 @@ export const Home = () => {
         <HomeContentLayout cardContentProps={{ sx: { paddingBottom: 0 } }}>
           <HomeRecentTopics truncate={140} />
         </HomeContentLayout>
+
         <HomeContentLayout>
+          <Box
+            pb={8}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Card className="card">
+              <CardContent>
+                <Box display="flex" justifyContent="space-between">
+                  <Typography variant="h2">{t('download')}</Typography>
+                  <Box>
+                    <img
+                      src="/img/apple-img.svg"
+                      alt="download on app store"
+                      id="padding"
+                    />
+                    <img
+                      src="/img/android-img.svg"
+                      alt="download on play store"
+                    />
+                  </Box>
+                </Box>
+
+                <Typography
+                  variant="subtitle2"
+                  id="typography"
+                  fontWeight={400}
+                >
+                  {t('downloadSubtext')}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Box>
           {/* <Grid container spacing={1}>
             <Grid item xs={12} sm={12} md={5}>
               <RRVAudioPlayer displayText={false} hasMore />

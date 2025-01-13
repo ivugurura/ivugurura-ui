@@ -43,3 +43,16 @@ a {
     height: 50%;
   }
 }
+img#padding {
+  padding: 0 10px;
+}
+.card {
+  background: #f9fafb !important;
+  box-shadow: none !important;
+  border-radius: 16px !important;
+  width: 65%;
+  padding: 20px 10px;
+}
+#typography {
+  color: #475467 !important;
+}

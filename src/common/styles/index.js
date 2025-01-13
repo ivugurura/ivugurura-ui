@@ -97,7 +97,7 @@ export const useStyles = {
     },
   },
   listIcon: {
-    color: '#fff',
+    color: theme.palette.blackColor,
   },
   overviewIcon: {
     color: '#fff',
@@ -199,7 +199,7 @@ export const useStyles = {
     },
 
     '& .rhap_time': {
-      color: theme.palette.grey[600],
+      color: '#fff',
       fontWeight: '400',
       fontSize: '14px',
     },
@@ -225,17 +225,16 @@ export const useStyles = {
   },
   volumeContainer: {
     position: 'absolute',
-    top: '-70%',
-    left: '50%',
-    transform: 'translateX(-50%)',
+    top: '-226%',
+    left: '0%',
+    transform: 'translateX(-10%)',
     transformOrigin: 'left center',
     backgroundColor: '#fff',
     border: '1px solid #ccc',
     borderRadius: '8px',
-    padding: '4px 14px',
+    padding: '14px 4px',
     zIndex: 1000,
-
-    width: '120px',
+    height: '100px',
   },
   slider: {
     '& .MuiSlider-track': {

@@ -225,8 +225,8 @@ export const useStyles = {
   },
   volumeContainer: {
     position: 'absolute',
-    top: '-226%',
-    left: '0%',
+    top: '-177%',
+    left: '155%',
     transform: 'translateX(-10%)',
     transformOrigin: 'left center',
     backgroundColor: '#fff',

@@ -43,6 +43,7 @@ export const NavBar = ({ navCategories = [] }) => {
   const { lang } = useLang();
   const navigate = useNavigate();
   const [openSearch, setOpenSearch] = useState(false);
+  const [searchKey, setSearchKey] = useState('');
   const categories = useMemo(
     () =>
       navCategories.map((category) => (
@@ -66,6 +67,11 @@ export const NavBar = ({ navCategories = [] }) => {
       )),
     [navCategories.length],
   );
+
+  const handleSearch = ({ target: { value } }) => {
+    setSearchKey(value);
+    setOpenSearch(true);
+  };
 
   return (
     <AppBar position="sticky" className="bg-gradient">
@@ -134,7 +140,7 @@ export const NavBar = ({ navCategories = [] }) => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {categories}
             <AdditionalMenu navigate={navigate} t={t} />
-            <RRVSearch onClick={() => setOpenSearch(true)} />
+            <RRVSearch value={searchKey} onChange={handleSearch} />
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -174,7 +180,12 @@ export const NavBar = ({ navCategories = [] }) => {
           </Box>
         </Toolbar>
       </Container>
-      <SearchModal open={openSearch} onClose={() => setOpenSearch(false)} />
+      <SearchModal
+        open={openSearch}
+        onClose={() => setOpenSearch(false)}
+        searchKey={searchKey}
+        setSearchKey={setSearchKey}
+      />
     </AppBar>
   );
 };

@@ -21,9 +21,9 @@ export const AppRoutes = () => {
       <Route path="/" element={<UserMainLayout lang={lang} />}>
         <Route path="" element={<Navigate to={lang} replace />} />
         <Route path=":lang/*" element={<UserLayout />} />
+        <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
       </Route>
       <Route path="login" element={<LoginPage />} />
-      <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
       <Route
         path="admin/"
         element={

@@ -12,6 +12,7 @@ import {
 } from './common/components';
 
 const LoginPage = React.lazy(() => import('./pages/admin/Login'));
+const PrivacyPolicyPage = React.lazy(() => import('./pages/PrivacyPolicy'));
 export const AppRoutes = () => {
   const { lang } = useLang();
 
@@ -22,6 +23,7 @@ export const AppRoutes = () => {
         <Route path=":lang/*" element={<UserLayout />} />
       </Route>
       <Route path="login" element={<LoginPage />} />
+      <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
       <Route
         path="admin/"
         element={

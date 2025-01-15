@@ -7,7 +7,7 @@ const flagUrl = `${process.env.PUBLIC_URL}/img/flags/16`;
 export const systemLanguage = localStorage.getItem('i18nextLng') || 'en';
 export const isAdminUrl = () => {
   const { pathname } = window.location;
-  const urls = ['login', 'admin'];
+  const urls = ['login', 'admin', 'privacy-policy'];
   return urls.some((url) => pathname.includes(url));
 };
 

@@ -37,32 +37,34 @@
   "by": "Par",
   "readOurBlog": "Veillez lire le sujet",
   "teachings": "Enseignements, nouvelles et dévotions",
-  "blog":"Topic",
+  "blog": "Topic",
   "welcome": "Bienvenue à La Voix de la Réforme",
-  "watch":"Regardez des dévotions",
+  "watch": "Regardez des dévotions",
   "latest": "Les sujets sélectionnés",
-  "watchListen":"Regardez et écoutez",
-  "watchLatest":"Regardez nos derniers dévotions",
-  "listenAudio":"Écoutez sans interruption tous les audios de la Réforme",
+  "watchListen": "Regardez et écoutez",
+  "watchLatest": "Regardez nos derniers dévotions",
+  "listenAudio": "Écoutez sans interruption tous les audios de la Réforme",
   "latestAudio": "Derniers audios",
-  "radio":"Radio vocale de la Réforme",
+  "radio": "Radio vocale de la Réforme",
+  "appDownload": "Téléchargez les applications mobiles",
+  "appDownloadText": "Accédez facilement et rapidement à notre contenu en temps réel grâce à nos applications mobiles",
   "actions": {
-    "label":"Actes",
+    "label": "Actes",
     "btnSend": "Envoyer",
     "btnCancel": "Annuler",
-    "btnPreview":"Prévisualiser",
-    "btnSave":"Sauvegarder",
+    "btnPreview": "Prévisualiser",
+    "btnSave": "Sauvegarder",
     "loading": "Chargement,...",
     "viewMore": "Afficher plus de sujets",
     "viewMoreAudios": "Afficher plus d'audios",
     "more": "Les suivants",
     "edit": "Modifier",
-    "publish":"Publier",
-    "unpublish":"Annuler la publication",
-    "addHome":"Définir sur la page d'accueil",
-    "removeHome":"Supprimer de la page d'accueil",
-    "addNMedia":"Ajouter un nouveau média",
-    "addNAlbum":"Ajouter un nouvel album",
+    "publish": "Publier",
+    "unpublish": "Annuler la publication",
+    "addHome": "Définir sur la page d'accueil",
+    "removeHome": "Supprimer de la page d'accueil",
+    "addNMedia": "Ajouter un nouveau média",
+    "addNAlbum": "Ajouter un nouvel album",
     "play": "Lecture",
     "download": "Télécharger",
     "share": "Partager"
@@ -73,56 +75,56 @@
     "names": "Noms",
     "website": "Site web"
   },
-  "admin":{
-    "nav":{
-      "webRelated":"Lié au site Web",
+  "admin": {
+    "nav": {
+      "webRelated": "Lié au site Web",
       "website": "Site web",
-      "home":"Accueil",
-      "media":"Media",
-      "audio":"Audios",
-      "commentaries":"Commentaires",
-      "webSettings":"Paramètres de Web",
-      "systemUsers":"Utilisateurs du système",
-      "systemSettings":"Paramètres de système"
+      "home": "Accueil",
+      "media": "Media",
+      "audio": "Audios",
+      "commentaries": "Commentaires",
+      "webSettings": "Paramètres de Web",
+      "systemUsers": "Utilisateurs du système",
+      "systemSettings": "Paramètres de système"
     },
-    "confirm":{
-      "title":"Confirmer l'action",
-      "description":"Etes-vous sûr de vouloir "
+    "confirm": {
+      "title": "Confirmer l'action",
+      "description": "Etes-vous sûr de vouloir "
     },
-    "home":{
-      "title":"Tableau de bord d'administration",
+    "home": {
+      "title": "Tableau de bord d'administration",
       "publishDisclaimer": "S'il vous plaît, publiez d'abord le sujet",
       "loading": "Chargement du contenu...",
-      "tTitle":"Titre du sujet",
-      "tDescription":"Petite description",
-      "tViews":"Vues des utilisateurs",
-      "tPublished":"Date de publication",
+      "tTitle": "Titre du sujet",
+      "tDescription": "Petite description",
+      "tViews": "Vues des utilisateurs",
+      "tPublished": "Date de publication",
       "tStatus": "Statut",
       "published": "Publié",
       "unpublished": "Inédite"
     },
-    "topic":{
-      "subtitle":"Un nouveau sujet",
-      "title":"Ajouter un nouveau sujet",
-      "about":"À propos du sujet",
+    "topic": {
+      "subtitle": "Un nouveau sujet",
+      "title": "Ajouter un nouveau sujet",
+      "about": "À propos du sujet",
       "phTitle": "Titre du sujet",
-      "phCategory":"La categorie du sujet",
-      "addImage":"Ajouter une image de couverture",
-      "ciTitle":"Sélectionnez ou téléchargez une image de couverture pour le sujet",
-      "ciSubtitle":"L'image que vous sélectionnerez apparaîtra sur le sujet comme image de couverture d'arrière-plan.",
-      "ciTabUpload":"Téléchargez depuis votre ordinateur",
-      "ciTabSelect":"Choisissez parmi les images téléchargées",
-      "ciPhFile":"Insérer un fichier",
+      "phCategory": "La categorie du sujet",
+      "addImage": "Ajouter une image de couverture",
+      "ciTitle": "Sélectionnez ou téléchargez une image de couverture pour le sujet",
+      "ciSubtitle": "L'image que vous sélectionnerez apparaîtra sur le sujet comme image de couverture d'arrière-plan.",
+      "ciTabUpload": "Téléchargez depuis votre ordinateur",
+      "ciTabSelect": "Choisissez parmi les images téléchargées",
+      "ciPhFile": "Insérer un fichier",
       "detail": "Détails du sujet",
-      "phDetail":"Veuillez taper ici..."
+      "phDetail": "Veuillez taper ici..."
     },
-    "media":{
-      "title":"Tous les médias",
-      "tTitle":"Title",
-      "tType":"Type",
-      "tAuthor":"Auteur",
-      "tDownloads":"Téléchargements",
-      "tShares":"Actions"
+    "media": {
+      "title": "Tous les médias",
+      "tTitle": "Title",
+      "tType": "Type",
+      "tAuthor": "Auteur",
+      "tDownloads": "Téléchargements",
+      "tShares": "Actions"
     }
   }
 }

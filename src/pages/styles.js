@@ -34,7 +34,7 @@ export const PlayerWrapper = makeStyles(Box)(({ theme }) => ({
     boxShadow: 'none',
   },
   '& .rhap_time': {
-    color: theme.palette.text.primary,
+    color: '#fff',
   },
   '& .rhap_progress-filled': {
     backgroundColor: '#000',

@@ -46,6 +46,8 @@
 	"listenAudio": "Masomo na nyimbo katika umbizo la sauti",
 	"latestAudio": "Nyimbo na masomo ya hivi karibuni",
 	"radio": "Radio Ijwi Ry Ubugorozi",
+	"appDownload": "Pakua programu za simu",
+	"appDownloadText": "Pata ufikiaji rahisi na wa haraka wa yaliyomo katika wakati halisi kupitia programu zetu za rununu",
 	"actions": {
 		"label": "Vitendo",
 		"btnSend": "Tuma",

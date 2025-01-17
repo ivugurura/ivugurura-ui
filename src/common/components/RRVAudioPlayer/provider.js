@@ -20,11 +20,9 @@ export const RRVAudioProvider = ({ children }) => {
   const changeVolume = (_, newValue) => {
     const volumeValue = newValue / 100;
     setVolume(volumeValue);
-    if (volumeValue === 0) {
-      setMute(true);
-    }
     if (audioPlayerRef.current) {
       audioPlayerRef.current.audio.current.volume = volumeValue;
+      setMute(volumeValue === 0);
     }
   };
 
@@ -35,6 +33,7 @@ export const RRVAudioProvider = ({ children }) => {
       audioPlayerRef.current.audio.current.pause();
     } else {
       audioPlayerRef.current.audio.current.play();
+      setMute(false);
     }
     setIsPlaying((playing) => !playing);
   };

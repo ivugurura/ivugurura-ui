@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 
 import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
-// import { RRVAudioPlayer } from '../../common/components/RRVAudioPlayer';
 import { PageHelmet } from '../../common/components/wrappers';
 import { actions } from '../../redux/apiSliceBuilder';
 
@@ -87,16 +87,20 @@ export const Home = () => {
                   justifyContent="space-between"
                   flexDirection={{ xs: 'column', sm: 'row' }}
                 >
-                  <Typography variant="h2">{t('download')}</Typography>
-                  <Box>
-                    <img
+                  <Typography variant="h2">{t('appDownload')}</Typography>
+                  <Box
+                    component={Link}
+                    target="_blank"
+                    to="https://play.google.com/store/apps/details?id=reformationvoice.org.reformationvoicemobileapp&hl=en&pli=1"
+                  >
+                    {/* <img
                       src="/img/apple-img.svg"
-                      alt="download on app store"
+                      alt="Download on app store"
                       id="padding"
-                    />
+                    /> */}
                     <img
                       src="/img/android-img.svg"
-                      alt="download on play store"
+                      alt="Download on play store"
                     />
                   </Box>
                 </Box>
@@ -106,7 +110,7 @@ export const Home = () => {
                   id="typography"
                   fontWeight={400}
                 >
-                  {t('downloadSubtext')}
+                  {t('appDownloadText')}
                 </Typography>
               </CardContent>
             </Card>

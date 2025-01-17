@@ -53,18 +53,13 @@ export const HomeRecentTopics = ({
             </Grid>
           ))
         )}
-        <Grid
-          container
-          direction="column"
-          justifyContent="flex-end"
-          alignItems="flex-end"
-        >
-          <Box paddingTop={2}>
-            <Button variant="text" component={Link} to={toLink('topics')}>
-              {t('actions.viewMore')}
-            </Button>
-          </Box>
-        </Grid>
+      </Grid>
+      <Grid container display="flex" justifyContent="center">
+        <Box paddingTop={2} alignItems="flex-end">
+          <Button variant="text" component={Link} to={toLink('topics')}>
+            {t('actions.viewMore')}
+          </Button>
+        </Box>
       </Grid>
     </Box>
   );

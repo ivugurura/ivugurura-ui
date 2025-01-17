@@ -52,6 +52,7 @@ export const HomeWelcomePage = ({ onScrollTo }) => {
               py: { xs: 1, sm: 1.5, md: 2 },
               minWidth: { xs: '120px', sm: '140px', md: '160px' },
               color: ({ palette }) => palette.white,
+              borderColor: ({ palette }) => palette.white,
             }}
             onClick={() => onScrollTo('youtube')}
           >

@@ -14,12 +14,11 @@ a {
 }
 
 .welcome {
-  background-image: url('../public/img/reformers.jpeg');
+  background-image: linear-gradient(59deg, #16222a8b, #16222a6e), url('../public/img/reformers.jpeg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   height: 50vh;
-  filter: brightness(0.4);
 }
 
 .sermons {

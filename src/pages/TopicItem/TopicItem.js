@@ -15,7 +15,9 @@ import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import { RRVShare } from '../../common/components/RRVShare';
 import {
+  MAIN_URL,
   toAssetPath,
   toLink,
   // truncate
@@ -36,6 +38,9 @@ export const TopicItem = ({
   const linkProps = hasMore
     ? { component: Link, to: toLink(`topics/${topic.slug}`) }
     : {};
+  const handleShare = () => {
+    console.log('shared');
+  };
   return (
     <Card sx={{ boxShadow: 'none' }} className={classNames(className)}>
       <Box sx={{ position: 'relative' }}>
@@ -71,14 +76,22 @@ export const TopicItem = ({
         {showComments && <Comments slug={topic.slug} />}
       </CardContent>
       {hasMore && (
-        <Button
-          size="small"
-          {...linkProps}
-          className={styles.moreBtn}
-          endIcon={<ArrowOutward fontSize="small" />}
-        >
-          {t('actions.more')}
-        </Button>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Button
+            size="small"
+            {...linkProps}
+            className={styles.moreBtn}
+            endIcon={<ArrowOutward fontSize="small" />}
+          >
+            {t('actions.more')}
+          </Button>
+          <RRVShare
+            title={topic.title}
+            href={MAIN_URL + toLink(`topics/${topic.slug}`)}
+            onShare={handleShare}
+            color={({ palette }) => palette.black}
+          />
+        </Box>
       )}
     </Card>
   );

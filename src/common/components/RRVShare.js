@@ -51,7 +51,7 @@ export const RRVShare = ({
   return (
     <RRVDropdown
       buttonProps={{
-        startIcon: displayText && <ShareOutlined sx={{ color }} />,
+        startIcon: <ShareOutlined sx={{ color }} />,
       }}
       title={displayText && t('actions.share')}
       options={shareOptions}

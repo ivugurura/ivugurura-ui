@@ -21,7 +21,7 @@ export const HomeLatestBlog = ({
   const { data: topics } = data || initials.dataArr;
 
   return (
-    <Box py={4} px={8}>
+    <Box sx={{ px: { xs: 2, md: 8 }, py: 4 }}>
       <Typography variant="h1" fontWeight={600}>
         {t('latest')}
       </Typography>

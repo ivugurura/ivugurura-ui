@@ -24,7 +24,7 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
   console.log({ isFetching });
 
   return (
-    <Box px={8}>
+    <Box sx={{ px: { xs: 2, md: 8 } }}>
       <Box display="flex" justifyContent="center" pb={4}>
         <Typography variant="h1" fontWeight={700}>
           {t('logoTitle').toUpperCase()}

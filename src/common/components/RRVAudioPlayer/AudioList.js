@@ -78,6 +78,7 @@ export const AudioList = ({ audios, currentAudio, setCurrentAudio }) => {
                   href={DL_ROUTE + audio.slug}
                   onShare={() => shareSong({ slug: audio.slug })}
                   color={({ palette }) => palette.white}
+                  displayText={false}
                 />
               </Box>
             }

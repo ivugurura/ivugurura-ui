@@ -6,7 +6,7 @@ import {
   Twitter as TwitterIcon,
   ShareOutlined,
 } from '@mui/icons-material';
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import {
   FacebookShareButton,
   TwitterShareButton,
@@ -22,7 +22,7 @@ export const RRVShare = ({
   displayText = true,
   color,
 }) => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
   const shareOptions = [
     {
       wrapper: WhatsappShareButton,
@@ -53,7 +53,7 @@ export const RRVShare = ({
       buttonProps={{
         startIcon: displayText && <ShareOutlined sx={{ color }} />,
       }}
-      // title={displayText && t('actions.share')}
+      title={displayText && t('actions.share')}
       options={shareOptions}
       variant="text"
       share

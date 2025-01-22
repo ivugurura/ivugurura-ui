@@ -42,7 +42,7 @@ export const ContactModal = ({ open, onClose }) => {
           disabled={sendEmailRes.isLoading}
           onClick={() => sendEmail(thisState)}
         >
-          {t(sendEmailRes.isLoading ? 'loading' : 'btnSend')}
+          {t(`actions.${sendEmailRes.isLoading ? 'loading' : 'btnSend'}`)}
         </Button>
       </DialogActions>
     </Dialog>

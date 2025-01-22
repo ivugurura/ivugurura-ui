@@ -14,6 +14,7 @@
   "logoTitle": "Reformation Voice",
   "listenRadio": "Listen to the radio",
   "contactUs": "Contact us",
+  "contactUsTitle": "Do you have a sickness you want to heal, a question about Revival and Reformation, or just how you think we can improve the website. Tell us below in an email",
   "radioName": "Reformation Voice Radio",
   "listen": "Press here to listen",
   "radioMsg": "The radio broadcasts songs and different topics. Health, family, prophecy and other useful topics.",
@@ -73,7 +74,8 @@
     "email": "E-mail",
     "commentBody": "Comment",
     "names": "Names",
-    "website": "Website"
+    "website": "Website",
+    "message": "What do you want to tell us?"
   },
   "admin": {
     "nav": {

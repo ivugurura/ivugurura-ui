@@ -14,6 +14,7 @@
 	"searchPHolder": "Andika kichwa cha somo au kategoria",
 	"listenRadio": "Sikiliza radio",
 	"contactUs": "Tuandikie",
+	"contactUsTitle": "Je, una ugonjwa unaotaka kuponya, swali kuhusu Uamsho na Matengenezo, au jinsi unavyofikiri tunaweza kuboresha tovuti. Tuambie hapa chini katika barua pepe",
 	"radioName": "Radio Sauti ya Matengenezo",
 	"listen": "Bonyeza hapa usikilize",
 	"radioMsg": "Nyimbo za Radio katika lengo la vipengere tofauti, uzima, familia, unabii nazingine nzuri zamaana",
@@ -73,7 +74,8 @@
 		"email": "E-mail",
 		"commentBody": "Maoni",
 		"names": "Majina yako",
-		"website": "Tovuti yako (ikiwa ipo)"
+		"website": "Tovuti yako (ikiwa ipo)",
+		"message": "nataka kutuambia nini?"
 	},
 	"admin": {
 		"nav": {

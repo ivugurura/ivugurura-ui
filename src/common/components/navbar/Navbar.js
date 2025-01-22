@@ -18,11 +18,12 @@ import { RRVDropdown } from '../RRVDropdown';
 import { RRVSearch } from '../RRVSearch';
 import { SelectLanguage } from '../SelectLanguage';
 
+import { ContactModal } from './ContactModal';
 import { SearchModal } from './SearchModal';
 
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const AdditionalMenu = ({ navigate, t }) => {
+const AdditionalMenu = ({ navigate, t, onOpenContact }) => {
   return (
     <>
       <Button variant="text" onClick={() => navigate(toLink('audios'))}>
@@ -30,7 +31,7 @@ const AdditionalMenu = ({ navigate, t }) => {
           {t('audios')}
         </Typography>
       </Button>
-      <Button variant="text">
+      <Button variant="text" onClick={onOpenContact}>
         <Typography sx={{ color: 'white', textTransform: 'uppercase' }}>
           {t('contactUs')}
         </Typography>
@@ -40,10 +41,15 @@ const AdditionalMenu = ({ navigate, t }) => {
 };
 export const NavBar = ({ navCategories = [] }) => {
   const { t } = useTranslation();
+
   const { lang } = useLang();
+
   const navigate = useNavigate();
+
   const [openSearch, setOpenSearch] = useState(false);
   const [searchKey, setSearchKey] = useState('');
+  const [openContactForm, setOpenContactForm] = useState(false);
+
   const categories = useMemo(
     () =>
       navCategories.map((category) => (
@@ -139,7 +145,11 @@ export const NavBar = ({ navCategories = [] }) => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {categories}
-            <AdditionalMenu navigate={navigate} t={t} />
+            <AdditionalMenu
+              navigate={navigate}
+              t={t}
+              onOpenContact={() => setOpenContactForm(true)}
+            />
             <RRVSearch value={searchKey} onChange={handleSearch} />
           </Box>
 
@@ -185,6 +195,10 @@ export const NavBar = ({ navCategories = [] }) => {
         onClose={() => setOpenSearch(false)}
         searchKey={searchKey}
         setSearchKey={setSearchKey}
+      />
+      <ContactModal
+        open={openContactForm}
+        onClose={() => setOpenContactForm(false)}
       />
     </AppBar>
   );

@@ -36,7 +36,7 @@ export const ContactModal = ({ open, onClose }) => {
       </DialogContent>
       <DialogActions>
         <Button disabled={sendEmailRes.isLoading} onClick={onClose}>
-          {t('btnCancel')}
+          {t('actions.btnCancel')}
         </Button>
         <Button
           disabled={sendEmailRes.isLoading}

@@ -4,7 +4,9 @@ import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import YouTube from 'react-youtube';
 
+import { useLang } from '../../../common/components/providers/LangProvider';
 import { useWindowSize } from '../../../common/hooks/useWindowSize';
+import { getYtbDefaultVideoId } from '../../../helpers/utils';
 import { initials } from '../../../redux/apiSliceBuilder';
 
 import { YoutubeLoader } from './HomeLoaders';
@@ -16,11 +18,12 @@ export const HomeYoutube = ({
   normalHeight = 360,
   randomize = false,
 }) => {
-  const [videoId, setVideoId] = React.useState('-PweyZWNcLk');
+  const [videoId, setVideoId] = React.useState('');
   const [playerSizes, setPlayerSizes] = React.useState({});
   const { width: winWidth, height: winHeight } = useWindowSize();
   const { data, isFetching } = youtubeData;
   const { data: ytData } = data || initials.dataObj;
+  const { lang } = useLang();
   useEffect(() => {
     let width = winWidth * widthRatio;
     const height = normalHeight;
@@ -59,7 +62,7 @@ export const HomeYoutube = ({
           </Box>
 
           <YouTube
-            videoId={videoId}
+            videoId={videoId || getYtbDefaultVideoId(lang)}
             iframeClassName="youtube"
             opts={{
               ...playerSizes,

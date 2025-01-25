@@ -172,3 +172,14 @@ export const toNewObj = (current = {}, old = {}) => {
 };
 
 export const toFCap = (str = '') => str.match(/\b\w/g).join('');
+
+export const getYtbDefaultVideoId = (lang) => {
+  const ids = {
+    en: 'Mo_T_U3EvZE',
+    fr: 'xqKPTRk3zY0',
+    sw: 'JkDg7nqoni8',
+    kn: 'IP3GCBB4pWA',
+  };
+
+  return ids[lang] || ids.en;
+};

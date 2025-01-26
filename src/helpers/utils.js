@@ -183,3 +183,14 @@ export const getYtbDefaultVideoId = (lang) => {
 
   return ids[lang] || ids.en;
 };
+
+export const getRadioKingId = (lang) => {
+  const ids = {
+    en: 'la-reforme',
+    fr: 'la-reforme',
+    sw: 'la-reforme',
+    kn: 'ubugorozi',
+  };
+
+  return ids[lang] || ids.en;
+};

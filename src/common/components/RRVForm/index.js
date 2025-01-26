@@ -4,6 +4,7 @@ import { Grid } from '@mui/material';
 
 import { RRVFileUpload } from '../RRVFileUpload';
 
+import { RRVDateInput } from './RRVDateInput';
 import { RRVInput } from './RRVInput';
 import { RRVPassword } from './RRVPassword';
 import { RRVSwitch } from './RRVSwitch';
@@ -44,6 +45,18 @@ export const RRVForm = ({
       setLocalFields(newFields);
       setStates((prev) => ({ ...prev, [name]: inputValue }));
     };
+  const handleDateChange = (name) => (dateVal) => {
+    const newFields = localFields.map((f) =>
+      f.map((r) => {
+        if (r.name === name) {
+          return { ...r, value: dateVal };
+        }
+        return r;
+      }),
+    );
+    setLocalFields(newFields);
+    setStates((prev) => ({ ...prev, [name]: dateVal }));
+  };
   const getFieldView = ({ fieldType, accept, ...vProps }, idx) => {
     switch (fieldType) {
       case 'file-field':
@@ -70,6 +83,10 @@ export const RRVForm = ({
             onChange={handleChange(vProps)}
             {...vProps}
           />
+        );
+      case 'date':
+        return (
+          <RRVDateInput onChange={handleDateChange(vProps.name)} {...vProps} />
         );
       case 'text-field':
       default:

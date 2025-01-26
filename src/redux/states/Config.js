@@ -15,9 +15,16 @@ export const ConfigState = {
         endpoint: '/announcements',
       },
     },
-    publish: {
+    createPub: {
       api: {
         verb: VERBS.post,
+        endpoint: 'announcements',
+        hasBody: true,
+      },
+    },
+    publishPub: {
+      api: {
+        verb: VERBS.patch,
         endpoint: 'announcements/:pubId/publish',
         hasBody: true,
       },

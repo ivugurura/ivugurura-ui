@@ -7,9 +7,10 @@ import { actions, initials } from '../../../redux/apiSliceBuilder';
 import { AlertConfirm } from '../components/AlertConfirm';
 import { DashboardContainer } from '../components/DashboardContainer';
 
+import { AddEditPublic } from './AddEditPublic';
 import { NavConfigs } from './NavConfigs';
 import { pubsColumns } from './schema';
-import { SyncAudios } from './SyncAudio';
+// import { SyncAudios } from './SyncAudio';
 
 const alertInitial = {
   current: null,
@@ -18,9 +19,9 @@ const alertInitial = {
 };
 const Settings = () => {
   const [alertData, setAlertData] = useState(alertInitial);
-  const [openSync, setOpenSync] = useState(false);
+  const [openAddPub, setOpenAddPub] = useState(false);
   const { data, isFetching, refetch } = actions.useGetPubsConfigQuery();
-  const [publish, publishRes] = actions.usePublishTopicMutation();
+  const [publish, publishRes] = actions.usePublishPubConfigMutation();
 
   useEffect(() => {
     if (publishRes.isSuccess) {
@@ -62,8 +63,8 @@ const Settings = () => {
             <CardHeader
               title="Public communication"
               action={
-                <Button onClick={() => setOpenSync(true)}>
-                  Process audio sync
+                <Button onClick={() => setOpenAddPub(true)}>
+                  Add a new communication
                 </Button>
               }
             />
@@ -80,7 +81,11 @@ const Settings = () => {
           <NavConfigs />
         </Grid>
       </Grid>
-      <SyncAudios open={openSync} onClose={() => setOpenSync(false)} />
+      <AddEditPublic
+        open={openAddPub}
+        onClose={() => setOpenAddPub(false)}
+        refetchPubs={refetch}
+      />
     </DashboardContainer>
   );
 };

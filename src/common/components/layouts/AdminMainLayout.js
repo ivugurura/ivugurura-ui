@@ -15,6 +15,7 @@ import { Outlet } from 'react-router-dom';
 
 import Login from '../../../pages/admin/Login';
 import { useLangRedirect } from '../../hooks/useLangRedirect';
+// import { AnnouncementBar } from '../AnnouncementBar';
 import { useAuth } from '../providers';
 
 import { AdminMenuDrawer } from './components/AdminMenuDrawer';
@@ -58,6 +59,7 @@ export const AdminMainLayout = ({ lang }) => {
           </Typography>
         </Toolbar>
       </AppBar>
+
       {isAuthenticated && (
         <Box
           component="nav"
@@ -105,6 +107,10 @@ export const AdminMainLayout = ({ lang }) => {
           width: { sm: `calc(100% - ${drawerWidth}px)`, marginTop: '30px' },
         }}
       >
+        {/* <AnnouncementBar
+          message="🚀 Big announcement! Check out our new features!"
+          onClose={() => {}}
+        /> */}
         {!isAuthenticated && !isLoading && <Login shouldRedirect={false} />}
         {isLoading && <SuspenseFallback message={t('admin.home.loading')} />}
         {isAuthenticated && <Outlet />}

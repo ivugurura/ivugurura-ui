@@ -15,6 +15,12 @@ export const ConfigState = {
         endpoint: '/announcements',
       },
     },
+    getPub: {
+      api: {
+        verb: VERBS.get,
+        endpoint: 'announcements/published',
+      },
+    },
     createPub: {
       api: {
         verb: VERBS.post,

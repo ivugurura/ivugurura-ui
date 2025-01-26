@@ -41,9 +41,7 @@ export const TopicEditPreview = ({ topic = {}, open, onClose }) => {
         <TopicItem topic={topic} />
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={onClose}>
-          {t('actions.btnCancel')}
-        </Button>
+        <Button onClick={onClose}>{t('actions.btnCancel')}</Button>
       </DialogActions>
     </Dialog>
   );

@@ -3,7 +3,16 @@ import React from 'react';
 import { Close as CloseIcon } from '@mui/icons-material';
 import { Typography, IconButton, Box } from '@mui/material';
 
-export const AnnouncementBar = ({ message, onClose }) => {
+import { actions, initials } from '../../redux/apiSliceBuilder';
+
+export const AnnouncementBar = () => {
+  const [show, setShow] = React.useState(true);
+  const { data } = actions.useGetPubConfigQuery();
+
+  const { data: communique } = data || initials.dataObj;
+
+  if (!show || !communique) return null;
+
   return (
     <Box
       sx={{
@@ -17,18 +26,28 @@ export const AnnouncementBar = ({ message, onClose }) => {
         position: 'fixed',
       }}
     >
-      <Typography variant="body1" sx={{ fontWeight: 500 }}>
-        {message}
+      <Typography
+        variant="body1"
+        sx={{
+          fontWeight: 500,
+          color: ({ palette }) => palette.white,
+          animation: 'twinkle 1.5s infinite alternate',
+          '@keyframes twinkle': {
+            '0%': { opacity: 1 },
+            '50%': { opacity: 0.3 },
+            '100%': { opacity: 1 },
+          },
+        }}
+      >
+        {`🚀 ${communique.content}`}
       </Typography>
-      {onClose && (
-        <IconButton
-          size="small"
-          sx={{ color: 'primary.contrastText' }}
-          onClick={onClose}
-        >
-          <CloseIcon fontSize="small" />
-        </IconButton>
-      )}
+      <IconButton
+        size="small"
+        sx={{ color: 'primary.contrastText' }}
+        onClick={() => setShow(false)}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
     </Box>
   );
 };

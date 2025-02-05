@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom';
 import { actions } from '../../../redux/actions';
 import { initials } from '../../../redux/apiSliceBuilder';
 import { useLangRedirect } from '../../hooks/useLangRedirect';
-// import { AnnouncementBar } from '../AnnouncementBar';
+import { AnnouncementBar } from '../AnnouncementBar';
 import { MainFooter } from '../Footer';
 import { NavBar } from '../navbar';
 
@@ -18,10 +18,7 @@ export const UserMainLayout = ({ lang }) => {
   return (
     <Box>
       <NavBar navCategories={categories} />
-      {/* <AnnouncementBar
-        message="🚀 Big announcement! Check out our new features!"
-        onClose={() => {}}
-      /> */}
+      <AnnouncementBar />
       <main>
         <Outlet />
       </main>

@@ -107,10 +107,7 @@ export const AdminMainLayout = ({ lang }) => {
           width: { sm: `calc(100% - ${drawerWidth}px)`, marginTop: '30px' },
         }}
       >
-        {/* <AnnouncementBar
-          message="🚀 Big announcement! Check out our new features!"
-          onClose={() => {}}
-        /> */}
+        {/* <AnnouncementBar /> */}
         {!isAuthenticated && !isLoading && <Login shouldRedirect={false} />}
         {isLoading && <SuspenseFallback message={t('admin.home.loading')} />}
         {isAuthenticated && <Outlet />}

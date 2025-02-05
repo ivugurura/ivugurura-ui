@@ -7,11 +7,11 @@ import { actions, initials } from '../../redux/apiSliceBuilder';
 
 export const AnnouncementBar = () => {
   const [show, setShow] = React.useState(true);
-  const { data } = actions.useGetPubConfigQuery();
+  const { data, isFetching } = actions.useGetPubConfigQuery();
 
   const { data: communique } = data || initials.dataObj;
 
-  if (!show || !communique) return null;
+  if (isFetching || !communique || !show) return null;
 
   return (
     <Box
@@ -39,7 +39,7 @@ export const AnnouncementBar = () => {
           },
         }}
       >
-        {`🚀 ${communique.content}`}
+        {`🚀 ${communique.title}: ${communique.content}`}
       </Typography>
       <IconButton
         size="small"

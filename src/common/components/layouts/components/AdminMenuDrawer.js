@@ -8,6 +8,7 @@ import {
   ChatBubbleOutline as ChatBubbleIcon,
   SettingsApplicationsOutlined as SettingIcon,
   PeopleOutline as PeopleIcon,
+  LibraryBooksOutlined as LibraryIcon,
 } from '@mui/icons-material';
 import { Collapse, Divider, List, Toolbar, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
@@ -29,6 +30,12 @@ const dashboardMenus = (lang = 'en', role = undefined, t = () => {}) => [
         key: 'home',
         to: lang,
         icon: HomeIcon,
+      },
+      {
+        name: 'Library',
+        key: 'home',
+        to: `${lang}/library`,
+        icon: LibraryIcon,
       },
       {
         name: t('admin.topic.title'),

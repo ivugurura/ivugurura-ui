@@ -43,11 +43,10 @@ export const SearchModal = ({ open, onClose, searchKey, setSearchKey }) => {
   const { data: searched } = data || initials.dataObj;
 
   const handleNavigate = (type, slug) => {
-    if (type === 'topic') {
-      navigate(toLink(`topics/${slug}`));
-    } else {
-      navigate(toLink(`topics?t=${slug}`));
-    }
+    const route = `topics${type === 'topic' ? '/' : '?t='}${slug}`;
+
+    navigate(toLink(route));
+
     onClose();
   };
 

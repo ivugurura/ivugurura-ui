@@ -34,57 +34,66 @@ export const Comments = ({ slug }) => {
   const hasComments = comments?.length > 0;
   return (
     <Grid item xs={12}>
-      <Box sx={styles.root}>
-        {hasComments && (
+      {hasComments && (
+        <Box sx={styles.root}>
           <Typography variant="h2" sx={styles.title}>
             {t('comments')}
           </Typography>
-        )}
-        {comments.map((c) => (
-          <Box key={c.id} sx={styles.comment}>
-            <Box sx={styles.commentBody}>
-              <Typography variant="body1" sx={styles.commentAuthor}>
-                {c.names}
-              </Typography>
-              <Typography variant="body1" sx={styles.commentText}>
-                {c.content}
-              </Typography>
-              <Typography variant="caption" sx={styles.commentTimestamp}>
-                {moment(c.createdAt).fromNow()}
-              </Typography>
-            </Box>
-            {c.replies.map((r) => (
-              <Box key={r.id} sx={styles.reply}>
-                <Typography variant="body1" sx={styles.replyAuthor}>
-                  {t('logo')}
+
+          {comments.map((c) => (
+            <Box key={c.id} sx={styles.comment}>
+              <Box sx={styles.commentBody}>
+                <Typography variant="body1" sx={styles.commentAuthor}>
+                  {c.names}
                 </Typography>
-                <Typography variant="body1" sx={styles.replyText}>
-                  {r.content}
+                <Typography variant="body1" sx={styles.commentText}>
+                  {c.content}
                 </Typography>
-                <Typography variant="caption" sx={styles.replyTimestamp}>
-                  {moment(r.createdAt).fromNow()}
+                <Typography variant="caption" sx={styles.commentTimestamp}>
+                  {moment(c.createdAt).fromNow()}
                 </Typography>
               </Box>
-            ))}
-          </Box>
-        ))}
+              {c.replies.map((r) => (
+                <Box key={r.id} sx={styles.reply}>
+                  <Typography variant="body1" sx={styles.replyAuthor}>
+                    {t('logo')}
+                  </Typography>
+                  <Typography variant="body1" sx={styles.replyText}>
+                    {r.content}
+                  </Typography>
+                  <Typography variant="caption" sx={styles.replyTimestamp}>
+                    {moment(r.createdAt).fromNow()}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+          ))}
+        </Box>
+      )}
+
+      <Box style={styles.commentSpace}>
+        <Typography variant="h4" align="center">
+          {t('leaveComment')}
+        </Typography>
+        <Typography>{t('notEmailPublish')}</Typography>
+        <RRVForm
+          fields={commentSchema(t)}
+          states={comment}
+          setStates={setComment}
+        />
+        <Box sx={styles.btnContainer}>
+          <Button
+            variant="contained"
+            sx={styles.submitBtn}
+            onClick={() => save({ ...comment, slug })}
+            disabled={saveRes.isLoading}
+          >
+            {t(
+              saveRes.isLoading ? 'actions.loading' : 'actions.btnSend',
+            ).toUpperCase()}
+          </Button>
+        </Box>
       </Box>
-      {hasComments && <hr />}
-      <Typography variant="h4" align="center">
-        {t('leaveComment')}
-      </Typography>
-      <Typography>{t('notEmailPublish')}</Typography>
-      <RRVForm
-        fields={commentSchema(t)}
-        states={comment}
-        setStates={setComment}
-      />
-      <Button
-        onClick={() => save({ ...comment, slug })}
-        disabled={saveRes.isLoading}
-      >
-        {t(saveRes.isLoading ? 'actions.loading' : 'actions.btnSend')}
-      </Button>
     </Grid>
   );
 };

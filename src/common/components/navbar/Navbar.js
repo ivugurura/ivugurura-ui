@@ -18,31 +18,38 @@ import { RRVDropdown } from '../RRVDropdown';
 import { RRVSearch } from '../RRVSearch';
 import { SelectLanguage } from '../SelectLanguage';
 
+import { ContactModal } from './ContactModal';
 import { SearchModal } from './SearchModal';
 
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const AdditionalMenu = ({ navigate, t }) => {
+const AdditionalMenu = ({ navigate, t, onOpenContact }) => {
   return (
     <>
-      <Button
-        variant="text"
-        onClick={() => navigate(toLink('audios'))}
-        sx={{ textTransform: 'none' }}
-      >
-        <Typography sx={{ color: 'white' }}>{t('audios')}</Typography>
+      <Button variant="text" onClick={() => navigate(toLink('audios'))}>
+        <Typography sx={{ color: 'white', textTransform: 'uppercase' }}>
+          {t('audios')}
+        </Typography>
       </Button>
-      <Button variant="text">
-        <Typography sx={{ color: 'white' }}>{t('contactUs')}</Typography>
+      <Button variant="text" onClick={onOpenContact}>
+        <Typography sx={{ color: 'white', textTransform: 'uppercase' }}>
+          {t('contactUs')}
+        </Typography>
       </Button>
     </>
   );
 };
 export const NavBar = ({ navCategories = [] }) => {
   const { t } = useTranslation();
+
   const { lang } = useLang();
+
   const navigate = useNavigate();
+
   const [openSearch, setOpenSearch] = useState(false);
+  const [searchKey, setSearchKey] = useState('');
+  const [openContactForm, setOpenContactForm] = useState(false);
+
   const categories = useMemo(
     () =>
       navCategories.map((category) => (
@@ -51,7 +58,7 @@ export const NavBar = ({ navCategories = [] }) => {
           title={category.name}
           variant="text"
           buttonProps={{
-            sx: { color: { md: 'white' } },
+            sx: { color: { md: 'white' }, ml: 2, textTransform: 'uppercase' },
           }}
           options={category.categories.map((cat) => (
             <Button
@@ -66,6 +73,11 @@ export const NavBar = ({ navCategories = [] }) => {
       )),
     [navCategories.length],
   );
+
+  const handleSearch = ({ target: { value } }) => {
+    setSearchKey(value);
+    setOpenSearch(true);
+  };
 
   return (
     <AppBar position="sticky" className="bg-gradient">
@@ -85,6 +97,7 @@ export const NavBar = ({ navCategories = [] }) => {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
+              p: 1,
             }}
           >
             {t('logo').toUpperCase()}
@@ -121,7 +134,7 @@ export const NavBar = ({ navCategories = [] }) => {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
+              // fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
@@ -132,8 +145,12 @@ export const NavBar = ({ navCategories = [] }) => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {categories}
-            <AdditionalMenu navigate={navigate} t={t} />
-            <RRVSearch onClick={() => setOpenSearch(true)} />
+            <AdditionalMenu
+              navigate={navigate}
+              t={t}
+              onOpenContact={() => setOpenContactForm(true)}
+            />
+            <RRVSearch value={searchKey} onChange={handleSearch} />
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -173,7 +190,16 @@ export const NavBar = ({ navCategories = [] }) => {
           </Box>
         </Toolbar>
       </Container>
-      <SearchModal open={openSearch} onClose={() => setOpenSearch(false)} />
+      <SearchModal
+        open={openSearch}
+        onClose={() => setOpenSearch(false)}
+        searchKey={searchKey}
+        setSearchKey={setSearchKey}
+      />
+      <ContactModal
+        open={openContactForm}
+        onClose={() => setOpenContactForm(false)}
+      />
     </AppBar>
   );
 };

@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Twitter } from '@mui/icons-material';
+import { Facebook, Instagram, X } from '@mui/icons-material';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 
@@ -88,7 +88,7 @@ export const socialMedias = [
   {
     name: 'X',
     url: 'https://x.com/Rev_Reformation',
-    icon: Twitter,
+    icon: X,
     classeName: 'icoTwitter',
   },
 ];
@@ -100,6 +100,7 @@ export const toLink = (link = '', isAdmin = false) =>
 export const toAssetPath = (name = '', isImage = true) =>
   `${isImage ? IMAGE_PATH : AUDIO_PATH}/${name}`;
 export const DL_ROUTE = `${process.env.REACT_APP_API_URL}/api/v1/albums/download/`;
+export const MAIN_URL = process.env.REACT_APP_API_URL;
 
 export const lStorage = {
   token: localStorage.getItem('user-token') || '',
@@ -118,3 +119,4 @@ export const notifier = {
       toastId: messageId,
     }),
 };
+export const dateFormat = (value) => moment(value).format('DD MMMM YYYY');

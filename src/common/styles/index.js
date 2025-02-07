@@ -97,9 +97,10 @@ export const useStyles = {
     },
   },
   listIcon: {
-    minWidth: 32,
-    display: 'none', // hide the ListItemIcon in the dropdown
-    color: 'white',
+    color: theme.palette.blackColor,
+  },
+  overviewIcon: {
+    color: '#fff',
   },
   white: {
     color: '#fff',
@@ -156,6 +157,97 @@ export const useStyles = {
       '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
         color: '#ff5500',
       },
+    },
+  },
+  listItem: {
+    background: '#fff',
+    margin: 1,
+    borderRadius: '32px',
+    paddingBottom: 0,
+    cursor: 'pointer',
+  },
+  selectedListItem: {
+    border: '2px solid #1F323C',
+  },
+  listOverview: {
+    background: 'transparent',
+    paddingBottom: 0,
+    cursor: 'pointer',
+  },
+
+  cardAudio: {
+    background: 'linear-gradient(to bottom, #395E71, #1A2932)',
+    borderRadius: '48px',
+    padding: '1rem',
+  },
+  cardContainer: {
+    margin: '4rem 0 0 0',
+  },
+  audioText: {
+    color: '#DEFFF9',
+  },
+
+  playWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%',
+    '& .rhap_container': {
+      width: '100%',
+      backgroundColor: 'transparent',
+      boxShadow: 'none',
+    },
+
+    '& .rhap_time': {
+      color: '#fff',
+      fontWeight: '400',
+      fontSize: '14px',
+    },
+    '& .rhap_progress-filled': {
+      backgroundColor: theme.palette.grey[900],
+    },
+    '& .rhap_download-progress': {
+      backgroundColor: theme.palette.grey[400],
+    },
+    '& .rhap_progress-bar-show-download': {
+      backgroundColor: theme.palette.grey[500],
+    },
+    '& .rhap_progress-indicator': {
+      display: 'none',
+    },
+    '& .rhap_progress-bar': {
+      height: '5px',
+      borderRadius: '4px',
+    },
+  },
+  unloop: {
+    color: theme.palette.grey[500],
+  },
+  volumeContainer: {
+    position: 'absolute',
+    top: '-177%',
+    left: '155%',
+    transform: 'translateX(-10%)',
+    transformOrigin: 'left center',
+    backgroundColor: '#fff',
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+    padding: '14px 4px',
+    zIndex: 1000,
+    height: '100px',
+  },
+  slider: {
+    '& .MuiSlider-track': {
+      backgroundColor: '#000',
+      border: 'none',
+    },
+    '& .MuiSlider-rail': {
+      backgroundColor: 'grey.300',
+    },
+    '& .MuiSlider-thumb': {
+      color: '#000',
+      width: '14px',
+      height: '14px',
     },
   },
 };

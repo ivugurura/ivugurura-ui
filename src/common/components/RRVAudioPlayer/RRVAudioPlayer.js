@@ -1,60 +1,61 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import {
-  MusicNote,
-  PlayArrow,
   SkipNext,
   SkipPrevious,
-  Download as DownloadIcon,
   PauseCircle,
+  PlayCircle,
+  VolumeUp,
+  VolumeOff,
+  Loop,
+  ArrowOutward,
 } from '@mui/icons-material';
 import {
-  Button,
   Box,
+  Typography,
+  IconButton,
   Card,
   CardContent,
-  CardHeader,
-  Divider,
+  Slider,
   Grid,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-  ButtonGroup,
+  Button,
 } from '@mui/material';
-import moment from 'moment';
-import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
+import AudioPlayer from 'react-h5-audio-player';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { DL_ROUTE, toAssetPath } from '../../../helpers/utils/constants';
-import { actions, initials } from '../../../redux/apiSliceBuilder';
-import { useMediaQuery } from '../../hooks/useMediaQuery';
-import { useLang } from '../providers';
-import { RRVShare } from '../RRVShare';
+import {
+  dateFormat,
+  toAssetPath,
+  toLink,
+} from '../../../helpers/utils/constants';
+import { useStyles } from '../../styles/index';
+
+import { AudioList } from './AudioList';
+import { useRRVAudioPlayerCtx } from './provider';
 
 export const RRVAudioPlayer = ({
-  displayText = true,
-  hasMore,
-  nOfAudios = 3,
+  audios,
+  currentAudio,
+  setCurrentAudio,
+  displayList = false,
+  displayMore = false,
 }) => {
+  const {
+    volume,
+    isLooping,
+    isPlaying,
+    mute,
+    loopAudio,
+    playPauseAudio,
+    changeVolume,
+    changeIsPlaying,
+    audioPlayerRef,
+    changeMute,
+  } = useRRVAudioPlayerCtx();
   const { t } = useTranslation();
-  const { lang } = useLang();
-  const [currentAudio, setCurrentAudio] = useState({ index: -1, audio: null });
-  const { isMobile } = useMediaQuery();
-  const [shareSong] = actions.useShareAudioMutation();
-  const { data, isFetching } = actions.useListAudiosQuery({
-    page: 1,
-    pageSize: nOfAudios,
-  });
-  const { data: audios } = data || initials.dataArr;
-  useEffect(() => {
-    if (audios?.length > 0) {
-      setCurrentAudio({ index: 0, audio: audios[0] });
-    }
-  }, [audios]);
-  const handleNewAudio = (type = 'next') => {
+
+  const changePlayingAudio = (type = 'next') => {
     let newIndex = currentAudio.index + 1;
     if (type === 'prev') {
       newIndex = currentAudio.index - 1;
@@ -64,134 +65,127 @@ export const RRVAudioPlayer = ({
         index: newIndex,
         audio: audios[newIndex],
       });
+      changeIsPlaying(true);
     }
   };
+
   const customControls = [
-    RHAP_UI.LOOP,
-    <Button
-      size="small"
-      disabled={currentAudio.index === 0}
-      onClick={() => handleNewAudio('prev')}
-      key="prev"
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 2,
+        width: '100%',
+      }}
     >
-      <SkipPrevious />
-    </Button>,
-    <Button
-      size="small"
-      disabled={currentAudio.index === (audios?.length || 0) - 1}
-      onClick={() => handleNewAudio()}
-      key="next"
-    >
-      <SkipNext />
-    </Button>,
-  ];
-  return isFetching ? (
-    'Loading'
-  ) : (
-    <Card>
-      {currentAudio.audio && (
-        <>
-          <AudioPlayer
-            muted
-            src={toAssetPath(currentAudio.audio.mediaLink, false)}
-            customAdditionalControls={customControls}
-          />
-          <CardHeader
-            title={currentAudio.audio?.title}
-            subheader={
-              <>
-                <Typography
-                  sx={{ display: 'inline' }}
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
-                >
-                  <i>{t('by')}</i>
-                  <strong>{currentAudio.audio.author}</strong>
-                </Typography>
-                {` ${t('at')} ${moment(currentAudio.audio.createdAt).format(
-                  'DD.MM.YYYY',
-                )}`}
-              </>
-            }
-          />
-        </>
-      )}
-      <CardContent>
-        <List>
-          {audios?.map((audio, audioIdx) => {
-            const isCurrent = audio.id === currentAudio.audio?.id;
-            return (
-              <React.Fragment key={audio.id}>
-                <ListItem
-                  key={audio.id}
-                  selected={isCurrent}
-                  secondaryAction={
-                    <ButtonGroup
-                      size="small"
-                      // orientation={isMobile ? 'vertical' : 'horizontal'}
-                    >
-                      <Button
-                        startIcon={isCurrent ? <PauseCircle /> : <PlayArrow />}
-                        onClick={() =>
-                          setCurrentAudio({ index: audioIdx, audio })
-                        }
-                      >
-                        {displayText && t('actions.play')}
-                      </Button>
-                      <Button
-                        startIcon={<DownloadIcon />}
-                        target="_blank"
-                        rel="noreferrer"
-                        href={DL_ROUTE + audio.slug}
-                      >
-                        {displayText && t('actions.download')}
-                      </Button>
-                      <RRVShare
-                        title={audio.title}
-                        href={DL_ROUTE + audio.slug}
-                        onShare={() => shareSong({ slug: audio.slug })}
-                        displayText={displayText}
-                      />
-                    </ButtonGroup>
-                  }
-                  alignItems="flex-start"
-                >
-                  <ListItemIcon
-                    sx={{ minWidth: isMobile ? undefined : '56px' }}
-                  >
-                    <MusicNote />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={audio.title}
-                    primaryTypographyProps={{ style: { width: '62%' } }}
-                    secondary={
-                      <>
-                        <i>{t('by')}</i> {audio.author}
-                      </>
-                    }
-                  />
-                </ListItem>
-                <Divider variant="insert" component="li" />
-              </React.Fragment>
-            );
-          })}
-        </List>
-        {hasMore && (
-          <Grid
-            container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Box textAlign="center" paddingTop={2}>
-              <Button component={Link} to={`/${lang}/audios`}>
-                {t('actions.viewMoreAudios')}
-              </Button>
-            </Box>
-          </Grid>
+      <IconButton
+        onClick={loopAudio}
+        sx={isLooping ? useStyles.overviewIcon : useStyles.unloop}
+      >
+        <Loop />
+      </IconButton>
+      <IconButton
+        sx={useStyles.overviewIcon}
+        disabled={currentAudio.index === 0}
+        onClick={() => changePlayingAudio('prev')}
+      >
+        <SkipPrevious fontSize="large" />
+      </IconButton>
+      <IconButton
+        onClick={() => playPauseAudio(currentAudio.audio)}
+        sx={useStyles.overviewIcon}
+      >
+        {isPlaying ? (
+          <PauseCircle fontSize="large" />
+        ) : (
+          <PlayCircle fontSize="large" />
         )}
-      </CardContent>
+      </IconButton>
+      <IconButton
+        sx={useStyles.overviewIcon}
+        disabled={currentAudio.index === (audios?.length || 0) - 1}
+        onClick={() => changePlayingAudio('next')}
+      >
+        <SkipNext fontSize="large" />
+      </IconButton>
+      <Box sx={{ position: 'relative' }}>
+        <IconButton
+          sx={useStyles.overviewIcon}
+          onClick={() => changeMute(!mute)}
+        >
+          {volume === 0 || mute ? <VolumeOff /> : <VolumeUp />}
+        </IconButton>
+        <Box sx={useStyles.volumeContainer}>
+          <Slider
+            value={volume * 100}
+            onChange={changeVolume}
+            aria-label="Volume"
+            orientation="vertical"
+            sx={useStyles.slider}
+          />
+        </Box>
+      </Box>
+    </Box>,
+  ];
+
+  return (
+    <Card sx={useStyles.cardAudio}>
+      {currentAudio.audio && (
+        <CardContent>
+          <Typography
+            sx={useStyles.white}
+            fontSize={20}
+            fontWeight={600}
+            letterSpacing={-1}
+          >
+            {currentAudio.audio?.title}
+          </Typography>
+          <Typography
+            sx={useStyles.audioText}
+            fontSize={16}
+            fontWeight={500}
+            py={2}
+          >
+            {currentAudio.audio.author} -{' '}
+            {dateFormat(currentAudio.audio.createdAt)}
+          </Typography>
+
+          <Box sx={useStyles.playWrapper}>
+            <AudioPlayer
+              ref={audioPlayerRef}
+              showJumpControls={false}
+              volume={volume}
+              layout="stacked-reverse"
+              src={toAssetPath(currentAudio.audio.mediaLink, false)}
+              customAdditionalControls={[]}
+              customControlsSection={customControls}
+            />
+          </Box>
+          {displayList && (
+            <AudioList {...{ audios, currentAudio, setCurrentAudio }} />
+          )}
+          {displayMore && (
+            <Grid
+              container
+              direction="column"
+              justifyContent="flex-end"
+              alignItems="flex-end"
+            >
+              <Box textAlign="center">
+                <Button
+                  component={Link}
+                  to={toLink('audios')}
+                  sx={useStyles.white}
+                  endIcon={<ArrowOutward fontSize="small" />}
+                >
+                  {t('actions.viewMoreAudios')}
+                </Button>
+              </Box>
+            </Grid>
+          )}
+        </CardContent>
+      )}
     </Card>
   );
 };

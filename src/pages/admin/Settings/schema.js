@@ -29,6 +29,36 @@ export const navSchema = (navs = [], states = {}) => [
   ],
 ];
 
+export const pubSchema = () => [
+  [
+    {
+      name: 'title',
+      label: 'Title',
+    },
+    {
+      name: 'expiryDate',
+      label: 'When the communication is expired',
+      fieldType: 'date',
+    },
+  ],
+  [
+    {
+      name: 'content',
+      label: 'The communication body',
+      rows: 4,
+      multiline: true,
+    },
+  ],
+  [
+    {
+      name: 'isPublished',
+      label: 'Mark it as published',
+      fieldType: 'switch-field',
+      isBool: true,
+    },
+  ],
+];
+
 export const pubsColumns = (setAction) => [
   { accessorKey: 'title', header: 'Title' },
   { accessorKey: 'content', header: 'Content' },

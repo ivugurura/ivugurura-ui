@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
   Search as SearchIcon,
@@ -35,13 +35,19 @@ const ListItemStyled = styled(ListItem)(({ theme }) => ({
     backgroundColor: alpha(theme.palette.grey[600], 0.25),
   },
 }));
-export const SearchModal = ({ open, onClose }) => {
+export const SearchModal = ({ open, onClose, searchKey, setSearchKey }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [searchKey, setSearchKey] = useState('');
+  // const [searchKey, setSearchKey] = useState('');
 
   const { data, isFetching } = actions.useSearchSystemQuery({ searchKey });
   const { data: searched } = data || initials.dataObj;
+
+  // useEffect(() => {
+  //   if (defaultInput) {
+  //     setSearchKey(defaultInput);
+  //   }
+  // }, [defaultInput]);
 
   const handleNavigate = (type, slug) => {
     if (type === 'topic') {
@@ -74,6 +80,7 @@ export const SearchModal = ({ open, onClose }) => {
           )}
           <InputBase
             sx={{ ml: 1, flex: 1 }}
+            value={searchKey}
             placeholder={searchTitle}
             inputProps={{ 'aria-label': searchTitle }}
             autoFocus

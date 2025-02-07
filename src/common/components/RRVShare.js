@@ -4,7 +4,7 @@ import {
   Facebook as FacebookIcon,
   WhatsApp as WhatsAppIcon,
   Twitter as TwitterIcon,
-  Share as ShareIcon,
+  ShareOutlined,
 } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import {
@@ -20,6 +20,7 @@ export const RRVShare = ({
   href = '',
   title = '',
   displayText = true,
+  color,
 }) => {
   const { t } = useTranslation();
   const shareOptions = [
@@ -49,9 +50,13 @@ export const RRVShare = ({
   );
   return (
     <RRVDropdown
-      buttonProps={{ startIcon: <ShareIcon /> }}
+      buttonProps={{
+        startIcon: <ShareOutlined sx={{ color }} />,
+      }}
       title={displayText && t('actions.share')}
       options={shareOptions}
+      variant="text"
+      share
     />
   );
 };

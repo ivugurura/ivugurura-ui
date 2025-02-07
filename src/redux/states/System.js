@@ -44,5 +44,12 @@ export const SystemState = {
         endpoint: `/manage/search?${getParams(['searchKey'], false)}`,
       },
     },
+    contactUs: {
+      api: {
+        verb: VERBS.post,
+        endpoint: `/manage/contact-us`,
+        hasBody: true,
+      },
+    },
   },
 };

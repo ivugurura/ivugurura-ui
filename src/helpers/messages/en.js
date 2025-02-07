@@ -19,7 +19,7 @@ export const en = {
   recentTopics: 'Recent topics',
   relatedTopics: 'Related topics',
   writingsCat: 'Topics',
-  leaveComment: 'Leave a comment about the topic',
+  leaveComment: 'Leave a thought or comment here!',
   notEmailPublish: 'Your email address will not be published',
   createdAt: 'Created at ',
   commentSuccess: 'Your comment has been received. Thanks',

@@ -1,14 +1,13 @@
 import * as React from 'react';
 
-import { MoreVert as MoreVertIcon } from '@mui/icons-material';
+import { ArrowOutward } from '@mui/icons-material';
 import {
-  Avatar,
+  Box,
   Button,
   Card,
   CardContent,
-  CardHeader,
   CardMedia,
-  IconButton,
+  Typography,
 } from '@mui/material';
 import classNames from 'classnames';
 import parse from 'html-react-parser';
@@ -16,7 +15,9 @@ import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import { RRVShare } from '../../common/components/RRVShare';
 import {
+  MAIN_URL,
   toAssetPath,
   toLink,
   // truncate
@@ -37,39 +38,61 @@ export const TopicItem = ({
   const linkProps = hasMore
     ? { component: Link, to: toLink(`topics/${topic.slug}`) }
     : {};
+  const handleShare = () => {
+    console.log('shared');
+  };
   return (
-    <Card className={classNames(className)}>
-      <CardHeader
-        avatar={
-          <Avatar className="bg-gradient" aria-label={topic.title}>
-            {topic.title?.charAt(0)}
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label={topic.title}>
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={topic.title}
-        subheader={`${t('updatedAt')} ${moment(topic.updatedAt).format('DD.MM.YYYY')}`}
-        className={styles.title}
-        {...linkProps}
-      />
-      <CardMedia
-        component="img"
-        height={imageHeight}
-        image={toAssetPath(topic.coverImage)}
-        alt={topic.title}
-      />
+    <Card sx={{ boxShadow: 'none' }} className={classNames(className)}>
+      <Box sx={{ position: 'relative' }}>
+        <CardMedia
+          component="img"
+          height={imageHeight}
+          image={toAssetPath(topic.coverImage)}
+          alt={topic.title}
+        />
+
+        <Box className={styles.linearBack}>
+          <Typography
+            variant="h6"
+            fontWeight={600}
+            className={styles.topic}
+            {...linkProps}
+          >
+            {topic.title}
+          </Typography>
+          <Typography
+            variant="subtitle2"
+            fontWeight={400}
+            fontSize={12}
+            className={styles.topic}
+          >
+            {`${moment(topic.updatedAt).format('DD MMM YYYY')}`}
+          </Typography>
+        </Box>
+      </Box>
       <CardContent>
         {parse(topic.content || 'No content available')}
-        {hasMore && (
-          <Button size="small" {...linkProps}>
-            {t('actions.more')}
-          </Button>
-        )}
+
         {showComments && <Comments slug={topic.slug} />}
       </CardContent>
+      {hasMore && (
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Button
+            size="small"
+            {...linkProps}
+            className={styles.moreBtn}
+            endIcon={<ArrowOutward fontSize="small" />}
+          >
+            {t('actions.more')}
+          </Button>
+          <RRVShare
+            title={topic.title}
+            href={MAIN_URL + toLink(`topics/${topic.slug}`)}
+            onShare={handleShare}
+            color={({ palette }) => palette.black}
+          />
+        </Box>
+      )}
     </Card>
   );
 };

@@ -2,10 +2,22 @@ import { colors } from '@mui/material';
 
 const white = '#FFFFFF';
 const black = '#000000';
-
+const blackColor = '#161722';
+const grey = '#A6A6A7';
+const darkBlue = '#18232C';
+const darkGray = '#101828';
+const darkGreen = '#475467';
+const listGrey = '#B3B3B3';
+const green = '#65D36E';
 export const palette = {
   black,
   white,
+  blackColor,
+  darkBlue,
+  darkGray,
+  darkGreen,
+  listGrey,
+  green,
   primary: {
     contrastText: white,
     dark: colors.blue[900],
@@ -28,6 +40,7 @@ export const palette = {
     primary: colors.blueGrey[900],
     secondary: colors.blueGrey[600],
     link: colors.blue[600],
+    unselected: grey,
   },
   link: colors.blue[800],
   icon: colors.blueGrey[600],

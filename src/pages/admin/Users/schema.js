@@ -1,6 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useMemo } from 'react';
-
 import moment from 'moment';
 
 import { getRole } from '../../../helpers/utils/constants';

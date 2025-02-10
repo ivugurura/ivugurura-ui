@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 
+import { Button } from '@mui/material';
+
 import { BooksList } from '../../../common/components/BooksList';
 import { DashboardContainer } from '../components/DashboardContainer';
+
+import { AddEditBook } from './AddEditBook';
 
 const initialBooks = [
   {
@@ -29,8 +33,17 @@ const Books = () => {
   const [openBookModal, setOpenBookModal] = useState(false);
 
   return (
-    <DashboardContainer title="Library books">
+    <DashboardContainer
+      title="Library books"
+      action={
+        <Button onClick={() => setOpenBookModal(true)}>Add new book</Button>
+      }
+    >
       <BooksList books={initialBooks} />
+      <AddEditBook
+        open={openBookModal}
+        onClose={() => setOpenBookModal(false)}
+      />
     </DashboardContainer>
   );
 };

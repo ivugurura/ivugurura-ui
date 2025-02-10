@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Dialog,
@@ -11,17 +11,18 @@ import { RRVDialogActions } from '../../../common/components/RRVDialogActions';
 import { RRVForm } from '../../../common/components/RRVForm/index';
 import { actions } from '../../../redux/apiSliceBuilder';
 
-const initials = {
-  title: '',
-  author: '',
-  cover: '',
-  description: '',
-  categoryId: '',
-  audio: '',
-};
+import { bookSchema, bookInitials } from './schema';
+
 export const AddEditBook = ({ open, onClose, refetchBooks }) => {
-  const [newBook, setNewBook] = useState(initials);
+  const [newBook, setNewBook] = useState(bookInitials);
   const [createBook, res] = actions.useCreateBookMutation();
+
+  useEffect(() => {
+    if (res.isSuccess) {
+      refetchBooks();
+      onClose();
+    }
+  }, [res.isSuccess]);
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Create a new book</DialogTitle>

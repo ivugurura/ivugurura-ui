@@ -1,4 +1,5 @@
 import { AudioState } from './Audio';
+import { BookState } from './Book';
 import { CategoryState } from './Category';
 import { ConfigState } from './Config';
 import { MediaState } from './Media';
@@ -14,4 +15,5 @@ export const appStates = [
   CategoryState,
   MediaState,
   ConfigState,
+  BookState,
 ];

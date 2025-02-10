@@ -1,12 +1,5 @@
 import { appStates } from './states';
 
-export const baseState = (key = 'data', value = null) => ({
-  loading: true,
-  done: false,
-  [key]: value,
-  totalItems: 0,
-});
-
 function startCase(str = '', action = 'toUpperCase') {
   const sentences = str.toLowerCase().split(' ');
   sentences.forEach((_, i) => {

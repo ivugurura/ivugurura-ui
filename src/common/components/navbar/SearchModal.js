@@ -38,23 +38,15 @@ const ListItemStyled = styled(ListItem)(({ theme }) => ({
 export const SearchModal = ({ open, onClose, searchKey, setSearchKey }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  // const [searchKey, setSearchKey] = useState('');
 
   const { data, isFetching } = actions.useSearchSystemQuery({ searchKey });
   const { data: searched } = data || initials.dataObj;
 
-  // useEffect(() => {
-  //   if (defaultInput) {
-  //     setSearchKey(defaultInput);
-  //   }
-  // }, [defaultInput]);
-
   const handleNavigate = (type, slug) => {
-    if (type === 'topic') {
-      navigate(toLink(`topics/${slug}`));
-    } else {
-      navigate(toLink(`topics?t=${slug}`));
-    }
+    const route = `topics${type === 'topic' ? '/' : '?t='}${slug}`;
+
+    navigate(toLink(route));
+
     onClose();
   };
 

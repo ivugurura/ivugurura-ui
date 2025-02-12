@@ -36,7 +36,7 @@ export const AddEditBook = ({ open, onClose, refetchBooks }) => {
     setFileType(type);
   };
 
-  console.log(fileUrls);
+  console.log(fileUrls, fileType);
 
   return (
     <Dialog open={open} onClose={onClose}>

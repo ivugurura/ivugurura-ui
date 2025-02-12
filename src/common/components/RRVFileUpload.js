@@ -37,6 +37,7 @@ export const RRVFileUpload = ({
   title = '',
   type = 'image',
   accept = '.png, .jpg, .jpeg',
+  onFirstExcute = () => {},
 }) => {
   const dispatch = useDispatch();
   const [imageProps, setImageProps] = React.useState(initialImageProps);
@@ -56,6 +57,8 @@ export const RRVFileUpload = ({
     if (imageProps.file?.type?.includes('image/')) {
       fileToUpload = dataUrlToFile(imageDataUrl, imageProps.file.name);
     }
+    console.log(fileToUpload);
+
     if (imageProps.file && fileToUpload) {
       uploadFileWithProgress(fileToUpload, imageProps.uploaded, type, (e) => {
         setProgress(Math.round((100 * e.loaded) / e.total));
@@ -79,15 +82,17 @@ export const RRVFileUpload = ({
         });
     }
   };
+  const handleFileChange = (selectedFile) => {
+    setImageProps((prev) => ({ ...prev, file: selectedFile }));
+    onFirstExcute();
+  };
   return (
     <Grid container>
       <Grid item xs={12}>
         <MuiFileInput
           label={title}
           value={imageProps.file}
-          onChange={(selectedFile) =>
-            setImageProps((prev) => ({ ...prev, file: selectedFile }))
-          }
+          onChange={handleFileChange}
           placeholder="Insert a file"
           inputProps={{ accept }}
         />

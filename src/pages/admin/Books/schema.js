@@ -6,7 +6,7 @@ export const bookInitials = {
   categoryId: '',
 };
 
-export const bookSchema = () => [
+export const bookSchema = (onHandleFileInputClick) => [
   [
     { name: 'title', label: 'Book title' },
     { name: 'author', label: 'Book author' },
@@ -25,14 +25,16 @@ export const bookSchema = () => [
       fieldType: 'file-field',
       type: 'bookCover',
       accept: '.jpeg, .png',
+      onFirstExcute: () => onHandleFileInputClick('bookCover'),
     },
   ],
   [
     {
       label: 'Book file',
       fieldType: 'file-field',
-      type: 'bookUrl',
+      type: 'bookFile',
       accept: '.pdf',
+      onFirstExcute: () => onHandleFileInputClick('bookFile'),
     },
   ],
 ];

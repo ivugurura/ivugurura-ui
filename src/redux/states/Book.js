@@ -6,6 +6,7 @@ export const BookState = {
   entity: 'Book',
   actions: {
     list: {
+      suffix: 's',
       api: {
         verb: VERBS.get,
         endpoint: `/books?${getParams()}`,

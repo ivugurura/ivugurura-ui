@@ -6,9 +6,15 @@ export const bookInitials = {
   categoryId: '',
 };
 
-export const bookSchema = (onHandleFileInputClick) => [
+export const bookSchema = (onHandleFileInputClick, categories = []) => [
+  [{ name: 'title', label: 'Book title' }],
   [
-    { name: 'title', label: 'Book title' },
+    {
+      name: 'categoryId',
+      label: 'Book category',
+      select: true,
+      options: categories,
+    },
     { name: 'author', label: 'Book author' },
   ],
   [

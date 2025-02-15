@@ -95,6 +95,7 @@ export const socialMedias = [
 
 export const IMAGE_PATH = `${process.env.REACT_APP_API_URL}/images`;
 export const AUDIO_PATH = `${process.env.REACT_APP_API_URL}/songs`;
+export const BOOK_COVERS_PATH = `${process.env.REACT_APP_API_URL}/covers`;
 export const toLink = (link = '', isAdmin = false) =>
   `${isAdmin ? '/admin/' : '/'}${systemLanguage}/${link}`;
 export const toAssetPath = (name = '', isImage = true) =>

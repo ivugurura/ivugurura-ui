@@ -40,7 +40,7 @@ export const AddEditBook = ({ open, onClose, refetchBooks }) => {
   };
 
   const handleSaveBook = () => {
-    createBook({ ...newBook, fileUrls });
+    createBook({ ...newBook, ...fileUrls });
   };
 
   return (

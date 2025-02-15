@@ -1,13 +1,12 @@
 export const bookInitials = {
-  title: '',
+  name: '',
   author: '',
-  cover: '',
-  description: '',
+  summary: '',
   categoryId: '',
 };
 
 export const bookSchema = (onHandleFileInputClick, categories = []) => [
-  [{ name: 'title', label: 'Book title' }],
+  [{ name: 'name', label: 'Book name' }],
   [
     {
       name: 'categoryId',
@@ -19,8 +18,8 @@ export const bookSchema = (onHandleFileInputClick, categories = []) => [
   ],
   [
     {
-      name: 'description',
-      label: 'Book description',
+      name: 'summary',
+      label: 'Book summary',
       multiline: true,
       rows: 4,
     },

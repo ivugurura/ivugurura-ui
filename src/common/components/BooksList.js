@@ -9,7 +9,9 @@ import {
   Typography,
 } from '@mui/material';
 
-export const BooksList = ({ books = [], onBookClick }) => (
+import { BOOK_COVERS_PATH } from '../../helpers/utils/constants';
+
+export const BooksList = ({ books = [], onBookClick = () => {} }) => (
   <Container sx={{ py: 4 }}>
     <Typography variant="h4" gutterBottom>
       Book Collection
@@ -23,20 +25,20 @@ export const BooksList = ({ books = [], onBookClick }) => (
               display: 'flex',
               flexDirection: 'column',
             }}
-            onClick={onBookClick}
+            onClick={() => onBookClick(book)}
           >
             <CardMedia
               component="img"
               height="300"
-              image={book.coverImage}
-              alt={book.title}
+              image={`${BOOK_COVERS_PATH}/${book.coverImage}`}
+              alt={book.name}
             />
             <CardContent sx={{ flexGrow: 1 }}>
               <Typography gutterBottom variant="h5" component="div">
-                {book.title}
+                {book.name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                by {book.author}
+                by Ivugurura n Ubugorozi
               </Typography>
             </CardContent>
           </Card>

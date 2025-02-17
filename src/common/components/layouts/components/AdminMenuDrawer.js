@@ -33,7 +33,7 @@ const dashboardMenus = (lang = 'en', role = undefined, t = () => {}) => [
       },
       {
         name: 'Library',
-        key: 'home',
+        key: 'library',
         to: `${lang}/library`,
         icon: LibraryIcon,
       },

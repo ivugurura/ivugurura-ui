@@ -1,7 +1,14 @@
 import React from 'react';
 
 import {
+  Delete as DeleteIcon,
+  EditNoteOutlined as EditIcon,
+  ViewAgendaOutlined as ViewIcon,
+} from '@mui/icons-material';
+import {
+  Button,
   Card,
+  CardActions,
   CardContent,
   CardMedia,
   Container,
@@ -41,6 +48,25 @@ export const BooksList = ({ books = [], onBookClick = () => {} }) => (
                 by Ivugurura n Ubugorozi
               </Typography>
             </CardContent>
+            <CardActions>
+              <Button
+                size="small"
+                startIcon={<ViewIcon />}
+                onClick={() => onBookClick(book, 'read')}
+              >
+                Read
+              </Button>
+              <Button size="small" startIcon={<EditIcon />}>
+                Edit
+              </Button>
+              <Button
+                size="small"
+                startIcon={<DeleteIcon />}
+                onClick={() => onBookClick(book, 'delete')}
+              >
+                Delete
+              </Button>
+            </CardActions>
           </Card>
         </Grid>
       ))}

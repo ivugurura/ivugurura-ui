@@ -32,7 +32,6 @@ export const BooksList = ({ books = [], onBookClick = () => {} }) => (
               display: 'flex',
               flexDirection: 'column',
             }}
-            onClick={() => onBookClick(book)}
           >
             <CardMedia
               component="img"

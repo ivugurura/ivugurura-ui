@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import { Button } from '@mui/material';
 
 import { BooksList } from '../../../common/components/BooksList';
+import { useAlertDialog } from '../../../common/hooks/useAlertDialog';
 import { useMuiSearchPagination } from '../../../common/hooks/useMuiSearchPagination';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
+import { AlertConfirm } from '../components/AlertConfirm';
 import { DashboardContainer } from '../components/DashboardContainer';
 
 import { AddEditBook } from './AddEditBook';
@@ -18,14 +20,34 @@ const Books = () => {
   });
   const { paginator } = useMuiSearchPagination();
   const { data, refetch } = actions.useListBooksQuery(paginator);
+  const [deleteBook, delRes] = actions.useDeleteBookMutation();
+
+  const { alertValues, reset, setAlertValues } = useAlertDialog();
 
   const handleModal = (type, value) => {
     setOpenModals((p) => ({ ...p, [type]: value }));
   };
-  const handleOpenBook = (book) => {
+
+  const handleBookClick = (book, action) => {
     setCurrentBook(book);
-    handleModal('readBook', true);
+    if (action === 'read') {
+      handleModal('readBook', true);
+    } else if (action === 'delete') {
+      setAlertValues({
+        open: true,
+        title: 'Delete book',
+        message: 'Are you sure you want to delete this book?',
+        actionType: 'delete',
+      });
+    }
   };
+
+  const handleConfirm = () => {
+    if (alertValues.actionType === 'delete') {
+      deleteBook({ id: currentBook.id });
+    }
+  };
+
   const { data: books } = data || initials.dataArr;
 
   return (
@@ -37,7 +59,7 @@ const Books = () => {
         </Button>
       }
     >
-      <BooksList books={books} onBookClick={handleOpenBook} />
+      <BooksList books={books} onBookClick={handleBookClick} />
       <AddEditBook
         open={openModals.addBook}
         onClose={() => handleModal('addBook', false)}
@@ -47,6 +69,12 @@ const Books = () => {
         open={openModals.readBook}
         onClose={() => handleModal('readBook', false)}
         book={currentBook}
+      />
+      <AlertConfirm
+        {...alertValues}
+        setOpen={() => reset()}
+        onConfirmYes={handleConfirm}
+        loading={delRes.isLoading}
       />
     </DashboardContainer>
   );

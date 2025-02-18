@@ -25,5 +25,11 @@ export const BookState = {
         hasBody: true,
       },
     },
+    delete: {
+      api: {
+        verb: VERBS.delete,
+        endpoint: '/books/:id',
+      },
+    },
   },
 };

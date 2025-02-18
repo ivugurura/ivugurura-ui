@@ -17,7 +17,7 @@ import {
 export const AlertConfirm = ({
   open,
   setOpen,
-  onConfirmYes,
+  onConfirmYes = () => {},
   message = '',
   loading = false,
   title = 'Confirm action',

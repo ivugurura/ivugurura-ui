@@ -1,17 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { FileDownloadOutlined, PlayArrow, Pause } from '@mui/icons-material';
-import {
-  Box,
-  Divider,
-  Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from '@mui/material';
+import { Grid, Box, Typography, Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { RRVAudioPlayer } from '../../common/components/RRVAudioPlayer';
@@ -56,127 +45,47 @@ const AudiosPage = () => {
   console.log({ isFetching });
 
   return (
-    <PageHelmet title={t('audios')}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={12}>
-          <Box px={8}>
-            <Box
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              py={4}
-            >
-              <Typography variant="subtitle2" py={4}>
-                {t('audio').toUpperCase()}
-              </Typography>
-              <Typography variant="h1" fontWeight={800}>
-                {t('listenAudio').toUpperCase()}
-              </Typography>
-            </Box>
-            <Grid container spacing={2}>
-              <Grid item md={4} sm={12} xs={12} sx={useStyles.cardContainer}>
-                {currentAudio.audio && (
-                  <RRVAudioPlayer
-                    audios={audios}
-                    currentAudio={currentAudio}
-                    setCurrentAudio={setCurrentAudio}
-                  />
-                )}
-              </Grid>
-              <Grid item md={7.8} sm={12} xs={12}>
-                <SearchBar />
-                <List>
-                  {audios?.map((audio, index) => {
-                    const isCurrent = audio.id === currentAudio.audio?.id;
-                    return (
-                      <React.Fragment key={audio.id}>
-                        <ListItem
-                          onClick={() => setCurrentAudio({ audio, index })}
-                          sx={{
-                            ...useStyles.listItem,
-                            ...(isCurrent && useStyles.selectedListItem),
-                            flexDirection: { xs: 'column', sm: 'row' },
-                            alignItems: { xs: 'flex-start', sm: 'center' },
-                            gap: { xs: 2, sm: 0 },
-                          }}
-                          key={audio.id}
-                          secondaryAction={
-                            <Box
-                              size="small"
-                              display="flex"
-                              flexDirection={{ xs: 'column', sm: 'row' }}
-                              alignItems="center"
-                              gap={1}
-                              // orientation={isMobile ? 'vertical' : 'horizontal'}
-                            >
-                              <IconButton
-                                onClick={() =>
-                                  setCurrentAudio({ audio, index })
-                                }
-                                sx={useStyles.listIcon}
-                              >
-                                {isCurrent && isPlaying ? (
-                                  <Pause />
-                                ) : (
-                                  <PlayArrow />
-                                )}
-                              </IconButton>
+    <PageHelmet title={t('topics')}>
+      <Box>
+        <Box display="flex" flexDirection="column" alignItems="center" py={4}>
+          <Typography variant="subtitle2" py={4}>
+            {t('readOurBlog')}
+          </Typography>
+          <Typography variant="h1" fontWeight={800}>
+            {t('teachings').toUpperCase()}
+          </Typography>
+        </Box>
 
-                              <IconButton
-                                target="_blank"
-                                rel="noreferrer"
-                                href={DL_ROUTE + audio.slug}
-                              >
-                                <FileDownloadOutlined
-                                  sx={useStyles.listIcon}
-                                  fontSize="small"
-                                />
-                              </IconButton>
-                              <RRVShare
-                                title={audio.title}
-                                href={DL_ROUTE + audio.slug}
-                                onShare={() => shareSong({ slug: audio.slug })}
-                              />
-                            </Box>
-                          }
-                          alignItems="flex-start"
-                        >
-                          <ListItemIcon
-                            sx={{ minWidth: isMobile ? undefined : '56px' }}
-                          >
-                            <AudioVisualizer
-                              isPlaying={isPlaying && isCurrent}
-                            />
-                          </ListItemIcon>
-                          <Box
-                            sx={{
-                              display: 'flex',
-                              flexDirection: { xs: 'column', sm: 'row' },
-                              alignItems: { xs: 'flex-start', sm: 'center' },
-                              width: '100%',
-                              gap: 2,
-                            }}
-                          >
-                            <ListItemText
-                              primary={audio.title}
-                              secondary={
-                                <p>
-                                  {t('by')} {audio.author}
-                                </p>
-                              }
-                              sx={{ flex: 0.5 }}
-                            />
-                            <Typography variant="subtitle2">
-                              {dateFormat(audio.createdAt)}
-                            </Typography>
-                          </Box>
-                        </ListItem>
-                        <Divider variant="insert" component="li" />
-                      </React.Fragment>
-                    );
-                  })}
-                </List>
-              </Grid>
+        <Grid container spacing={2}>
+          <Grid item md={3.6} sm={12} mt={8}>
+            <Grid container>
+              {categoriesLoading ? (
+                <TopicListItemSkeleton totalItem={6} />
+              ) : (
+                <Box sx={{ display: 'flex', width: '100%' }}>
+                  <Divider
+                    orientation="vertical"
+                    sx={styles.dividers}
+                    flexItem
+                  />
+
+                  <Box sx={{ flexGrow: 1 }}>
+                    <CategoryItem
+                      category={{ id: null, name: allTopics }}
+                      selectedId={selectedCategoryId}
+                      onClick={handleCategoryClick}
+                    />
+                    {categories?.map((cat) => (
+                      <CategoryItem
+                        key={cat.id}
+                        category={cat}
+                        selectedId={selectedCategoryId}
+                        onClick={handleCategoryClick}
+                      />
+                    ))}
+                  </Box>
+                </Box>
+              )}
             </Grid>
             <Grid
               container

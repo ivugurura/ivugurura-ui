@@ -1,49 +1,59 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { Grid, Box, Typography, Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { RRVAudioPlayer } from '../../common/components/RRVAudioPlayer';
-import { AudioVisualizer } from '../../common/components/RRVAudioPlayer/audioVisualizerBar';
-import { useRRVAudioPlayerCtx } from '../../common/components/RRVAudioPlayer/provider';
-import { RRVPagination } from '../../common/components/RRVPagination/Pagination';
-import { RRVShare } from '../../common/components/RRVShare';
+import { BooksList } from '../../common/components/BooksList';
+import { TopicListItemSkeleton } from '../../common/components/loaders';
+import { RRVPagination } from '../../common/components/RRVPagination';
 import { PageHelmet } from '../../common/components/wrappers';
-import { useMediaQuery } from '../../common/hooks/useMediaQuery';
 import { usePagination } from '../../common/hooks/usePagination';
-// import { useWindowSize } from '../../common/hooks/useWindowSize';
-import { useStyles } from '../../common/styles';
-import { dateFormat, DL_ROUTE } from '../../helpers/utils/constants';
+import { useQueryParams } from '../../common/hooks/useQueryParams';
 import { actions, initials } from '../../redux/apiSliceBuilder';
 import SearchBar from '../components/searchBar';
-// import { HomeRecentTopics } from '../Home/components/Topics';
+import { styles } from '../TopicDetails/TopicDetails.style';
 
-const AudiosPage = () => {
+const CategoryItem = ({ category, selectedId, onClick }) => (
+  <Grid item xs={10} md={10}>
+    <Box onClick={() => onClick(category)}>
+      <Typography
+        sx={category.id === selectedId ? styles.select : styles.unselect}
+      >
+        {category.name.toUpperCase()}
+      </Typography>
+    </Box>
+  </Grid>
+);
+
+const LibraryPage = () => {
   const { t } = useTranslation();
-  const [currentAudio, setCurrentAudio] = useState({ index: -1, audio: null });
-  const { isMobile } = useMediaQuery();
-  const [shareSong] = actions.useShareAudioMutation();
-  const { isPlaying } = useRRVAudioPlayerCtx();
-
+  const { t: categorySlug } = useQueryParams();
+  const [selectedCategoryId, setSelectedCategoryId] = React.useState(null);
   const {
-    pagination: { page, pageSize, tablePage },
+    pagination: { pageSize, tablePage },
     handleChangePage,
     handleChangeRowsPerPage,
+    resetRowsPerPage,
   } = usePagination();
-  const { data, isFetching } = actions.useListAudiosQuery({
-    page,
-    pageSize: 20,
-  });
-  const { data: audios, totalItems } = data || initials.dataArr;
+  const { data } = actions.useListBooksQuery();
+  const { data: catData, isFetching: categoriesLoading } =
+    actions.useListCategoriesBookQuery();
+
+  const { data: books, totalItems } = data || initials.dataArr;
+  const { data: categories } = catData || initials.dataArr;
+  const allTopics = t('allTopics');
 
   useEffect(() => {
-    if (audios?.length > 0) {
-      setCurrentAudio({ audio: audios[0], index: 0 });
+    if (categories.length > 0 && categorySlug) {
+      const category = categories.find((cat) => cat.slug === categorySlug);
+      setSelectedCategoryId(category?.id || null);
     }
-  }, [audios]);
+  }, [categories.length, categorySlug]);
 
-  console.log({ isFetching });
-
+  const handleCategoryClick = (category) => {
+    setSelectedCategoryId(category?.id || null);
+    resetRowsPerPage();
+  };
   return (
     <PageHelmet title={t('topics')}>
       <Box>
@@ -87,26 +97,30 @@ const AudiosPage = () => {
                 </Box>
               )}
             </Grid>
-            <Grid
-              container
-              direction="column"
-              justifyContent="flex-end"
-              alignItems="flex-end"
-            >
-              <RRVPagination
-                handleChangePage={handleChangePage}
-                handleChangeRowsPerPage={handleChangeRowsPerPage}
-                dataCount={totalItems}
-                page={tablePage}
-                pageSize={pageSize}
-                labelRowsPerPage="N audios per page:"
-              />
+          </Grid>
+
+          <Grid item md={8} sm={12}>
+            <SearchBar />
+            <Grid container pt={2}>
+              <Grid item md={12}>
+                <Grid container>
+                  <BooksList books={books} onBookClick={() => {}} />
+                  <RRVPagination
+                    handleChangePage={handleChangePage}
+                    handleChangeRowsPerPage={handleChangeRowsPerPage}
+                    dataCount={totalItems}
+                    page={tablePage}
+                    pageSize={pageSize}
+                    labelRowsPerPage="N topics per page:"
+                  />
+                </Grid>
+              </Grid>
             </Grid>
-          </Box>
+          </Grid>
         </Grid>
-      </Grid>
+      </Box>
     </PageHelmet>
   );
 };
 
-export default AudiosPage;
+export default LibraryPage;

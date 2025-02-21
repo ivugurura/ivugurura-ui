@@ -34,6 +34,10 @@ const dashboardRoutes = [
     path: PageRoutes.admin.EditTopic,
     component: React.lazy(() => import('../../../pages/admin/TopicEditor2')),
   },
+  {
+    path: PageRoutes.admin.Library,
+    component: React.lazy(() => import('../../../pages/admin/Books')),
+  },
 ];
 export const AdminLayout = () => {
   const { data, ...restCountsQ } = actions.useGetCountsSystemQuery();

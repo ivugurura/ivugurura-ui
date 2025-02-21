@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
 import { Home as HomeIcon, RssFeed as RssFeedIcon } from '@mui/icons-material';
-// import { Masonry } from '@mui/lab';
 import { Grid, Box, Typography, Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -72,7 +71,7 @@ const TopicsPage = () => {
       categoryType: 'with-topics',
     });
   const { data: topics, totalItems } = data || initials.dataArr;
-  console.log({ page, pageSize, totalItems });
+
   const { data: categories } = catData || initials.dataArr;
   const allTopics = t('allTopics');
   const handleMenuOpen = (event) => {
@@ -94,7 +93,6 @@ const TopicsPage = () => {
     });
   };
   const handleMenuClose = () => {
-    // setBreadcumbMenu((prev) => ({ ...prev, anchorEl: event.currentTarget }));
     setTopicsNavs((prev) => {
       const copyPrev = [...prev];
       const navIndex = prev.findIndex((nav) => nav.name === allTopics);

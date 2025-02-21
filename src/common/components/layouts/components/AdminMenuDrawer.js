@@ -46,13 +46,13 @@ const dashboardMenus = (lang = 'en', role = undefined, t = () => {}) => [
       {
         name: t('admin.nav.media'),
         key: 'media',
-        to: `${lang}/audio`,
+        to: `${lang}/audios`,
         icon: PlayLessonIcon,
         routes: [
           {
             name: t('admin.nav.audio'),
             key: 'audio',
-            to: `${lang}/audio`,
+            to: `${lang}/audios`,
             icon: MusicNoteIcon,
           },
         ],

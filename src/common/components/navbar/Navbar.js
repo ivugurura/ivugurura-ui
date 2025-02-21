@@ -26,6 +26,11 @@ import { SearchModal } from './SearchModal';
 const AdditionalMenu = ({ navigate, t, onOpenContact }) => {
   return (
     <>
+      <Button variant="text" onClick={() => navigate(toLink('library'))}>
+        <Typography sx={{ color: 'white', textTransform: 'uppercase' }}>
+          Library
+        </Typography>
+      </Button>
       <Button variant="text" onClick={() => navigate(toLink('audios'))}>
         <Typography sx={{ color: 'white', textTransform: 'uppercase' }}>
           {t('audios')}

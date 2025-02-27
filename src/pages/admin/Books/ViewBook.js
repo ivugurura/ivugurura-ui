@@ -2,7 +2,8 @@ import React from 'react';
 
 import { Dialog } from '@mui/material';
 
-import { EmbedPDF } from '../../../common/components/PDFViewer/index';
+// import { EmbedPDF } from '../../../common/components/PDFViewer/index';
+import { PdfViewerV2 } from '../../../common/components/PDFViewerV2';
 
 export const ViewBook = ({ book = {}, open, onClose }) => {
   if (!book.id) return null;
@@ -47,12 +48,12 @@ export const ViewBook = ({ book = {}, open, onClose }) => {
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="lg" fullWidth>
-      <EmbedPDF
+      {/* <EmbedPDF
         mode="inline"
         style={{ width: 900, height: 800 }}
         documentURL={`${process.env.REACT_APP_API_URL}/api/v1/books/${book.id}`}
         companyIdentifier="viewer"
-      />
+      /> */}
       {/* <iframe
         id="pdfFrame"
         title={book.name}
@@ -60,6 +61,9 @@ export const ViewBook = ({ book = {}, open, onClose }) => {
         width="100%"
         height="600px"
       /> */}
+      <PdfViewerV2
+        pdfUrl={`${process.env.REACT_APP_API_URL}/api/v1/books/${book.id}`}
+      />
     </Dialog>
   );
 };

@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import React, { useState, useEffect, useRef } from 'react';
 
-export const PdfViewerV2 = ({ pdfUrl }) => {
+export const PdfViewerV3 = ({ pdfUrl }) => {
   const [isPdfLoaded, setIsPdfLoaded] = useState(false);
   //   const [pdfDocument, setPdfDocument] = useState(null);
   const [totalPages, setTotalPages] = useState(0);
@@ -9,36 +9,36 @@ export const PdfViewerV2 = ({ pdfUrl }) => {
   const pdfContainerRef = useRef(null);
   const thumbnailsContainerRef = useRef(null);
 
-  useEffect(() => {
-    // Import PDF.js library dynamically
-    const script = document.createElement('script');
-    script.src =
-      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js';
-    script.async = true;
+  // useEffect(() => {
+  //   // Import PDF.js library dynamically
+  //   const script = document.createElement('script');
+  //   script.src =
+  //     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js';
+  //   script.async = true;
 
-    // Set up worker
-    script.onload = () => {
-      const pdfjsLib = window['pdfjs-dist/build/pdf'];
-      pdfjsLib.GlobalWorkerOptions.workerSrc =
-        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js';
-    };
+  //   // Set up worker
+  //   script.onload = () => {
+  //     const pdfjsLib = window['pdfjs-dist/build/pdf'];
+  //     pdfjsLib.GlobalWorkerOptions.workerSrc =
+  //       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js';
+  //   };
 
-    document.body.appendChild(script);
+  //   document.body.appendChild(script);
 
-    // Add CSS
-    const link = document.createElement('link');
-    link.href =
-      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf_viewer.min.css';
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    document.head.appendChild(link);
+  //   // Add CSS
+  //   const link = document.createElement('link');
+  //   link.href =
+  //     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf_viewer.min.css';
+  //   link.rel = 'stylesheet';
+  //   link.type = 'text/css';
+  //   document.head.appendChild(link);
 
-    // Clean up
-    return () => {
-      document.body.removeChild(script);
-      document.head.removeChild(link);
-    };
-  }, []);
+  //   // Clean up
+  //   return () => {
+  //     document.body.removeChild(script);
+  //     document.head.removeChild(link);
+  //   };
+  // }, []);
 
   const renderPage = (pdfDoc, container, pageNumber, scale, resolution) => {
     pdfDoc.getPage(pageNumber).then((page) => {
@@ -100,6 +100,7 @@ export const PdfViewerV2 = ({ pdfUrl }) => {
       // Create Canvas for thumbnail
       const canvas = document.createElement('canvas');
       canvas.id = `thumbnail-${pageNumber}`;
+      canvas.width = '100%';
       const ctx = canvas.getContext('2d');
 
       // Add click event to scroll to the page
@@ -125,7 +126,7 @@ export const PdfViewerV2 = ({ pdfUrl }) => {
       container.appendChild(thumbContainer);
 
       // Set thumbnail scale (smaller than the main view)
-      const thumbnailScale = 0.2;
+      const thumbnailScale = 0.16;
       const viewport = page.getViewport({ scale: thumbnailScale });
       canvas.height = viewport.height;
       canvas.width = viewport.width;
@@ -142,6 +143,8 @@ export const PdfViewerV2 = ({ pdfUrl }) => {
 
   const renderAllPages = (pdfDoc) => {
     if (!pdfContainerRef.current || !thumbnailsContainerRef.current) return;
+    console.log('pdfContainerRef.current', pdfContainerRef.current);
+
     const scale = 1; // Set Scale for zooming PDF
     const resolution = 1; // Set Resolution to Adjust PDF clarity
 
@@ -194,35 +197,33 @@ export const PdfViewerV2 = ({ pdfUrl }) => {
 
   return (
     <div>
-      {isPdfLoaded && (
-        <div style={{ display: 'flex', marginTop: '10px' }}>
-          {/* Thumbnails sidebar */}
-          <div
-            ref={thumbnailsContainerRef}
-            style={{
-              width: '150px',
-              backgroundColor: '#f5f5f5',
-              overflowY: 'auto',
-              overflowX: 'hidden',
-              height: '820px',
-              padding: '10px',
-              borderRight: '1px solid #ddd',
-            }}
-          />
+      <div style={{ display: 'flex', marginTop: '10px' }}>
+        {/* Thumbnails sidebar */}
+        <div
+          ref={thumbnailsContainerRef}
+          style={{
+            width: '150px',
+            backgroundColor: '#f5f5f5',
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            height: '820px',
+            padding: '10px',
+            borderRight: '1px solid #ddd',
+          }}
+        />
 
-          {/* Main PDF container */}
-          <div
-            ref={pdfContainerRef}
-            style={{
-              flex: 1,
-              background: '#ccc',
-              textAlign: 'center',
-              padding: '5px',
-              overflow: 'auto',
-            }}
-          />
-        </div>
-      )}
+        {/* Main PDF container */}
+        <div
+          ref={pdfContainerRef}
+          style={{
+            flex: 1,
+            background: '#ccc',
+            textAlign: 'center',
+            padding: '5px',
+            overflow: 'auto',
+          }}
+        />
+      </div>
 
       {isPdfLoaded && (
         <div style={{ marginTop: '10px', textAlign: 'center' }}>

@@ -15,7 +15,7 @@ const dashboardRoutes = [
     component: React.lazy(() => import('../../../pages/admin/Commentaries')),
   },
   {
-    path: PageRoutes.admin.Audio,
+    path: PageRoutes.admin.Audios,
     component: React.lazy(() => import('../../../pages/admin/MediaEditor')),
   },
   {

@@ -1,7 +1,9 @@
 /* eslint-disable no-param-reassign */
 import React, { useState, useEffect, useRef } from 'react';
 
-export const PdfViewerV3 = ({ pdfUrl }) => {
+import { Button } from '@mui/material';
+
+export const PdfViewerV3 = ({ pdfUrl, onPageClose = () => {} }) => {
   const [isPdfLoaded, setIsPdfLoaded] = useState(false);
   //   const [pdfDocument, setPdfDocument] = useState(null);
   const [totalPages, setTotalPages] = useState(0);
@@ -197,6 +199,7 @@ export const PdfViewerV3 = ({ pdfUrl }) => {
 
   return (
     <div>
+      <Button onClick={onPageClose}>Close</Button>
       <div style={{ display: 'flex', marginTop: '10px' }}>
         {/* Thumbnails sidebar */}
         <div

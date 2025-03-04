@@ -10,6 +10,7 @@ import { PageHelmet } from '../../common/components/wrappers';
 import { usePagination } from '../../common/hooks/usePagination';
 import { useQueryParams } from '../../common/hooks/useQueryParams';
 import { actions, initials } from '../../redux/apiSliceBuilder';
+import { ViewBook } from '../admin/Books/ViewBook';
 import SearchBar from '../components/searchBar';
 import { styles } from '../TopicDetails/TopicDetails.style';
 
@@ -26,9 +27,11 @@ const CategoryItem = ({ category, selectedId, onClick }) => (
 );
 
 const LibraryPage = () => {
+  const [currentBook, setCurrentBook] = React.useState({});
+  const [openReadBook, setOpenReadBook] = React.useState(false);
+  const [selectedCategoryId, setSelectedCategoryId] = React.useState(null);
   const { t } = useTranslation();
   const { t: categorySlug } = useQueryParams();
-  const [selectedCategoryId, setSelectedCategoryId] = React.useState(null);
   const {
     pagination: { pageSize, tablePage },
     handleChangePage,
@@ -54,10 +57,14 @@ const LibraryPage = () => {
     setSelectedCategoryId(category?.id || null);
     resetRowsPerPage();
   };
+  const handleOpenBook = (book) => {
+    setCurrentBook(book);
+    setOpenReadBook(true);
+  };
   return (
     <PageHelmet title={t('topics')}>
       <Box>
-        <Box display="flex" flexDirection="column" alignItems="center" py={4}>
+        <Box display="flex" flexDirection="column" alignItems="center" py={2}>
           <Typography variant="subtitle2" py={4}>
             {t('readOurBlog')}
           </Typography>
@@ -104,7 +111,7 @@ const LibraryPage = () => {
             <Grid container pt={2}>
               <Grid item md={12}>
                 <Grid container>
-                  <BooksList books={books} onBookClick={() => {}} />
+                  <BooksList books={books} onBookClick={handleOpenBook} />
                   <RRVPagination
                     handleChangePage={handleChangePage}
                     handleChangeRowsPerPage={handleChangeRowsPerPage}
@@ -116,6 +123,12 @@ const LibraryPage = () => {
                 </Grid>
               </Grid>
             </Grid>
+            <ViewBook
+              open={openReadBook}
+              onClose={() => setOpenReadBook(false)}
+              book={currentBook}
+              fullScreen
+            />
           </Grid>
         </Grid>
       </Box>

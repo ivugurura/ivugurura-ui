@@ -70,9 +70,9 @@
     "react-youtube": "^10.1.0",
     "redux": "^5.0.1",
     "redux-thunk": "^3.1.0",
-    "sass": "^1.77.8",
-    "socket.io-client": "^4.7.5",
-    "suneditor": "^2.47.0",
+    "sass": "^1.85.1",
+    "socket.io-client": "^4.8.1",
+    "suneditor": "^2.47.5",
     "suneditor-react": "^3.6.1"
   },
   "devDependencies": {

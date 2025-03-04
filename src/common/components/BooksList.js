@@ -18,7 +18,11 @@ import {
 
 import { BOOK_COVERS_PATH } from '../../helpers/utils/constants';
 
-export const BooksList = ({ books = [], onBookClick = () => {} }) => (
+export const BooksList = ({
+  books = [],
+  onBookClick = () => {},
+  isAdmin = false,
+}) => (
   <Container sx={{ py: 4 }}>
     <Typography variant="h4" gutterBottom>
       Book Collection
@@ -31,7 +35,9 @@ export const BooksList = ({ books = [], onBookClick = () => {} }) => (
               height: '100%',
               display: 'flex',
               flexDirection: 'column',
+              cursor: 'pointer',
             }}
+            onClick={() => onBookClick(book)}
           >
             <CardMedia
               component="img"
@@ -47,25 +53,27 @@ export const BooksList = ({ books = [], onBookClick = () => {} }) => (
                 by Ivugurura n Ubugorozi
               </Typography>
             </CardContent>
-            <CardActions>
-              <Button
-                size="small"
-                startIcon={<ViewIcon />}
-                onClick={() => onBookClick(book, 'read')}
-              >
-                Read
-              </Button>
-              <Button size="small" startIcon={<EditIcon />}>
-                Edit
-              </Button>
-              <Button
-                size="small"
-                startIcon={<DeleteIcon />}
-                onClick={() => onBookClick(book, 'delete')}
-              >
-                Delete
-              </Button>
-            </CardActions>
+            {isAdmin && (
+              <CardActions>
+                <Button
+                  size="small"
+                  startIcon={<ViewIcon />}
+                  onClick={() => onBookClick(book, 'read')}
+                >
+                  Read
+                </Button>
+                <Button size="small" startIcon={<EditIcon />}>
+                  Edit
+                </Button>
+                <Button
+                  size="small"
+                  startIcon={<DeleteIcon />}
+                  onClick={() => onBookClick(book, 'delete')}
+                >
+                  Delete
+                </Button>
+              </CardActions>
+            )}
           </Card>
         </Grid>
       ))}

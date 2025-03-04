@@ -6,7 +6,12 @@ import { Dialog } from '@mui/material';
 // import { PdfViewerV2 } from '../../../common/components/PDFViewerV2';
 import { PdfViewerV3 } from '../../../common/components/PDFViewerV3';
 
-export const ViewBook = ({ book = {}, open, onClose }) => {
+export const ViewBook = ({
+  book = {},
+  open,
+  onClose = () => {},
+  fullScreen = false,
+}) => {
   if (!book.id) return null;
   console.log(`${process.env.REACT_APP_API_URL}/api/v1/books/${book.id}`);
 
@@ -48,7 +53,13 @@ export const ViewBook = ({ book = {}, open, onClose }) => {
   // }, []);
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="lg" fullWidth>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="lg"
+      fullWidth
+      fullScreen={fullScreen}
+    >
       {/* <EmbedPDF
         mode="inline"
         style={{ width: 900, height: 800 }}
@@ -64,6 +75,7 @@ export const ViewBook = ({ book = {}, open, onClose }) => {
       /> */}
       <PdfViewerV3
         pdfUrl={`${process.env.REACT_APP_API_URL}/api/v1/books/${book.id}`}
+        onPageClose={onClose}
       />
     </Dialog>
   );

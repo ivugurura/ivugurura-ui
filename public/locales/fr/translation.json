@@ -77,6 +77,10 @@
     "website": "Site web",
     "message": "Que veux-tu nous dire?"
   },
+  "library":{
+    "title": "Bibliothèque",
+    "description": "Choisissez un livre ci-dessous, lisez-le ou téléchargez-le."
+  },
   "admin": {
     "nav": {
       "webRelated": "Lié au site Web",

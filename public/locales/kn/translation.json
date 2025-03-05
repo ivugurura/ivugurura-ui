@@ -77,6 +77,10 @@
     "website": "Urubuga rwanyu(niba ruhari)",
     "message": "Andiko icyo ushaka kutugezaho"
   },
+  "library":{
+    "title": "Isomero",
+    "description": "Mushobora kwisomera ibitabo by ubutumwa bwiza bw Ivugurura n Ubugorozi"
+  },
   "admin": {
     "nav": {
       "webRelated": "Ibijyanye n urubuga",

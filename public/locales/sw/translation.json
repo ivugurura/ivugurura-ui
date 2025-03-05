@@ -77,6 +77,10 @@
 		"website": "Tovuti yako (ikiwa ipo)",
 		"message": "nataka kutuambia nini?"
 	},
+	"library": {
+		"title": "Library",
+		"description": "Unaweza kusoma vitabu kuhusu injili ya Uamsho na Matengenezo"
+	},
 	"admin": {
 		"nav": {
 			"webRelated": "Kuhusiana na tovuti",

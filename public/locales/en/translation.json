@@ -77,6 +77,10 @@
     "website": "Website",
     "message": "What do you want to tell us?"
   },
+  "library":{
+    "title": "Library",
+    "description": "Pick a book below, read or download it."
+  },
   "admin": {
     "nav": {
       "webRelated": "Website related",

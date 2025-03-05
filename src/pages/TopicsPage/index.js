@@ -8,6 +8,7 @@ import {
   TopicListItemSkeleton,
   TopicsCardSkeleton,
 } from '../../common/components/loaders';
+import { PageHeader } from '../../common/components/PageHeader';
 import { RRVBreadcrumbs } from '../../common/components/RRVBreadcrumbs/Breadcrumbs';
 import { RRVMenu } from '../../common/components/RRVMenu/RRVMenu';
 import { RRVPagination } from '../../common/components/RRVPagination';

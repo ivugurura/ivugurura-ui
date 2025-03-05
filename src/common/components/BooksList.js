@@ -24,9 +24,6 @@ export const BooksList = ({
   isAdmin = false,
 }) => (
   <Container sx={{ py: 4 }}>
-    <Typography variant="h4" gutterBottom>
-      Book Collection
-    </Typography>
     <Grid container spacing={3}>
       {books.map((book) => (
         <Grid item xs={12} sm={6} md={4} key={book.id}>

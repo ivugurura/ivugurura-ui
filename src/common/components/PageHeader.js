@@ -8,7 +8,7 @@ export const PageHeader = ({ title, description }) => {
       <Typography variant="subtitle2" py={4}>
         {title}
       </Typography>
-      <Typography variant="h1" fontWeight={800}>
+      <Typography variant="h3" fontWeight={800}>
         {description}
       </Typography>
     </Box>

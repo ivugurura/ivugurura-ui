@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Button } from '@mui/material';
 
@@ -23,6 +23,13 @@ const Books = () => {
   const [deleteBook, delRes] = actions.useDeleteBookMutation();
 
   const { alertValues, reset, setAlertValues } = useAlertDialog();
+
+  useEffect(() => {
+    if (delRes.isSuccess) {
+      refetch();
+      reset();
+    }
+  }, [delRes.isSuccess]);
 
   const handleModal = (type, value) => {
     setOpenModals((p) => ({ ...p, [type]: value }));
@@ -59,7 +66,7 @@ const Books = () => {
         </Button>
       }
     >
-      <BooksList books={books} onBookClick={handleBookClick} />
+      <BooksList books={books} onBookClick={handleBookClick} isAdmin />
       <AddEditBook
         open={openModals.addBook}
         onClose={() => handleModal('addBook', false)}

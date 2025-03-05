@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { BooksList } from '../../common/components/BooksList';
 import { TopicListItemSkeleton } from '../../common/components/loaders';
+import { PageHeader } from '../../common/components/PageHeader';
 import { RRVPagination } from '../../common/components/RRVPagination';
 import { PageHelmet } from '../../common/components/wrappers';
 import { usePagination } from '../../common/hooks/usePagination';
@@ -64,15 +65,10 @@ const LibraryPage = () => {
   return (
     <PageHelmet title={t('topics')}>
       <Box>
-        <Box display="flex" flexDirection="column" alignItems="center" py={2}>
-          <Typography variant="subtitle2" py={4}>
-            {t('readOurBlog')}
-          </Typography>
-          <Typography variant="h1" fontWeight={800}>
-            {t('teachings').toUpperCase()}
-          </Typography>
-        </Box>
-
+        <PageHeader
+          title={t('library.title')}
+          description={t('library.description').toUpperCase()}
+        />
         <Grid container spacing={2}>
           <Grid item md={3.6} sm={12} mt={8}>
             <Grid container>

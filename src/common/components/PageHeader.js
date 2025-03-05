@@ -1,0 +1,16 @@
+import React from 'react';
+
+import { Box, Typography } from '@mui/material';
+
+export const PageHeader = ({ title, description }) => {
+  return (
+    <Box display="flex" flexDirection="column" alignItems="center" py={2}>
+      <Typography variant="subtitle2" py={4}>
+        {title}
+      </Typography>
+      <Typography variant="h1" fontWeight={800}>
+        {description}
+      </Typography>
+    </Box>
+  );
+};

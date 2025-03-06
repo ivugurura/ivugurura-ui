@@ -30,6 +30,12 @@ export const bookSchema = (onHandleFileInputClick, categories = []) => [
       fieldType: 'file-field',
       type: 'bookCover',
       accept: '.jpeg, .png',
+      imgProps: {
+        height: 216,
+        width: 144,
+        bRadius: 5,
+        zoom: 0.2,
+      },
       onFirstExcute: () => onHandleFileInputClick('bookCover'),
     },
   ],

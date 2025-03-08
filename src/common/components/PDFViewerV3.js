@@ -3,7 +3,11 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import { Button } from '@mui/material';
 
-export const PdfViewerV3 = ({ pdfUrl, onPageClose = () => {} }) => {
+export const PdfViewerV3 = ({
+  pdfUrl,
+  onPageClose = () => {},
+  watermarkText = 'Reformation Voice',
+}) => {
   const [isPdfLoaded, setIsPdfLoaded] = useState(false);
   //   const [pdfDocument, setPdfDocument] = useState(null);
   const [totalPages, setTotalPages] = useState(0);
@@ -42,6 +46,37 @@ export const PdfViewerV3 = ({ pdfUrl, onPageClose = () => {} }) => {
   //   };
   // }, []);
 
+  const applyWatermark = (canvas, text) => {
+    const ctx = canvas.getContext('2d');
+    const { width, height } = canvas;
+
+    // Save the current canvas state
+    ctx.save();
+
+    // Set watermark properties
+    ctx.globalAlpha = 0.1;
+    ctx.font = `${Math.min(width, height) / 10}px Arial`;
+    ctx.fillStyle = '#888888';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Rotate the canvas
+    ctx.translate(width / 2, height / 2);
+    ctx.rotate(-Math.PI / 4); // Rotate -45 degrees
+
+    // Add diagonal repeating watermark
+    const fontSize = parseInt(ctx.font, 10);
+    const gap = fontSize * 3;
+    const repeats = Math.ceil(Math.sqrt(width * width + height * height) / gap);
+
+    for (let i = -repeats; i <= repeats; i++) {
+      ctx.fillText(text, 0, i * gap);
+    }
+
+    // Restore the canvas to its original state
+    ctx.restore();
+  };
+
   const renderPage = (pdfDoc, container, pageNumber, scale, resolution) => {
     pdfDoc.getPage(pageNumber).then((page) => {
       // Create a div to wrap the page (for scrolling to specific pages)
@@ -73,7 +108,11 @@ export const PdfViewerV3 = ({ pdfUrl, onPageClose = () => {} }) => {
         transform: [resolution, 0, 0, resolution, 0, 0],
       };
 
-      page.render(renderContext);
+      // page.render(renderContext);
+      page.render(renderContext).promise.then(() => {
+        // Apply watermark after rendering is complete
+        applyWatermark(canvas, watermarkText);
+      });
     });
   };
 

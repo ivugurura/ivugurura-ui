@@ -26,6 +26,14 @@ export const bookSchema = (onHandleFileInputClick, categories = []) => [
   ],
   [
     {
+      name: 'isDownloadable',
+      label: 'Will the book be downloadable?',
+      fieldType: 'switch-field',
+      isBool: true,
+    },
+  ],
+  [
+    {
       label: 'Cover image',
       fieldType: 'file-field',
       type: 'bookCover',

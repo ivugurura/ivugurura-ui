@@ -14,6 +14,7 @@ const { Buffer } = require('buffer/');
 const initialImageProps = {
   file: null,
   uploaded: '',
+  isUploaded: false,
   height: 190,
   width: 460,
   bRadius: 5,
@@ -37,6 +38,7 @@ export const RRVFileUpload = ({
   title = '',
   type = 'image',
   accept = '.png, .jpg, .jpeg',
+  placeholder = 'Insert a file',
   imgProps = {},
   onFirstExcute = () => {},
 }) => {
@@ -52,6 +54,7 @@ export const RRVFileUpload = ({
     setImageProps((prev) => ({
       ...prev,
       [target.name]: parseFloat(target.value),
+      isUploaded: false,
     }));
   }, []);
 
@@ -61,7 +64,6 @@ export const RRVFileUpload = ({
     if (imageProps.file?.type?.includes('image/')) {
       fileToUpload = dataUrlToFile(imageDataUrl, imageProps.file.name);
     }
-    console.log(fileToUpload);
 
     if (imageProps.file && fileToUpload) {
       uploadFileWithProgress(fileToUpload, imageProps.uploaded, type, (e) => {
@@ -71,7 +73,11 @@ export const RRVFileUpload = ({
           const theFileName = res.data.data;
           setProgress(0);
           dispatch(setFilePath(theFileName));
-          setImageProps((prev) => ({ ...prev, uploaded: theFileName }));
+          setImageProps((prev) => ({
+            ...prev,
+            uploaded: theFileName,
+            isUploaded: true,
+          }));
         })
         .catch((error) => {
           setProgress(0);
@@ -97,7 +103,7 @@ export const RRVFileUpload = ({
           label={title}
           value={imageProps.file}
           onChange={handleFileChange}
-          placeholder="Insert a file"
+          placeholder={`${placeholder}(${accept.replaceAll('.', '')})`}
           inputProps={{ accept }}
         />
       </Grid>
@@ -175,7 +181,7 @@ export const RRVFileUpload = ({
             </div>
           </div>
         )}
-        {imageProps.file && (
+        {!imageProps.isUploaded && imageProps.file && (
           <Button onClick={handleUploadFile}>
             Upload the file to the server
           </Button>

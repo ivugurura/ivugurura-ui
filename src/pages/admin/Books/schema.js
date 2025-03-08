@@ -30,6 +30,7 @@ export const bookSchema = (onHandleFileInputClick, categories = []) => [
       fieldType: 'file-field',
       type: 'bookCover',
       accept: '.jpeg, .png',
+      placeholder: 'Upload the book cover',
       imgProps: {
         height: 216,
         width: 144,
@@ -44,6 +45,7 @@ export const bookSchema = (onHandleFileInputClick, categories = []) => [
       label: 'Book file',
       fieldType: 'file-field',
       type: 'bookFile',
+      placeholder: 'Add the book file',
       accept: '.pdf',
       onFirstExcute: () => onHandleFileInputClick('bookFile'),
     },

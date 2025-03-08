@@ -6,6 +6,7 @@ import { Button } from '@mui/material';
 export const PdfViewerV3 = ({
   pdfUrl,
   onPageClose = () => {},
+  onDownload = () => {},
   watermarkText = 'Reformation Voice',
 }) => {
   const [isPdfLoaded, setIsPdfLoaded] = useState(false);
@@ -238,7 +239,10 @@ export const PdfViewerV3 = ({
 
   return (
     <div>
-      <Button onClick={onPageClose}>Close</Button>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Button onClick={onPageClose}>Close</Button>
+        <Button onClick={onDownload}>Download</Button>
+      </div>
       <div style={{ display: 'flex', marginTop: '10px' }}>
         {/* Thumbnails sidebar */}
         <div

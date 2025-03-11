@@ -31,5 +31,12 @@ export const BookState = {
         endpoint: '/books/:id',
       },
     },
+    download: {
+      api: {
+        verb: VERBS.get,
+        isMutation: true,
+        endpoint: '/books/:id/download',
+      },
+    },
   },
 };

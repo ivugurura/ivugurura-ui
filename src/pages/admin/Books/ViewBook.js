@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Dialog } from '@mui/material';
 
-// import { EmbedPDF } from '../../../common/components/PDFViewer/index';
-// import { PdfViewerV2 } from '../../../common/components/PDFViewerV2';
 import { PdfViewerV3 } from '../../../common/components/PDFViewerV3';
+import { actions } from '../../../redux/apiSliceBuilder';
 
 export const ViewBook = ({
   book = {},
@@ -12,45 +11,21 @@ export const ViewBook = ({
   onClose = () => {},
   fullScreen = false,
 }) => {
+  const [downloadBook, res] = actions.useDownloadBookMutation();
   if (!book.id) return null;
   console.log(`${process.env.REACT_APP_API_URL}/api/v1/books/${book.id}`);
 
-  // useEffect(() => {
-  //   const disableShortcuts = (event) => {
-  //     if (event.ctrlKey && (event.key === 's' || event.key === 'p')) {
-  //       event.preventDefault();
-  //     }
-  //   };
-
-  //   document.addEventListener('keydown', disableShortcuts);
-  //   return () => document.removeEventListener('keydown', disableShortcuts);
-  // }, []);
-
-  // useEffect(() => {
-  //   const hideToolbar = () => {
-  //     const iframe = document.getElementById('pdfFrame');
-  //     if (!iframe) return;
-
-  //     iframe.onload = () => {
-  //       const iframeDoc =
-  //         iframe.contentDocument || iframe.contentWindow?.document;
-  //       if (!iframeDoc) return;
-
-  //       // Hide the toolbar
-  //       const toolbar = iframeDoc.querySelector('#toolbar');
-  //       if (toolbar) toolbar.style.display = 'none';
-
-  //       // Hide the download & print buttons if they exist
-  //       const downloadBtn = iframeDoc.querySelector("button[title='Download']");
-  //       if (downloadBtn) downloadBtn.style.display = 'none';
-
-  //       const printBtn = iframeDoc.querySelector("button[title='Print']");
-  //       if (printBtn) printBtn.style.display = 'none';
-  //     };
-  //   };
-
-  //   hideToolbar();
-  // }, []);
+  useEffect(() => {
+    if (res.isSuccess) {
+      const url = window.URL.createObjectURL(res.data);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `${book.name}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    }
+  }, [res.isSuccess]);
 
   return (
     <Dialog
@@ -76,6 +51,7 @@ export const ViewBook = ({
       <PdfViewerV3
         pdfUrl={`${process.env.REACT_APP_API_URL}/api/v1/books/${book.id}`}
         onPageClose={onClose}
+        onDownload={() => downloadBook({ id: book.id })}
       />
     </Dialog>
   );

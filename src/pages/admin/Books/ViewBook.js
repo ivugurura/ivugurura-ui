@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Dialog } from '@mui/material';
 
@@ -12,11 +12,10 @@ export const ViewBook = ({
   fullScreen = false,
 }) => {
   const [downloadBook, res] = actions.useDownloadBookMutation();
-  if (!book.id) return null;
   console.log(`${process.env.REACT_APP_API_URL}/api/v1/books/${book.id}`);
 
-  useEffect(() => {
-    if (res.isSuccess) {
+  React.useEffect(() => {
+    if (book.id && res.isSuccess) {
       const url = window.URL.createObjectURL(res.data);
       const link = document.createElement('a');
       link.href = url;
@@ -25,7 +24,9 @@ export const ViewBook = ({
       link.click();
       link.parentNode.removeChild(link);
     }
-  }, [res.isSuccess]);
+  }, [res.isSuccess, book.id]);
+  if (!book.id) return null;
+  console.log(res);
 
   return (
     <Dialog

@@ -10,42 +10,10 @@ export const PdfViewerV3 = ({
   watermarkText = 'Reformation Voice',
 }) => {
   const [isPdfLoaded, setIsPdfLoaded] = useState(false);
-  //   const [pdfDocument, setPdfDocument] = useState(null);
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const pdfContainerRef = useRef(null);
   const thumbnailsContainerRef = useRef(null);
-
-  // useEffect(() => {
-  //   // Import PDF.js library dynamically
-  //   const script = document.createElement('script');
-  //   script.src =
-  //     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js';
-  //   script.async = true;
-
-  //   // Set up worker
-  //   script.onload = () => {
-  //     const pdfjsLib = window['pdfjs-dist/build/pdf'];
-  //     pdfjsLib.GlobalWorkerOptions.workerSrc =
-  //       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js';
-  //   };
-
-  //   document.body.appendChild(script);
-
-  //   // Add CSS
-  //   const link = document.createElement('link');
-  //   link.href =
-  //     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf_viewer.min.css';
-  //   link.rel = 'stylesheet';
-  //   link.type = 'text/css';
-  //   document.head.appendChild(link);
-
-  //   // Clean up
-  //   return () => {
-  //     document.body.removeChild(script);
-  //     document.head.removeChild(link);
-  //   };
-  // }, []);
 
   const applyWatermark = (canvas, text) => {
     const ctx = canvas.getContext('2d');
@@ -185,7 +153,6 @@ export const PdfViewerV3 = ({
 
   const renderAllPages = (pdfDoc) => {
     if (!pdfContainerRef.current || !thumbnailsContainerRef.current) return;
-    console.log('pdfContainerRef.current', pdfContainerRef.current);
 
     const scale = 1; // Set Scale for zooming PDF
     const resolution = 1; // Set Resolution to Adjust PDF clarity

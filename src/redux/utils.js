@@ -52,7 +52,7 @@ export const formatParamaterizedUrl = (
 };
 
 export const formulateQuery =
-  ({ endpoint, verb, hasBody } = {}) =>
+  ({ endpoint, verb, hasBody, isDownload } = {}) =>
   (args = {}) => {
     const query = {
       url: endpoint,
@@ -73,6 +73,19 @@ export const formulateQuery =
           }
         });
       }
+    }
+    if (isDownload) {
+      query.cache = 'no-cache';
+      query.responseHandler = async (response) => {
+        const blob = await response.blob();
+        const contentDisposition = response.headers.get('Content-Disposition');
+        let fileName = 'downloaded_file';
+        if (contentDisposition) {
+          const match = contentDisposition.match(/filename="(.+)"/);
+          fileName = match ? match[1] : 'downloaded_file';
+        }
+        return { blob, fileName };
+      };
     }
 
     return query;

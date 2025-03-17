@@ -1,4 +1,5 @@
 import { Facebook, Instagram, X } from '@mui/icons-material';
+import CryptoJS from 'crypto-js';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 
@@ -121,3 +122,17 @@ export const notifier = {
     }),
 };
 export const dateFormat = (value) => moment(value).format('DD MMMM YYYY');
+
+export const generateSignature = () => {
+  const apiKey = 'your-secret-key';
+  const timestamp = Math.floor(Date.now() / 1000); // Current time (seconds)
+  // const hash = crypto
+  //   .createHmac('sha256', apiKey)
+  //   .update(String(timestamp))
+  //   .digest('hex');
+  const hash = CryptoJS.HmacSHA256(String(timestamp), apiKey).toString(
+    CryptoJS.enc.Hex,
+  );
+
+  return { timestamp, hash };
+};

@@ -36,8 +36,8 @@ const formatBaseQuery = () => {
     headers: {
       Authorization: lStorage.token,
       'Accept-Language': systemLanguage,
-      'x-timestamp': timestamp,
-      'x-signature': hash,
+      'X-Timestamp': timestamp,
+      'X-Signature': hash,
     },
   });
 };

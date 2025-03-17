@@ -1,15 +1,5 @@
-/* eslint-disable no-restricted-syntax */
-// import { uploadFile } from '../redux/actions';
-
 import { http } from './http';
 
-// export const uploadedFile = async (file, prevFile = '') => {
-//   const formData = new FormData();
-//   formData.append('file', file);
-//   const serverResponse = uploadFile(formData, 'image', prevFile);
-//   const imagePath = (await serverResponse.payload).data.data;
-//   return imagePath;
-// };
 /**
  *
  * @param {Array} radioUsers All users

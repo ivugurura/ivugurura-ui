@@ -35,6 +35,7 @@ export const BookState = {
       api: {
         verb: VERBS.get,
         isMutation: true,
+        isDownload: true,
         endpoint: '/books/:id/download',
       },
     },

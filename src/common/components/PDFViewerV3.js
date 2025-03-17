@@ -3,10 +3,12 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import { Button } from '@mui/material';
 
+import { RRVDownloadBtn } from './RRVDownloadBtn';
+
 export const PdfViewerV3 = ({
   pdfUrl,
   onPageClose = () => {},
-  onDownload = () => {},
+  downloadParams = {},
   watermarkText = 'Reformation Voice',
 }) => {
   const [isPdfLoaded, setIsPdfLoaded] = useState(false);
@@ -204,11 +206,12 @@ export const PdfViewerV3 = ({
     }
   }, [pdfUrl]);
 
+  const { useMutation, ...otherParams } = downloadParams;
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Button onClick={onPageClose}>Close</Button>
-        <Button onClick={onDownload}>Download</Button>
+        <RRVDownloadBtn useMutation={useMutation} params={otherParams} />
       </div>
       <div style={{ display: 'flex', marginTop: '10px' }}>
         {/* Thumbnails sidebar */}

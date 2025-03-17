@@ -52,7 +52,7 @@ export const ViewBook = ({
       <PdfViewerV3
         pdfUrl={`${process.env.REACT_APP_API_URL}/api/v1/books/${book.id}`}
         onPageClose={onClose}
-        onDownload={() => downloadBook({ id: book.id })}
+        downloadParams={{ useMutation: 'useDownloadBookMutation', id: book.id }}
       />
     </Dialog>
   );

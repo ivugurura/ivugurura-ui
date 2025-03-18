@@ -3,6 +3,7 @@ export const bookInitials = {
   author: '',
   summary: '',
   categoryId: '',
+  isDownloadable: false,
 };
 
 export const bookSchema = (onHandleFileInputClick, categories = []) => [

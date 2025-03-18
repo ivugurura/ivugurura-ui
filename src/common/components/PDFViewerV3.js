@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import { Button } from '@mui/material';
 
+import { generateSignature } from '../../helpers/utils/constants';
+
 import { RRVDownloadBtn } from './RRVDownloadBtn';
 
 export const PdfViewerV3 = ({
@@ -174,10 +176,14 @@ export const PdfViewerV3 = ({
     }
 
     const pdfjsLib = window['pdfjs-dist/build/pdf'];
-
+    const { timestamp, hash } = generateSignature();
     // Read PDF from URL
     pdfjsLib
-      .getDocument(url)
+      .getDocument({
+        url,
+        httpHeaders: { 'X-Timestamp': timestamp, 'X-Signature': hash },
+        withCredentials: true,
+      })
       .promise.then((pdfDoc) => {
         // Clear previous content
         if (pdfContainerRef.current) {

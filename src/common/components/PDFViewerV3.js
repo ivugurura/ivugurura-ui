@@ -215,7 +215,12 @@ export const PdfViewerV3 = ({
   const { useMutation, ...otherParams } = downloadParams;
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
         <Button onClick={onPageClose}>Close</Button>
         <RRVDownloadBtn useMutation={useMutation} params={otherParams} />
       </div>
@@ -243,6 +248,7 @@ export const PdfViewerV3 = ({
             textAlign: 'center',
             padding: '5px',
             overflow: 'auto',
+            height: '820px',
           }}
         />
       </div>

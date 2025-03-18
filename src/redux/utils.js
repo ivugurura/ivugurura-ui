@@ -77,6 +77,13 @@ export const formulateQuery =
     if (isDownload) {
       query.cache = 'no-cache';
       query.responseHandler = async (response) => {
+        if (!response.ok) {
+          // Capture the error message from the response
+          const error = await response.json();
+
+          throw new Error(error.error || 'Failed to download file');
+        }
+
         const blob = await response.blob();
         const contentDisposition = response.headers.get('Content-Disposition');
         let fileName = 'downloaded_file';

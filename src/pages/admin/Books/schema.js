@@ -1,3 +1,8 @@
+import React from 'react';
+
+import { Chip } from '@mui/material';
+import moment from 'moment';
+
 export const bookInitials = {
   name: '',
   author: '',
@@ -59,4 +64,32 @@ export const bookSchema = (onHandleFileInputClick, categories = []) => [
       onFirstExcute: () => onHandleFileInputClick('bookFile'),
     },
   ],
+];
+
+export const bookColumns = (t) => [
+  { accessorKey: 'name', header: t('library.tName'), size: 1 },
+  {
+    id: 'category',
+    header: t('library.tCategory'),
+    Cell: ({ row }) => row.original.category?.name,
+    size: 1,
+  },
+  {
+    id: 'isDownloadable',
+    header: t('library.tDownloadable'),
+    Cell: ({ row }) => (
+      <Chip
+        label={t(row.original.isDownloadable ? 'yes' : 'no')}
+        color={row.original.isDownloadable ? 'primary' : 'default'}
+      />
+    ),
+    size: 80,
+  },
+  { accessorKey: 'author', header: t('library.tAuthor'), size: 1 },
+  {
+    id: 'createdAt',
+    header: 'Registed',
+    Cell: ({ row }) => moment(row.original.createdAt).format('DD/MM/YYYY'),
+    size: 1,
+  },
 ];

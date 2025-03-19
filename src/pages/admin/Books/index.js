@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
-import { Button } from '@mui/material';
+import {
+  Delete as DeleteIcon,
+  // EditNoteOutlined as EditIcon,
+  ViewAgendaOutlined as ViewIcon,
+} from '@mui/icons-material';
+import { Box, Button, Grid, IconButton } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
-import { BooksList } from '../../../common/components/BooksList';
+import { RRVTable } from '../../../common/components/RRVTable/Table';
 import { useAlertDialog } from '../../../common/hooks/useAlertDialog';
 import { useMuiSearchPagination } from '../../../common/hooks/useMuiSearchPagination';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
@@ -10,9 +16,11 @@ import { AlertConfirm } from '../components/AlertConfirm';
 import { DashboardContainer } from '../components/DashboardContainer';
 
 import { AddEditBook } from './AddEditBook';
+import { bookColumns } from './schema';
 import { ViewBook } from './ViewBook';
 
 const Books = () => {
+  const { t } = useTranslation();
   const [currentBook, setCurrentBook] = useState({});
   const [openModals, setOpenModals] = useState({
     addBook: false,
@@ -55,7 +63,7 @@ const Books = () => {
     }
   };
 
-  const { data: books } = data || initials.dataArr;
+  const { data: books, totalItems } = data || initials.dataArr;
 
   return (
     <DashboardContainer
@@ -83,6 +91,39 @@ const Books = () => {
         onConfirmYes={handleConfirm}
         loading={delRes.isLoading}
       />
+      <Grid container spacing={1}>
+        <Grid item xs={12} lg={10}>
+          <RRVTable
+            columns={bookColumns(t)}
+            data={books}
+            isLoading={isFetching}
+            enableRowActions
+            renderRowActions={({ row }) => (
+              <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
+                {/* <Button size="small" startIcon={<EditIcon />}>
+                      Edit
+                    </Button> */}
+                <IconButton
+                  color="secondary"
+                  onClick={() => handleBookClick(row.original, 'read')}
+                >
+                  <ViewIcon />
+                </IconButton>
+                <IconButton
+                  color="error"
+                  onClick={() => handleBookClick(row.original, 'delete')}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
+            )}
+          />
+        </Grid>
+        <Grid item xs={12} lg={2}>
+          <h1>{totalItems}</h1>
+          {` — ${t('library.nLabel')}`}
+        </Grid>
+      </Grid>
     </DashboardContainer>
   );
 };

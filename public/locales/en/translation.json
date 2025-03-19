@@ -49,6 +49,8 @@
   "radio": "Reformation Radio",
   "appDownload": "Download the mobile apps",
   "appDownloadText": "Get easy and fast access to our content in realtime through our mobile apps",
+  "yes": "Yes",
+  "no": "No",
   "actions": {
     "label": "Actions",
     "btnSend": "Send",
@@ -79,7 +81,13 @@
   },
   "library":{
     "title": "Library",
-    "description": "Pick a book below, read or download it."
+    "description": "Pick a book below, read or download it.",
+    "addNew": "Add new book",
+    "nLabel": "Books in the library",
+    "tName": "Book name",
+    "tAuthor": "Author",
+    "tCategory": "Category",
+    "tDownloadable": "Downloadable"
   },
   "admin": {
     "nav": {

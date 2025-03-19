@@ -49,6 +49,8 @@
   "radio": "Radio Ijwi Ry Ubugorozi",
   "appDownload": "Kurura ibyigisho kuri telefoni",
   "appDownloadText": "Ushobora kwibonera ibyigisho byose ndetse n indirimbo kuri simati foni yawe",
+  "yes": "Yego",
+  "no": "Oya",
   "actions": {
     "label": "Icyakorwa",
     "btnSend": "Mwohereze",
@@ -79,7 +81,13 @@
   },
   "library":{
     "title": "Isomero",
-    "description": "Mushobora kwisomera ibitabo by ubutumwa bwiza bw Ivugurura n Ubugorozi"
+    "description": "Mushobora kwisomera ibitabo by ubutumwa bwiza bw Ivugurura n Ubugorozi",
+    "addNew": "Shyiraho igitabo gishya",
+    "nLabel": "Ibitabo biri mu isomero",
+    "tName": "Izina ry igitabo",
+    "tAuthor": "Umwanditsi",
+    "tCategory": "Kategori",
+    "tDownloadable": "Downloadable"
   },
   "admin": {
     "nav": {

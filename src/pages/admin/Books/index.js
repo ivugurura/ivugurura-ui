@@ -27,7 +27,7 @@ const Books = () => {
     readBook: false,
   });
   const { paginator } = useMuiSearchPagination();
-  const { data, refetch } = actions.useListBooksQuery(paginator);
+  const { data, refetch, isFetching } = actions.useListBooksQuery(paginator);
   const [deleteBook, delRes] = actions.useDeleteBookMutation();
 
   const { alertValues, reset, setAlertValues } = useAlertDialog();
@@ -70,11 +70,10 @@ const Books = () => {
       title="Library books"
       action={
         <Button onClick={() => handleModal('addBook', true)}>
-          Add new book
+          {t('library.addNew')}
         </Button>
       }
     >
-      <BooksList books={books} onBookClick={handleBookClick} isAdmin />
       <AddEditBook
         open={openModals.addBook}
         onClose={() => handleModal('addBook', false)}

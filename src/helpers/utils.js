@@ -6,17 +6,18 @@ import { http } from './http';
  * @param {Array} onlineUsers Online users
  */
 export const chatUsers = (radioUsers, onlineUsers) => {
-  const allUsers = [radioUsers, ...onlineUsers];
-  const users = [];
-  allUsers.forEach((aUsr) => {
-    const userId = aUsr.senderId || aUsr.userId;
-    const userName = aUsr.senderName || aUsr.name;
-    const thisUser = users.find((usr) => usr.userId === userId);
-    if (!thisUser) {
-      users.push({ userId, name: userName });
-    }
-  });
-  return users;
+  const userMap = new Map();
+
+  [radioUsers, ...onlineUsers].forEach(
+    ({ senderId, userId, senderName, name }) => {
+      const id = senderId || userId;
+      if (!userMap.has(id)) {
+        userMap.set(id, { userId: id, name: senderName || name });
+      }
+    },
+  );
+
+  return Array.from(userMap.values());
 };
 export const audioPath = `${process.env.REACT_APP_API_URL}/songs/`;
 export const imagesPath = `${process.env.REACT_APP_API_URL}/images/`;

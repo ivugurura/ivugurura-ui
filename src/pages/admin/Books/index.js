@@ -67,7 +67,7 @@ const Books = () => {
 
   return (
     <DashboardContainer
-      title="Library books"
+      title={t('library.labelTitle')}
       action={
         <Button onClick={() => handleModal('addBook', true)}>
           {t('library.addNew')}

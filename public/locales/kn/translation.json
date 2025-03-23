@@ -81,6 +81,7 @@
   },
   "library":{
     "title": "Isomero",
+    "labelTitle": "Ububiko bw ibitabo",
     "description": "Mushobora kwisomera ibitabo by ubutumwa bwiza bw Ivugurura n Ubugorozi",
     "addNew": "Shyiraho igitabo gishya",
     "nLabel": "Ibitabo biri mu isomero",

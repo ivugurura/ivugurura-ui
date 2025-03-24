@@ -21,23 +21,24 @@ import { SelectLanguage } from '../SelectLanguage';
 import { ContactModal } from './ContactModal';
 import { SearchModal } from './SearchModal';
 
-// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const AdditionalMenu = ({ navigate, t, onOpenContact = () => {} }) => {
+  const menuItems = [
+    { label: t('library.menuTitle'), link: 'library' },
+    { label: t('audios'), link: 'audios' },
+    { label: t('contactUs'), onClick: onOpenContact },
+  ];
 
-const AdditionalMenu = ({ navigate, t, onOpenContact }) => {
-  return (
-    <>
-      <Button variant="text" onClick={() => navigate(toLink('audios'))}>
-        <Typography sx={{ color: 'white', textTransform: 'uppercase' }}>
-          {t('audios')}
-        </Typography>
-      </Button>
-      <Button variant="text" onClick={onOpenContact}>
-        <Typography sx={{ color: 'white', textTransform: 'uppercase' }}>
-          {t('contactUs')}
-        </Typography>
-      </Button>
-    </>
-  );
+  return menuItems.map(({ label, link, onClick }) => (
+    <Button
+      key={label}
+      variant="text"
+      onClick={onClick || (() => navigate(toLink(link)))}
+    >
+      <Typography sx={{ color: 'white', textTransform: 'uppercase' }}>
+        {label}
+      </Typography>
+    </Button>
+  ));
 };
 export const NavBar = ({ navCategories = [] }) => {
   const { t } = useTranslation();

@@ -1,4 +1,5 @@
 import { Facebook, Instagram, X } from '@mui/icons-material';
+import CryptoJS from 'crypto-js';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 
@@ -95,6 +96,7 @@ export const socialMedias = [
 
 export const IMAGE_PATH = `${process.env.REACT_APP_API_URL}/images`;
 export const AUDIO_PATH = `${process.env.REACT_APP_API_URL}/songs`;
+export const BOOK_COVERS_PATH = `${process.env.REACT_APP_API_URL}/covers`;
 export const toLink = (link = '', isAdmin = false) =>
   `${isAdmin ? '/admin/' : '/'}${systemLanguage}/${link}`;
 export const toAssetPath = (name = '', isImage = true) =>
@@ -120,3 +122,14 @@ export const notifier = {
     }),
 };
 export const dateFormat = (value) => moment(value).format('DD MMMM YYYY');
+
+export const generateSignature = () => {
+  const apiKey = 'your-secret-key';
+  const timestamp = Math.floor(Date.now() / 1000);
+
+  const hash = CryptoJS.HmacSHA256(String(timestamp), apiKey).toString(
+    CryptoJS.enc.Hex,
+  );
+
+  return { timestamp, hash };
+};

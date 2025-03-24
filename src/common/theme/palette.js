@@ -9,6 +9,7 @@ const darkGray = '#101828';
 const darkGreen = '#475467';
 const listGrey = '#B3B3B3';
 const green = '#65D36E';
+
 export const palette = {
   black,
   white,

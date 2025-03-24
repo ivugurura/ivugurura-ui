@@ -15,7 +15,7 @@ const dashboardRoutes = [
     component: React.lazy(() => import('../../../pages/admin/Commentaries')),
   },
   {
-    path: PageRoutes.admin.Audio,
+    path: PageRoutes.admin.Audios,
     component: React.lazy(() => import('../../../pages/admin/MediaEditor')),
   },
   {
@@ -33,6 +33,10 @@ const dashboardRoutes = [
   {
     path: PageRoutes.admin.EditTopic,
     component: React.lazy(() => import('../../../pages/admin/TopicEditor2')),
+  },
+  {
+    path: PageRoutes.admin.Library,
+    component: React.lazy(() => import('../../../pages/admin/Books')),
   },
 ];
 export const AdminLayout = () => {

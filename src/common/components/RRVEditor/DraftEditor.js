@@ -57,8 +57,8 @@ export const DraftEditor = ({
 }) => {
   const [prevFile, setPrevFile] = useState('');
 
-  const onImageUpload = (file) =>
-    new Promise((resolve, reject) => {
+  const handleImageUpload = (file) => {
+    return new Promise((resolve, reject) => {
       const formData = new FormData();
       formData.append('file', file);
       http
@@ -80,6 +80,7 @@ export const DraftEditor = ({
           reject(errorMessage);
         });
     });
+  };
 
   console.log({ prevFile });
   return (
@@ -102,7 +103,7 @@ export const DraftEditor = ({
         list: { inDropdown: true },
         textAlign: { inDropdown: true },
         image: {
-          uploadCallback: onImageUpload,
+          uploadCallback: handleImageUpload,
           alt: { present: true, mandatory: true },
           defaultSize: { height: 300, width: 500 },
         },

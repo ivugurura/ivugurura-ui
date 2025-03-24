@@ -1,10 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { formulateQuery, startCase } from '../helpers/utils';
-import { lStorage, systemLanguage } from '../helpers/utils/constants';
+import {
+  generateSignature,
+  lStorage,
+  systemLanguage,
+} from '../helpers/utils/constants';
 
 import * as initialStates from './initialStates';
 import { buildAppStates } from './stateBuilder';
+import { formulateQuery, startCase } from './utils';
 
 const states = buildAppStates();
 
@@ -24,16 +28,23 @@ const buildApiEndPoints = (build, state) => {
   return endpoints;
 };
 
-const baseQuery = fetchBaseQuery({
-  // Fill in your own server starting URL here
-  baseUrl: `${process.env.REACT_APP_API_URL}/api/v1`,
-  headers: {
-    Authorization: lStorage.token,
-    'Accept-Language': systemLanguage,
-  },
-});
-const buildAppApis = () =>
-  states.map((state) =>
+const formatBaseQuery = () => {
+  const { timestamp, hash } = generateSignature();
+  return fetchBaseQuery({
+    // Fill in your own server starting URL here
+    baseUrl: `${process.env.REACT_APP_API_URL}/api/v1`,
+    headers: {
+      Authorization: lStorage.token,
+      'Accept-Language': systemLanguage,
+      'X-Timestamp': timestamp,
+      'X-Signature': hash,
+    },
+  });
+};
+const buildAppApis = () => {
+  const baseQuery = formatBaseQuery();
+
+  return states.map((state) =>
     createApi({
       reducerPath: `${startCase(state.entity, false)}Api`,
       baseQuery: async (args, api, extraOptions) => {
@@ -46,6 +57,7 @@ const buildAppApis = () =>
       endpoints: (build) => buildApiEndPoints(build, state),
     }),
   );
+};
 
 const buildApiSlicers = () => {
   const apis = buildAppApis();
@@ -75,4 +87,5 @@ const buildApiSlicers = () => {
 };
 
 const slicers = buildApiSlicers();
+
 export const { actions, initials, reducers, middlewares } = slicers;

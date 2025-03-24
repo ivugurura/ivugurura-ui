@@ -81,6 +81,7 @@
   },
   "library":{
     "title": "Library",
+    "menuTitle": "Books",
     "labelTitle": "Book store",
     "description": "Pick a book below, read or download it.",
     "addNew": "Add new book",

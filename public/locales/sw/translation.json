@@ -81,7 +81,8 @@
 	},
 	"library": {
 		"title": "Maktaba",
-		 "labelTitle": "Duka la vitabu",
+		"menuTitle": "Vitabu",
+		"labelTitle": "Duka la vitabu",
 		"description": "Unaweza kusoma vitabu kuhusu injili ya Uamsho na Matengenezo",
 		"addNew": "Ongeza kitabu kipya",
 		"nLabel": "Vitabu katika maktaba",

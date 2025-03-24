@@ -23,7 +23,7 @@ import { SearchModal } from './SearchModal';
 
 const AdditionalMenu = ({ navigate, t, onOpenContact = () => {} }) => {
   const menuItems = [
-    { label: 'Library', link: 'library' },
+    { label: t('library.menuTitle'), link: 'library' },
     { label: t('audios'), link: 'audios' },
     { label: t('contactUs'), onClick: onOpenContact },
   ];

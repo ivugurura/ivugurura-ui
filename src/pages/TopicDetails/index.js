@@ -64,9 +64,9 @@ const TopicDetailPage = () => {
         <Grid item md={12}>
           <RRVBreadcrumbs crumbs={topicNavs} />
           <Box display="flex" flexDirection="column" alignItems="center" py={4}>
-            <Typography variant="subtitle2" py={2}>
+            {/* <Typography variant="subtitle2" py={2}>
               {t('blog')}
-            </Typography>
+            </Typography> */}
             <Typography variant="h1" fontWeight={800}>
               {topic.title}
             </Typography>

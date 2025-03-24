@@ -153,9 +153,9 @@ const TopicsPage = () => {
           />
         </Grid>
         <Box display="flex" flexDirection="column" alignItems="center" py={4}>
-          <Typography variant="subtitle2" py={4}>
+          {/* <Typography variant="subtitle2" py={4}>
             {t('readOurBlog')}
-          </Typography>
+          </Typography> */}
           <Typography variant="h1" fontWeight={800}>
             {t('teachings').toUpperCase()}
           </Typography>

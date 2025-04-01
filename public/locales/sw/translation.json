@@ -89,7 +89,8 @@
 		"tName": "Jina la kitabu",
 		"tAuthor": "Mwandishi",
 		"tCategory": "Kategoria",
-		"tDownloadable": "Inaweza kupakuliwa"
+		"tDownloadable": "Inaweza kupakuliwa",
+		"allBooks": "Vitabu vyote"
 	},
 	"admin": {
 		"nav": {

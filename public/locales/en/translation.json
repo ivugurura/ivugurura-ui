@@ -89,7 +89,8 @@
     "tName": "Book name",
     "tAuthor": "Author",
     "tCategory": "Category",
-    "tDownloadable": "Downloadable"
+    "tDownloadable": "Downloadable",
+    "allBooks": "All books"
   },
   "admin": {
     "nav": {

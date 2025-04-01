@@ -107,7 +107,6 @@ const Commentaries = () => {
       <AlertConfirm
         {...alertValues}
         setOpen={() => reset()}
-        title={alertValues.title}
         onConfirmYes={handleConfirm}
         loading={
           publishRes.isLoading || delResult.isLoading || replyResult.isLoading

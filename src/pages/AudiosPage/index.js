@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import { PageHeader } from '../../common/components/PageHeader';
 import { RRVAudioPlayer } from '../../common/components/RRVAudioPlayer';
 import { AudioVisualizer } from '../../common/components/RRVAudioPlayer/audioVisualizerBar';
 import { useRRVAudioPlayerCtx } from '../../common/components/RRVAudioPlayer/provider';
@@ -66,12 +67,10 @@ const AudiosPage = () => {
               alignItems="center"
               py={4}
             >
-              <Typography variant="subtitle2" py={4}>
-                {t('audio').toUpperCase()}
-              </Typography>
-              <Typography variant="h1" fontWeight={800}>
-                {t('listenAudio').toUpperCase()}
-              </Typography>
+              <PageHeader
+                title={t('audio').toUpperCase()}
+                description={t('listenAudio').toUpperCase()}
+              />
             </Box>
             <Grid container spacing={2}>
               <Grid item md={4} sm={12} xs={12} sx={useStyles.cardContainer}>

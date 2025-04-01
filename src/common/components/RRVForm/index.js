@@ -60,14 +60,7 @@ export const RRVForm = ({
   const getFieldView = ({ fieldType, accept, ...vProps }, idx) => {
     switch (fieldType) {
       case 'file-field':
-        return (
-          <RRVFileUpload
-            key={`fu-${idx}`}
-            type={vProps.type}
-            title={vProps.label}
-            accept={accept}
-          />
-        );
+        return <RRVFileUpload key={`fu-${idx}`} accept={accept} {...vProps} />;
       case 'switch-field':
         return (
           <RRVSwitch

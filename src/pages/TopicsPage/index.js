@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
 import { Home as HomeIcon, RssFeed as RssFeedIcon } from '@mui/icons-material';
-// import { Masonry } from '@mui/lab';
 import { Grid, Box, Typography, Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -9,6 +8,7 @@ import {
   TopicListItemSkeleton,
   TopicsCardSkeleton,
 } from '../../common/components/loaders';
+import { PageHeader } from '../../common/components/PageHeader';
 import { RRVBreadcrumbs } from '../../common/components/RRVBreadcrumbs/Breadcrumbs';
 import { RRVMenu } from '../../common/components/RRVMenu/RRVMenu';
 import { RRVPagination } from '../../common/components/RRVPagination';
@@ -72,7 +72,7 @@ const TopicsPage = () => {
       categoryType: 'with-topics',
     });
   const { data: topics, totalItems } = data || initials.dataArr;
-  console.log({ page, pageSize, totalItems });
+
   const { data: categories } = catData || initials.dataArr;
   const allTopics = t('allTopics');
   const handleMenuOpen = (event) => {
@@ -94,7 +94,6 @@ const TopicsPage = () => {
     });
   };
   const handleMenuClose = () => {
-    // setBreadcumbMenu((prev) => ({ ...prev, anchorEl: event.currentTarget }));
     setTopicsNavs((prev) => {
       const copyPrev = [...prev];
       const navIndex = prev.findIndex((nav) => nav.name === allTopics);
@@ -152,15 +151,7 @@ const TopicsPage = () => {
             lebelledBy={breadcrumbMenu?.lebelledBy}
           />
         </Grid>
-        <Box display="flex" flexDirection="column" alignItems="center" py={4}>
-          {/* <Typography variant="subtitle2" py={4}>
-            {t('readOurBlog')}
-          </Typography> */}
-          <Typography variant="h1" fontWeight={800}>
-            {t('teachings').toUpperCase()}
-          </Typography>
-        </Box>
-
+        <PageHeader description={t('teachings').toUpperCase()} />
         <Grid container spacing={2}>
           <Grid item md={3.6} sm={12} mt={8}>
             <Grid container>

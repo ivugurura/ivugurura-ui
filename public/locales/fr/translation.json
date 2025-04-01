@@ -49,6 +49,8 @@
   "radio": "Radio vocale de la Réforme",
   "appDownload": "Téléchargez les applications mobiles",
   "appDownloadText": "Accédez facilement et rapidement à notre contenu en temps réel grâce à nos applications mobiles",
+  "yes": "Oui",
+  "no": "Non",
   "actions": {
     "label": "Actes",
     "btnSend": "Envoyer",
@@ -76,6 +78,19 @@
     "names": "Noms",
     "website": "Site web",
     "message": "Que veux-tu nous dire?"
+  },
+  "library":{
+    "title": "Bibliothèque",
+    "menuTitle": "Livres",
+    "labelTitle": "Librairie de livres",
+    "description": "Choisissez un livre ci-dessous, lisez-le ou téléchargez-le.",
+    "addNew": "Ajouter un nouveau livre",
+    "nLabel": "Livres dans la bibliothèque",
+    "tName": "Nom du livre",
+    "tAuthor": "Auteur",
+    "tCategory": "Catégorie",
+    "tDownloadable": "Téléchargeable",
+    "allBooks": "Tous les livres"
   },
   "admin": {
     "nav": {

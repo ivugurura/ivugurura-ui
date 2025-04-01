@@ -151,15 +151,7 @@ const TopicsPage = () => {
             lebelledBy={breadcrumbMenu?.lebelledBy}
           />
         </Grid>
-        <Box display="flex" flexDirection="column" alignItems="center" py={4}>
-          {/* <Typography variant="subtitle2" py={4}>
-            {t('readOurBlog')}
-          </Typography> */}
-          <Typography variant="h1" fontWeight={800}>
-            {t('teachings').toUpperCase()}
-          </Typography>
-        </Box>
-
+        <PageHeader description={t('teachings').toUpperCase()} />
         <Grid container spacing={2}>
           <Grid item md={3.6} sm={12} mt={8}>
             <Grid container>

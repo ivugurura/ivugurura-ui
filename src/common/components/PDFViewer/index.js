@@ -1,367 +1,262 @@
-/* eslint-disable no-useless-return */
-import * as React from 'react';
+/* eslint-disable no-param-reassign */
+import React, { useState, useEffect, useRef } from 'react';
 
-import { createPortal } from 'react-dom';
+import { Button } from '@mui/material';
 
-import { sendEvent, useEmbed } from './hook';
+import { generateSignature } from '../../../helpers/utils/constants';
+import { RRVDownloadBtn } from '../RRVDownloadBtn';
 
-import './styles.scss';
-
-export { useEmbed };
-
-const CloseIcon = () => (
-  <svg
-    height="512"
-    viewBox="0 0 512 512"
-    width="512"
-    xmlSpace="preserve"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M443.6 387.1 312.4 255.4l131.5-130c5.4-5.4 5.4-14.2 0-19.6l-37.4-37.6c-2.6-2.6-6.1-4-9.8-4-3.7 0-7.2 1.5-9.8 4L256 197.8 124.9 68.3c-2.6-2.6-6.1-4-9.8-4-3.7 0-7.2 1.5-9.8 4L68 105.9c-5.4 5.4-5.4 14.2 0 19.6l131.5 130L68.4 387.1c-2.6 2.6-4.1 6.1-4.1 9.8 0 3.7 1.4 7.2 4.1 9.8l37.4 37.6c2.7 2.7 6.2 4.1 9.8 4.1 3.5 0 7.1-1.3 9.8-4.1L256 313.1l130.7 131.1c2.7 2.7 6.2 4.1 9.8 4.1 3.5 0 7.1-1.3 9.8-4.1l37.4-37.6c2.6-2.6 4.1-6.1 4.1-9.8-.1-3.6-1.6-7.1-4.2-9.7z" />
-  </svg>
-);
-
-const loadDocument = async ({
-  iframeRef,
-  documentDataURL,
-  documentName,
-  editorDomain,
+export const PdfViewerV3 = ({
+  pdfUrl,
+  onPageClose = () => {},
+  downloadParams = {},
+  watermarkText = 'Reformation Voice',
 }) => {
-  const editorDomainURL = new URL(editorDomain);
-  iframeRef.current?.contentWindow?.postMessage(
-    JSON.stringify({
-      type: 'LOAD_DOCUMENT',
-      data: { data_url: documentDataURL, name: documentName },
-    }),
-    editorDomainURL.origin,
-  );
-};
+  const [isPdfLoaded, setIsPdfLoaded] = useState(false);
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pdfContainerRef = useRef(null);
+  const thumbnailsContainerRef = useRef(null);
 
-const DEFAULT_LOCALE = 'en';
+  const applyWatermark = (canvas, text) => {
+    const ctx = canvas.getContext('2d');
+    const { width, height } = canvas;
 
-const isInlineComponent = (props) => props.mode === 'inline';
+    // Save the current canvas state
+    ctx.save();
 
-const InlineComponent = React.forwardRef(({ className, style }, iframeRef) => {
-  return (
-    <iframe
-      title="PDF Viewer"
-      ref={iframeRef}
-      className={className}
-      style={{ border: 0, ...style }}
-    />
-  );
-});
+    // Set watermark properties
+    ctx.globalAlpha = 0.1;
+    ctx.font = `${Math.min(width, height) / 10}px Arial`;
+    ctx.fillStyle = '#888888';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
 
-const ModalComponent = React.forwardRef(
-  ({ children, editorURL }, iframeRef) => {
-    const [shouldDisplayModal, setShouldDisplayModal] = React.useState(false);
+    // Rotate the canvas
+    ctx.translate(width / 2, height / 2);
+    ctx.rotate(-Math.PI / 4); // Rotate -45 degrees
 
-    const handleAnchorClick = React.useCallback((e) => {
-      e.preventDefault();
-      setShouldDisplayModal(true);
-    }, []);
+    // Add diagonal repeating watermark
+    const fontSize = parseInt(ctx.font, 10);
+    const gap = fontSize * 3;
+    const repeats = Math.ceil(Math.sqrt(width * width + height * height) / gap);
 
-    const handleCloseModal = React.useCallback(() => {
-      setShouldDisplayModal(false);
-    }, []);
-
-    return (
-      <>
-        {shouldDisplayModal &&
-          createPortal(
-            <div className="simplePDF_container" aria-modal="true">
-              <div className="simplePDF_content">
-                <button
-                  onClick={handleCloseModal}
-                  className="simplePDF_close"
-                  aria-label="Close PDF editor modal"
-                  type="button"
-                >
-                  <CloseIcon />
-                </button>
-                <div className="simplePDF_iframeContainer">
-                  <iframe
-                    title="PDF Viewer"
-                    ref={iframeRef}
-                    referrerPolicy="no-referrer-when-downgrade"
-                    className="simplePDF_iframe"
-                    src={editorURL}
-                  />
-                </div>
-              </div>
-            </div>,
-            document.body,
-          )}
-
-        {React.isValidElement(children)
-          ? React.cloneElement(children, {
-              onClick: handleAnchorClick,
-            })
-          : null}
-      </>
-    );
-  },
-);
-
-export const EmbedPDF = React.forwardRef((props, ref) => {
-  const { context, companyIdentifier, locale } = props;
-  const editorActionsReadyRef = React.useRef(null);
-  const editorActionsReadyResolveRef = React.useRef(null);
-  const [documentState, setDocumentState] = React.useState({
-    type: null,
-    value: null,
-    isEditorReady: false,
-  });
-  const iframeRef = React.useRef(null);
-
-  const submit = React.useCallback(async ({ downloadCopyOnDevice }) => {
-    if (!iframeRef.current) {
-      throw Error('Unexpected');
+    for (let i = -repeats; i <= repeats; i++) {
+      ctx.fillText(text, 0, i * gap);
     }
 
-    await editorActionsReadyRef.current;
+    // Restore the canvas to its original state
+    ctx.restore();
+  };
 
-    const eventResponse = await sendEvent(iframeRef.current, {
-      type: 'SUBMIT',
-      data: { download_copy: downloadCopyOnDevice },
-    });
+  const renderPage = (pdfDoc, container, pageNumber, scale, resolution) => {
+    pdfDoc.getPage(pageNumber).then((page) => {
+      // Create a div to wrap the page (for scrolling to specific pages)
+      const pageDiv = document.createElement('div');
+      pageDiv.id = `page-${pageNumber}`;
+      pageDiv.className = 'pdf-page';
+      container.appendChild(pageDiv);
 
-    return eventResponse;
-  }, []);
+      // Create Canvas element and append to the page div
+      const canvas = document.createElement('canvas');
+      canvas.id = `pdf-canvas-${pageNumber}`;
+      const ctx = canvas.getContext('2d');
+      pageDiv.appendChild(canvas);
 
-  const selectTool = React.useCallback(async (toolType) => {
-    if (!iframeRef.current) {
-      throw Error('Unexpected');
-    }
+      // Create and add empty DIV to add SPACE between pages
+      const spacer = document.createElement('div');
+      spacer.style.height = '20px';
+      container.appendChild(spacer);
 
-    await editorActionsReadyRef.current;
+      // Set the Canvas dimensions using ViewPort and Scale
+      const viewport = page.getViewport({ scale });
+      canvas.height = resolution * viewport.height;
+      canvas.width = resolution * viewport.width;
 
-    const eventResponse = await sendEvent(iframeRef.current, {
-      type: 'SELECT_TOOL',
-      data: { tool: toolType },
-    });
-
-    return eventResponse;
-  }, []);
-
-  React.useImperativeHandle(ref, () => ({
-    submit,
-    selectTool,
-  }));
-
-  React.useEffect(() => {
-    editorActionsReadyRef.current = new Promise((resolve) => {
-      editorActionsReadyResolveRef.current = resolve;
-    });
-  }, []);
-
-  const url = isInlineComponent(props)
-    ? (props.documentURL ?? null)
-    : (props.children?.props?.href ?? null);
-
-  React.useEffect(() => {
-    if (!url) {
-      return;
-    }
-
-    const fetchedDocumentBlob = async () => {
-      const response = await fetch(url, {
-        method: 'GET',
-        credentials: 'same-origin',
-      });
-
-      if (!response.ok) {
-        throw new Error(
-          `Failed to retrieve the document: ${JSON.stringify({
-            status: response.status,
-            url,
-          })}`,
-        );
-      }
-
-      const blob = await response.blob();
-
-      const reader = new FileReader();
-      await new Promise((resolve, reject) => {
-        reader.onload = resolve;
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-
-      return reader.result;
-    };
-
-    const [documentName] = url.substring(url.lastIndexOf('/') + 1).split('?');
-
-    fetchedDocumentBlob()
-      .then((dataURL) =>
-        setDocumentState((prev) => ({
-          ...prev,
-          type: 'iframe_event',
-          value: dataURL,
-          documentName,
-        })),
-      )
-      .catch(() => {
-        setDocumentState((prev) => ({
-          ...prev,
-          type: 'cors_proxy_fallback',
-          value: url,
-        }));
-      });
-  }, [url]);
-
-  const editorDomain = React.useMemo(
-    () => `https://${companyIdentifier ?? 'react-editor'}.simplepdf.com`,
-    [companyIdentifier],
-  );
-
-  React.useEffect(() => {
-    if (
-      !documentState.isEditorReady ||
-      documentState.type !== 'iframe_event' ||
-      documentState.value === null
-    ) {
-      return;
-    }
-
-    loadDocument({
-      iframeRef,
-      documentDataURL: documentState.value,
-      documentName: documentState.documentName,
-      editorDomain,
-    });
-  }, [documentState, editorDomain]);
-
-  const embedEventHandler = React.useCallback(
-    async (event) => {
-      const eventOrigin = new URL(event.origin).origin;
-      const iframeOrigin = new URL(editorDomain).origin;
-
-      if (eventOrigin !== iframeOrigin) {
-        return;
-      }
-
-      const isTrustedIframe = event.source === iframeRef.current?.contentWindow;
-
-      if (!isTrustedIframe) {
-        return;
-      }
-
-      const payload = (() => {
-        try {
-          return JSON.parse(event.data);
-        } catch (e) {
-          console.error('Failed to parse iFrame event payload');
-          return null;
-        }
-      })();
-
-      const handleEmbedEvent = async (payloadEv) => {
-        try {
-          await props.onEmbedEvent?.(payloadEv);
-        } catch (e) {
-          console.error(`onEmbedEvent failed to execute: ${JSON.stringify(e)}`);
-        }
+      // Render the PDF page
+      const renderContext = {
+        canvasContext: ctx,
+        viewport,
+        transform: [resolution, 0, 0, resolution, 0, 0],
       };
 
-      switch (payload?.type) {
-        case 'EDITOR_READY':
-          setDocumentState((prev) => ({ ...prev, isEditorReady: true }));
-          return;
-        case 'DOCUMENT_LOADED': {
-          // EDGE-CASE handling
-          // Timeout necessary for now due to a race condition on SimplePDF's end
-          // Without it actions.submit prior to the editor being loaded resolves to "document not found"
-          await setTimeout(() => editorActionsReadyResolveRef.current?.(), 200);
-          await handleEmbedEvent(payload);
-          return;
-        }
-        case 'SUBMISSION_SENT': {
-          await handleEmbedEvent(payload);
-          return;
-        }
-
-        default:
-          return;
-      }
-    },
-    [props.onEmbedEvent, editorDomain],
-  );
-
-  React.useEffect(() => {
-    window.addEventListener('message', embedEventHandler, false);
-
-    return () => window.removeEventListener('message', embedEventHandler);
-  }, [embedEventHandler]);
-
-  const encodedContext = React.useMemo(() => {
-    if (!context) {
-      return null;
-    }
-
-    try {
-      return encodeURIComponent(btoa(JSON.stringify(context)));
-    } catch (e) {
-      console.error(`Failed to encode the context: ${JSON.stringify(e)}`, {
-        context,
+      // page.render(renderContext);
+      page.render(renderContext).promise.then(() => {
+        // Apply watermark after rendering is complete
+        applyWatermark(canvas, watermarkText);
       });
-      return null;
+    });
+  };
+
+  const renderThumbnail = (pdfDoc, container, pageNumber) => {
+    pdfDoc.getPage(pageNumber).then((page) => {
+      // Create thumbnail container
+      const thumbContainer = document.createElement('div');
+      thumbContainer.className = 'thumbnail-container';
+      thumbContainer.style.cursor = 'pointer';
+      thumbContainer.style.margin = '5px 0';
+      thumbContainer.style.border = '1px solid #ddd';
+      thumbContainer.style.position = 'relative';
+
+      // Add page number label
+      const pageLabel = document.createElement('div');
+      pageLabel.textContent = pageNumber;
+      pageLabel.style.position = 'absolute';
+      pageLabel.style.bottom = '5px';
+      pageLabel.style.right = '5px';
+      pageLabel.style.background = 'rgba(0,0,0,0.5)';
+      pageLabel.style.color = 'white';
+      pageLabel.style.padding = '2px 5px';
+      pageLabel.style.borderRadius = '3px';
+      pageLabel.style.fontSize = '10px';
+
+      // Create Canvas for thumbnail
+      const canvas = document.createElement('canvas');
+      canvas.id = `thumbnail-${pageNumber}`;
+      canvas.width = '100%';
+      const ctx = canvas.getContext('2d');
+
+      // Add click event to scroll to the page
+      thumbContainer.onclick = () => {
+        setCurrentPage(pageNumber);
+        document
+          .getElementById(`page-${pageNumber}`)
+          .scrollIntoView({ behavior: 'smooth' });
+
+        // Highlight the selected thumbnail
+        const thumbnails = container.querySelectorAll('.thumbnail-container');
+        thumbnails.forEach((thumb) => {
+          thumb.style.backgroundColor = '';
+          thumb.style.boxShadow = '';
+        });
+
+        thumbContainer.style.backgroundColor = '#f0f0f0';
+        thumbContainer.style.boxShadow = '0 0 5px #0066cc';
+      };
+
+      thumbContainer.appendChild(canvas);
+      thumbContainer.appendChild(pageLabel);
+      container.appendChild(thumbContainer);
+
+      // Set thumbnail scale (smaller than the main view)
+      const thumbnailScale = 0.16;
+      const viewport = page.getViewport({ scale: thumbnailScale });
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      // Render the thumbnail
+      const renderContext = {
+        canvasContext: ctx,
+        viewport,
+      };
+
+      page.render(renderContext);
+    });
+  };
+
+  const renderAllPages = (pdfDoc) => {
+    if (!pdfContainerRef.current || !thumbnailsContainerRef.current) return;
+
+    const scale = 1; // Set Scale for zooming PDF
+    const resolution = 1; // Set Resolution to Adjust PDF clarity
+
+    // Loop and render all pages
+    for (let i = 1; i <= pdfDoc.numPages; i++) {
+      renderPage(pdfDoc, pdfContainerRef.current, i, scale, resolution);
+      renderThumbnail(pdfDoc, thumbnailsContainerRef.current, i);
     }
-  }, [JSON.stringify(context)]);
+  };
 
-  const editorURL = React.useMemo(() => {
-    const simplePDFEditorURL = new URL(
-      `/${locale ?? DEFAULT_LOCALE}/editor`,
-      editorDomain,
-    );
-
-    if (encodedContext) {
-      simplePDFEditorURL.searchParams.set('context', encodedContext);
-    }
-
-    if (url) {
-      simplePDFEditorURL.searchParams.set('loadingPlaceholder', 'true');
-    }
-
-    if (
-      documentState?.type === 'cors_proxy_fallback' &&
-      documentState?.value !== null
-    ) {
-      simplePDFEditorURL.searchParams.set('open', documentState.value);
-    }
-
-    return simplePDFEditorURL.href;
-  }, [editorDomain, url, encodedContext, documentState, locale]);
-
-  const isInline = isInlineComponent(props);
-
-  React.useEffect(() => {
-    // SSR support for the inline component:
-    // Set the iframe URL only once it's rendered client side so that we can listen to the "READY" event
-    // (The modal component is already only rendered client side as it requires a user click to load the iframe)
-    if (!isInline) {
+  const loadPdfFromUrl = (url) => {
+    // Ensure PDF.js is loaded
+    if (!window['pdfjs-dist/build/pdf']) {
+      console.error('PDF.js library not loaded yet');
       return;
     }
 
-    if (iframeRef && iframeRef.current) {
-      iframeRef.current.src = editorURL;
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    const { timestamp, hash } = generateSignature();
+    // Read PDF from URL
+    pdfjsLib
+      .getDocument({
+        url,
+        httpHeaders: { 'X-Timestamp': timestamp, 'X-Signature': hash },
+        withCredentials: true,
+      })
+      .promise.then((pdfDoc) => {
+        // Clear previous content
+        if (pdfContainerRef.current) {
+          pdfContainerRef.current.innerHTML = '';
+        }
+
+        if (thumbnailsContainerRef.current) {
+          thumbnailsContainerRef.current.innerHTML = '';
+        }
+
+        // setPdfDocument(pdfDoc);
+        setTotalPages(pdfDoc.numPages);
+        setIsPdfLoaded(true);
+
+        // Render all pages and thumbnails
+        renderAllPages(pdfDoc);
+      })
+      .catch((error) => {
+        console.error('Error loading PDF:', error);
+      });
+  };
+
+  useEffect(() => {
+    if (pdfUrl) {
+      loadPdfFromUrl(pdfUrl);
     }
-  }, [editorURL, isInline]);
+  }, [pdfUrl]);
 
-  if (isInline) {
-    return (
-      <InlineComponent
-        className={props.className}
-        style={props.style}
-        ref={iframeRef}
-      />
-    );
-  }
-
+  const { useMutation, ...otherParams } = downloadParams;
   return (
-    <ModalComponent editorURL={editorURL} ref={iframeRef}>
-      {props.children}
-    </ModalComponent>
+    <div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Button onClick={onPageClose}>Close</Button>
+        <RRVDownloadBtn useMutation={useMutation} params={otherParams} />
+      </div>
+      <div style={{ display: 'flex', marginTop: '10px' }}>
+        {/* Thumbnails sidebar */}
+        <div
+          ref={thumbnailsContainerRef}
+          style={{
+            width: '150px',
+            backgroundColor: '#f5f5f5',
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            height: '820px',
+            padding: '10px',
+            borderRight: '1px solid #ddd',
+          }}
+        />
+
+        {/* Main PDF container */}
+        <div
+          ref={pdfContainerRef}
+          style={{
+            flex: 1,
+            background: '#ccc',
+            textAlign: 'center',
+            padding: '5px',
+            overflow: 'auto',
+            height: '820px',
+          }}
+        />
+      </div>
+
+      {isPdfLoaded && (
+        <div style={{ marginTop: '10px', textAlign: 'center' }}>
+          <span>{`Page ${currentPage} of ${totalPages}`}</span>
+        </div>
+      )}
+    </div>
   );
-});
+};

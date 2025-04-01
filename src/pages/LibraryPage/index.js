@@ -45,7 +45,7 @@ const LibraryPage = () => {
 
   const { data: books, totalItems } = data || initials.dataArr;
   const { data: categories } = catData || initials.dataArr;
-  const allTopics = t('allTopics');
+  const allBooks = t('library.allBooks');
 
   useEffect(() => {
     if (categories.length > 0 && categorySlug) {
@@ -84,7 +84,7 @@ const LibraryPage = () => {
 
                   <Box sx={{ flexGrow: 1 }}>
                     <CategoryItem
-                      category={{ id: null, name: allTopics }}
+                      category={{ id: null, name: allBooks }}
                       selectedId={selectedCategoryId}
                       onClick={handleCategoryClick}
                     />

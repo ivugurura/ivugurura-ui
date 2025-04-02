@@ -47,9 +47,6 @@ export const AddEditBook = ({ open, onClose, refetchBooks }) => {
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Create a new book</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          Book: It will appear on top of the web navigation.
-        </DialogContentText>
         <RRVForm
           fields={bookSchema(handleFileInputClick, bookCategories)}
           states={newBook}

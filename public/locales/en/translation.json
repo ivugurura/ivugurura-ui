@@ -90,7 +90,19 @@
     "tAuthor": "Author",
     "tCategory": "Category",
     "tDownloadable": "Downloadable",
-    "allBooks": "All books"
+    "allBooks": "All books",
+    "form": {
+      "title": "Create a new book",
+      "name": "Book name",
+      "category": "Book category",
+      "author": "Book author",
+      "summary": "Book summary",
+      "isDownloadable": "Will the book be downloadable?",
+      "imgCover": "Cover image",
+      "imgCoverPh": "Upload the book cover",
+      "file": "Book file",
+      "filePh": "Add the book file"
+    }
   },
   "admin": {
     "nav": {

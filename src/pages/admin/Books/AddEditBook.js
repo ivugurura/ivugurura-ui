@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from '@mui/material';
+import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 import { RRVDialogActions } from '../../../common/components/RRVDialogActions';
@@ -16,8 +11,6 @@ import { bookSchema, bookInitials } from './schema';
 
 export const AddEditBook = ({ open, onClose, refetchBooks }) => {
   const [newBook, setNewBook] = useState(bookInitials);
-  const [fileUrls, setFileUrls] = useState({ bookFile: '', bookCover: '' });
-  const [fileType, setFileType] = useState('');
   const [createBook, res] = actions.useCreateBookMutation();
   const { data } = actions.useListCategoriesBookQuery();
 
@@ -31,27 +24,21 @@ export const AddEditBook = ({ open, onClose, refetchBooks }) => {
     }
   }, [res.isSuccess]);
   useEffect(() => {
-    if (fileType && filePathName) {
-      setFileUrls((prev) => ({ ...prev, [fileType]: filePathName }));
+    if (filePathName) {
+      setNewBook((prev) => ({ ...prev, bookFile: filePathName }));
     }
-  }, [fileType, filePathName]);
-  const handleFileInputClick = (type) => {
-    setFileType(type);
-  };
+  }, [filePathName]);
 
   const handleSaveBook = () => {
-    createBook({ ...newBook, ...fileUrls });
+    createBook(newBook);
   };
 
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Create a new book</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          Book: It will appear on top of the web navigation.
-        </DialogContentText>
         <RRVForm
-          fields={bookSchema(handleFileInputClick, bookCategories)}
+          fields={bookSchema(bookCategories)}
           states={newBook}
           setStates={setNewBook}
         />

@@ -11,7 +11,7 @@ export const bookInitials = {
   isDownloadable: false,
 };
 
-export const bookSchema = (onHandleFileInputClick, categories = []) => [
+export const bookSchema = (categories = []) => [
   [{ name: 'name', label: 'Book name' }],
   [
     {
@@ -38,22 +38,22 @@ export const bookSchema = (onHandleFileInputClick, categories = []) => [
       isBool: true,
     },
   ],
-  [
-    {
-      label: 'Cover image',
-      fieldType: 'file-field',
-      type: 'bookCover',
-      accept: '.jpeg, .png',
-      placeholder: 'Upload the book cover',
-      imgProps: {
-        height: 216,
-        width: 144,
-        bRadius: 5,
-        zoom: 0.2,
-      },
-      onFirstExcute: () => onHandleFileInputClick('bookCover'),
-    },
-  ],
+  // [
+  //   {
+  //     label: 'Cover image',
+  //     fieldType: 'file-field',
+  //     type: 'bookCover',
+  //     accept: '.jpeg, .png',
+  //     placeholder: 'Upload the book cover',
+  //     imgProps: {
+  //       height: 216,
+  //       width: 144,
+  //       bRadius: 5,
+  //       zoom: 0.2,
+  //     },
+  //     onFirstExcute: () => onHandleFileInputClick('bookCover'),
+  //   },
+  // ],
   [
     {
       label: 'Book file',
@@ -61,7 +61,6 @@ export const bookSchema = (onHandleFileInputClick, categories = []) => [
       type: 'bookFile',
       placeholder: 'Add the book file',
       accept: '.pdf',
-      onFirstExcute: () => onHandleFileInputClick('bookFile'),
     },
   ],
 ];

@@ -17,6 +17,13 @@ import {
 
 import { BOOK_COVERS_PATH } from '../../helpers/utils/constants';
 
+const getCoverImage = (img) => {
+  let cover = `${BOOK_COVERS_PATH}/${img}`;
+  if (!img) {
+    cover = '/img/book-thumbnail.svg';
+  }
+  return cover;
+};
 export const BooksList = ({
   books = [],
   onBookClick = () => {},
@@ -37,7 +44,7 @@ export const BooksList = ({
           <CardMedia
             component="img"
             height="300"
-            image={`${BOOK_COVERS_PATH}/${book.coverImage}`}
+            image={getCoverImage(book.coverImage)}
             alt={book.name}
           />
           <CardContent sx={{ flexGrow: 1 }}>

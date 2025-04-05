@@ -25,6 +25,10 @@ const userRoutes = [
     component: React.lazy(() => import('../../../pages/LibraryPage')),
   },
   {
+    path: PageRoutes.ViewBook,
+    component: React.lazy(() => import('../../../pages/BookViewPage')),
+  },
+  {
     path: PageRoutes.Audios,
     component: React.lazy(() => import('../../../pages/AudiosPage')),
   },

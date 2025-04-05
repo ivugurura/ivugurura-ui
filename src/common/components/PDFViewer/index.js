@@ -220,7 +220,7 @@ export const PdfViewerV3 = ({
           justifyContent: 'space-between',
         }}
       >
-        <Button onClick={onPageClose}>Close</Button>
+        <Button onClick={onPageClose}>Go back</Button>
         <RRVDownloadBtn useMutation={useMutation} params={otherParams} />
       </div>
       <div style={{ display: 'flex', marginTop: '10px' }}>

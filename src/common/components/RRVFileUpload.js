@@ -59,11 +59,13 @@ export const RRVFileUpload = ({
   }, []);
 
   const handleUploadFile = () => {
-    const imageDataUrl = imageRef.current?.getImageScaledToCanvas().toDataURL();
     let fileToUpload = imageProps.file;
-    if (imageProps.file?.type?.includes('image/')) {
+    const imgCurrent = imageRef.current;
+    if (imgCurrent && imageProps.file?.type?.includes('image/')) {
+      const imageDataUrl = imgCurrent.getImageScaledToCanvas().toDataURL();
       fileToUpload = dataUrlToFile(imageDataUrl, imageProps.file.name);
     }
+    // console.log(fileToUpload);
 
     if (imageProps.file && fileToUpload) {
       uploadFileWithProgress(fileToUpload, imageProps.uploaded, type, (e) => {
@@ -80,6 +82,8 @@ export const RRVFileUpload = ({
           }));
         })
         .catch((error) => {
+          console.log(error);
+
           setProgress(0);
           let errorMessage = '';
           if (error.response) {

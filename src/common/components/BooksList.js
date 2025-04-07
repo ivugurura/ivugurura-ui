@@ -14,6 +14,7 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import { BOOK_COVERS_PATH, toLink } from '../../helpers/utils/constants';
@@ -30,10 +31,11 @@ export const BooksList = ({
   onBookClick = () => {},
   isAdmin = false,
 }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleReadBook = (book) => {
-    navigate(toLink(`/library/${book.slug}`, isAdmin));
+    navigate(toLink(`library/${book.slug}`, isAdmin));
   };
   return (
     <Grid container spacing={3}>
@@ -59,7 +61,7 @@ export const BooksList = ({
                 {book.name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                by Ivugurura n Ubugorozi
+                {`${t('by')} ${t('subtitle')}}`}
               </Typography>
             </CardContent>
             {isAdmin && (

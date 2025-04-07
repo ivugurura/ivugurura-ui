@@ -12,6 +12,12 @@ export const BookState = {
         endpoint: `/books?${getParams()}`,
       },
     },
+    view: {
+      api: {
+        verb: VERBS.get,
+        endpoint: '/books/:slug/view',
+      },
+    },
     listCategories: {
       api: {
         verb: VERBS.get,

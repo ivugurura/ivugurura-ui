@@ -1,4 +1,8 @@
-const common = { Audios: 'audios', Library: 'library' };
+const common = {
+  Audios: 'audios',
+  Library: 'library',
+  ViewBook: 'library/:slug',
+};
 
 export const PageRoutes = {
   Topics: 'topics',

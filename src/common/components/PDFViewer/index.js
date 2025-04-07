@@ -213,7 +213,7 @@ export const PdfViewerV3 = ({
 
   const { useMutation, ...otherParams } = downloadParams;
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <div
         style={{
           display: 'flex',

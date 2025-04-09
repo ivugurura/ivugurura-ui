@@ -6,6 +6,10 @@ import { Button } from '@mui/material';
 import { generateSignature } from '../../../helpers/utils/constants';
 import { RRVDownloadBtn } from '../RRVDownloadBtn';
 
+const initialProgress = {
+  loading: false,
+  message: '',
+};
 export const PdfViewerV3 = ({
   pdfUrl,
   onPageClose = () => {},
@@ -15,6 +19,7 @@ export const PdfViewerV3 = ({
   const [isPdfLoaded, setIsPdfLoaded] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loadingProgress, setLoadingProgress] = useState(initialProgress);
   const pdfContainerRef = useRef(null);
   const thumbnailsContainerRef = useRef(null);
 
@@ -169,6 +174,7 @@ export const PdfViewerV3 = ({
 
   const loadPdfFromUrl = (url) => {
     // Ensure PDF.js is loaded
+    setLoadingProgress({ loading: true, message: 'Loading' });
     if (!window['pdfjs-dist/build/pdf']) {
       console.error('PDF.js library not loaded yet');
       return;
@@ -198,9 +204,15 @@ export const PdfViewerV3 = ({
         setIsPdfLoaded(true);
 
         // Render all pages and thumbnails
+        setLoadingProgress((prev) => ({ ...prev, message: 'Preparing pages' }));
         renderAllPages(pdfDoc);
+        setLoadingProgress(initialProgress);
       })
       .catch((error) => {
+        setLoadingProgress({
+          loading: false,
+          message: 'Could not load the book',
+        });
         console.error('Error loading PDF:', error);
       });
   };
@@ -212,6 +224,14 @@ export const PdfViewerV3 = ({
   }, [pdfUrl]);
 
   const { useMutation, ...otherParams } = downloadParams;
+  const mainStyles = {
+    flex: 1,
+    background: '#ccc',
+    textAlign: 'center',
+    padding: '5px',
+    overflow: 'auto',
+    height: '820px',
+  };
   return (
     <div style={{ width: '100%' }}>
       <div
@@ -239,17 +259,19 @@ export const PdfViewerV3 = ({
         />
 
         {/* Main PDF container */}
-        <div
-          ref={pdfContainerRef}
-          style={{
-            flex: 1,
-            background: '#ccc',
-            textAlign: 'center',
-            padding: '5px',
-            overflow: 'auto',
-            height: '820px',
-          }}
-        />
+        <div ref={pdfContainerRef} style={mainStyles} />
+        {!isPdfLoaded && loadingProgress.loading && (
+          <div
+            style={{
+              ...mainStyles,
+              display: 'flex',
+              alignContent: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <span style={{ fontSize: 16 }}>{loadingProgress.message}</span>
+          </div>
+        )}
       </div>
 
       {isPdfLoaded && (

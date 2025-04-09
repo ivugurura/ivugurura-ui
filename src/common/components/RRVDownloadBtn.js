@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 
+import { DownloadForOffline as DownloadIcon } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { toast } from 'react-toastify';
 
@@ -32,7 +33,12 @@ export const RRVDownloadBtn = ({ useMutation, params = {} }) => {
   }, [error?.error]);
 
   return (
-    <Button onClick={() => downladFile(params)} disabled={isLoading}>
+    <Button
+      onClick={() => downladFile(params)}
+      disabled={isLoading}
+      startIcon={<DownloadIcon />}
+      color="info"
+    >
       Download
     </Button>
   );

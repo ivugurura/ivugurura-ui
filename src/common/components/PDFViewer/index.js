@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import React, { useState, useEffect, useRef } from 'react';
 
+import { ArrowBackOutlined as ArrowBackIcon } from '@mui/icons-material';
 import { Button } from '@mui/material';
 
 import { generateSignature } from '../../../helpers/utils/constants';
@@ -240,7 +241,9 @@ export const PdfViewerV3 = ({
           justifyContent: 'space-between',
         }}
       >
-        <Button onClick={onPageClose}>Go back</Button>
+        <Button onClick={onPageClose} startIcon={<ArrowBackIcon />}>
+          Go back
+        </Button>
         <RRVDownloadBtn useMutation={useMutation} params={otherParams} />
       </div>
       <div style={{ display: 'flex', marginTop: '10px' }}>

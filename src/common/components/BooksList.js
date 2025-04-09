@@ -61,7 +61,7 @@ export const BooksList = ({
                 {book.name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {`${t('by')} ${t('subtitle')}}`}
+                {`${t('by')} ${t('subtitle')}`}
               </Typography>
             </CardContent>
             {isAdmin && (

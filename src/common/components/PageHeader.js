@@ -4,9 +4,15 @@ import { Box, Typography } from '@mui/material';
 
 export const PageHeader = ({ title, description }) => {
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" py={2}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      py={2}
+      px={2}
+    >
       {title && (
-        <Typography variant="subtitle2" py={4}>
+        <Typography variant="subtitle2" py={2}>
           {title}
         </Typography>
       )}

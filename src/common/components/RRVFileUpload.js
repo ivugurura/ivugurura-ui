@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { Box, Button, Grid, LinearProgress, Typography } from '@mui/material';
 import { MuiFileInput } from 'mui-file-input';
@@ -58,19 +58,25 @@ export const RRVFileUpload = ({
     }));
   }, []);
 
-  const handleUploadFile = () => {
+  const onProgress = (e) => {
+    setProgress(Math.round((100 * e.loaded) / e.total));
+  };
+
+  const handleUploadFile = useCallback(() => {
     let fileToUpload = imageProps.file;
     const imgCurrent = imageRef.current;
     if (imgCurrent && imageProps.file?.type?.includes('image/')) {
       const imageDataUrl = imgCurrent.getImageScaledToCanvas().toDataURL();
       fileToUpload = dataUrlToFile(imageDataUrl, imageProps.file.name);
     }
-    // console.log(fileToUpload);
 
-    if (imageProps.file && fileToUpload) {
-      uploadFileWithProgress(fileToUpload, imageProps.uploaded, type, (e) => {
-        setProgress(Math.round((100 * e.loaded) / e.total));
-      })
+    if (fileToUpload) {
+      uploadFileWithProgress(
+        fileToUpload,
+        imageProps.uploaded,
+        type,
+        onProgress,
+      )
         .then((res) => {
           const theFileName = res.data.data;
           setProgress(0);
@@ -95,7 +101,7 @@ export const RRVFileUpload = ({
           notifier.error(errorMessage);
         });
     }
-  };
+  }, [imageProps.file, imageRef.current]);
   const handleFileChange = (selectedFile) => {
     setImageProps((prev) => ({ ...prev, file: selectedFile }));
     onFirstExcute();

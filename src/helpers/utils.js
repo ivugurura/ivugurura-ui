@@ -36,13 +36,9 @@ export const uploadFileWithProgress = (
 
   formData.append('file', file);
 
-  const uploadUrl = `/albums/upload/${type}?prevFile=${prevFile}`;
-
-  console.log(file, formData, uploadUrl);
+  const uploadUrl = `/upload-file/${type}?prevFile=${prevFile}`;
 
   return http.post(uploadUrl, formData, {
-    timeout: 20000,
-    headers: { 'Content-Type': 'multipart/form-data' },
     onUploadProgress,
   });
 };

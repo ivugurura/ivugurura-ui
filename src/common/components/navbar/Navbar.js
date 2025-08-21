@@ -21,22 +21,33 @@ import { SelectLanguage } from '../SelectLanguage';
 import { ContactModal } from './ContactModal';
 import { SearchModal } from './SearchModal';
 
-// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+/**
+ * Should be refactored
+ */
+const AdditionalMenu = ({
+  navigate,
+  t,
+  onOpenContact = () => {},
+  hide = false,
+}) => {
+  const menuItems = [
+    { label: t('library.menuTitle'), link: 'library' },
+    { label: t('audios'), link: 'audios', hide },
+    { label: t('contactUs'), onClick: onOpenContact, hide },
+  ];
 
-const AdditionalMenu = ({ navigate, t, onOpenContact }) => {
-  return (
-    <>
-      <Button variant="text" onClick={() => navigate(toLink('audios'))}>
+  return menuItems.map(({ label, link, onClick, ...rest }) =>
+    rest.hide ? null : (
+      <Button
+        key={label}
+        variant="text"
+        onClick={onClick || (() => navigate(toLink(link)))}
+      >
         <Typography sx={{ color: 'white', textTransform: 'uppercase' }}>
-          {t('audios')}
+          {label}
         </Typography>
       </Button>
-      <Button variant="text" onClick={onOpenContact}>
-        <Typography sx={{ color: 'white', textTransform: 'uppercase' }}>
-          {t('contactUs')}
-        </Typography>
-      </Button>
-    </>
+    ),
   );
 };
 export const NavBar = ({ navCategories = [] }) => {
@@ -123,6 +134,12 @@ export const NavBar = ({ navCategories = [] }) => {
                 keepMounted: true,
               }}
               buttonProps={{ endIcon: undefined }}
+            />
+            <AdditionalMenu
+              navigate={navigate}
+              t={t}
+              onOpenContact={() => setOpenContactForm(true)}
+              hide
             />
           </Box>
           <Typography

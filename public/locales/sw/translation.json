@@ -49,6 +49,8 @@
 	"radio": "Radio Ijwi Ry Ubugorozi",
 	"appDownload": "Pakua programu za simu",
 	"appDownloadText": "Pata ufikiaji rahisi na wa haraka wa yaliyomo katika wakati halisi kupitia programu zetu za rununu",
+	"yes": "Ndio",
+	"no": "Hapana",
 	"actions": {
 		"label": "Vitendo",
 		"btnSend": "Tuma",
@@ -76,6 +78,19 @@
 		"names": "Majina yako",
 		"website": "Tovuti yako (ikiwa ipo)",
 		"message": "nataka kutuambia nini?"
+	},
+	"library": {
+		"title": "Maktaba",
+		"menuTitle": "Vitabu",
+		"labelTitle": "Duka la vitabu",
+		"description": "Unaweza kusoma vitabu kuhusu injili ya Uamsho na Matengenezo",
+		"addNew": "Ongeza kitabu kipya",
+		"nLabel": "Vitabu katika maktaba",
+		"tName": "Jina la kitabu",
+		"tAuthor": "Mwandishi",
+		"tCategory": "Kategoria",
+		"tDownloadable": "Inaweza kupakuliwa",
+		"allBooks": "Vitabu vyote"
 	},
 	"admin": {
 		"nav": {

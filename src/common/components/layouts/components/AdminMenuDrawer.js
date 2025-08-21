@@ -8,6 +8,7 @@ import {
   ChatBubbleOutline as ChatBubbleIcon,
   SettingsApplicationsOutlined as SettingIcon,
   PeopleOutline as PeopleIcon,
+  LibraryBooksOutlined as LibraryIcon,
 } from '@mui/icons-material';
 import { Collapse, Divider, List, Toolbar, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
@@ -31,6 +32,12 @@ const dashboardMenus = (lang = 'en', role = undefined, t = () => {}) => [
         icon: HomeIcon,
       },
       {
+        name: 'Library',
+        key: 'library',
+        to: `${lang}/library`,
+        icon: LibraryIcon,
+      },
+      {
         name: t('admin.topic.title'),
         key: 'add-new-topic',
         to: `${lang}/add-topic`,
@@ -39,13 +46,13 @@ const dashboardMenus = (lang = 'en', role = undefined, t = () => {}) => [
       {
         name: t('admin.nav.media'),
         key: 'media',
-        to: `${lang}/audio`,
+        to: `${lang}/audios`,
         icon: PlayLessonIcon,
         routes: [
           {
             name: t('admin.nav.audio'),
             key: 'audio',
-            to: `${lang}/audio`,
+            to: `${lang}/audios`,
             icon: MusicNoteIcon,
           },
         ],

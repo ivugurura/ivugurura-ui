@@ -70,6 +70,12 @@
     "react/prop-types": [
       0
     ],
-    "react/no-array-index-key": "off"
+    "react/no-array-index-key": "off",
+    "no-plusplus": [
+      "error",
+      {
+        "allowForLoopAfterthoughts": true
+      }
+    ]
   }
 }

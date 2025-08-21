@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { Box, Button, Grid, LinearProgress, Typography } from '@mui/material';
 import { MuiFileInput } from 'mui-file-input';
@@ -14,6 +14,7 @@ const { Buffer } = require('buffer/');
 const initialImageProps = {
   file: null,
   uploaded: '',
+  isUploaded: false,
   height: 190,
   width: 460,
   bRadius: 5,
@@ -37,9 +38,15 @@ export const RRVFileUpload = ({
   title = '',
   type = 'image',
   accept = '.png, .jpg, .jpeg',
+  placeholder = 'Insert a file',
+  imgProps = {},
+  onFirstExcute = () => {},
 }) => {
   const dispatch = useDispatch();
-  const [imageProps, setImageProps] = React.useState(initialImageProps);
+  const [imageProps, setImageProps] = React.useState({
+    ...initialImageProps,
+    ...imgProps,
+  });
   const imageRef = React.createRef(null);
   const [progress, setProgress] = React.useState(0);
 
@@ -47,26 +54,42 @@ export const RRVFileUpload = ({
     setImageProps((prev) => ({
       ...prev,
       [target.name]: parseFloat(target.value),
+      isUploaded: false,
     }));
   }, []);
 
-  const handleUploadFile = () => {
-    const imageDataUrl = imageRef.current?.getImageScaledToCanvas().toDataURL();
+  const onProgress = (e) => {
+    setProgress(Math.round((100 * e.loaded) / e.total));
+  };
+
+  const handleUploadFile = useCallback(() => {
     let fileToUpload = imageProps.file;
-    if (imageProps.file?.type?.includes('image/')) {
+    const imgCurrent = imageRef.current;
+    if (imgCurrent && imageProps.file?.type?.includes('image/')) {
+      const imageDataUrl = imgCurrent.getImageScaledToCanvas().toDataURL();
       fileToUpload = dataUrlToFile(imageDataUrl, imageProps.file.name);
     }
-    if (imageProps.file && fileToUpload) {
-      uploadFileWithProgress(fileToUpload, imageProps.uploaded, type, (e) => {
-        setProgress(Math.round((100 * e.loaded) / e.total));
-      })
+
+    if (fileToUpload) {
+      uploadFileWithProgress(
+        fileToUpload,
+        imageProps.uploaded,
+        type,
+        onProgress,
+      )
         .then((res) => {
           const theFileName = res.data.data;
           setProgress(0);
           dispatch(setFilePath(theFileName));
-          setImageProps((prev) => ({ ...prev, uploaded: theFileName }));
+          setImageProps((prev) => ({
+            ...prev,
+            uploaded: theFileName,
+            isUploaded: true,
+          }));
         })
         .catch((error) => {
+          console.log(error);
+
           setProgress(0);
           let errorMessage = '';
           if (error.response) {
@@ -78,6 +101,10 @@ export const RRVFileUpload = ({
           notifier.error(errorMessage);
         });
     }
+  }, [imageProps.file, imageRef.current]);
+  const handleFileChange = (selectedFile) => {
+    setImageProps((prev) => ({ ...prev, file: selectedFile }));
+    onFirstExcute();
   };
   return (
     <Grid container>
@@ -85,16 +112,14 @@ export const RRVFileUpload = ({
         <MuiFileInput
           label={title}
           value={imageProps.file}
-          onChange={(selectedFile) =>
-            setImageProps((prev) => ({ ...prev, file: selectedFile }))
-          }
-          placeholder="Insert a file"
+          onChange={handleFileChange}
+          placeholder={`${placeholder}(${accept.replaceAll('.', '')})`}
           inputProps={{ accept }}
         />
       </Grid>
       <Grid item xs={12} mt={1}>
         {imageProps.file?.type?.includes('image/') && (
-          <div>
+          <div style={{ display: 'flex', gap: '10px' }}>
             <AvatarEditor
               ref={imageRef}
               width={imageProps.width}
@@ -106,65 +131,67 @@ export const RRVFileUpload = ({
               className="cover"
             />
             <div>
-              Zoom:
-              <input
-                name="zoom"
-                type="range"
-                min="0.01"
-                max="2"
-                step="0.01"
-                value={imageProps.zoom}
-                onChange={handleChange}
-              />
-            </div>
-            <br />
-            <div>
-              Border radius:
-              <input
-                name="bRadius"
-                type="range"
-                min="1"
-                max="50"
-                step="1"
-                value={imageProps.bRadius}
-                onChange={handleChange}
-              />
-            </div>
-            <br />
-            <div>
-              Image height:
-              <input
-                name="height"
-                type="number"
-                min="50"
-                max="250"
-                step="10"
-                onWheel={(event) => {
-                  event.preventDefault();
-                }}
-                value={imageProps.height}
-                onChange={handleChange}
-              />
-            </div>
-            <br />
-            <div>
-              Image width:
-              <input
-                name="width"
-                type="number"
-                min="50"
-                max="550"
-                step="10"
-                onWheel={(event) => {
-                  event.preventDefault();
-                }}
-                value={imageProps.width}
-                onChange={handleChange}
-              />
+              <div>
+                Zoom:
+                <input
+                  name="zoom"
+                  type="range"
+                  min="0.01"
+                  max="2"
+                  step="0.01"
+                  value={imageProps.zoom}
+                  onChange={handleChange}
+                />
+              </div>
+              <br />
+              <div>
+                Border radius:
+                <input
+                  name="bRadius"
+                  type="range"
+                  min="1"
+                  max="50"
+                  step="1"
+                  value={imageProps.bRadius}
+                  onChange={handleChange}
+                />
+              </div>
+              <br />
+              <div>
+                Image height:
+                <input
+                  name="height"
+                  type="number"
+                  min="50"
+                  max="250"
+                  step="10"
+                  onWheel={(event) => {
+                    event.preventDefault();
+                  }}
+                  value={imageProps.height}
+                  onChange={handleChange}
+                />
+              </div>
+              <br />
+              <div>
+                Image width:
+                <input
+                  name="width"
+                  type="number"
+                  min="50"
+                  max="550"
+                  step="10"
+                  onWheel={(event) => {
+                    event.preventDefault();
+                  }}
+                  value={imageProps.width}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
           </div>
         )}
-        {imageProps.file && (
+        {!imageProps.isUploaded && imageProps.file && (
           <Button onClick={handleUploadFile}>
             Upload the file to the server
           </Button>

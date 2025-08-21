@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900">
+    <!-- Background -->
+    <rect width="520" height="800" fill="#f8fafc" />
+
+    <!-- Book cover shadow -->
+    <rect x="40" y="50" width="520" height="800" rx="10" ry="10" fill="#e0e4eb" />
+
+    <!-- Book cover - lightened -->
+    <rect x="20" y="30" width="520" height="800" rx="10" ry="10" fill="#5d7794" />
+
+    <!-- Book spine effect - lightened -->
+    <rect x="20" y="30" width="40" height="800" rx="3" ry="3" fill="#4a6583" />
+    <rect x="60" y="30" width="10" height="800" fill="#536f8d" />
+
+    <!-- Abstract design elements -->
+    <circle cx="300" cy="300" r="150" fill="#7fb1e2" opacity="0.3" />
+    <rect x="150" y="450" width="300" height="5" rx="2" ry="2" fill="#f0f5fa" opacity="0.7" />
+    <rect x="200" y="470" width="200" height="5" rx="2" ry="2" fill="#f0f5fa" opacity="0.5" />
+    <rect x="250" y="490" width="100" height="5" rx="2" ry="2" fill="#f0f5fa" opacity="0.3" />
+
+    <!-- Watermark text - First (upper) -->
+    <text x="300" y="250" font-family="Arial" font-size="36" font-weight="normal" font-style="italic"
+        text-anchor="middle" fill="#8da2b8" opacity="0.4" transform="rotate(-30 300,250)">Reformation Voice</text>
+
+    <!-- Watermark text - Second (middle) -->
+    <text x="300" y="450" font-family="Arial" font-size="36" font-weight="normal" font-style="italic"
+        text-anchor="middle" fill="#8da2b8" opacity="0.4" transform="rotate(-30 300,450)">Reformation Voice</text>
+
+    <!-- Watermark text - Third (lower) -->
+    <text x="300" y="650" font-family="Arial" font-size="36" font-weight="normal" font-style="italic"
+        text-anchor="middle" fill="#8da2b8" opacity="0.4" transform="rotate(-30 300,650)">Reformation Voice</text>
+
+    <!-- Watermark text - Fourth (full cover, larger) -->
+    <text x="300" y="450" font-family="Arial" font-size="48" font-weight="normal" font-style="italic"
+        text-anchor="middle" fill="#8da2b8" opacity="0.2" transform="rotate(-30 300,450)">Reformation Voice</text>
+</svg>

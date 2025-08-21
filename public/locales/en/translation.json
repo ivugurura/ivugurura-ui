@@ -49,6 +49,8 @@
   "radio": "Reformation Radio",
   "appDownload": "Download the mobile apps",
   "appDownloadText": "Get easy and fast access to our content in realtime through our mobile apps",
+  "yes": "Yes",
+  "no": "No",
   "actions": {
     "label": "Actions",
     "btnSend": "Send",
@@ -76,6 +78,31 @@
     "names": "Names",
     "website": "Website",
     "message": "What do you want to tell us?"
+  },
+  "library":{
+    "title": "Library",
+    "menuTitle": "Books",
+    "labelTitle": "Book store",
+    "description": "Pick a book below, read or download it.",
+    "addNew": "Add new book",
+    "nLabel": "Books in the library",
+    "tName": "Book name",
+    "tAuthor": "Author",
+    "tCategory": "Category",
+    "tDownloadable": "Downloadable",
+    "allBooks": "All books",
+    "form": {
+      "title": "Create a new book",
+      "name": "Book name",
+      "category": "Book category",
+      "author": "Book author",
+      "summary": "Book summary",
+      "isDownloadable": "Will the book be downloadable?",
+      "imgCover": "Cover image",
+      "imgCoverPh": "Upload the book cover",
+      "file": "Book file",
+      "filePh": "Add the book file"
+    }
   },
   "admin": {
     "nav": {

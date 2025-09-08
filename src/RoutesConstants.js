@@ -5,6 +5,8 @@ const common = {
 };
 
 export const PageRoutes = {
+  Announcement: 'announcement',
+  PrivacyPolicy: 'privacy-policy',
   Topics: 'topics',
   Topic: 'topics/:slug',
   Login: 'login',

@@ -387,17 +387,18 @@ export const PdfViewerChrome = ({
             background: '#e7e7e7',
           }}
         >
-          {!isLoaded && (
+          {isLoaded ? (
+            <canvas
+              ref={canvasRef}
+              style={{
+                boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+                background: 'white',
+                marginTop: 12,
+              }}
+            />
+          ) : (
             <Box sx={{ p: 2 }}>{loadingMessage || 'Preparing document...'}</Box>
           )}
-          <canvas
-            ref={canvasRef}
-            style={{
-              boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
-              background: 'white',
-              marginTop: 12,
-            }}
-          />
         </Box>
       </Box>
     </Box>

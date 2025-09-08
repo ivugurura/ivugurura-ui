@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Dialog } from '@mui/material';
 
-import { PdfViewerV3 } from '../../../common/components/PDFViewer';
+import { PdfViewerChrome } from '../../../common/components/PDFViewer';
 
 export const ViewBook = ({
   book = {},
@@ -10,8 +10,6 @@ export const ViewBook = ({
   onClose = () => {},
   fullScreen = false,
 }) => {
-  console.log(`${process.env.REACT_APP_API_URL}/api/v1/books/${book.id}`);
-
   return (
     <Dialog
       open={open}
@@ -20,10 +18,12 @@ export const ViewBook = ({
       fullWidth
       fullScreen={fullScreen}
     >
-      <PdfViewerV3
+      <PdfViewerChrome
         pdfUrl={`${process.env.REACT_APP_API_URL}/api/v1/books/${book.id}`}
         onPageClose={onClose}
         downloadParams={{ useMutation: 'useDownloadBookMutation', id: book.id }}
+        watermarkText="Reformation Voice"
+        initialScale={1}
       />
     </Dialog>
   );

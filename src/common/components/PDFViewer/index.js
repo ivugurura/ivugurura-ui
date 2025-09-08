@@ -1,287 +1,407 @@
-/* eslint-disable no-param-reassign */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-import { ArrowBackOutlined as ArrowBackIcon } from '@mui/icons-material';
-import { Button } from '@mui/material';
+import {
+  ArrowBackOutlined as ArrowBackIcon,
+  ZoomIn as ZoomInIcon,
+  ZoomOut as ZoomOutIcon,
+  KeyboardArrowLeft as PrevIcon,
+  KeyboardArrowRight as NextIcon,
+  ViewSidebar as SidebarIcon,
+} from '@mui/icons-material';
+import {
+  IconButton,
+  Button,
+  TextField,
+  Box,
+  useTheme,
+  useMediaQuery,
+} from '@mui/material';
 
 import { generateSignature } from '../../../helpers/utils/constants';
+import { useWindowSize } from '../../hooks/useWindowSize';
 import { RRVDownloadBtn } from '../RRVDownloadBtn';
 
-const initialProgress = {
-  loading: false,
-  message: '',
-};
-export const PdfViewerV3 = ({
+// PdfViewerChrome: chrome-like responsive pdf viewer using pdf.js
+export const PdfViewerChrome = ({
   pdfUrl,
   onPageClose = () => {},
   downloadParams = {},
-  watermarkText = 'Reformation Voice',
+  watermarkText = '',
+  initialScale = 1,
 }) => {
-  const [isPdfLoaded, setIsPdfLoaded] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [pdfDoc, setPdfDoc] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [loadingProgress, setLoadingProgress] = useState(initialProgress);
-  const pdfContainerRef = useRef(null);
-  const thumbnailsContainerRef = useRef(null);
+  const [scale, setScale] = useState(initialScale);
+  const [loadingMessage, setLoadingMessage] = useState('');
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  const containerRef = useRef(null);
+  const canvasRef = useRef(null);
+  const thumbsRef = useRef(null);
+  const thumbsBuiltRef = useRef(false);
+  const thumbsGenRef = useRef(0);
+
+  const { breakpoint } = useWindowSize();
+
+  useEffect(() => setSidebarOpen(breakpoint !== 'small'), [breakpoint]);
 
   const applyWatermark = (canvas, text) => {
+    if (!text) return;
     const ctx = canvas.getContext('2d');
     const { width, height } = canvas;
-
-    // Save the current canvas state
     ctx.save();
-
-    // Set watermark properties
-    ctx.globalAlpha = 0.1;
-    ctx.font = `${Math.min(width, height) / 10}px Arial`;
-    ctx.fillStyle = '#888888';
+    ctx.globalAlpha = 0.08;
+    ctx.font = `${Math.min(width, height) / 14}px Arial`;
+    ctx.fillStyle = '#000000';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-
-    // Rotate the canvas
     ctx.translate(width / 2, height / 2);
-    ctx.rotate(-Math.PI / 4); // Rotate -45 degrees
-
-    // Add diagonal repeating watermark
-    const fontSize = parseInt(ctx.font, 10);
-    const gap = fontSize * 3;
+    ctx.rotate(-Math.PI / 6);
+    const fontSize = parseInt(ctx.font, 10) || 24;
+    const gap = fontSize * 4;
     const repeats = Math.ceil(Math.sqrt(width * width + height * height) / gap);
-
-    for (let i = -repeats; i <= repeats; i++) {
-      ctx.fillText(text, 0, i * gap);
-    }
-
-    // Restore the canvas to its original state
+    for (let i = -repeats; i <= repeats; i++) ctx.fillText(text, 0, i * gap);
     ctx.restore();
   };
 
-  const renderPage = (pdfDoc, container, pageNumber, scale, resolution) => {
-    pdfDoc.getPage(pageNumber).then((page) => {
-      // Create a div to wrap the page (for scrolling to specific pages)
-      const pageDiv = document.createElement('div');
-      pageDiv.id = `page-${pageNumber}`;
-      pageDiv.className = 'pdf-page';
-      container.appendChild(pageDiv);
+  //   highlight a thumbnail and scroll it into view
+  const highlightThumbnail = (page) => {
+    if (!thumbsRef.current) return;
+    Array.from(thumbsRef.current.children).forEach((child) => {
+      const node = child;
+      if (node.dataset && Number(node.dataset.page) === page) {
+        node.style.background = '#e3f2fd';
+        node.style.border = '1px solid #1976d2';
+      } else {
+        node.style.background = '';
+        node.style.border = '1px solid transparent';
+      }
+    });
+  };
 
-      // Create Canvas element and append to the page div
-      const canvas = document.createElement('canvas');
-      canvas.id = `pdf-canvas-${pageNumber}`;
-      const ctx = canvas.getContext('2d');
-      pageDiv.appendChild(canvas);
+  const renderPage = (doc, pageNum, scaleOverride) => {
+    if (!doc) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
 
-      // Create and add empty DIV to add SPACE between pages
-      const spacer = document.createElement('div');
-      spacer.style.height = '20px';
-      container.appendChild(spacer);
+    doc.getPage(pageNum).then((page) => {
+      const actualScale =
+        typeof scaleOverride === 'number' ? scaleOverride : scale;
 
-      // Set the Canvas dimensions using ViewPort and Scale
-      const viewport = page.getViewport({ scale });
-      canvas.height = resolution * viewport.height;
-      canvas.width = resolution * viewport.width;
+      const vp = page.getViewport({ scale: actualScale });
+      const ratio = window.devicePixelRatio || 1;
+      canvas.width = Math.round(vp.width * ratio);
+      canvas.height = Math.round(vp.height * ratio);
+      canvas.style.width = '100%';
+      canvas.style.maxWidth = `${Math.round(vp.width)}px`;
+      canvas.style.height = 'auto';
 
-      // Render the PDF page
-      const renderContext = {
-        canvasContext: ctx,
-        viewport,
-        transform: [resolution, 0, 0, resolution, 0, 0],
-      };
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
 
-      // page.render(renderContext);
-      page.render(renderContext).promise.then(() => {
-        // Apply watermark after rendering is complete
-        applyWatermark(canvas, watermarkText);
+      page.render({ canvasContext: ctx, viewport: vp }).promise.then(() => {
+        if (watermarkText) applyWatermark(canvas, watermarkText);
       });
     });
   };
 
-  const renderThumbnail = (pdfDoc, container, pageNumber) => {
-    pdfDoc.getPage(pageNumber).then((page) => {
-      // Create thumbnail container
-      const thumbContainer = document.createElement('div');
-      thumbContainer.className = 'thumbnail-container';
-      thumbContainer.style.cursor = 'pointer';
-      thumbContainer.style.margin = '5px 0';
-      thumbContainer.style.border = '1px solid #ddd';
-      thumbContainer.style.position = 'relative';
-
-      // Add page number label
-      const pageLabel = document.createElement('div');
-      pageLabel.textContent = pageNumber;
-      pageLabel.style.position = 'absolute';
-      pageLabel.style.bottom = '5px';
-      pageLabel.style.right = '5px';
-      pageLabel.style.background = 'rgba(0,0,0,0.5)';
-      pageLabel.style.color = 'white';
-      pageLabel.style.padding = '2px 5px';
-      pageLabel.style.borderRadius = '3px';
-      pageLabel.style.fontSize = '10px';
-
-      // Create Canvas for thumbnail
-      const canvas = document.createElement('canvas');
-      canvas.id = `thumbnail-${pageNumber}`;
-      canvas.width = '100%';
-      const ctx = canvas.getContext('2d');
-
-      // Add click event to scroll to the page
-      thumbContainer.onclick = () => {
-        setCurrentPage(pageNumber);
-        document
-          .getElementById(`page-${pageNumber}`)
-          .scrollIntoView({ behavior: 'smooth' });
-
-        // Highlight the selected thumbnail
-        const thumbnails = container.querySelectorAll('.thumbnail-container');
-        thumbnails.forEach((thumb) => {
-          thumb.style.backgroundColor = '';
-          thumb.style.boxShadow = '';
+  const buildThumbnails = (doc) => {
+    if (!thumbsRef.current) return;
+    // increment generation to invalidate any previous pending renders
+    thumbsGenRef.current += 1;
+    const gen = thumbsGenRef.current;
+    thumbsRef.current.innerHTML = '';
+    thumbsBuiltRef.current = true;
+    for (let i = 1; i <= doc.numPages; i++) {
+      doc.getPage(i).then((page) => {
+        const thumb = document.createElement('canvas');
+        const ctx = thumb.getContext('2d');
+        const vp = page.getViewport({ scale: 0.12 });
+        thumb.width = Math.round(vp.width);
+        thumb.height = Math.round(vp.height);
+        page.render({ canvasContext: ctx, viewport: vp }).promise.then(() => {
+          // If generation changed, skip appending this thumbnail (stale build)
+          if (thumbsGenRef.current !== gen) return;
+          const wrapper = document.createElement('div');
+          wrapper.style.cursor = 'pointer';
+          wrapper.style.margin = '6px';
+          wrapper.dataset.page = String(i);
+          // basic non-selected style
+          wrapper.style.border = '1px solid transparent';
+          wrapper.style.padding = '4px';
+          wrapper.className = 'pdf-thumb-wrap';
+          wrapper.appendChild(thumb);
+          const label = document.createElement('div');
+          label.textContent = i;
+          label.style.fontSize = '11px';
+          label.style.textAlign = 'center';
+          wrapper.appendChild(label);
+          wrapper.onclick = () => {
+            setCurrentPage(i);
+            renderPage(doc, i, scale || 1);
+            // highlight selected
+            highlightThumbnail(i);
+          };
+          thumbsRef.current.appendChild(wrapper);
         });
-
-        thumbContainer.style.backgroundColor = '#f0f0f0';
-        thumbContainer.style.boxShadow = '0 0 5px #0066cc';
-      };
-
-      thumbContainer.appendChild(canvas);
-      thumbContainer.appendChild(pageLabel);
-      container.appendChild(thumbContainer);
-
-      // Set thumbnail scale (smaller than the main view)
-      const thumbnailScale = 0.16;
-      const viewport = page.getViewport({ scale: thumbnailScale });
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
-
-      // Render the thumbnail
-      const renderContext = {
-        canvasContext: ctx,
-        viewport,
-      };
-
-      page.render(renderContext);
-    });
-  };
-
-  const renderAllPages = (pdfDoc) => {
-    if (!pdfContainerRef.current || !thumbnailsContainerRef.current) return;
-
-    const scale = 1; // Set Scale for zooming PDF
-    const resolution = 1; // Set Resolution to Adjust PDF clarity
-
-    // Loop and render all pages
-    for (let i = 1; i <= pdfDoc.numPages; i++) {
-      renderPage(pdfDoc, pdfContainerRef.current, i, scale, resolution);
-      renderThumbnail(pdfDoc, thumbnailsContainerRef.current, i);
+      });
     }
   };
 
-  const loadPdfFromUrl = (url) => {
-    // Ensure PDF.js is loaded
-    setLoadingProgress({ loading: true, message: 'Loading' });
+  // when sidebar opens or pdfDoc changes, ensure thumbnail list is built and scrolled to current
+  useEffect(() => {
+    if (sidebarOpen && pdfDoc) {
+      // build only once per document
+      if (!thumbsBuiltRef.current) {
+        requestAnimationFrame(() => {
+          buildThumbnails(pdfDoc);
+          setTimeout(() => {
+            if (thumbsRef.current) {
+              const el = thumbsRef.current.querySelector(
+                `[data-page="${currentPage}"]`,
+              );
+              if (el && typeof el.scrollIntoView === 'function') {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+              highlightThumbnail(currentPage);
+            }
+          }, 120);
+        });
+      } else {
+        // already built: just highlight/scroll
+        setTimeout(() => {
+          if (thumbsRef.current) {
+            const el = thumbsRef.current.querySelector(
+              `[data-page="${currentPage}"]`,
+            );
+            if (el && typeof el.scrollIntoView === 'function') {
+              el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            highlightThumbnail(currentPage);
+          }
+        }, 60);
+      }
+    }
+  }, [sidebarOpen, pdfDoc, currentPage]);
+
+  // ensure when page changes we update the selected thumb and scroll into view
+  useEffect(() => {
+    if (!thumbsRef.current) return;
+    setTimeout(() => {
+      const el = thumbsRef.current.querySelector(
+        `[data-page="${currentPage}"]`,
+      );
+      if (el && typeof el.scrollIntoView === 'function')
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      Array.from(thumbsRef.current.children).forEach((child) => {
+        const node = child;
+        if (node.dataset && Number(node.dataset.page) === currentPage)
+          node.classList.add('selected');
+        else node.classList.remove('selected');
+      });
+    }, 60);
+  }, [currentPage]);
+
+  const loadPdf = (url) => {
     if (!window['pdfjs-dist/build/pdf']) {
-      console.error('PDF.js library not loaded yet');
+      setLoadingMessage('PDF library not loaded');
       return;
     }
-
+    setLoadingMessage('Loading document...');
     const pdfjsLib = window['pdfjs-dist/build/pdf'];
     const { timestamp, hash } = generateSignature();
-    // Read PDF from URL
     pdfjsLib
       .getDocument({
         url,
         httpHeaders: { 'X-Timestamp': timestamp, 'X-Signature': hash },
         withCredentials: true,
       })
-      .promise.then((pdfDoc) => {
-        // Clear previous content
-        if (pdfContainerRef.current) {
-          pdfContainerRef.current.innerHTML = '';
-        }
-
-        if (thumbnailsContainerRef.current) {
-          thumbnailsContainerRef.current.innerHTML = '';
-        }
-
-        // setPdfDocument(pdfDoc);
-        setTotalPages(pdfDoc.numPages);
-        setIsPdfLoaded(true);
-
-        // Render all pages and thumbnails
-        setLoadingProgress((prev) => ({ ...prev, message: 'Preparing pages' }));
-        renderAllPages(pdfDoc);
-        setLoadingProgress(initialProgress);
+      .promise.then((doc) => {
+        setPdfDoc(doc);
+        setTotalPages(doc.numPages);
+        setIsLoaded(true);
+        setLoadingMessage('Preparing pages...');
+        setTimeout(() => renderPage(doc, currentPage, scale), 50);
+        // reset thumbnails built flag for new document
+        thumbsBuiltRef.current = false;
+        if (sidebarOpen) buildThumbnails(doc);
+        setLoadingMessage('');
       })
-      .catch((error) => {
-        setLoadingProgress({
-          loading: false,
-          message: 'Could not load the book',
-        });
-        console.error('Error loading PDF:', error);
+      .catch((err) => {
+        console.error('Error loading PDF:', err);
+        setLoadingMessage('Could not load document');
       });
   };
 
   useEffect(() => {
-    if (pdfUrl) {
-      loadPdfFromUrl(pdfUrl);
-    }
+    if (pdfUrl) loadPdf(pdfUrl);
+    return () => {
+      setPdfDoc(null);
+      setIsLoaded(false);
+    };
   }, [pdfUrl]);
 
+  useEffect(() => {
+    if (pdfDoc) renderPage(pdfDoc, currentPage, scale);
+  }, [currentPage, scale, sidebarOpen]);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (pdfDoc) renderPage(pdfDoc, currentPage, scale);
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [pdfDoc, currentPage, scale]);
+
   const { useMutation, ...otherParams } = downloadParams;
-  const mainStyles = {
-    flex: 1,
-    background: '#ccc',
-    textAlign: 'center',
-    padding: '5px',
-    overflow: 'auto',
-    height: '820px',
+
+  const onZoomIn = () => setScale((s) => Math.min(3, s + 0.25));
+  const onZoomOut = () => setScale((s) => Math.max(0.25, s - 0.25));
+
+  const handlePageChange = (value) => {
+    const p = Number(value);
+    setCurrentPage(Math.min(Math.max(1, p), totalPages || p));
   };
+
   return (
-    <div style={{ width: '100%' }}>
-      <div
-        style={{
+    <Box sx={{ width: '100%' }}>
+      <Box
+        sx={{
           display: 'flex',
+          alignItems: 'center',
           justifyContent: 'space-between',
+          py: 0.5,
         }}
       >
-        <Button onClick={onPageClose} startIcon={<ArrowBackIcon />}>
-          Go back
-        </Button>
-        <RRVDownloadBtn useMutation={useMutation} params={otherParams} />
-      </div>
-      <div style={{ display: 'flex', marginTop: '10px' }}>
-        {/* Thumbnails sidebar */}
-        <div
-          ref={thumbnailsContainerRef}
-          style={{
-            width: '150px',
-            backgroundColor: '#f5f5f5',
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            [theme.breakpoints.up('md')]: { gap: 1 },
+          }}
+        >
+          <Button
+            onClick={onPageClose}
+            startIcon={<ArrowBackIcon />}
+            size="small"
+            sx={{ px: { [theme.breakpoints.down('sm')]: 0 } }}
+          >
+            Back
+          </Button>
+          <IconButton
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            title="Previous page"
+          >
+            <PrevIcon />
+          </IconButton>
+          <IconButton
+            onClick={() =>
+              setCurrentPage((p) => Math.min(totalPages || p, p + 1))
+            }
+            title="Next page"
+          >
+            <NextIcon />
+          </IconButton>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              [theme.breakpoints.up('md')]: { gap: 1 },
+            }}
+          >
+            <TextField
+              size="small"
+              value={currentPage}
+              onChange={(e) => handlePageChange(e.target.value)}
+              inputProps={{ style: { width: 48, textAlign: 'center' } }}
+            />
+            <Box
+              component="span"
+              sx={{ fontSize: 13 }}
+            >{`of ${totalPages || '-'}`}</Box>
+          </Box>
+        </Box>
+
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            [theme.breakpoints.up('md')]: { gap: 1 },
+          }}
+        >
+          <IconButton onClick={onZoomOut} title="Zoom out">
+            <ZoomOutIcon />
+          </IconButton>
+          <IconButton onClick={onZoomIn} title="Zoom in">
+            <ZoomInIcon />
+          </IconButton>
+          {/* fit-to-width removed per request */}
+          <IconButton
+            onClick={() => setSidebarOpen((s) => !s)}
+            title="Toggle thumbnails"
+          >
+            <SidebarIcon />
+          </IconButton>
+          <RRVDownloadBtn
+            useMutation={useMutation}
+            params={otherParams}
+            hideBtntext={isMobile}
+          />
+        </Box>
+      </Box>
+
+      <Box
+        sx={{
+          display: 'flex',
+          mt: 1,
+          height: '78vh',
+          [theme.breakpoints.up('md')]: { gap: 1 },
+        }}
+      >
+        <Box
+          component="aside"
+          ref={thumbsRef}
+          sx={{
+            display: sidebarOpen ? 'block' : 'none',
+            width: 160,
             overflowY: 'auto',
-            overflowX: 'hidden',
-            height: '820px',
-            padding: '10px',
-            borderRight: '1px solid #ddd',
+            p: 1,
+            borderRight: '1px solid #eee',
+            background: '#fafafa',
           }}
         />
 
-        {/* Main PDF container */}
-        <div ref={pdfContainerRef} style={mainStyles} />
-        {!isPdfLoaded && loadingProgress.loading && (
-          <div
+        <Box
+          component="main"
+          ref={containerRef}
+          sx={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'auto',
+            background: '#e7e7e7',
+          }}
+        >
+          {!isLoaded && (
+            <Box sx={{ p: 2 }}>{loadingMessage || 'Preparing document...'}</Box>
+          )}
+          <canvas
+            ref={canvasRef}
             style={{
-              ...mainStyles,
-              display: 'flex',
-              alignContent: 'center',
-              justifyContent: 'center',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+              background: 'white',
+              marginTop: 12,
             }}
-          >
-            <span style={{ fontSize: 16 }}>{loadingProgress.message}</span>
-          </div>
-        )}
-      </div>
-
-      {isPdfLoaded && (
-        <div style={{ marginTop: '10px', textAlign: 'center' }}>
-          <span>{`Page ${currentPage} of ${totalPages}`}</span>
-        </div>
-      )}
-    </div>
+          />
+        </Box>
+      </Box>
+    </Box>
   );
 };
+
+export default PdfViewerChrome;

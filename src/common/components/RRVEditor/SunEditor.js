@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { useTranslation } from 'react-i18next';
 import SunEditor from 'suneditor-react';
 
 import { http } from '../../../helpers';
@@ -22,8 +21,12 @@ const topicEditorButtons = [
   // '/', Line break
 ];
 
-export const RRVSunEditor = ({ topic, sunEdContent, setSunEdContent }) => {
-  const { t } = useTranslation();
+export const RRVSunEditor = ({
+  value,
+  minHeight = '380px',
+  placeholder,
+  ...props
+}) => {
   const onImageUploadBefore = (files, _info, uploadHandler) => {
     const imgFile = files[0];
     (async () => {
@@ -51,19 +54,18 @@ export const RRVSunEditor = ({ topic, sunEdContent, setSunEdContent }) => {
     <SunEditor
       setOptions={{
         buttonList: topicEditorButtons,
-        minHeight: '380px',
+        minHeight,
         defaultTag: 'div',
       }}
       setDefaultStyle="font-size: 16px;"
       name="content"
-      value={topic.content}
-      setContents={sunEdContent}
-      placeholder={t('admin.topic.phDetail')}
-      onChange={(content) => setSunEdContent(content)}
+      value={value}
+      placeholder={placeholder}
       onImageUploadBefore={onImageUploadBefore}
       onImageUploadError={(errorMsg, result) =>
         console.log({ errorMsg, result })
       }
+      {...props}
     />
   );
 };

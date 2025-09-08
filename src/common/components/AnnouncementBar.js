@@ -2,12 +2,14 @@ import React from 'react';
 
 import { Close as CloseIcon } from '@mui/icons-material';
 import { Typography, IconButton, Box } from '@mui/material';
+import { Link } from 'react-router-dom';
 
+import { toLink } from '../../helpers/utils/constants';
 import { actions, initials } from '../../redux/apiSliceBuilder';
 
 export const AnnouncementBar = () => {
   const [show, setShow] = React.useState(true);
-  const { data, isFetching } = actions.useGetPubConfigQuery();
+  const { data, isFetching } = actions.useGetPubConfigQuery({ truncate: 70 });
 
   const { data: communique } = data || initials.dataObj;
 
@@ -39,7 +41,10 @@ export const AnnouncementBar = () => {
           },
         }}
       >
-        {`🚀 ${communique.title}: ${communique.content}`}
+        {`🚀 ${communique.title}: $${communique.content}, `}
+        <span>
+          <Link to={toLink('announcement')}>Learn more</Link>
+        </span>
       </Typography>
       <IconButton
         size="small"

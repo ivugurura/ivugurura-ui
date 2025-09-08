@@ -35,6 +35,8 @@ export const pubSchema = () => [
       name: 'title',
       label: 'Title',
     },
+  ],
+  [
     {
       name: 'expiryDate',
       label: 'When the communication is expired',
@@ -44,9 +46,9 @@ export const pubSchema = () => [
   [
     {
       name: 'content',
+      fieldType: 'text-editor',
+      minHeight: '200px',
       label: 'The communication body',
-      rows: 4,
-      multiline: true,
     },
   ],
   [

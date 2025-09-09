@@ -16,7 +16,7 @@ import { actions } from '../../../redux/apiSliceBuilder';
 import { pubSchema } from './schema';
 
 const initialStates = (t) => ({
-  title: t('admin.settings.public.title'),
+  title: `${t('admin.settings.public.title')}: `,
   content: '',
   isPublished: false,
   expiryDate: dayjs(),

@@ -142,6 +142,11 @@
 			"tAuthor": "Mwandishi",
 			"tDownloads": "Vipakuliwa",
 			"tShares": "Hisa"
+		},
+		"settings": {
+			"public": {
+				"title": "Taarifa"
+			}
 		}
 	}
 }

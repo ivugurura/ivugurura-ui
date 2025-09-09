@@ -142,6 +142,11 @@
       "tAuthor": "Auteur",
       "tDownloads": "Téléchargements",
       "tShares": "Actions"
+    },
+    "settings": {
+      "public": {
+        "title": "Communiqué"
+      }
     }
   }
 }

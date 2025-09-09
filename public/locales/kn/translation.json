@@ -126,13 +126,13 @@
       "about": "Ibijyanye n Icyigisho",
       "phTitle": "Umutwe w Icyigisho",
       "phCategory": "Icyigisho kirambuye",
-      "addImage": "SHyiraho ifoto y icyigisho",
+      "addImage": "Shyiraho ifoto y icyigisho",
       "ciTitle": "Hitamo ifoto izajya igaragara ku cyigisho",
       "ciSubtitle": "Ifoto muza guhitamo izajya igaragara hejuru ku cyigisho mbere y andi magagambo yose",
       "ciTabUpload": "Hitamo mu mafoto yo muri mudasobwa yawe",
       "ciTabSelect": "Hitamo mu mafoto asanzweho",
       "ciPhFile": "Kanda hano ushireho file",
-      "detail": "ICyigisho mu buryo burambuye",
+      "detail": "Icyigisho mu buryo burambuye",
       "phDetail": "mwandike hano"
     },
     "media": {
@@ -142,6 +142,11 @@
       "tAuthor": "Umuhimbyi",
       "tDownloads": "Downloads",
       "tShares": "Shares"
+    },
+    "settings": {
+      "public": {
+        "title": "Itangazo"
+      }
     }
   }
 }

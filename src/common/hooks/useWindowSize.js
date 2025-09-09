@@ -1,35 +1,35 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 
 /**
  * Returns width and height of current window width.
  * Updates accordingly when window resizes.
  */
+const breakpoint = (width) => {
+  if (width < 600) return 'small';
+  if (width >= 1200) return 'large';
+  return 'medium';
+};
 export function useWindowSize() {
   const [size, setSize] = useState({
     height: window.innerHeight,
     width: window.innerWidth,
-    breakpoint: 'medium',
+    breakpoint: breakpoint(window.innerWidth),
   });
-
-  const breakpoint = useCallback(() => {
-    const w = window.innerWidth;
-    if (w < 600) return 'small';
-    if (w < 1024) return 'medium';
-    return 'large';
-  }, []);
 
   useEffect(() => {
     function onResize() {
-      const bp = breakpoint();
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
       setSize({
-        height: window.innerHeight,
-        width: window.innerWidth,
-        breakpoint: bp,
+        height,
+        width,
+        breakpoint: breakpoint(width),
       });
     }
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
-  }, [breakpoint]);
+  }, []);
 
   return size;
 }

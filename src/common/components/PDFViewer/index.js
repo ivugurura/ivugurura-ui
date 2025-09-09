@@ -37,7 +37,7 @@ export const PdfViewerChrome = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [scale, setScale] = useState(initialScale);
   const [loadingMessage, setLoadingMessage] = useState('');
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
@@ -92,14 +92,14 @@ export const PdfViewerChrome = ({
     doc.getPage(pageNum).then((page) => {
       const actualScale =
         typeof scaleOverride === 'number' ? scaleOverride : scale;
-
       const vp = page.getViewport({ scale: actualScale });
       const ratio = window.devicePixelRatio || 1;
+      console.log({ vp, ratio });
       canvas.width = Math.round(vp.width * ratio);
       canvas.height = Math.round(vp.height * ratio);
       canvas.style.width = '100%';
       canvas.style.maxWidth = `${Math.round(vp.width)}px`;
-      canvas.style.height = 'auto';
+      canvas.style.height = `${Math.round(vp.height) - 120}px`;
 
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
 
@@ -267,6 +267,8 @@ export const PdfViewerChrome = ({
     setCurrentPage(Math.min(Math.max(1, p), totalPages || p));
   };
 
+  // console.log({ breakpoint });
+
   return (
     <Box sx={{ width: '100%' }}>
       <Box
@@ -288,7 +290,6 @@ export const PdfViewerChrome = ({
             onClick={onPageClose}
             startIcon={<ArrowBackIcon />}
             size="small"
-            sx={{ px: { [theme.breakpoints.down('sm')]: 0 } }}
           >
             Back
           </Button>
@@ -310,7 +311,6 @@ export const PdfViewerChrome = ({
             sx={{
               display: 'flex',
               alignItems: 'center',
-              [theme.breakpoints.up('md')]: { gap: 1 },
             }}
           >
             <TextField
@@ -330,7 +330,6 @@ export const PdfViewerChrome = ({
           sx={{
             display: 'flex',
             alignItems: 'center',
-            [theme.breakpoints.up('md')]: { gap: 1 },
           }}
         >
           <IconButton onClick={onZoomOut} title="Zoom out">
@@ -339,13 +338,14 @@ export const PdfViewerChrome = ({
           <IconButton onClick={onZoomIn} title="Zoom in">
             <ZoomInIcon />
           </IconButton>
-          {/* fit-to-width removed per request */}
-          <IconButton
-            onClick={() => setSidebarOpen((s) => !s)}
-            title="Toggle thumbnails"
-          >
-            <SidebarIcon />
-          </IconButton>
+          {breakpoint !== 'small' && (
+            <IconButton
+              onClick={() => setSidebarOpen((s) => !s)}
+              title="Toggle thumbnails"
+            >
+              <SidebarIcon />
+            </IconButton>
+          )}
           <RRVDownloadBtn
             useMutation={useMutation}
             params={otherParams}
@@ -359,7 +359,6 @@ export const PdfViewerChrome = ({
           display: 'flex',
           mt: 1,
           height: '78vh',
-          [theme.breakpoints.up('md')]: { gap: 1 },
         }}
       >
         <Box

@@ -99,7 +99,7 @@ export const PdfViewerChrome = ({
       canvas.height = Math.round(vp.height * ratio);
       canvas.style.width = '100%';
       canvas.style.maxWidth = `${Math.round(vp.width)}px`;
-      canvas.style.height = `${Math.round(vp.height) - 120}px`;
+      canvas.style.height = '77vh';
 
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
 

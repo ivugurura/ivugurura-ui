@@ -5,23 +5,17 @@ import { useTranslation } from 'react-i18next';
 
 import { RRVSunEditor } from '../../../common/components/RRVEditor/SunEditor';
 
-export const TopicDetails = ({ topic, sunEdContent, setSunEdContent }) => {
+export const TopicDetails = ({ topic, ...props }) => {
   const { t } = useTranslation();
   return (
     <Card>
       <CardHeader title={t('admin.topic.detail')} />
       <CardContent>
         <Paper component={Box} mt={3}>
-          {/* <RRVEditor
-            placeholder="Type topic details here"
-            editorState={editorState}
-            onEditorStateChange={setEditorState}
-            toolbarCustomButtons={[<Button>Insert image</Button>]}
-          /> */}
           <RRVSunEditor
-            topic={topic}
-            sunEdContent={sunEdContent}
-            setSunEdContent={setSunEdContent}
+            value={topic?.content}
+            placeholder={t('admin.topic.phDetail')}
+            {...props}
           />
         </Paper>
       </CardContent>

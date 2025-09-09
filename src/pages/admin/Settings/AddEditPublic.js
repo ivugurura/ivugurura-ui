@@ -7,6 +7,7 @@ import {
   DialogTitle,
 } from '@mui/material';
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 
 import { RRVDialogActions } from '../../../common/components/RRVDialogActions';
 import { RRVForm } from '../../../common/components/RRVForm';
@@ -14,15 +15,16 @@ import { actions } from '../../../redux/apiSliceBuilder';
 
 import { pubSchema } from './schema';
 
-const initialStates = {
-  title: 'Communique',
+const initialStates = (t) => ({
+  title: `${t('admin.settings.public.title')}: `,
   content: '',
   isPublished: false,
   expiryDate: dayjs(),
   minDate: dayjs(),
-};
+});
 export const AddEditPublic = ({ open, onClose, refetchPubs }) => {
-  const [newPub, setNewPub] = useState(initialStates);
+  const { t } = useTranslation();
+  const [newPub, setNewPub] = useState(initialStates(t));
   const [createPub, res] = actions.useCreatePubConfigMutation();
 
   useEffect(() => {
@@ -30,7 +32,7 @@ export const AddEditPublic = ({ open, onClose, refetchPubs }) => {
       res.reset();
       refetchPubs();
       onClose();
-      setNewPub(initialStates);
+      setNewPub(initialStates(t));
     }
   }, [res.isSuccess]);
 

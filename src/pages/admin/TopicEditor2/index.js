@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import { Button } from '@mui/material';
-import { EditorState } from 'draft-js';
-// import { stateToHTML } from 'draft-js-export-html';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -24,7 +22,6 @@ const TopicEditor2 = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState(initialValues);
   const { topicSlug } = useParams();
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [sunEdContent, setSunEdContent] = useState('');
 
   const [open, setOpen] = useState({ addImg: false, preview: false });
@@ -86,10 +83,9 @@ const TopicEditor2 = () => {
       </Button>
       <TopicDetails
         topic={values}
-        editorState={editorState}
-        setEditorState={setEditorState}
-        sunEdContent={sunEdContent}
+        setContents={sunEdContent}
         setSunEdContent={setSunEdContent}
+        onChange={(content) => setSunEdContent(content)}
       />
       <Button onClick={() => handleOpen('preview', true)}>
         {t('actions.btnPreview')}

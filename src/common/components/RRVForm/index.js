@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { Grid } from '@mui/material';
 
+import { RRVSunEditor } from '../RRVEditor/SunEditor';
 import { RRVFileUpload } from '../RRVFileUpload';
 
 import { RRVDateInput } from './RRVDateInput';
@@ -45,19 +46,20 @@ export const RRVForm = ({
       setLocalFields(newFields);
       setStates((prev) => ({ ...prev, [name]: inputValue }));
     };
-  const handleDateChange = (name) => (dateVal) => {
+  const handleFnChange = (name) => (newValue) => {
     const newFields = localFields.map((f) =>
       f.map((r) => {
         if (r.name === name) {
-          return { ...r, value: dateVal };
+          return { ...r, value: newValue };
         }
         return r;
       }),
     );
     setLocalFields(newFields);
-    setStates((prev) => ({ ...prev, [name]: dateVal }));
+    setStates((prev) => ({ ...prev, [name]: newValue }));
   };
   const getFieldView = ({ fieldType, accept, ...vProps }, idx) => {
+    const { value: setContents } = vProps;
     switch (fieldType) {
       case 'file-field':
         return <RRVFileUpload key={`fu-${idx}`} accept={accept} {...vProps} />;
@@ -79,7 +81,15 @@ export const RRVForm = ({
         );
       case 'date':
         return (
-          <RRVDateInput onChange={handleDateChange(vProps.name)} {...vProps} />
+          <RRVDateInput onChange={handleFnChange(vProps.name)} {...vProps} />
+        );
+      case 'text-editor':
+        return (
+          <RRVSunEditor
+            setContents={setContents}
+            onChange={handleFnChange(vProps.name)}
+            {...vProps}
+          />
         );
       case 'text-field':
       default:

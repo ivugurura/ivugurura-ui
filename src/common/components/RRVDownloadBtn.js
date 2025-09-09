@@ -6,7 +6,11 @@ import { toast } from 'react-toastify';
 
 import { actions } from '../../redux/apiSliceBuilder';
 
-export const RRVDownloadBtn = ({ useMutation, params = {} }) => {
+export const RRVDownloadBtn = ({
+  useMutation,
+  params = {},
+  hideBtntext = false,
+}) => {
   const [downladFile, { data, isLoading, isSuccess, error }] =
     actions[useMutation]();
 
@@ -39,7 +43,7 @@ export const RRVDownloadBtn = ({ useMutation, params = {} }) => {
       startIcon={<DownloadIcon />}
       color="info"
     >
-      Download
+      {!hideBtntext && 'Download'}
     </Button>
   );
 };

@@ -32,6 +32,10 @@ const userRoutes = [
     path: PageRoutes.Audios,
     component: React.lazy(() => import('../../../pages/AudiosPage')),
   },
+  {
+    path: PageRoutes.Announcement,
+    component: React.lazy(() => import('../../../pages/AnnouncementPage')),
+  },
 ];
 
 export const UserLayout = () => (

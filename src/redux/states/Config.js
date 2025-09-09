@@ -18,7 +18,7 @@ export const ConfigState = {
     getPub: {
       api: {
         verb: VERBS.get,
-        endpoint: 'announcements/published',
+        endpoint: 'announcements/published?truncate=:truncate',
       },
     },
     createPub: {

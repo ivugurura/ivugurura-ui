@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { ArrowBackOutlined as ArrowBackIcon } from '@mui/icons-material';
 import {
@@ -16,7 +16,6 @@ import { actions, initials } from '../../redux/apiSliceBuilder';
 
 const AnnouncementsPage = () => {
   const navigate = useNavigate();
-  const contentRef = useRef(null);
   const { data, isFetching } = actions.useGetPubConfigQuery();
 
   const { data: communique } = data || initials.dataObj;
@@ -40,13 +39,13 @@ const AnnouncementsPage = () => {
             <IconButton size="small" onClick={handleBack} aria-label="Back">
               <ArrowBackIcon />
             </IconButton>
-            <Typography variant="h6">{communique.title}</Typography>
+            <Typography variant="h4">{communique.title}</Typography>
           </Box>
         </Box>
 
         <Divider />
 
-        <Box sx={{ mt: 2 }} ref={contentRef}>
+        <Box sx={{ mt: 2 }}>
           {communique?.content ? (
             <div
               className="announcement-html"

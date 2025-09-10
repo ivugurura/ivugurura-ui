@@ -42,9 +42,7 @@ const AnnouncementsPage = () => {
             <Typography variant="h4">{communique.title}</Typography>
           </Box>
         </Box>
-
         <Divider />
-
         <Box sx={{ mt: 2 }}>
           {communique?.content ? (
             <div

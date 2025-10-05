@@ -159,6 +159,13 @@
       "public": {
         "title": "Communique"
       }
+    },
+    "commentaries": {
+      "title": "Ibitekerezo byatanzwe mu  byigisho",
+      "tCommentorInfo": "Amakuru y’uwatanze igitekerezo",
+      "tContent": "Ibirimo",
+      "tTopicTitle": "Umutwe w’icyigwa",
+      "tPublished": "Byatangajwe"
     }
   }
 }

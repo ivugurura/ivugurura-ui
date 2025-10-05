@@ -3,10 +3,10 @@ import React, { useMemo } from 'react';
 
 import { Button, ButtonGroup, Tooltip, Typography } from '@mui/material';
 
-export const commentariesColumns = (setAction) => [
+export const commentariesColumns = (setAction, t) => [
   {
     id: 'commentor',
-    header: 'Commentor Info',
+    header: t('admin.home.tTitle'),
     Cell: ({ row }) => (
       <Tooltip
         title={

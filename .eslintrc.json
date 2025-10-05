@@ -17,19 +17,14 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": [
-    "react"
-  ],
+  "plugins": ["react"],
   "rules": {
     "no-console": "off",
     "linebreak-style": "off",
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".js",
-          ".jsx"
-        ]
+        "extensions": [".js", ".jsx"]
       }
     ],
     "import/prefer-default-export": "off",
@@ -54,9 +49,7 @@
             "position": "before"
           }
         ],
-        "pathGroupsExcludedImportTypes": [
-          "react"
-        ]
+        "pathGroupsExcludedImportTypes": ["react"]
       }
     ],
     "react/jsx-props-no-spreading": [
@@ -67,9 +60,7 @@
         "explicitSpread": "ignore"
       }
     ],
-    "react/prop-types": [
-      0
-    ],
+    "react/prop-types": [0],
     "react/no-array-index-key": "off",
     "no-plusplus": [
       "error",

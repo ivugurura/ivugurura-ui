@@ -161,11 +161,11 @@
       }
     },
     "commentaries": {
-      "title": "Ibitekerezo byatanzwe mu  byigisho",
-      "tCommentorInfo": "Amakuru y’uwatanze igitekerezo",
-      "tContent": "Ibirimo",
-      "tTopicTitle": "Umutwe w’icyigwa",
-      "tPublished": "Byatangajwe"
+      "title": "Commentaries to the Topics",
+      "tCommentorInfo": "Commentor Info",
+      "tContent": "Content",
+      "tTopicTitle": "Topic title",
+      "tPublished": "Published"
     }
   }
 }

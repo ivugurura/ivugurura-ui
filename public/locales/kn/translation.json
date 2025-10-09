@@ -62,15 +62,17 @@
     "viewMoreAudios": "Reba Audio zose",
     "more": "Ibikurikira",
     "edit": "Hindura",
-    "publish": "Publish",
-    "unpublish": "Unpublish",
+    "publish": "Tangaza",
+    "unpublish": "Wigitangaza",
     "addHome": "Set to home",
     "removeHome": "Remove from home",
     "addNMedia": "Shyiraho Media nshya",
     "addNAlbum": "kora Album nshya",
     "play": "Kina",
     "download": "Download",
-    "share": "Sangira"
+    "share": "Sangira",
+    "reply":"Subiza",
+    "replied":"Yasubijwe"
   },
   "fields": {
     "email": "Email",
@@ -121,10 +123,11 @@
       "description": "Mu by ukuri murashaka "
     },
     "home": {
-      "title": "Ubuyobozi bw urubuga",
+      "title": "Ubuyobozi bw'urubuga",
+      "subtitle":"Incamake y'urubuga",
       "publishDisclaimer": "Mubanze mu publishinge iki cyigisho",
       "loading": "Mube mwihanganye,...",
-      "tTitle": "Umutwe w icyigisho",
+      "tTitle": "Umutwe wicyigisho",
       "tDescription": "Icyigisho mu nshamake",
       "tViews": "Abasomye",
       "tPublished": "Igihe cyandikiwe",

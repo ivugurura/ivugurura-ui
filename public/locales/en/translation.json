@@ -70,7 +70,9 @@
     "addNAlbum": "Add new album",
     "play": "Play",
     "download": "Download",
-    "share": "Share"
+    "share": "Share",
+    "reply":"Reply",
+    "replied":"Replied"
   },
   "fields": {
     "email": "E-mail",
@@ -122,6 +124,7 @@
     },
     "home": {
       "title": "Admin dashboard",
+      "subtitle":"Dashboard overview",
       "publishDisclaimer": "Please publish the topic first",
       "loading": "Loading your content...",
       "tTitle": "Topic title",
@@ -165,7 +168,7 @@
       "tCommentorInfo": "Commentor Info",
       "tContent": "Content",
       "tTopicTitle": "Topic title",
-      "tPublished": "Published"
+      "tPublished":"Published"
     }
   }
 }

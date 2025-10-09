@@ -117,7 +117,7 @@ const Commentaries = () => {
         inputProps={replyProps}
       />
       <Grid container spacing={1}>
-        <Grid item xs={12} lg={10}>
+        <Grid item xs={12} >
           <RRVTable
             columns={commentariesColumns(handleSetAction, t)}
             data={comments}

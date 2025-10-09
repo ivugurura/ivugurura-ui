@@ -1,18 +1,6 @@
 import React from 'react';
 
-import {
-  CallMadeOutlined,
-  CallReceivedOutlined,
-  CurrencyBitcoin,
-} from '@mui/icons-material';
-import {
-  Avatar,
-  Card,
-  CardContent,
-  Stack,
-  SvgIcon,
-  Typography,
-} from '@mui/material';
+import { Card, CardContent, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
 export const DashboardCount = ({
@@ -35,36 +23,19 @@ export const DashboardCount = ({
           </Typography>
           <Typography variant="h4">{value}</Typography>
         </Stack>
-        <Avatar
-          sx={{
-            backgroundColor: 'error.main',
-            height: 56,
-            width: 56,
-          }}
-        >
-          <SvgIcon>
-            <CurrencyBitcoin />
-          </SvgIcon>
-        </Avatar>
       </Stack>
       {difference && (
         <Stack alignItems="center" direction="row" spacing={2} sx={{ mt: 2 }}>
           <Stack alignItems="center" direction="row" spacing={0.5}>
-            <SvgIcon
-              color={difference > 0 ? 'success' : 'error'}
-              fontSize="small"
-            >
-              {difference > 0 ? <CallMadeOutlined /> : <CallReceivedOutlined />}
-            </SvgIcon>
             <Typography
               color={difference > 0 ? 'success.main' : 'error.main'}
               variant="body2"
             >
-              {difference}%
+              {difference}% <p>better</p>
             </Typography>
           </Stack>
           <Typography color="text.secondary" variant="caption">
-            Since last month
+            <p>Since last month</p>
           </Typography>
         </Stack>
       )}

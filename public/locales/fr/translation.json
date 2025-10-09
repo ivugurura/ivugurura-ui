@@ -70,7 +70,9 @@
     "addNAlbum": "Ajouter un nouvel album",
     "play": "Lecture",
     "download": "Télécharger",
-    "share": "Partager"
+    "share": "Partager",
+    "reply":"Subiza",
+    "replied":"Yasubijwe"
   },
   "fields": {
     "email": "E-mail",
@@ -122,6 +124,7 @@
     },
     "home": {
       "title": "Tableau de bord d'administration",
+      "subtitle":"Dashboard Overview",
       "publishDisclaimer": "S'il vous plaît, publiez d'abord le sujet",
       "loading": "Chargement du contenu...",
       "tTitle": "Titre du sujet",

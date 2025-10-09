@@ -29,7 +29,7 @@ export const commentariesColumns = (setAction, t) => [
     ),
     size: 80,
   },
-  { accessorKey: 'content', header: t('admin.commentaries.tContent'), },
+  { accessorKey: 'content', header: t('admin.commentaries.tContent') },
   {
     id: 'title',
     header: t('admin.commentaries.tTopicTitle'),
@@ -45,10 +45,10 @@ export const commentariesColumns = (setAction, t) => [
           onClick={() => setAction(original, 'publish')}
           color={original.isPublished ? 'primary' : 'secondary'}
         >
-          {original.isPublished ? 'Unpublish' : 'Publish'}
+          {original.isPublished ? t('actions.Unpublish') : t('actions.publish')}
         </Button>
         <Button onClick={() => setAction(original, 'reply')}>
-          {original.privateReply ? 'Replied' : 'Reply'}
+          {original.privateReply ? t('actions.replied') : t('actions.reply')}
         </Button>
       </ButtonGroup>
     ),

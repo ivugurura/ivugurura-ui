@@ -70,7 +70,9 @@
 		"addNAlbum": "Ongeza albamu mpya",
 		"play": "Cheza",
 		"download": "Pakua",
-		"share": "Shiriki"
+		"share": "Shiriki",
+		"reply":"Subiza",
+    "replied":"Replied"
 	},
 	"fields": {
 		"email": "E-mail",
@@ -122,6 +124,7 @@
 		},
 		"home": {
 			"title": "Dashibodi ya msimamizi",
+			"subtitle":"Dashboard Overview",
 			"publishDisclaimer": "Tafadhali chapisha mada kwanza",
 			"loading": "Inapakia maudhui yako...",
 			"tTitle": "Kichwa cha mada",
@@ -165,7 +168,7 @@
 			"tCommentorInfo": "Amakuru y’uwatanze igitekerezo",
 			"tContent": "Ibirimo",
 			"tTopicTitle": "Umutwe w’icyigwa",
-			"tPublished": "Byatangajwe"
+			 "tPublished": "Byatangajwe"
     }
 	}
 }

@@ -45,7 +45,7 @@ export const commentariesColumns = (setAction, t) => [
           onClick={() => setAction(original, 'publish')}
           color={original.isPublished ? 'primary' : 'secondary'}
         >
-          {original.isPublished ? t('actions.Unpublish') : t('actions.publish')}
+          {t(`actions[${original.isPublished ? 'unpublish' : 'publish'}]`)}
         </Button>
         <Button onClick={() => setAction(original, 'reply')}>
           {original.privateReply ? t('actions.replied') : t('actions.reply')}

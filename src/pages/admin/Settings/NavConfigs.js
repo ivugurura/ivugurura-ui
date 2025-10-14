@@ -31,12 +31,16 @@ export const NavConfigs = () => {
     setCurrentOpenMenu((prev) => (prev?.slug === menu.slug ? null : menu));
   };
   const { data: navs } = data || initials.dataArr;
-  const { t } =useTranslation();
+  const { t } = useTranslation();
   return (
     <Card>
       <CardHeader
         title="Setting"
-        action={<Button onClick={() => setOpen(true)}>{t('admin.WebSettings.add')}</Button>}
+        action={
+          <Button onClick={() => setOpen(true)}>
+            {t('admin.WebSettings.add')}
+          </Button>
+        }
       />
       <CardContent sx={{ height: '100vh' }}>
         <AddEditNav

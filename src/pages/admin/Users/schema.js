@@ -3,13 +3,11 @@ import { useTranslation } from 'react-i18next';
 
 import { getRole } from '../../../helpers/utils/constants';
 
-
 export const userColumns = () => {
   const { t } = useTranslation();
-  return[
-    { accessorKey: 'names', header: t('admin.users.tName'),
-      },
-    { accessorKey: 'username', header:t('admin.users.tUsername'), size: 1 },
+  return [
+    { accessorKey: 'names', header: t('admin.users.tName') },
+    { accessorKey: 'username', header: t('admin.users.tUsername'), size: 1 },
     { accessorKey: 'email', header: 'Email' },
     {
       id: 'role',

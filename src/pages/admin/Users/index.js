@@ -19,7 +19,7 @@ const alertInitial = {
   action: 'add',
 };
 export const SystemUsers = () => {
-   const { t } = useTranslation();
+  const { t } = useTranslation();
   const [alertData, setAlertData] = useState(alertInitial);
   const [open, setOpen] = useState(false);
   const { data, isFetching, refetch } = actions.useListUsersSystemQuery();
@@ -40,9 +40,12 @@ export const SystemUsers = () => {
   const { data: users, totalItems } = data || initials.dataArr;
   return (
     <DashboardContainer
-      title={ t('admin.users.title')}
+      title={t('admin.users.title')}
       action={
-        <Button onClick={() => handleSetAction('add')}> {t('admin.users.addNewUser')}</Button>
+        <Button onClick={() => handleSetAction('add')}>
+          {' '}
+          {t('admin.users.addNewUser')}
+        </Button>
       }
     >
       <AddEditUser
@@ -86,7 +89,7 @@ export const SystemUsers = () => {
         </Grid>
         <Grid item xs={12} lg={2}>
           <h1>{totalItems}</h1>
-          { t('admin.nav.systemUsers')}
+          {t('admin.nav.systemUsers')}
         </Grid>
       </Grid>
     </DashboardContainer>

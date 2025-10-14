@@ -78,7 +78,10 @@ export const pubsColumns = (setAction) => {
     {
       id: 'published',
       header: t('actions.publish'),
-      Cell: ({ row }) => (row.original.isPublished ? t('admin.WebSettings.yes') :  t('admin.WebSettings.no')),
+      Cell: ({ row }) =>
+        row.original.isPublished
+          ? t('admin.WebSettings.yes')
+          : t('admin.WebSettings.no'),
     },
     {
       id: 'language',

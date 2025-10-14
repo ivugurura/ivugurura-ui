@@ -168,7 +168,7 @@
       "tCommentorInfo": "Commentor Info",
       "tContent": "Content",
       "tTopicTitle": "Topic title",
-      "tPublished":"Published"
+      "tPublished": "Published"
     },
     "WebSettings": {
       "title": "Setting Menu",
@@ -180,21 +180,21 @@
       "rowsPerPage": "Rows per page",
       "setting": "Setting",
       "add": "Add",
-      "yes":"Yes",
-      "no":"No",
+      "yes": "Yes",
+      "no": "No",
       "sample": {
         "communique": "Communique",
         "updatingSite": "We are updating the site with new information to keep you updated"
       }
     },
-     "users": {
+    "users": {
       "title": "List of registered users",
       "addNewUser": "Add new user",
-			"tName": "Names (FirstLast name)",
-			"tUsername": "User name",
-			"tEmail": "Email",
-			"tRole": "User role",
-			"tRegistered": "Registered"
-		}
+      "tName": "Names (FirstLast name)",
+      "tUsername": "User name",
+      "tEmail": "Email",
+      "tRole": "User role",
+      "tRegistered": "Registered"
+    }
   }
 }

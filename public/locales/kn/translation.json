@@ -180,21 +180,21 @@
       "rowsPerPage": "Rows per page",
       "setting": "Igenamiterere",
       "add": "Ongeraho",
-      "yes":"Yego",
-      "no":"Oya",
+      "yes": "Yego",
+      "no": "Oya",
       "sample": {
         "communique": "Communique",
         "updatingSite": "We are updating the site with new information to keep you updated"
       }
     },
-   "users": {
+    "users": {
       "title": "Urutonde rw'abakozi banditswe",
       "addNewUser": "Shyiraho umukozi mushya",
-			"tName": "Amazina yose(irya mbere/nyuma)",
-			"tUsername": "Izina akoresha",
-			"tEmail": "Email",
-			"tRole": "Uruhare rwe",
-			"tRegistered": "Igihe yiyandikiye"
-		}
+      "tName": "Amazina yose(irya mbere/nyuma)",
+      "tUsername": "Izina akoresha",
+      "tEmail": "Email",
+      "tRole": "Uruhare rwe",
+      "tRegistered": "Igihe yiyandikiye"
+    }
   }
 }

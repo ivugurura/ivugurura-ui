@@ -93,17 +93,17 @@
     "tCategory": "Catégorie",
     "tDownloadable": "Téléchargeable",
     "allBooks": "Tous les livres",
- "form": {
-      "title": "Create a new book",
-      "name": "Book name",
-      "category": "Book category",
-      "author": "Book author",
-      "summary": "Book summary",
-      "isDownloadable": "Will the book be downloadable?",
-      "imgCover": "Cover image",
-      "imgCoverPh": "Upload the book cover",
-      "file": "Book file",
-      "filePh": "Add the book file"
+    "form": {
+      "title": "Créer un nouveau livre",
+      "name": "Nom du livre",
+      "category": "Catégorie du livre",
+      "author": "Auteur du livre",
+      "summary": "Résumé du livre",
+      "isDownloadable": "Téléchargeable?",
+      "imgCover": "Image de couverture",
+      "imgCoverPh": "Télécharger l'image de couverture du livre",
+      "file": "Fichier du livre",
+      "filePh": "Ajouter le fichier du livre"
     } 
   },
   "admin": {
@@ -164,11 +164,11 @@
       }
     },
     "commentaries": {
-      "title": "Ibitekerezo byatanzwe mu  byigisho",
-      "tCommentorInfo": "Amakuru y’uwatanze igitekerezo",
-      "tContent": "Ibirimo",
-      "tTopicTitle": "Umutwe w’icyigwa",
-      "tPublished": "Byatangajwe"
+      "title": "Commentaries to the Topics",
+      "tCommentorInfo": "Commentor Info",
+      "tContent": "Content",
+      "tTopicTitle": "Topic title",
+      "tPublished":"Published"
     }
   }
 }

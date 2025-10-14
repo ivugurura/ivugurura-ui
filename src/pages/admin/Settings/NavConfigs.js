@@ -16,6 +16,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { actions, initials } from '../../../redux/apiSliceBuilder';
 
@@ -30,11 +31,12 @@ export const NavConfigs = () => {
     setCurrentOpenMenu((prev) => (prev?.slug === menu.slug ? null : menu));
   };
   const { data: navs } = data || initials.dataArr;
+  const { t } =useTranslation();
   return (
     <Card>
       <CardHeader
         title="Setting"
-        action={<Button onClick={() => setOpen(true)}>Add</Button>}
+        action={<Button onClick={() => setOpen(true)}>{t('admin.WebSettings.add')}</Button>}
       />
       <CardContent sx={{ height: '100vh' }}>
         <AddEditNav

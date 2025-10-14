@@ -105,7 +105,7 @@
       "file": "Faili la kitabu",
       "filePh": "Ongeza faili la kitabu"
     }
-  },
+	 },
   "admin": {
     "nav": {
       "webRelated": "Kuhusiana na tovuti",
@@ -169,6 +169,32 @@
       "tContent": "Maudhui",
       "tTopicTitle": "Kichwa cha Mada",
       "tPublished": "Imepitishwa"
-    }
-  }
+    },
+		"WebSettings": {
+      "title": "Setting Menu",
+      "publicCommunication": "Public communication",
+      "addNewCommunication": "Add a new communication",
+			"tTitle": "Title",
+			"tContent": "Content",
+			"tLanguage": "Language",
+      "rowsPerPage": "Rows per page",
+      "setting": "Setting",
+      "add": "Add",
+			"yes":"Yes",
+      "no":"No",
+      "sample": {
+        "communique": "Communique",
+        "updatingSite": "We are updating the site with new information to keep you updated"
+      }
+    },
+		  "users": {
+      "title": "List of registered users",
+      "addNewUser": "Add new user",
+			"tName": "Names (First/Last name)",
+			"tUsername": "User name",
+			"tEmail": "Email",
+			"tRole": "User role",
+			"tRegistered": "Registered"
+		}
+	}
 }

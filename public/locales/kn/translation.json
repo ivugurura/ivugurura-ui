@@ -93,7 +93,7 @@
     "tCategory": "Kategori",
     "tDownloadable": "Downloadable",
     "allBooks": "Ibitabo byose",
-     "form": {
+    "form": {
       "title": "Create a new book",
       "name": "Book name",
       "category": "Book category",

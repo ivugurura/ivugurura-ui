@@ -71,8 +71,8 @@
     "play": "Lecture",
     "download": "Télécharger",
     "share": "Partager",
-    "reply":"Subiza",
-    "replied":"Yasubijwe"
+    "reply":"Reply",
+    "replied":"Replied"
   },
   "fields": {
     "email": "E-mail",
@@ -169,6 +169,6 @@
       "tContent": "Ibirimo",
       "tTopicTitle": "Umutwe w’icyigwa",
       "tPublished": "Byatangajwe"
+    }
   }
-}
 }

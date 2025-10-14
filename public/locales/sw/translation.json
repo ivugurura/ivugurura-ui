@@ -71,8 +71,8 @@
 		"play": "Cheza",
 		"download": "Pakua",
 		"share": "Shiriki",
-		"reply":"Subiza",
-    "replied":"Replied"
+		"reply":"Reply",
+    	"replied":"Replied"
 	},
 	"fields": {
 		"email": "E-mail",
@@ -93,18 +93,18 @@
 		"tCategory": "Kategoria",
 		"tDownloadable": "Inaweza kupakuliwa",
 		"allBooks": "Vitabu vyote",
-		 "form": {
-      "title": "Create a new book",
-      "name": "Book name",
-      "category": "Book category",
-      "author": "Book author",
-      "summary": "Book summary",
-      "isDownloadable": "Will the book be downloadable?",
-      "imgCover": "Cover image",
-      "imgCoverPh": "Upload the book cover",
-      "file": "Book file",
-      "filePh": "Add the book file"
-    }
+		"form": {
+			"title": "Create a new book",
+			"name": "Book name",
+			"category": "Book category",
+			"author": "Book author",
+			"summary": "Book summary",
+			"isDownloadable": "Will the book be downloadable?",
+			"imgCover": "Cover image",
+			"imgCoverPh": "Upload the book cover",
+			"file": "Book file",
+			"filePh": "Add the book file"
+		}
 	},
 	"admin": {
 		"nav": {
@@ -168,7 +168,7 @@
 			"tCommentorInfo": "Amakuru y’uwatanze igitekerezo",
 			"tContent": "Ibirimo",
 			"tTopicTitle": "Umutwe w’icyigwa",
-			 "tPublished": "Byatangajwe"
-    }
+			"tPublished": "Byatangajwe"
+    	}
 	}
 }

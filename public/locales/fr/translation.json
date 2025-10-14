@@ -71,8 +71,8 @@
     "play": "Lecture",
     "download": "Télécharger",
     "share": "Partager",
-    "reply":"Reply",
-    "replied":"Replied"
+    "reply": "Reply",
+    "replied": "Replied"
   },
   "fields": {
     "email": "E-mail",
@@ -81,7 +81,7 @@
     "website": "Site web",
     "message": "Que veux-tu nous dire?"
   },
-  "library":{
+  "library": {
     "title": "Bibliothèque",
     "menuTitle": "Livres",
     "labelTitle": "Librairie de livres",
@@ -104,7 +104,7 @@
       "imgCoverPh": "Télécharger l'image de couverture du livre",
       "file": "Fichier du livre",
       "filePh": "Ajouter le fichier du livre"
-    } 
+    }
   },
   "admin": {
     "nav": {
@@ -124,7 +124,7 @@
     },
     "home": {
       "title": "Tableau de bord d'administration",
-      "subtitle":"Aperçu du tableau de bord",
+      "subtitle": "Aperçu du tableau de bord",
       "publishDisclaimer": "S'il vous plaît, publiez d'abord le sujet",
       "loading": "Chargement du contenu...",
       "tTitle": "Titre du sujet",
@@ -168,7 +168,7 @@
       "tCommentorInfo": "Informations sur le commentateur",
       "tContent": "Contenu",
       "tTopicTitle": "Titre du sujet",
-      "tPublished":"Publié"
+      "tPublished": "Publié"
     }
   }
 }

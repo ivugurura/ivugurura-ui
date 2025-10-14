@@ -71,8 +71,8 @@
     "play": "Kina",
     "download": "Download",
     "share": "Sangira",
-    "reply":"Reply",
-    "replied":"Replied"
+    "reply": "Reply",
+    "replied": "Replied"
   },
   "fields": {
     "email": "Email",
@@ -81,7 +81,7 @@
     "website": "Urubuga rwanyu(niba ruhari)",
     "message": "Andiko icyo ushaka kutugezaho"
   },
-  "library":{
+  "library": {
     "title": "Isomero",
     "menuTitle": "Ibitabo",
     "labelTitle": "Ububiko bw'ibitabo",
@@ -124,10 +124,10 @@
     },
     "home": {
       "title": "Ubuyobozi bw'urubuga",
-      "subtitle":"Incamake y'urubuga",
+      "subtitle": "Incamake y'urubuga",
       "publishDisclaimer": "Mubanze mu publishinge iki cyigisho",
       "loading": "Mube mwihanganye,...",
-      "tTitle": "Umutwe wicyigisho",
+      "tTitle": "Umutwe w'icyigisho",
       "tDescription": "Icyigisho mu nshamake",
       "tViews": "Abasomye",
       "tPublished": "Igihe cyandikiwe",

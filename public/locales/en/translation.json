@@ -71,8 +71,8 @@
     "play": "Play",
     "download": "Download",
     "share": "Share",
-    "reply":"Reply",
-    "replied":"Replied"
+    "reply": "Reply",
+    "replied": "Replied"
   },
   "fields": {
     "email": "E-mail",
@@ -81,7 +81,7 @@
     "website": "Website",
     "message": "What do you want to tell us?"
   },
-  "library":{
+  "library": {
     "title": "Library",
     "menuTitle": "Books",
     "labelTitle": "Book store",
@@ -124,7 +124,7 @@
     },
     "home": {
       "title": "Admin dashboard",
-      "subtitle":"Dashboard overview",
+      "subtitle": "Dashboard overview",
       "publishDisclaimer": "Please publish the topic first",
       "loading": "Loading your content...",
       "tTitle": "Topic title",
@@ -168,7 +168,7 @@
       "tCommentorInfo": "Commentor Info",
       "tContent": "Content",
       "tTopicTitle": "Topic title",
-      "tPublished":"Published"
+      "tPublished": "Published"
     }
   }
 }

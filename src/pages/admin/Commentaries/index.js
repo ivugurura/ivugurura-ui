@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Grid } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { RRVTable } from '../../../common/components/RRVTable';
 import { useAlertDialog } from '../../../common/hooks/useAlertDialog';
@@ -34,6 +35,7 @@ const ReplyDisclaimer = ({ privateReply }) => (
 );
 
 const Commentaries = () => {
+  const { t } = useTranslation();
   const [reply, setReply] = useState(initialReplyState);
   const [rowSelection, setRowSelection] = useState({});
   const { pagination, paginator, setPagination } = useMuiSearchPagination();
@@ -103,7 +105,7 @@ const Commentaries = () => {
   };
 
   return (
-    <DashboardContainer title="Commentaries to the topics">
+    <DashboardContainer title={t('admin.commentaries.title')}>
       <AlertConfirm
         {...alertValues}
         setOpen={() => reset()}
@@ -115,9 +117,9 @@ const Commentaries = () => {
         inputProps={replyProps}
       />
       <Grid container spacing={1}>
-        <Grid item xs={12} lg={10}>
+        <Grid item xs={12}>
           <RRVTable
-            columns={commentariesColumns(handleSetAction)}
+            columns={commentariesColumns(handleSetAction, t)}
             data={comments}
             isLoading={isFetching}
             enableRowSelection

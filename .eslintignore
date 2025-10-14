@@ -1,1 +1,4 @@
-public/
+# Ignore files in public directory except .html and .json files
+public/*
+!public/**/*.html
+!public/**/*.json

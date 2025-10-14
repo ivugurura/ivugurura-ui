@@ -115,7 +115,7 @@ export const AdminMenuDrawer = () => {
       {dashboardMenus(lang, user?.role, t).map((menu) => (
         <React.Fragment key={menu.key}>
           <Divider />
-          <Typography variant="body1" mt={1}>
+          <Typography variant="h6" mt={1}>
             {menu.type}
           </Typography>
           <List>

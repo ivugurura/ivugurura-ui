@@ -3,10 +3,10 @@ import React, { useMemo } from 'react';
 
 import { Button, ButtonGroup, Tooltip, Typography } from '@mui/material';
 
-export const commentariesColumns = (setAction) => [
+export const commentariesColumns = (setAction, t) => [
   {
     id: 'commentor',
-    header: 'Commentor Info',
+    header: t('admin.commentaries.tCommentorInfo'),
     Cell: ({ row }) => (
       <Tooltip
         title={
@@ -29,26 +29,26 @@ export const commentariesColumns = (setAction) => [
     ),
     size: 80,
   },
-  { accessorKey: 'content', header: 'Content' },
+  { accessorKey: 'content', header: t('admin.commentaries.tContent') },
   {
     id: 'title',
-    header: 'Topic Title',
+    header: t('admin.commentaries.tTopicTitle'),
     Cell: ({ row }) => row.original.topic?.title,
     size: 80,
   },
   {
     id: 'isPublished',
-    header: 'Published',
+    header: t('admin.commentaries.tPublished'),
     Cell: ({ row: { original } }) => (
       <ButtonGroup size="small">
         <Button
           onClick={() => setAction(original, 'publish')}
           color={original.isPublished ? 'primary' : 'secondary'}
         >
-          {original.isPublished ? 'Unpublish' : 'Publish'}
+          {t(`actions[${original.isPublished ? 'unpublish' : 'publish'}]`)}
         </Button>
         <Button onClick={() => setAction(original, 'reply')}>
-          {original.privateReply ? 'Replied' : 'Reply'}
+          {original.privateReply ? t('actions.replied') : t('actions.reply')}
         </Button>
       </ButtonGroup>
     ),

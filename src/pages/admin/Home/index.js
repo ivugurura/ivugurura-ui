@@ -112,7 +112,7 @@ const HomeDashboard = ({ countFetch }) => {
   };
 
   return (
-    <DashboardContainer title={t('admin.home.title')}>
+    <DashboardContainer title={t('admin.home.subtitle')}>
       <AlertConfirm
         {...alertValues}
         setOpen={() => reset()}

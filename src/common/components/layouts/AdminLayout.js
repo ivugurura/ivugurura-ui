@@ -53,11 +53,6 @@ export const AdminLayout = () => {
   );
   return (
     <Box>
-      <h2>
-        {toDataCounts
-          .map(({ title, counts: cnts }) => `${title.toUpperCase()}: ${cnts}`)
-          .join(', ')}
-      </h2>
       <Routes>
         <Route
           index

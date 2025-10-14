@@ -124,7 +124,7 @@
     },
     "home": {
       "title": "Tableau de bord d'administration",
-      "subtitle":"Dashboard Overview",
+      "subtitle":"Aperçu du tableau de bord",
       "publishDisclaimer": "S'il vous plaît, publiez d'abord le sujet",
       "loading": "Chargement du contenu...",
       "tTitle": "Titre du sujet",
@@ -164,11 +164,11 @@
       }
     },
     "commentaries": {
-      "title": "Commentaries to the Topics",
-      "tCommentorInfo": "Commentor Info",
-      "tContent": "Content",
-      "tTopicTitle": "Topic title",
-      "tPublished":"Published"
+      "title": "Commentaires sur les sujets",
+      "tCommentorInfo": "Informations sur le commentateur",
+      "tContent": "Contenu",
+      "tTopicTitle": "Titre du sujet",
+      "tPublished":"Publié"
     }
   }
 }

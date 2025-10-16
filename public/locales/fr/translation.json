@@ -170,31 +170,29 @@
       "tTopicTitle": "Titre du sujet",
       "tPublished": "Publié"
     },
-    "WebSettings": {
-      "title": "Setting Menu",
-      "publicCommunication": "Public communication",
-      "addNewCommunication": "Add a new communication",
-      "tTitle": "Title",
-      "tContent": "Content",
-      "tLanguage": "Language",
-      "rowsPerPage": "Rows per page",
-      "setting": "Setting",
-      "add": "Add",
-      "yes": "Yes",
-      "no": "No",
+    "webSettings": {
+      "title": "Menu des paramètres",
+      "subTitle": "Communication publique",
+      "addNewCom": "Ajouter une nouvelle communication",
+      "tTitle": "Titre",
+      "tContent": "Contenu",
+      "tLanguage": "Langue",
+      "rowsPerPage": "Lignes par page",
+      "setting": "Paramètre",
+      "addNewSet": "Ajouter un nouvel ensemble",
       "sample": {
         "communique": "Communique",
-        "updatingSite": "We are updating the site with new information to keep you updated"
+        "updatingSite": "Nous mettons à jour le site avec de nouvelles informations pour vous tenir informé"
       }
     },
     "users": {
-      "title": "List of registered users",
-      "addNewUser": "Add new user",
-      "tName": "Names (First/Last name)",
-      "tUsername": "User name",
+      "title": "Utilisateurs du système",
+      "addNewUser": "Ajouter un nouvel utilisateur",
+      "tName": "Noms (Prénom/Nom de famille)",
+      "tUsername": "Nom d'utilisateur",
       "tEmail": "Email",
-      "tRole": "User role",
-      "tRegistered": "Registered"
+      "tRole": "Rôle de l'utilisateur",
+      "tRegistered": "Enregistré"
     }
   }
 }

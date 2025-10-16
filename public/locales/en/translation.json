@@ -170,18 +170,16 @@
       "tTopicTitle": "Topic title",
       "tPublished": "Published"
     },
-    "WebSettings": {
+    "webSettings": {
       "title": "Setting Menu",
-      "publicCommunication": "Public communication",
-      "addNewCommunication": "Add a new communication",
+      "subTitle": "Public communication",
+      "addNewCom": "Add a new communication",
       "tTitle": "Title",
       "tContent": "Content",
       "tLanguage": "Language",
       "rowsPerPage": "Rows per page",
       "setting": "Setting",
-      "add": "Add",
-      "yes": "Yes",
-      "no": "No",
+      "addNewSet": "Add new",
       "sample": {
         "communique": "Communique",
         "updatingSite": "We are updating the site with new information to keep you updated"

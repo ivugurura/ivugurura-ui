@@ -170,18 +170,16 @@
       "tTopicTitle": "Umutwe w’icyigwa",
       "tPublished": "Published"
     },
-    "WebSettings": {
+    "webSettings": {
       "title": "Ibigize Amagenamiterere",
-      "publicCommunication": "Itangazo rusange",
-      "addNewCommunication": "Shyiraho Itangazo",
+      "subTitle": "Itangazo rusange",
+      "addNewCom": "Shyiraho Itangazo",
       "tTitle": "Umutwe",
       "tContent": "Ibirimo",
       "tLanguage": "Ururimi",
       "rowsPerPage": "Rows per page",
       "setting": "Igenamiterere",
-      "add": "Ongeraho",
-      "yes": "Yego",
-      "no": "Oya",
+      "addNewSet": "Setting Nshya",
       "sample": {
         "communique": "Communique",
         "updatingSite": "We are updating the site with new information to keep you updated"

@@ -170,31 +170,29 @@
       "tTopicTitle": "Kichwa cha Mada",
       "tPublished": "Imepitishwa"
     },
-    "WebSettings": {
-      "title": "Setting Menu",
-      "publicCommunication": "Public communication",
-      "addNewCommunication": "Add a new communication",
-      "tTitle": "Title",
-      "tContent": "Content",
-      "tLanguage": "Language",
-      "rowsPerPage": "Rows per page",
-      "setting": "Setting",
-      "add": "Add",
-      "yes": "Yes",
-      "no": "No",
+    "webSettings": {
+      "title": "Menu ya Mipangilio",
+      "subTitle": "Mawasiliano ya umma",
+      "addNewCom": "Ongeza mawasiliano mapya",
+      "tTitle": "Kichwa",
+      "tContent": "Maudhui",
+      "tLanguage": "Lugha",
+      "rowsPerPage": "Mstari kwa ukurasa",
+      "setting": "Mipangilio",
+      "addNewSet": "Ongeza mpya",
       "sample": {
-        "communique": "Communique",
-        "updatingSite": "We are updating the site with new information to keep you updated"
+        "communique": "Taarifa",
+        "updatingSite": "Tuna sasisha tovuti na habari mpya ili kukuweka updated"
       }
     },
     "users": {
-      "title": "List of registered users",
-      "addNewUser": "Add new user",
-      "tName": "Names (First/Last name)",
-      "tUsername": "User name",
-      "tEmail": "Email",
-      "tRole": "User role",
-      "tRegistered": "Registered"
+      "title": "Orodha ya watumiaji waliojiandikisha",
+      "addNewUser": "Ongeza mtumiaji mpya",
+      "tName": "Majina (Jina la Kwanza/la Mwisho)",
+      "tUsername": "Jina la mtumiaji",
+      "tEmail": "Barua pepe",
+      "tRole": "Jukumu la mtumiaji",
+      "tRegistered": "Imesajiliwa"
     }
   }
 }

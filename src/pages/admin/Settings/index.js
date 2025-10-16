@@ -46,7 +46,7 @@ const Settings = () => {
 
   const { data: pubs } = data || initials.dataArr;
   return (
-    <DashboardContainer title={t('admin.WebSettings.title')}>
+    <DashboardContainer title={t('admin.webSettings.title')}>
       <AlertConfirm
         {...alertData}
         setOpen={() => setAlertData((prev) => ({ ...prev, ...alertInitial }))}
@@ -63,10 +63,10 @@ const Settings = () => {
         <Grid item xs={12} lg={9}>
           <Card>
             <CardHeader
-              title={t('admin.WebSettings.publicCommunication')}
+              title={t('admin.webSettings.subTitle')}
               action={
                 <Button onClick={() => setOpenAddPub(true)}>
-                  {t('admin.WebSettings.addNewCommunication')}
+                  {t('admin.webSettings.addNewCom')}
                 </Button>
               }
             />

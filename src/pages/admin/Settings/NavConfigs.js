@@ -38,7 +38,7 @@ export const NavConfigs = () => {
         title="Setting"
         action={
           <Button onClick={() => setOpen(true)}>
-            {t('admin.WebSettings.add')}
+            {t('admin.webSettings.addNewSet')}
           </Button>
         }
       />

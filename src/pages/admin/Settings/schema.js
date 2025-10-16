@@ -40,7 +40,7 @@ export const pubSchema = () => {
     [
       {
         name: 'title',
-        label: t('admin.WebSettings.tTitle'),
+        label: t('admin.webSettings.tTitle'),
       },
     ],
     [
@@ -52,7 +52,7 @@ export const pubSchema = () => {
     ],
     [
       {
-        name: t('admin.WebSettings.content'),
+        name: t('admin.webSettings.content'),
         fieldType: 'text-editor',
         minHeight: '200px',
         label: 'The communication body',
@@ -73,19 +73,16 @@ export const pubsColumns = (setAction) => {
   const { t } = useTranslation();
 
   return [
-    { accessorKey: 'title', header: t('admin.WebSettings.tTitle') },
-    { accessorKey: 'content', header: t('admin.WebSettings.tContent') },
+    { accessorKey: 'title', header: t('admin.webSettings.tTitle') },
+    { accessorKey: 'content', header: t('admin.webSettings.tContent') },
     {
       id: 'published',
       header: t('actions.publish'),
-      Cell: ({ row }) =>
-        row.original.isPublished
-          ? t('admin.WebSettings.yes')
-          : t('admin.WebSettings.no'),
+      Cell: ({ row }) => (row.original.isPublished ? t('yes') : t('no')),
     },
     {
       id: 'language',
-      header: t('admin.WebSettings.tLanguage'),
+      header: t('admin.webSettings.tLanguage'),
       Cell: ({ row }) => row.original.language?.name,
     },
     {
@@ -96,9 +93,7 @@ export const pubsColumns = (setAction) => {
           onClick={() => setAction(original)}
           color={original.isPublished ? 'primary' : 'secondary'}
         >
-          {original.isPublished
-            ? t('admin.home.unpublished')
-            : t('admin.home.published')}
+          {t(`admin.home.${original.isPublished ? 'unpublish' : 'publish'}`)}
         </Button>
       ),
     },

@@ -1,17 +1,14 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 export const navSchema = (navs = [], states = {}) => {
-  const { t } = useTranslation();
-
   return [
     [
       {
         name: 'name',
-        label: t('admin.WebContent.category'),
+        label: 'Name',
       },
     ],
     [

@@ -1,24 +1,28 @@
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 import { getRole } from '../../../helpers/utils/constants';
 
-export const userColumns = () => [
-  { accessorKey: 'names', header: 'Names(First/Last name)' },
-  { accessorKey: 'username', header: 'User name', size: 1 },
-  { accessorKey: 'email', header: 'Email' },
-  {
-    id: 'role',
-    header: 'User role',
-    Cell: ({ row }) => getRole(row.original.role),
-    size: 1,
-  },
-  {
-    id: 'createdAt',
-    header: 'Registed',
-    Cell: ({ row }) => moment(row.original.createdAt).format('DD/MM/YYYY'),
-    size: 1,
-  },
-];
+export const userColumns = () => {
+  const { t } = useTranslation();
+  return [
+    { accessorKey: 'names', header: t('admin.users.tName') },
+    { accessorKey: 'username', header: t('admin.users.tUsername'), size: 1 },
+    { accessorKey: 'email', header: 'Email' },
+    {
+      id: 'role',
+      header: t('admin.users.tRole'),
+      Cell: ({ row }) => getRole(row.original.role),
+      size: 1,
+    },
+    {
+      id: 'createdAt',
+      header: t('admin.users.tRegistered'),
+      Cell: ({ row }) => moment(row.original.createdAt).format('DD/MM/YYYY'),
+      size: 1,
+    },
+  ];
+};
 
 export const userInitials = {
   email: '',

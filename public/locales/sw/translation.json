@@ -169,6 +169,30 @@
       "tContent": "Maudhui",
       "tTopicTitle": "Kichwa cha Mada",
       "tPublished": "Imepitishwa"
+    },
+    "webSettings": {
+      "title": "Menu ya Mipangilio",
+      "subTitle": "Mawasiliano ya umma",
+      "addNewCom": "Ongeza mawasiliano mapya",
+      "tTitle": "Kichwa",
+      "tContent": "Maudhui",
+      "tLanguage": "Lugha",
+      "rowsPerPage": "Mstari kwa ukurasa",
+      "setting": "Mipangilio",
+      "addNewSet": "Ongeza mpya",
+      "sample": {
+        "communique": "Taarifa",
+        "updatingSite": "Tuna sasisha tovuti na habari mpya ili kukuweka updated"
+      }
+    },
+    "users": {
+      "title": "Orodha ya watumiaji waliojiandikisha",
+      "addNewUser": "Ongeza mtumiaji mpya",
+      "tName": "Majina (Jina la Kwanza/la Mwisho)",
+      "tUsername": "Jina la mtumiaji",
+      "tEmail": "Barua pepe",
+      "tRole": "Jukumu la mtumiaji",
+      "tRegistered": "Imesajiliwa"
     }
   }
 }

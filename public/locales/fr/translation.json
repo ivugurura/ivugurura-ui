@@ -169,6 +169,30 @@
       "tContent": "Contenu",
       "tTopicTitle": "Titre du sujet",
       "tPublished": "Publié"
+    },
+    "webSettings": {
+      "title": "Menu des paramètres",
+      "subTitle": "Communication publique",
+      "addNewCom": "Ajouter une nouvelle communication",
+      "tTitle": "Titre",
+      "tContent": "Contenu",
+      "tLanguage": "Langue",
+      "rowsPerPage": "Lignes par page",
+      "setting": "Paramètre",
+      "addNewSet": "Ajouter un nouvel ensemble",
+      "sample": {
+        "communique": "Communique",
+        "updatingSite": "Nous mettons à jour le site avec de nouvelles informations pour vous tenir informé"
+      }
+    },
+    "users": {
+      "title": "Utilisateurs du système",
+      "addNewUser": "Ajouter un nouvel utilisateur",
+      "tName": "Noms (Prénom/Nom de famille)",
+      "tUsername": "Nom d'utilisateur",
+      "tEmail": "Email",
+      "tRole": "Rôle de l'utilisateur",
+      "tRegistered": "Enregistré"
     }
   }
 }

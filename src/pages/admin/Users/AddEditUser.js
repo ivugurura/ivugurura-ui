@@ -53,7 +53,7 @@ export const AddEditUser = ({
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>
-        {isEdit ? `Edit user "${current?.names}"` : 'Create a new album'}
+        {isEdit ? `Edit user "${current?.names}"` : 'Add a new user'}
       </DialogTitle>
       <DialogContent>
         <DialogContentText>

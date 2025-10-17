@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Grid, Card, CardHeader, CardContent, Button } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { RRVTable } from '../../../common/components/RRVTable';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
@@ -18,6 +19,7 @@ const alertInitial = {
   open: false,
 };
 const Settings = () => {
+  const { t } = useTranslation();
   const [alertData, setAlertData] = useState(alertInitial);
   const [openAddPub, setOpenAddPub] = useState(false);
   const { data, isFetching, refetch } = actions.useGetPubsConfigQuery();
@@ -44,7 +46,7 @@ const Settings = () => {
 
   const { data: pubs } = data || initials.dataArr;
   return (
-    <DashboardContainer title="Setting menu">
+    <DashboardContainer title={t('admin.webSettings.title')}>
       <AlertConfirm
         {...alertData}
         setOpen={() => setAlertData((prev) => ({ ...prev, ...alertInitial }))}
@@ -61,10 +63,10 @@ const Settings = () => {
         <Grid item xs={12} lg={9}>
           <Card>
             <CardHeader
-              title="Public communication"
+              title={t('admin.webSettings.subTitle')}
               action={
                 <Button onClick={() => setOpenAddPub(true)}>
-                  Add a new communication
+                  {t('admin.webSettings.addNewCom')}
                 </Button>
               }
             />

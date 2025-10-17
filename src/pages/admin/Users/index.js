@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { Button, Box, IconButton, Grid } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { RRVTable } from '../../../common/components/RRVTable';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
@@ -18,6 +19,7 @@ const alertInitial = {
   action: 'add',
 };
 export const SystemUsers = () => {
+  const { t } = useTranslation();
   const [alertData, setAlertData] = useState(alertInitial);
   const [open, setOpen] = useState(false);
   const { data, isFetching, refetch } = actions.useListUsersSystemQuery();
@@ -38,9 +40,12 @@ export const SystemUsers = () => {
   const { data: users, totalItems } = data || initials.dataArr;
   return (
     <DashboardContainer
-      title="List of registered users"
+      title={t('admin.users.title')}
       action={
-        <Button onClick={() => handleSetAction('add')}>Add new user</Button>
+        <Button onClick={() => handleSetAction('add')}>
+          {' '}
+          {t('admin.users.addNewUser')}
+        </Button>
       }
     >
       <AddEditUser
@@ -58,7 +63,7 @@ export const SystemUsers = () => {
         loading={false}
       />
       <Grid container spacing={1}>
-        <Grid item xs={12} lg={10}>
+        <Grid item xs={12} lg={12}>
           <RRVTable
             columns={userColumns()}
             data={users}
@@ -84,7 +89,7 @@ export const SystemUsers = () => {
         </Grid>
         <Grid item xs={12} lg={2}>
           <h1>{totalItems}</h1>
-          {' — System users'}
+          {t('admin.nav.systemUsers')}
         </Grid>
       </Grid>
     </DashboardContainer>

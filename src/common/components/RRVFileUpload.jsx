@@ -9,7 +9,7 @@ import { uploadFileWithProgress } from '../../helpers/utils';
 import { notifier } from '../../helpers/utils/constants';
 import { setFilePath } from '../../redux/actions';
 
-const { Buffer } = require('buffer/');
+import { Buffer } from 'buffer';
 
 const initialImageProps = {
   file: null,

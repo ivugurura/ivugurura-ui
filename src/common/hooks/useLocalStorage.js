@@ -72,7 +72,7 @@ export const useLocalStorage = (key = '', defValue = '') => {
     if (typeof window === 'undefined') return;
 
     window.addEventListener('storage', handleStorageChange);
-    // eslint-disable-next-line consistent-return
+
     return () => window.removeEventListener('storage', handleStorageChange);
   }, [key]);
 

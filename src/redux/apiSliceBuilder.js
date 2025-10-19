@@ -32,7 +32,7 @@ const formatBaseQuery = () => {
   const { timestamp, hash } = generateSignature();
   return fetchBaseQuery({
     // Fill in your own server starting URL here
-    baseUrl: `${process.env.REACT_APP_API_URL}/api/v1`,
+    baseUrl: `${import.meta.env.VITE_API_URL}/api/v1`,
     headers: {
       Authorization: lStorage.token,
       'Accept-Language': systemLanguage,

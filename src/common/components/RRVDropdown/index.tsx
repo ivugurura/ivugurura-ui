@@ -1,10 +1,19 @@
 import React from 'react';
 
 import { KeyboardArrowDown as KeyboardArrowDownIcon } from '@mui/icons-material';
-import { Button, Menu, MenuItem } from '@mui/material';
+import { Button, Menu, MenuItem, type MenuProps } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 
-const StyledMenu = styled((props) => (
+interface RRVDropdownProps {
+  title?: React.ReactNode;
+  options?: React.ReactNode[];
+  variant?: 'text' | 'outlined' | 'contained';
+  size?: 'small' | 'medium' | 'large';
+  buttonProps?: Record<string, any>;
+  menuProps?: Record<string, any>;
+  share?: boolean;
+}
+const StyledMenu = styled((props: MenuProps) => (
   <Menu
     elevation={0}
     anchorOrigin={{
@@ -55,10 +64,10 @@ export const RRVDropdown = ({
   buttonProps = {},
   menuProps = {},
   share,
-}) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+}: RRVDropdownProps) => {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {

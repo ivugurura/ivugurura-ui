@@ -43,10 +43,10 @@ export const AddEditPublic = ({ open, onClose, refetchPubs }) => {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Create a new communication to our audience</DialogTitle>
+      <DialogTitle>{t('admin.webSettings.popup.createTitle')}</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Communication: It will appear on top of the web navigation.
+          {t('admin.webSettings.popup.communiqueLabel')}
         </DialogContentText>
         <RRVForm fields={pubSchema()} states={newPub} setStates={setNewPub} />
       </DialogContent>

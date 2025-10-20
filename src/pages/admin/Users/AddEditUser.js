@@ -8,6 +8,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { RRVForm } from '../../../common/components/RRVForm';
 import { toNewObj } from '../../../helpers/utils';
@@ -22,6 +23,7 @@ export const AddEditUser = ({
   current = null,
   action = 'add',
 }) => {
+  const { t } = useTranslation();
   const [user, setUser] = useState(userInitials);
   const [createUser, res] = actions.useCreateUserSystemMutation();
   const [updateUser, editRes] = actions.useUpdateUserSystemMutation();
@@ -53,25 +55,22 @@ export const AddEditUser = ({
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>
-        {isEdit ? `Edit user "${current?.names}"` : 'Add a new user'}
+        {isEdit ? `Edit user "${current?.names}"` : t('admin.users.form.title')}
       </DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          System Users: An user who can create or modifiy contents on the
-          website. Can be an admin, editor
-        </DialogContentText>
+        <DialogContentText>{t('admin.users.form.rolesInfo')}</DialogContentText>
         <RRVForm
-          fields={userSchema(lebels)}
+          fields={userSchema(t, lebels)}
           states={user}
           setStates={setUser}
         />
       </DialogContent>
       <DialogActions>
         <Button disabled={isLoading} onClick={onClose}>
-          Cancel
+          {t('actions.btnCancel')}
         </Button>
         <Button disabled={isLoading} onClick={handleSave}>
-          {isLoading ? 'Saving,...' : 'Save'}
+          {isLoading ? 'Saving,...' : t('actions.btnSave')}
         </Button>
       </DialogActions>
     </Dialog>

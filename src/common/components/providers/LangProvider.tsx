@@ -37,11 +37,12 @@ export const LangProvider = ({ children }: LangProviderProps) => {
         }
       }
     },
-    [lang],
+    [i18n, lang],
   );
 
-  if (!lang) return <div />;
   const values = useMemo(() => ({ lang, changeLang }), [lang, changeLang]);
+
+  if (!lang) return <div />;
 
   return (
     <LangContext.Provider value={values}>

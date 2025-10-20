@@ -1,7 +1,13 @@
 import React from 'react';
 
 import { KeyboardArrowDown as KeyboardArrowDownIcon } from '@mui/icons-material';
-import { Button, Menu, MenuItem, type MenuProps } from '@mui/material';
+import {
+  Button,
+  Menu,
+  MenuItem,
+  type ButtonProps,
+  type MenuProps,
+} from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 
 interface RRVDropdownProps {
@@ -9,8 +15,8 @@ interface RRVDropdownProps {
   options?: React.ReactNode[];
   variant?: 'text' | 'outlined' | 'contained';
   size?: 'small' | 'medium' | 'large';
-  buttonProps?: Record<string, any>;
-  menuProps?: Record<string, any>;
+  buttonProps?: ButtonProps;
+  menuProps?: MenuProps;
   share?: boolean;
 }
 const StyledMenu = styled((props: MenuProps) => (

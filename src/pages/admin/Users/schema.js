@@ -57,16 +57,15 @@ export const userSchema = (t, newLevel = {}) => [
       label: t('admin.users.form.userRole'),
       select: true,
       options: [
-  {
-    id: 2,
-    name: t('admin.users.form.optAdmin'),
-  },
-  {
-    id: 3,
-    name: t('admin.users.form.optEditor'),
-  },
-],
-
+        {
+          id: 2,
+          name: t('admin.users.form.optAdmin'),
+        },
+        {
+          id: 3,
+          name: t('admin.users.form.optEditor'),
+        },
+      ],
     },
     {
       name: 'password',

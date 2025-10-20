@@ -1,28 +1,60 @@
 {
+  // Searches
   "search.exclude": {
     "**/node_modules": true,
     "dist": true,
+    "build": true,
+    "build-staging": true,
     "**/coverage": true,
     "**/.nyc_output": true,
     "**/.eslintcache": true
   },
+  // Files
   "files.exclude": {
     "**/*.scss.d.ts": true
   },
-  "editor.formatOnSave": true,
-  "npm.packageManager": "yarn",
-  "npm.runSilent": true,
-  "eslint.lintTask.enable": false,
-  "eslint.validate": ["javascript", "javascriptreact"],
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+  "files.associations": {
+    "*.js": "javascriptreact" // allow JSX in .js files in the editor
   },
-  "eslint.codeActionsOnSave.mode": "problems",
+  // Use workspace TypeScript (matches your tsconfig)
+  "typescript.tsdk": "node_modules/typescript/lib",
+  // Formatting: Prettier formats on save
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.requireConfig": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
   "eslint.options": {
     "cache": true
   },
-  "[nix]": {
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2
-  }
+  "eslint.codeActionsOnSave.mode": "problems",
+  "editor.codeActionsOnSave": {
+    // auto-fix lint problems on save (keeps Prettier formatting separate)
+    "source.fixAll.eslint": true
+  },
+  "eslint.format.enable": false, // avoid double-formatting (Prettier handles formatting)
+  // Avoid duplicate diagnostics from the built-in JS/TS validator
+  "javascript.validate.enable": false,
+  "typescript.validate.enable": false,
+  // Yarn
+  "npm.packageManager": "yarn",
+  "npm.runSilent": true,
+  // Optional: keep
+  "eslint.lintTask.enable": false
 }

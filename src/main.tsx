@@ -12,13 +12,9 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import './index.css';
 import App from './App';
-// import { registerPWA } from './pwa';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
   </StrictMode>,
 );
-
-// Register the PWA service worker (no-op in unsupported browsers)
-// registerPWA();

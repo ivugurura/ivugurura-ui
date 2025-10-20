@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [
-      react({ include: /.(js|jsx|ts|tsx)$/ }),
+      react({ include: /\.(js|jsx|ts|tsx)$/ }),
       VitePWA({
         registerType: 'autoUpdate',
         devOptions: {

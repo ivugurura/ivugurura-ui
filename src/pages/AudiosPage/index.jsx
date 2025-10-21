@@ -27,7 +27,7 @@ import { usePagination } from '../../common/hooks/usePagination';
 import { useStyles } from '../../common/styles';
 import { dateFormat, DL_ROUTE } from '../../helpers/utils/constants';
 import { actions, initials } from '../../redux/apiSliceBuilder';
-import SearchBar from '../components/searchBar';
+import SearchBar from '../components/SearchBar';
 // import { HomeRecentTopics } from '../Home/components/Topics';
 
 const AudiosPage = () => {

@@ -183,6 +183,12 @@
       "sample": {
         "communique": "Communique",
         "updatingSite": "We are updating the site with new information to keep you updated"
+      },
+      "popup": {
+        "createTitle": "Kora itangazo rishya rizajya risomwa na buri wese",
+        "communiqueLabel": "Itangazo: Rizajya rigaragara hejuru ku rubuga",
+        "expiryLabel": "Igihe itangazo rizarangirira",
+        "markAsPublished": "Garagaza ko cyatangajwe"
       }
     },
     "users": {
@@ -192,7 +198,19 @@
       "tUsername": "Izina akoresha",
       "tEmail": "Email",
       "tRole": "Uruhare rwe",
-      "tRegistered": "Igihe yiyandikiye"
+      "tRegistered": "Igihe yiyandikiye",
+      "form": {
+        "title": "Ongeraho umukozi mushya",
+        "rolesInfo": "Abakozi: Bashobora gukora cyangwa bagahindura ibikubiye ku rubuga, bashobora kuba  ari abayobozi cyangwa ubihundura neza.",
+        "fullName": "Amazina yombi (irya mbere n’irya nyuma)",
+        "isActive": "Arakora?",
+        "userName": "Izina akoresha (ntushyiremo akanya)",
+        "email": "Email",
+        "userRole": "Uruhare rw’umukozi",
+        "password": "Shyiramo ijambo ry’ibanga",
+        "optAdmin": "Umuyobozi",
+        "optEditor": "Uhindura"
+      }
     }
   }
 }

@@ -183,6 +183,12 @@
       "sample": {
         "communique": "Taarifa",
         "updatingSite": "Tuna sasisha tovuti na habari mpya ili kukuweka updated"
+      },
+      "popup": {
+        "createTitle": "Create a new communication to our audience",
+        "communiqueLabel": "Communication: It will appear on top of the web navigation.",
+        "expiryLabel": "When the communication is expired",
+        "markAsPublished": "Mark as it published"
       }
     },
     "users": {
@@ -192,7 +198,19 @@
       "tUsername": "Jina la mtumiaji",
       "tEmail": "Barua pepe",
       "tRole": "Jukumu la mtumiaji",
-      "tRegistered": "Imesajiliwa"
+      "tRegistered": "Imesajiliwa",
+      "form": {
+        "title": "Add a new User",
+        "rolesInfo": "Admin,Editor",
+        "fullName": "Amazina yombi(irya mbere n’irya nyuma)",
+        "isActive": "Akora?",
+        "userName": "Izina akoresha (nta spasi)",
+        "email": "Imeyili",
+        "userRole": "Uruhare rw’umukozi",
+        "password": "Shyiramo ijambo ry’ibanga",
+        "optAdmin": "Admin",
+        "optEditor": "Editor"
+      }
     }
   }
 }

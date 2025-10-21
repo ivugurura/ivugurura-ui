@@ -43,7 +43,7 @@ export const pubSchema = () => {
     [
       {
         name: 'expiryDate',
-        label: 'When the communication is expired',
+        label: t('admin.webSettings.popup.expiryLabel'),
         fieldType: 'date',
       },
     ],
@@ -58,7 +58,7 @@ export const pubSchema = () => {
     [
       {
         name: 'isPublished',
-        label: 'Mark it as published',
+        label: t('admin.webSettings.popup.markAsPublished'),
         fieldType: 'switch-field',
         isBool: true,
       },

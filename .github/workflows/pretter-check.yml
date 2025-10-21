@@ -2,10 +2,16 @@ name: Prettier format check
 
 on:
   push:
+    branches:
+      - main
+      - develop
   pull_request:
+    branches:
+      - main
+      - develop
 
 jobs:
-  prettier:
+  prettier-check:
     name: Run Prettier check
     runs-on: ubuntu-latest
     permissions:
@@ -17,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "24"
           cache: yarn
 
       - name: Install dependencies

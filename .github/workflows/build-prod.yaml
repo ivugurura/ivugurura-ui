@@ -27,13 +27,13 @@ jobs:
       - name: Populate .env file
         run: |
           touch .env
-          echo REACT_APP_API_URL=${{ secrets.API_URL }} >> .env
-          echo REACT_APP_SOCKET_URL=${{ secrets.API_URL }} >> .env
+          echo VITE_API_URL=${{ secrets.API_URL }} >> .env
+          echo VITE_SOCKET_URL=${{ secrets.API_URL }} >> .env
           echo GENERATE_SOURCEMAP=true >> .env
           echo INLINE_RUNTIME_CHUNK=true >> .env
           echo SKIP_PREFLIGHT_CHECK=true >> .env
           echo HTTPS=true >> .env
-          echo REACT_APP_ENV=production >> .env
+          echo VITE_ENV=production >> .env
       - name: Install packages and run build the app
         run: |
           yarn

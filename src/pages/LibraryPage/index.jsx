@@ -11,7 +11,7 @@ import { PageHelmet } from '../../common/components/wrappers';
 import { usePagination } from '../../common/hooks/usePagination';
 import { useQueryParams } from '../../common/hooks/useQueryParams';
 import { actions, initials } from '../../redux/apiSliceBuilder';
-import SearchBar from '../components/searchBar';
+import SearchBar from '../components/SearchBar2';
 import { styles } from '../TopicDetails/TopicDetails.style';
 
 const CategoryItem = ({ category, selectedId, onClick }) => (

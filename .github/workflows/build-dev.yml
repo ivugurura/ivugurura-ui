@@ -27,8 +27,8 @@ jobs:
       - name: Populate .env file
         run: |
           touch .env
-          echo REACT_APP_API_URL="https://dev.reformationvoice.org" >> .env
-          echo REACT_APP_SOCKET_URL="https://dev.reformationvoice.org" >> .env
+          echo VITE_API_URL="https://dev.reformationvoice.org" >> .env
+          echo VITE_SOCKET_URL="https://dev.reformationvoice.org" >> .env
           echo GENERATE_SOURCEMAP=true >> .env
           echo INLINE_RUNTIME_CHUNK=true >> .env
           echo SKIP_PREFLIGHT_CHECK=true >> .env

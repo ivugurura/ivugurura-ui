@@ -17,7 +17,7 @@ import { usePagination } from '../../common/hooks/usePagination';
 import { useQueryParams } from '../../common/hooks/useQueryParams';
 import { toLink } from '../../helpers/utils/constants';
 import { actions, initials } from '../../redux/apiSliceBuilder';
-import SearchBar from '../components/searchBar';
+import SearchBar from '../components/SearchBar2';
 import { styles } from '../TopicDetails/TopicDetails.style';
 import TopicItem from '../TopicItem';
 

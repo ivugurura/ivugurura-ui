@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { Button } from '@mui/material';
 
@@ -7,7 +7,15 @@ import { systemLanguages } from '../../helpers/utils/constants';
 import { useLang } from './providers';
 import { RRVDropdown } from './RRVDropdown';
 
-export const SelectLanguage = ({ color = 'white', home = 'user' }) => {
+interface SelectLanguageProps {
+  color?: 'white' | 'black';
+  home?: 'admin' | 'user';
+}
+
+export const SelectLanguage = ({
+  color = 'white',
+  home = 'user',
+}: SelectLanguageProps) => {
   const { lang, changeLang } = useLang();
   const currentLang = useMemo(
     () => systemLanguages.find(({ abbr }) => abbr === lang),

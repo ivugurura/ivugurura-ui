@@ -18,7 +18,7 @@ const BookView = () => {
   return (
     <Grid container>
       <PdfViewerChrome
-        pdfUrl={`${process.env.REACT_APP_API_URL}/api/v1/books/${book.id}`}
+        pdfUrl={`${import.meta.env.VITE_API_URL}/api/v1/books/${book.id}`}
         onPageClose={() => navigate(toLink('library'))}
         downloadParams={{ useMutation: 'useDownloadBookMutation', id: book.id }}
         watermarkText="Reformation Voice"

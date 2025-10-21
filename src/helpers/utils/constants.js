@@ -3,7 +3,7 @@ import CryptoJS from 'crypto-js';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 
-const flagUrl = `${process.env.PUBLIC_URL}/img/flags/16`;
+const flagUrl = `/img/flags/16`;
 
 export const systemLanguage = localStorage.getItem('i18nextLng') || 'en';
 export const isAdminUrl = () => {
@@ -94,15 +94,15 @@ export const socialMedias = [
   },
 ];
 
-export const IMAGE_PATH = `${process.env.REACT_APP_API_URL}/images`;
-export const AUDIO_PATH = `${process.env.REACT_APP_API_URL}/songs`;
-export const BOOK_COVERS_PATH = `${process.env.REACT_APP_API_URL}/covers`;
+export const IMAGE_PATH = `${import.meta.env.VITE_API_URL}/images`;
+export const AUDIO_PATH = `${import.meta.env.VITE_API_URL}/songs`;
+export const BOOK_COVERS_PATH = `${import.meta.env.VITE_API_URL}/covers`;
 export const toLink = (link = '', isAdmin = false) =>
   `${isAdmin ? '/admin/' : '/'}${systemLanguage}/${link}`;
 export const toAssetPath = (name = '', isImage = true) =>
   `${isImage ? IMAGE_PATH : AUDIO_PATH}/${name}`;
-export const DL_ROUTE = `${process.env.REACT_APP_API_URL}/api/v1/albums/download/`;
-export const MAIN_URL = process.env.REACT_APP_API_URL;
+export const DL_ROUTE = `${import.meta.env.VITE_API_URL}/api/v1/albums/download/`;
+export const MAIN_URL = import.meta.env.VITE_API_URL;
 
 export const lStorage = {
   token: localStorage.getItem('user-token') || '',

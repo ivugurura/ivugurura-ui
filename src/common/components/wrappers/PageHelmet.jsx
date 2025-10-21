@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 // import useRouter from 'utils/useRouter';
 
 // const NODE_ENV = process.env.NODE_ENV;
-// const GA_MEASUREMENT_ID = process.env.REACT_APP_GA_MEASUREMENT_ID;
+// const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
 
 const PageHelmet = ({ title, description, keywords, children, ...rest }) => {
   const { t } = useTranslation();

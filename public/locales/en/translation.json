@@ -180,15 +180,13 @@
       "rowsPerPage": "Rows per page",
       "setting": "Setting",
       "addNewSet": "Add new",
+      "fTitle": "Create a new communication to our audience",
+      "fSubtitle": "Communication: It will appear on top of the web navigation.",
+      "fExpiry": "When the communication is expired",
+      "fPublished": "Mark as it published",
       "sample": {
         "communique": "Communique",
         "updatingSite": "We are updating the site with new information to keep you updated"
-      },
-      "popup": {
-        "createTitle": "Create a new communication to our audience",
-        "communiqueLabel": "Communication: It will appear on top of the web navigation.",
-        "expiryLabel": "When the communication is expired",
-        "markAsPublished": "Mark as it published"
       }
     },
     "users": {
@@ -199,18 +197,16 @@
       "tEmail": "Email",
       "tRole": "User role",
       "tRegistered": "Registered",
-      "form": {
-        "title": "Add a new User",
-        "rolesInfo": "Admin,Editor",
-        "fullName": "Amazina yombi(irya mbere n’irya nyuma)",
-        "isActive": "Akora?",
-        "userName": "Izina akoresha (nta spasi)",
-        "email": "Imeyili",
-        "userRole": "Uruhare rw’umukozi",
-        "password": "Shyiramo ijambo ry’ibanga",
-        "optAdmin": "Admin",
-        "optEditor": "Editor"
-      }
+      "fTitle": "Add a new User",
+      "fSubtitle": "System Users: An user who can create or modifiy contents on the website. Can be an admin, editor",
+      "fNames": "User full name (First and last name)",
+      "fActive": "Is active?",
+      "fUserName": "User name (with no space)",
+      "fEmail": "Email",
+      "fRole": "User role",
+      "fPassword": "Set user password",
+      "fAdmin": "Admin",
+      "fEditor": "Editor"
     }
   }
 }

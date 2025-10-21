@@ -37,39 +37,39 @@ export const userEditLebels = {
   password: 'Change the password',
 };
 
-export const userSchema = (t, newLevel = {}) => [
-  [{ name: 'names', label: t('admin.users.form.fullName') }],
+export const userSchema = (newLevel = {}, t) => [
+  [{ name: 'names', label: t('admin.users.fNames') }],
   [
     {
       name: 'isActive',
-      label: t('admin.users.form.isActive'),
+      label: t('admin.users.fActive'),
       fieldType: 'switch-field',
       isBool: true,
     },
   ],
   [
-    { name: 'username', label: t('admin.users.form.userName') },
-    { name: 'email', label: t('admin.users.form.email'), type: 'email' },
+    { name: 'username', label: t('admin.users.fUserName') },
+    { name: 'email', label: t('admin.users.fEmail'), type: 'email' },
   ],
   [
     {
       name: 'role',
-      label: t('admin.users.form.userRole'),
+      label: t('admin.users.fRole'),
       select: true,
       options: [
         {
           id: 2,
-          name: t('admin.users.form.optAdmin'),
+          name: t('admin.users.fAdmin'),
         },
         {
           id: 3,
-          name: t('admin.users.form.optEditor'),
+          name: t('admin.users.fEditor'),
         },
       ],
     },
     {
       name: 'password',
-      label: newLevel?.password || t('admin.users.form.password'),
+      label: newLevel?.password || t('admin.users.fPassword'),
     },
   ],
 ];

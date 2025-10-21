@@ -180,15 +180,13 @@
       "rowsPerPage": "Mstari kwa ukurasa",
       "setting": "Mipangilio",
       "addNewSet": "Ongeza mpya",
+      "fTitle": "Tengeneza mawasiliano mapya kwa hadhira yetu",
+      "fSubtitle": "Mawasiliano: Itaonekana juu ya urambazaji wa wavuti.",
+      "fExpiry": "Wakati mawasiliano yatakapokwisha",
+      "fPublished": "Iwe imetangazwa",
       "sample": {
         "communique": "Taarifa",
         "updatingSite": "Tuna sasisha tovuti na habari mpya ili kukuweka updated"
-      },
-      "popup": {
-        "createTitle": "Create a new communication to our audience",
-        "communiqueLabel": "Communication: It will appear on top of the web navigation.",
-        "expiryLabel": "When the communication is expired",
-        "markAsPublished": "Mark as it published"
       }
     },
     "users": {
@@ -199,18 +197,16 @@
       "tEmail": "Barua pepe",
       "tRole": "Jukumu la mtumiaji",
       "tRegistered": "Imesajiliwa",
-      "form": {
-        "title": "Add a new User",
-        "rolesInfo": "Admin,Editor",
-        "fullName": "Amazina yombi(irya mbere n’irya nyuma)",
-        "isActive": "Akora?",
-        "userName": "Izina akoresha (nta spasi)",
-        "email": "Imeyili",
-        "userRole": "Uruhare rw’umukozi",
-        "password": "Shyiramo ijambo ry’ibanga",
-        "optAdmin": "Admin",
-        "optEditor": "Editor"
-      }
+      "fTitle": "Ongeza mtumiaji mpya",
+      "fSubtitle": "Watumiaji wa mfumo: Mtumiaji ambaye anaweza kuunda au kubadilisha maudhui kwenye tovuti. Anaweza kuwa admin, mwandishi",
+      "fNames": "Majina kamili ya mtumiaji (Jina la Kwanza na la Mwisho)",
+      "fActive": "Je, ni hai?",
+      "fUserName": "Jina la mtumiaji (bila nafasi)",
+      "fEmail": "Barua pepe",
+      "fRole": "Jukumu la mtumiaji",
+      "fPassword": "Weka nenosiri la mtumiaji",
+      "fAdmin": "Admin",
+      "fEditor": "Mwandishi"
     }
   }
 }

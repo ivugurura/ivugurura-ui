@@ -179,16 +179,14 @@
       "tLanguage": "Langue",
       "rowsPerPage": "Lignes par page",
       "setting": "Paramètre",
-      "addNewSet": "Ajouter un nouvel ensemble",
+      "addNewSet": "Ajouter un nouvel",
+      "fTitle": "Créer une nouvelle communication à notre audience",
+      "fSubtitle": "Communication: Elle apparaîtra en haut de la navigation Web.",
+      "fExpiry": "Quand la communication expire",
+      "fPublished": "Marquer comme publié",
       "sample": {
         "communique": "Communique",
         "updatingSite": "Nous mettons à jour le site avec de nouvelles informations pour vous tenir informé"
-      },
-      "popup": {
-        "createTitle": "Create a new communication to our audience",
-        "communiqueLabel": "Communication: It will appear on top of the web navigation.",
-        "expiryLabel": "When the communication is expired",
-        "markAsPublished": "Mark as it published"
       }
     },
     "users": {
@@ -199,18 +197,16 @@
       "tEmail": "Email",
       "tRole": "Rôle de l'utilisateur",
       "tRegistered": "Enregistré",
-      "form": {
-        "title": "Add a new User",
-        "rolesInfo": "Admin,Editor",
-        "fullName": "Amazina yombi(irya mbere n’irya nyuma)",
-        "isActive": "Akora?",
-        "userName": "Izina akoresha (nta spasi)",
-        "email": "Imeyili",
-        "userRole": "Uruhare rw’umukozi",
-        "password": "Shyiramo ijambo ry’ibanga",
-        "optAdmin": "Admin",
-        "optEditor": "Editor"
-      }
+      "fTitle": "Ajouter un nouvel utilisateur",
+      "fSubtitle": "Utilisateurs du système : Un utilisateur qui peut créer ou modifier du contenu sur le site Web. Peut être un administrateur, un éditeur.",
+      "fNames": "Nom complet de l'utilisateur (Prénom et nom de famille)",
+      "fActive": "Est actif?",
+      "fUserName": "Nom d'utilisateur (sans espace)",
+      "fEmail": "Email",
+      "fRole": "Rôle de l'utilisateur",
+      "fPassword": "Définir le mot de passe",
+      "fAdmin": "Administrateur",
+      "fEditor": "Éditeur"
     }
   }
 }

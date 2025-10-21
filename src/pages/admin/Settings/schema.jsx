@@ -43,7 +43,7 @@ export const pubSchema = () => {
     [
       {
         name: 'expiryDate',
-        label: t('admin.webSettings.popup.expiryLabel'),
+        label: t('admin.webSettings.fExpiry'),
         fieldType: 'date',
       },
     ],
@@ -58,7 +58,7 @@ export const pubSchema = () => {
     [
       {
         name: 'isPublished',
-        label: t('admin.webSettings.popup.markAsPublished'),
+        label: t('admin.webSettings.fPublished'),
         fieldType: 'switch-field',
         isBool: true,
       },

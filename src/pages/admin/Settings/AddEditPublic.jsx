@@ -43,10 +43,10 @@ export const AddEditPublic = ({ open, onClose, refetchPubs }) => {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>{t('admin.webSettings.popup.createTitle')}</DialogTitle>
+      <DialogTitle>{t('admin.webSettings.fTitle')}</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          {t('admin.webSettings.popup.communiqueLabel')}
+          {t('admin.webSettings.fSubtitle')}
         </DialogContentText>
         <RRVForm fields={pubSchema()} states={newPub} setStates={setNewPub} />
       </DialogContent>

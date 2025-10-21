@@ -55,12 +55,12 @@ export const AddEditUser = ({
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>
-        {isEdit ? `Edit user "${current?.names}"` : t('admin.users.form.title')}
+        {isEdit ? `Edit user "${current?.names}"` : t('admin.users.fTitle')}
       </DialogTitle>
       <DialogContent>
-        <DialogContentText>{t('admin.users.form.rolesInfo')}</DialogContentText>
+        <DialogContentText>{t('admin.users.fSubtitle')}</DialogContentText>
         <RRVForm
-          fields={userSchema(t, lebels)}
+          fields={userSchema(lebels, t)}
           states={user}
           setStates={setUser}
         />
@@ -70,7 +70,7 @@ export const AddEditUser = ({
           {t('actions.btnCancel')}
         </Button>
         <Button disabled={isLoading} onClick={handleSave}>
-          {isLoading ? 'Saving,...' : t('actions.btnSave')}
+          {t(`actions.${isLoading ? 'loading' : 'btnSave'}`)}
         </Button>
       </DialogActions>
     </Dialog>

@@ -91,6 +91,10 @@ export default [
     rules: {
       'react-hooks/set-state-in-effect': 'off',
       'react/prop-types': 'off',
+      'no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
     },
   },
 ];

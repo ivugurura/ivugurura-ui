@@ -1,4 +1,4 @@
-import react from '@vitejs/plugin-react';
+import reactSWC from '@vitejs/plugin-react-swc';
 import { defineConfig, loadEnv } from 'vite';
 
 export default defineConfig(({ mode }) => {
@@ -6,7 +6,7 @@ export default defineConfig(({ mode }) => {
   const outDir = mode === 'staging' ? 'build-staging' : 'build';
 
   return {
-    plugins: [react({ include: /.(js|jsx|ts|tsx)$/ })],
+    plugins: [reactSWC()],
     build: { outDir },
     server: {
       port: 3000,

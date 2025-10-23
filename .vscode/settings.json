@@ -44,10 +44,6 @@
     "cache": true
   },
   "eslint.codeActionsOnSave.mode": "problems",
-  "editor.codeActionsOnSave": {
-    // auto-fix lint problems on save (keeps Prettier formatting separate)
-    "source.fixAll.eslint": true
-  },
   "eslint.format.enable": false, // avoid double-formatting (Prettier handles formatting)
   // Avoid duplicate diagnostics from the built-in JS/TS validator
   "javascript.validate.enable": false,
@@ -56,5 +52,12 @@
   "npm.packageManager": "yarn",
   "npm.runSilent": true,
   // Optional: keep
-  "eslint.lintTask.enable": false
+  "eslint.lintTask.enable": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always",
+    "source.fixAll.eslint": "always",
+    "source.organizeImports": "always"
+  },
+  "eslint.useFlatConfig": true,
+  "files.eol": "\n",
 }

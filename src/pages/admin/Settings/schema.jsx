@@ -1,7 +1,4 @@
-import React from 'react';
-
 import { Button } from '@mui/material';
-import { useTranslation } from 'react-i18next';
 
 export const navSchema = (navs = [], states = {}) => {
   return [
@@ -31,8 +28,7 @@ export const navSchema = (navs = [], states = {}) => {
   ];
 };
 
-export const pubSchema = () => {
-  const { t } = useTranslation();
+export const pubSchema = (t) => {
   return [
     [
       {
@@ -66,9 +62,7 @@ export const pubSchema = () => {
   ];
 };
 
-export const pubsColumns = (setAction) => {
-  const { t } = useTranslation();
-
+export const pubsColumns = (setAction, t) => {
   return [
     { accessorKey: 'title', header: t('admin.webSettings.tTitle') },
     { accessorKey: 'content', header: t('admin.webSettings.tContent') },

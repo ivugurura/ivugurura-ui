@@ -1,5 +1,3 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable react/prop-types */
 import React from 'react';
 
 import { Button, Typography } from '@mui/material';
@@ -24,7 +22,6 @@ const asError = (value) => {
 };
 
 export class ErrorBoundary extends React.PureComponent {
-  // eslint-disable-next-line react/state-in-constructor
   state = {};
 
   static getDerivedStateFromError(error) {

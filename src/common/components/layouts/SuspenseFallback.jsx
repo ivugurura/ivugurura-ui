@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { Stack, Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, Stack } from '@mui/material';
 
 export const SuspenseFallback = ({ message }) => {
   return (

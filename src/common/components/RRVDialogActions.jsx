@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Button, DialogActions } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 

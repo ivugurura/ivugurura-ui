@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { FormControlLabel, Switch } from '@mui/material';
 
 export const RRVSwitch = (props) => {

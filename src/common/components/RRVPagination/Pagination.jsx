@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { TablePagination } from '@mui/material';
 
 export const RRVPagination = ({

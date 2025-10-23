@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import {
   DeleteOutlineOutlined,
@@ -50,7 +50,7 @@ const HomeDashboard = ({ countFetch }) => {
   const navigate = useNavigate();
   const { alertValues, reset, setAlertValues } = useAlertDialog();
   const { paginator, ...tableProps } = useMuiSearchPagination();
-  const { data: counts, isFetching, isSuccess, ...restCountsQ } = countFetch;
+  const { data: counts, ...restCountsQ } = countFetch;
   const { data: overviewData, ...overviewQ } = actions.useGetOverviewTopicQuery(
     { truncate: 200, ...paginator },
   );

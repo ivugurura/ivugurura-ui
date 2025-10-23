@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 
 // import { ThemeProvider as ThemeProviderV4, StylesProvider } from '@material-ui/core/styles';
 import { CssBaseline, LinearProgress } from '@mui/material';
@@ -27,9 +27,13 @@ const App = () => {
   // const states = buildAppStates();
   const path = window.location.pathname;
   const slPath = `/${systemLanguage}`;
-  if (!isAdminUrl() && (path === '/' || !path.startsWith(slPath))) {
-    window.location.href = slPath;
-  }
+
+  useEffect(() => {
+    if (!isAdminUrl() && (path === '/' || !path.startsWith(slPath))) {
+      window.location.href = slPath;
+    }
+  }, [path, slPath]);
+
   return (
     <ThemeProviderV5 theme={theme}>
       <Provider store={store}>

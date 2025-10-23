@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Breadcrumbs, Link, Stack, Typography } from '@mui/material';
 
 export const TopicsHeader = () => {

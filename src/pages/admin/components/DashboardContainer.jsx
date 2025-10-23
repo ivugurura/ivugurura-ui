@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Card, CardContent, CardHeader } from '@mui/material';
 
 export const DashboardContainer = ({ title, action, children }) => (

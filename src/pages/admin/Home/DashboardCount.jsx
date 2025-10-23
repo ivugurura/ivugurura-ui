@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Card, CardContent, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 

@@ -3,10 +3,10 @@ import React, { useEffect } from 'react';
 import {
   Button,
   Dialog,
-  DialogTitle,
+  DialogActions,
   DialogContent,
   DialogContentText,
-  DialogActions,
+  DialogTitle,
 } from '@mui/material';
 import moment from 'moment';
 import { useSelector } from 'react-redux';

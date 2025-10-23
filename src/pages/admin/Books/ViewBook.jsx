@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Dialog } from '@mui/material';
 
 import { PdfViewerChrome } from '../../../common/components/PDFViewer';

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Menu as MenuIcon } from '@mui/icons-material';
 import {
@@ -61,29 +61,27 @@ export const NavBar = ({ navCategories = [] }) => {
   const [searchKey, setSearchKey] = useState('');
   const [openContactForm, setOpenContactForm] = useState(false);
 
-  const categories = useMemo(
-    () =>
-      navCategories.map((category) => (
-        <RRVDropdown
-          key={category.id}
-          title={category.name}
-          variant="text"
-          buttonProps={{
-            sx: { color: { md: 'white' }, ml: 2, textTransform: 'uppercase' },
-          }}
-          options={category.categories.map((cat) => (
-            <Button
-              variant="text"
-              key={cat.id}
-              onClick={() => navigate(toLink(`topics?t=${cat.slug}`))}
-            >
-              {cat.name}
-            </Button>
-          ))}
-        />
-      )),
-    [navCategories.length],
-  );
+  const categories = useMemo(() => {
+    return navCategories.map((category) => (
+      <RRVDropdown
+        key={category.id}
+        title={category.name}
+        variant="text"
+        buttonProps={{
+          sx: { color: { md: 'white' }, ml: 2, textTransform: 'uppercase' },
+        }}
+        options={category.categories.map((cat) => (
+          <Button
+            variant="text"
+            key={cat.id}
+            onClick={() => navigate(toLink(`topics?t=${cat.slug}`))}
+          >
+            {cat.name}
+          </Button>
+        ))}
+      />
+    ));
+  }, [navCategories, navigate]);
 
   const handleSearch = ({ target: { value } }) => {
     setSearchKey(value);

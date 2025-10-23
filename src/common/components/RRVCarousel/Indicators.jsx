@@ -1,6 +1,4 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable no-unused-expressions */
-import React, { useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import {
   StyledFiberManualRecordIcon,

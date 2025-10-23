@@ -1,4 +1,6 @@
-import React, { useCallback } from 'react';
+import React from 'react';
+
+import { Buffer } from 'buffer';
 
 import { Box, Button, Grid, LinearProgress, Typography } from '@mui/material';
 import { MuiFileInput } from 'mui-file-input';
@@ -8,8 +10,6 @@ import { useDispatch } from 'react-redux';
 import { uploadFileWithProgress } from '../../helpers/utils';
 import { notifier } from '../../helpers/utils/constants';
 import { setFilePath } from '../../redux/actions';
-
-import { Buffer } from 'buffer';
 
 const initialImageProps = {
   file: null,
@@ -62,7 +62,7 @@ export const RRVFileUpload = ({
     setProgress(Math.round((100 * e.loaded) / e.total));
   };
 
-  const handleUploadFile = useCallback(() => {
+  const handleUploadFile = () => {
     let fileToUpload = imageProps.file;
     const imgCurrent = imageRef.current;
     if (imgCurrent && imageProps.file?.type?.includes('image/')) {
@@ -101,7 +101,7 @@ export const RRVFileUpload = ({
           notifier.error(errorMessage);
         });
     }
-  }, [imageProps.file, imageRef.current]);
+  };
   const handleFileChange = (selectedFile) => {
     setImageProps((prev) => ({ ...prev, file: selectedFile }));
     onFirstExcute();

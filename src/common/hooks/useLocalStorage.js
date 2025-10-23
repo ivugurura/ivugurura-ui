@@ -7,14 +7,22 @@ export const useLocalStorage = (key = '', defValue = '') => {
     if (typeof window === 'undefined') return defValue;
 
     try {
-      rawValueRef.current = window.localStorage.getItem(key);
-      const res = rawValueRef.current || defValue;
-      return res;
+      const stored = window.localStorage.getItem(key);
+      return stored ? JSON.parse(stored) : defValue;
     } catch (e) {
       console.log(e);
-      return value;
+      return defValue;
     }
   });
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      rawValueRef.current = window.localStorage.getItem(key);
+    } catch (e) {
+      console.log(e);
+    }
+  }, [key]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;

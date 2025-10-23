@@ -1,8 +1,4 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-param-reassign */
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { CarouselItem } from './CarouselItem';
 import { Indicators } from './Indicators';
@@ -26,52 +22,6 @@ export const RRVCarousel = (props) => {
   const [paused, setPaused] = useState(false);
 
   const sanitizedProps = sanitizeProps(props);
-
-  // componentDidMount & onIndexChange
-  useEffect(() => {
-    const { index, changeOnFirstRender } = sanitizedProps;
-    setNext(index, true, changeOnFirstRender);
-  }, [sanitizedProps.index]);
-
-  useInterval(() => {
-    const { autoPlay } = sanitizedProps;
-
-    if (autoPlay && !paused) {
-      next(undefined);
-    }
-  }, sanitizedProps.interval);
-
-  const next = (event) => {
-    const { children, cycleNavigation } = sanitizedProps;
-
-    const last = Array.isArray(children) ? children.length - 1 : 0;
-    const nextActive =
-      state.active + 1 > last
-        ? cycleNavigation
-          ? 0
-          : state.active
-        : state.active + 1;
-
-    setNext(nextActive, true);
-
-    if (event) event.stopPropagation();
-  };
-
-  const prev = (event) => {
-    const { children, cycleNavigation } = sanitizedProps;
-
-    const last = Array.isArray(children) ? children.length - 1 : 0;
-    const nextActive =
-      state.active - 1 < 0
-        ? cycleNavigation
-          ? last
-          : state.active
-        : state.active - 1;
-
-    setNext(nextActive, false);
-
-    if (event) event.stopPropagation();
-  };
 
   const setNext = (index, isNext, runCallbacks = true) => {
     const { onChange, children, strictIndexing } = sanitizedProps;
@@ -102,6 +52,51 @@ export const RRVCarousel = (props) => {
       prevActive: state.active,
       next: isNext,
     });
+  };
+
+  const next = (event) => {
+    const { children, cycleNavigation } = sanitizedProps;
+
+    const last = Array.isArray(children) ? children.length - 1 : 0;
+    const nextActive =
+      state.active + 1 > last
+        ? cycleNavigation
+          ? 0
+          : state.active
+        : state.active + 1;
+
+    setNext(nextActive, true);
+
+    if (event) event.stopPropagation();
+  };
+  // componentDidMount & onIndexChange
+  useEffect(() => {
+    const { index, changeOnFirstRender } = sanitizedProps;
+    setNext(index, true, changeOnFirstRender);
+  }, [sanitizedProps.index]);
+
+  useInterval(() => {
+    const { autoPlay } = sanitizedProps;
+
+    if (autoPlay && !paused) {
+      next(undefined);
+    }
+  }, sanitizedProps.interval);
+
+  const prev = (event) => {
+    const { children, cycleNavigation } = sanitizedProps;
+
+    const last = Array.isArray(children) ? children.length - 1 : 0;
+    const nextActive =
+      state.active - 1 < 0
+        ? cycleNavigation
+          ? last
+          : state.active
+        : state.active - 1;
+
+    setNext(nextActive, false);
+
+    if (event) event.stopPropagation();
   };
 
   const {

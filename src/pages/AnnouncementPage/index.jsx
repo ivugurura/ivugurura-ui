@@ -1,13 +1,11 @@
-import React from 'react';
-
 import { ArrowBackOutlined as ArrowBackIcon } from '@mui/icons-material';
 import {
-  Container,
-  Paper,
-  IconButton,
-  Typography,
   Box,
+  Container,
   Divider,
+  IconButton,
+  Paper,
+  Typography,
 } from '@mui/material';
 import parse from 'html-react-parser';
 import { useNavigate } from 'react-router-dom';

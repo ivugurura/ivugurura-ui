@@ -1,5 +1,4 @@
-/* eslint-disable no-param-reassign */
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -38,21 +37,21 @@ export const CarouselItem = ({
 
   const divRef = useRef(null);
 
-  const checkAndSetHeight = useCallback(() => {
+  function checkAndSetHeight() {
     if (index !== state.active) return;
     if (!divRef.current) return;
 
     if (divRef.current.offsetHeight === 0) {
-      setTimeout(() => checkAndSetHeight(), 100);
+      setTimeout(checkAndSetHeight, 100);
     } else {
       setHeight(divRef.current.offsetHeight);
     }
-  }, [setHeight, state.active, index, divRef]);
+  }
 
   // Set height on every child change
   useEffect(() => {
     checkAndSetHeight();
-  }, [checkAndSetHeight]);
+  }, [setHeight, state.active, index, divRef]);
 
   const variants = {
     leftwardExit: {

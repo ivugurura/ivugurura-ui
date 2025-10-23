@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 
 import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';

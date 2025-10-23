@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Box, Card, CardContent, CardHeader, Paper } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 

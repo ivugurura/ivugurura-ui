@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { getRadioKingId } from '../../helpers/utils';
 
 import { useLang } from './providers';

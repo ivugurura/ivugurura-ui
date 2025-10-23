@@ -14,7 +14,7 @@ interface LangProviderProps {
 }
 const initialStates = {
   lang: systemLanguage,
-  changeLang: () => {},
+  changeLang: () => Promise.resolve({}),
 };
 const LangContext = createContext<LangContextProps>(initialStates);
 
@@ -29,7 +29,7 @@ export const LangProvider = ({ children }: LangProviderProps) => {
   const changeLang = useCallback(
     (newLang: string, isAdmin: boolean) => {
       if (newLang !== lang) {
-        i18n.changeLanguage(newLang);
+        await i18n.changeLanguage(newLang);
         if (isAdmin) {
           window.location.reload();
         } else {

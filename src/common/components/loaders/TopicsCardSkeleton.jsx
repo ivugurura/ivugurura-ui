@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { Card, Grid, CardContent, Skeleton } from '@mui/material';
+import { Card, CardContent, Grid, Skeleton } from '@mui/material';
 
 export const TopicsCardSkeleton = ({
   totalItems = 3,

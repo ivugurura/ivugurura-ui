@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { Grid, Box, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { TopicsCardSkeleton } from '../../../common/components/loaders';

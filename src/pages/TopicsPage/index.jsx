@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { Home as HomeIcon, RssFeed as RssFeedIcon } from '@mui/icons-material';
-import { Grid, Box, Typography, Divider } from '@mui/material';
+import { Box, Divider, Grid, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -197,7 +197,7 @@ const TopicsPage = () => {
                       {topics?.length > 0 && (
                         <Grid container spacing={3}>
                           {topics.map((topic) => (
-                            <Grid item md={5}>
+                            <Grid key={topic.slug} item md={5}>
                               <TopicItem
                                 key={topic.slug}
                                 topic={topic}

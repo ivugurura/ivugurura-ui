@@ -1,5 +1,4 @@
-/* eslint-disable no-nested-ternary */
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { NavigateBefore, NavigateNext } from '@mui/icons-material';
 
@@ -8,8 +7,8 @@ export const sanitizeNavProps = (props) => {
 
   return props !== undefined
     ? {
-        style: props.style !== undefined ? props.style : {},
-        className: props.className !== undefined ? props.className : '',
+        style: style !== undefined ? style : {},
+        className: className !== undefined ? className : '',
         ...rest,
       }
     : { style: {}, className: '', ...rest };

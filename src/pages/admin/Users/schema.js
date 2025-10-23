@@ -1,10 +1,8 @@
 import moment from 'moment';
-import { useTranslation } from 'react-i18next';
 
 import { getRole } from '../../../helpers/utils/constants';
 
-export const userColumns = () => {
-  const { t } = useTranslation();
+export const userColumns = (t) => {
   return [
     { accessorKey: 'names', header: t('admin.users.tName') },
     { accessorKey: 'username', header: t('admin.users.tUsername'), size: 1 },

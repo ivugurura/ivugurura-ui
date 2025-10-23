@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { PlayArrow } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';

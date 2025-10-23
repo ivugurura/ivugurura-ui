@@ -1,11 +1,10 @@
-/* eslint-disable no-param-reassign */
-import React, {
+import {
   createContext,
-  useContext,
-  useState,
-  useEffect,
   useCallback,
+  useContext,
+  useEffect,
   useMemo,
+  useState,
 } from 'react';
 
 const AudioContext = createContext(null);
@@ -87,7 +86,7 @@ export const AudioProvider = ({ children }) => {
       timeProgress,
       duration,
     }),
-    [],
+    [currentAudio, playAudio, pauseAudio, isPlaying, timeProgress, duration],
   );
 
   return (

@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { Breadcrumbs, Button, Chip, Typography } from '@mui/material';
 import { emphasize, styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
-import { Button, Box, IconButton, Grid } from '@mui/material';
+import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
+import { Box, Button, Grid, IconButton } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { RRVTable } from '../../../common/components/RRVTable';
@@ -65,7 +65,7 @@ export const SystemUsers = () => {
       <Grid container spacing={1}>
         <Grid item xs={12} lg={12}>
           <RRVTable
-            columns={userColumns()}
+            columns={userColumns(t)}
             data={users}
             isLoading={isFetching}
             enableRowActions

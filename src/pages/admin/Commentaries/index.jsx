@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
@@ -21,7 +21,7 @@ const ReplyDisclaimer = ({ privateReply }) => (
       This comment had already been privaty replied to. The replies:
       <ul>
         {privateReply.split('~').map((comment, idx) => (
-          <li>{`${idx + 1}. ${comment}`}</li>
+          <li key={idx}>{`${idx + 1}. ${comment}`}</li>
         ))}
       </ul>
     </p>

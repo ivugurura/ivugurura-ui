@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Card, CardHeader, Skeleton } from '@mui/material';
 
 export const TopicListItemSkeleton = ({ totalItem = 1 }) => (

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { ListItemIcon, MenuItem } from '@mui/material';
 
 export * from './Table';

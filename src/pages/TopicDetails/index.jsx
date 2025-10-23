@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 
 import {
+  Category as CategoryIcon,
   ExpandMore as ExpandMoreIcon,
   Home as HomeIcon,
   RssFeed as RssFeedIcon,
-  Category as CategoryIcon,
 } from '@mui/icons-material';
-import { Grid, Box, Typography, Divider } from '@mui/material';
+import { Box, Divider, Grid, Typography } from '@mui/material';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';

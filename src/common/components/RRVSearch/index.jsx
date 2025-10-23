@@ -1,8 +1,6 @@
-import React from 'react';
-
 import { Search as SearchIcon } from '@mui/icons-material';
 import { InputBase } from '@mui/material';
-import { styled, alpha } from '@mui/material/styles';
+import { alpha, styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 const Search = styled('div')(({ theme }) => ({

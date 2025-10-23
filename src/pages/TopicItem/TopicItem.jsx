@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { ArrowOutward } from '@mui/icons-material';
 import {
   Box,
@@ -16,12 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { RRVShare } from '../../common/components/RRVShare';
-import {
-  MAIN_URL,
-  toAssetPath,
-  toLink,
-  // truncate
-} from '../../helpers/utils/constants';
+import { MAIN_URL, toAssetPath, toLink } from '../../helpers/utils/constants';
 import { Comments } from '../TopicDetails/Comments';
 
 import styles from './TopicItem.module.scss';

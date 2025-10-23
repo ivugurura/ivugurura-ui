@@ -1,10 +1,10 @@
-/* eslint-disable no-param-reassign */
-import React, {
+import {
   createContext,
+  useCallback,
   useContext,
-  useState,
   useMemo,
   useRef,
+  useState,
 } from 'react';
 
 const AudioContext = createContext(null);
@@ -17,40 +17,49 @@ export const RRVAudioProvider = ({ children }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLooping, setIsLooping] = useState(false);
 
-  const changeVolume = (_, newValue) => {
-    const volumeValue = newValue / 100;
-    setVolume(volumeValue);
-    if (audioPlayerRef.current) {
-      audioPlayerRef.current.audio.current.volume = volumeValue;
-      setMute(volumeValue === 0);
-    }
-  };
+  const changeVolume = useCallback(
+    (_, newValue) => {
+      const volumeValue = newValue / 100;
+      setVolume(volumeValue);
+      if (audioPlayerRef.current) {
+        audioPlayerRef.current.audio.current.volume = volumeValue;
+        setMute(volumeValue === 0);
+      }
+    },
+    [audioPlayerRef],
+  );
 
-  const playPauseAudio = (audio) => {
-    if (!audio && !audioPlayerRef.current) return;
+  const playPauseAudio = useCallback(
+    (audio) => {
+      if (!audio && !audioPlayerRef.current) return;
 
-    if (isPlaying) {
-      audioPlayerRef.current.audio.current.pause();
-    } else {
-      audioPlayerRef.current.audio.current.play();
-      setMute(false);
-    }
-    setIsPlaying((playing) => !playing);
-  };
+      if (isPlaying) {
+        audioPlayerRef.current.audio.current.pause();
+      } else {
+        audioPlayerRef.current.audio.current.play();
+        setMute(false);
+      }
+      setIsPlaying((playing) => !playing);
+    },
+    [isPlaying, audioPlayerRef],
+  );
 
-  const loopAudio = () => {
+  const loopAudio = useCallback(() => {
     if (audioPlayerRef.current) {
       audioPlayerRef.current.audio.current.loop = !isLooping;
       setIsLooping(!isLooping);
     }
-  };
+  }, [isLooping, audioPlayerRef]);
 
-  const changeMute = (value) => {
-    if (audioPlayerRef.current) {
-      audioPlayerRef.current.audio.current.muted = value;
-    }
-    setMute(value);
-  };
+  const changeMute = useCallback(
+    (value) => {
+      if (audioPlayerRef.current) {
+        audioPlayerRef.current.audio.current.muted = value;
+      }
+      setMute(value);
+    },
+    [audioPlayerRef],
+  );
 
   const contextValue = useMemo(
     () => ({
@@ -65,7 +74,17 @@ export const RRVAudioProvider = ({ children }) => {
       loopAudio,
       playPauseAudio,
     }),
-    [volume, isLooping, isPlaying, mute, audioPlayerRef],
+    [
+      volume,
+      isLooping,
+      isPlaying,
+      mute,
+      audioPlayerRef,
+      changeVolume,
+      changeMute,
+      loopAudio,
+      playPauseAudio,
+    ],
   );
 
   return (

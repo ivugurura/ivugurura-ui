@@ -1,20 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import {
   ArrowBackOutlined as ArrowBackIcon,
+  KeyboardArrowRight as NextIcon,
+  KeyboardArrowLeft as PrevIcon,
+  ViewSidebar as SidebarIcon,
   ZoomIn as ZoomInIcon,
   ZoomOut as ZoomOutIcon,
-  KeyboardArrowLeft as PrevIcon,
-  KeyboardArrowRight as NextIcon,
-  ViewSidebar as SidebarIcon,
 } from '@mui/icons-material';
 import {
-  IconButton,
-  Button,
-  TextField,
   Box,
-  useTheme,
+  Button,
+  IconButton,
+  TextField,
   useMediaQuery,
+  useTheme,
 } from '@mui/material';
 
 import { generateSignature } from '../../../helpers/utils/constants';

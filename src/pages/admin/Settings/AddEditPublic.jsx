@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   Dialog,
@@ -37,7 +37,7 @@ export const AddEditPublic = ({ open, onClose, refetchPubs }) => {
   }, [res.isSuccess]);
 
   const handleSave = () => {
-    const { expiryDate, minDate, ...rest } = newPub;
+    const { expiryDate, minDate: _, ...rest } = newPub;
     createPub({ ...rest, expiryDate: dayjs(expiryDate).format('YYYY-MM-DD') });
   };
 
@@ -48,7 +48,7 @@ export const AddEditPublic = ({ open, onClose, refetchPubs }) => {
         <DialogContentText>
           {t('admin.webSettings.fSubtitle')}
         </DialogContentText>
-        <RRVForm fields={pubSchema()} states={newPub} setStates={setNewPub} />
+        <RRVForm fields={pubSchema(t)} states={newPub} setStates={setNewPub} />
       </DialogContent>
       <RRVDialogActions
         onClose={onClose}

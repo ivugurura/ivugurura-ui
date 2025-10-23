@@ -1,24 +1,22 @@
-import React from 'react';
-
 import {
-  SkipNext,
-  SkipPrevious,
+  ArrowOutward,
+  Loop,
   PauseCircle,
   PlayCircle,
-  VolumeUp,
+  SkipNext,
+  SkipPrevious,
   VolumeOff,
-  Loop,
-  ArrowOutward,
+  VolumeUp,
 } from '@mui/icons-material';
 import {
   Box,
-  Typography,
-  IconButton,
+  Button,
   Card,
   CardContent,
-  Slider,
   Grid,
-  Button,
+  IconButton,
+  Slider,
+  Typography,
 } from '@mui/material';
 import AudioPlayer from 'react-h5-audio-player';
 import { useTranslation } from 'react-i18next';
@@ -71,6 +69,7 @@ export const RRVAudioPlayer = ({
 
   const customControls = [
     <Box
+      key="custom-controls"
       sx={{
         display: 'flex',
         alignItems: 'center',

@@ -1,14 +1,11 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
-import React from 'react';
-
 import { Container, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import './styles.css';
 import { socialMedias } from '../../../helpers/utils/constants';
 import { Copyright } from '../Copyright';
 import { useLang } from '../providers';
+import './styles.css';
 
 export const MainFooter = ({ navCategories = [] }) => {
   const { t } = useTranslation();

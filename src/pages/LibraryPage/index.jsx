@@ -57,7 +57,7 @@ const LibraryPage = () => {
   };
   const allCategories = useMemo(() => {
     return [{ id: null, name: allBooks }, ...categories];
-  }, [categories.length]);
+  }, [categories, allBooks]);
   return (
     <PageHelmet title={t('topics')}>
       <Box>

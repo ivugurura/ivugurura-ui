@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Card, CardContent, CardHeader, Skeleton } from '@mui/material';
 
 export const TopicDetailSkeleton = () => (

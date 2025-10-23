@@ -1,7 +1,5 @@
-import React from 'react';
-
 import { Search } from '@mui/icons-material';
-import { TextField, InputAdornment } from '@mui/material';
+import { InputAdornment, TextField } from '@mui/material';
 
 import { useMediaQuery } from '../../common/hooks/useMediaQuery';
 

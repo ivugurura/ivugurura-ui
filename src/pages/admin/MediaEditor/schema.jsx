@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { FormControl, MenuItem, Select, TextField } from '@mui/material';
 
 export const mediaSchema = (albums = []) => [
@@ -122,7 +120,9 @@ export const allAudioColumns = (inputChange, languages, albums) => [
             <em>None</em>
           </MenuItem>
           {albums.map((a) => (
-            <MenuItem value={a.id}>{a.name}</MenuItem>
+            <MenuItem key={a.id} value={a.id}>
+              {a.name}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>

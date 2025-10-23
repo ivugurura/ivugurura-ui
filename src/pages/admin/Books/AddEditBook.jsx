@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -7,7 +7,7 @@ import { RRVDialogActions } from '../../../common/components/RRVDialogActions';
 import { RRVForm } from '../../../common/components/RRVForm/index';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
 
-import { bookSchema, bookInitials } from './schema';
+import { bookInitials, bookSchema } from './schema';
 
 export const AddEditBook = ({ open, onClose, refetchBooks }) => {
   const [newBook, setNewBook] = useState(bookInitials);

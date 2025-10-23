@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
   Delete as DeleteIcon,
   // EditNoteOutlined as EditIcon,

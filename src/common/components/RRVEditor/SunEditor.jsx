@@ -1,5 +1,3 @@
-import React from 'react';
-
 import SunEditor from 'suneditor-react';
 
 import { http } from '../../../helpers';

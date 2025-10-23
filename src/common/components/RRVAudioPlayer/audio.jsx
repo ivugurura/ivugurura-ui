@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 
 const AudioPlay = forwardRef(({ src, autoPlay, preload }, ref) => {
   return (
@@ -14,5 +14,7 @@ const AudioPlay = forwardRef(({ src, autoPlay, preload }, ref) => {
     </audio>
   );
 });
+
+AudioPlay.displayName = 'AudioPlay';
 
 export default AudioPlay;

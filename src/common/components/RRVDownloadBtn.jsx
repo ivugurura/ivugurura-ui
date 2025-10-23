@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { DownloadForOffline as DownloadIcon } from '@mui/icons-material';
 import { Button } from '@mui/material';

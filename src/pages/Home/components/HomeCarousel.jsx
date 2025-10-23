@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Info as InfoIcon } from '@mui/icons-material';
 import {
   CardMedia,

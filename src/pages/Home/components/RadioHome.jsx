@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { ArrowOutward } from '@mui/icons-material';
-import { Button, Box, Typography, Grid } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { RadioKing } from '../../../common/components/Radio';
@@ -9,18 +9,24 @@ import { RRVAudioPlayer } from '../../../common/components/RRVAudioPlayer/RRVAud
 import { actions, initials } from '../../../redux/apiSliceBuilder';
 
 export const RadioHome = ({ nOfAudios = 2 }) => {
-  const [currentAudio, setCurrentAudio] = useState({ index: -1, audio: null });
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const { t } = useTranslation();
   const { data, isFetching } = actions.useListAudiosQuery({
     page: 1,
     pageSize: nOfAudios,
   });
   const { data: audios } = data || initials.dataArr;
-  useEffect(() => {
+  const currentAudio = useMemo(() => {
     if (audios?.length > 0) {
-      setCurrentAudio({ index: 0, audio: audios[0] });
+      const index = selectedIndex < audios.length ? selectedIndex : 0;
+      return { index, audio: audios[index] };
     }
-  }, [audios]);
+    return { index: -1, audio: null };
+  }, [audios, selectedIndex]);
+
+  const setCurrentAudio = ({ index }) => {
+    setSelectedIndex(index);
+  };
   console.log({ isFetching });
 
   return (

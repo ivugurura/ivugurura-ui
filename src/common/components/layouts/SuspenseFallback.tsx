@@ -4,6 +4,10 @@ interface SuspenseFallbackProps {
   message?: string;
 }
 
+interface SuspenseFallbackProps {
+  message?: string;
+}
+
 export const SuspenseFallback = ({ message }: SuspenseFallbackProps) => {
   return (
     <Box

@@ -29,7 +29,7 @@ interface MenuRoute {
 }
 
 interface Menu {
-  type: string | React.RectNode;
+  type: string | React.ReactNode;
   key: string;
   routes: Routes[];
 }

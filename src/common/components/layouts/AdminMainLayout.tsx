@@ -25,13 +25,6 @@ interface AdminMainLayout {
   lang: string;
 }
 
-interface AuthState {
-  isAthenticated: boolean;
-  user: {
-    names: string;
-  };
-}
-
 const drawerWidth = 240;
 export const AdminMainLayout = ({ lang }: AdminMainLayout) => {
   const { t } = useTranslation();

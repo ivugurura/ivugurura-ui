@@ -9,7 +9,7 @@ import { MainFooter } from '../Footer';
 import { NavBar } from '../navbar';
 
 interface UserMainLayout {
-  lang: String;
+  lang: string;
 }
 
 export const UserMainLayout = ({ lang }: UserMainLayout) => {

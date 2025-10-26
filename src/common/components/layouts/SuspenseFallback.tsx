@@ -1,6 +1,11 @@
 import { Box, CircularProgress, Stack } from '@mui/material';
 
-export const SuspenseFallback = ({ message }) => {
+interface SuspenseFallbackProps {
+  message?: string; 
+}
+
+
+export const SuspenseFallback = ({ message }: SuspenseFallbackProps) => {
   return (
     <Box
       style={{

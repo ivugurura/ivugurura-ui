@@ -20,7 +20,23 @@ import { SelectLanguage } from '../../SelectLanguage';
 
 import { ListItemLink } from './ListItemLink';
 
-const dashboardMenus = (lang = 'en', role = undefined, t = () => {}) => [
+interface menuRoute{
+  name: Recat.ReactNode;
+  key: string;
+  to?: string;
+  icon?:React.ElementType;
+  routes:MenuRoutes[];
+}
+
+interface Menu{
+  type: string | Rect.RectNode;
+  key: string;
+  routes: Routes[];
+}
+
+type Role = number | undefined;
+
+const dashboardMenus = (lang: string = 'en', role: number | undefined = undefined , t = () => {}) => [
   {
     type: t('admin.nav.webRelated'),
     key: 'webRelated',

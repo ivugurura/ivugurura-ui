@@ -7,6 +7,11 @@ import { PageRoutes } from '../../../RoutesConstants';
 
 import { SuspenseFallback } from './SuspenseFallback';
 
+interface UserRoute {
+  path: string;
+  component: React.LazyExoticComponent<React.CompontntType<pageProps>>;
+}
+
 const userRoutes = [
   {
     path: undefined,
@@ -38,7 +43,7 @@ const userRoutes = [
   },
 ];
 
-export const UserLayout = () => (
+export const UserLayout = (): JSX.Element => (
   <Box sx={{ minHeight: '70vh' }}>
     {/* <h2>Users layout</h2> */}
     <Routes>

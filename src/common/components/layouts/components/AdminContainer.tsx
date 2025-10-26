@@ -23,10 +23,10 @@ import {
 
 const drawerWidth = 240;
 
-export const AdminContainer = () => {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+export const AdminContainer: React.FC= () => {
+  const [mobileOpen, setMobileOpen] = React.useState<boolean>(false);
 
-  const handleDrawerToggle = () => {
+  const handleDrawerToggle = (): void => {
     setMobileOpen(!mobileOpen);
   };
 

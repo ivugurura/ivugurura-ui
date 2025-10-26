@@ -8,7 +8,11 @@ import { AnnouncementBar } from '../AnnouncementBar';
 import { MainFooter } from '../Footer';
 import { NavBar } from '../navbar';
 
-export const UserMainLayout = ({ lang }) => {
+interface UserMainLayout{
+  lang: String;
+}
+
+export const UserMainLayout = ({ lang }: UserMainLayout) => {
   const { data: catData } = actions.useGetNavsConfigQuery();
   const { data: categories } = catData || initials.dataArr();
 

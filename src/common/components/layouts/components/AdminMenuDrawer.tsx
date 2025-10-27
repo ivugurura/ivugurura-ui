@@ -1,14 +1,14 @@
 import * as React from 'react';
 
 import {
-  HomeOutlined as HomeIcon,
   AddHomeOutlined as AddHomeIcon,
-  PlayLessonOutlined as PlayLessonIcon,
-  MusicNoteOutlined as MusicNoteIcon,
   ChatBubbleOutline as ChatBubbleIcon,
-  SettingsApplicationsOutlined as SettingIcon,
-  PeopleOutline as PeopleIcon,
+  HomeOutlined as HomeIcon,
   LibraryBooksOutlined as LibraryIcon,
+  MusicNoteOutlined as MusicNoteIcon,
+  PeopleOutline as PeopleIcon,
+  PlayLessonOutlined as PlayLessonIcon,
+  SettingsApplicationsOutlined as SettingIcon,
 } from '@mui/icons-material';
 import { Collapse, Divider, List, Toolbar, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
@@ -20,23 +20,21 @@ import { SelectLanguage } from '../../SelectLanguage';
 
 import { ListItemLink } from './ListItemLink';
 
-interface menuRoute{
-  name: Recat.ReactNode;
+interface MenuRoute {
+  name: React.ReactNode;
   key: string;
   to?: string;
-  icon?:React.ElementType;
-  routes:MenuRoutes[];
+  icon?: React.ElementType;
+  routes: MenuRoutes[];
 }
 
-interface Menu{
-  type: string | Rect.RectNode;
+interface Menu {
+  type: string | React.RectNode;
   key: string;
   routes: Routes[];
 }
 
-type Role = number | undefined;
-
-const dashboardMenus = (lang: string = 'en', role: number | undefined = undefined , t = () => {}) => [
+const dashboardMenus = (lang = 'en', t = () => {}, role?: number) => [
   {
     type: t('admin.nav.webRelated'),
     key: 'webRelated',
@@ -128,7 +126,7 @@ export const AdminMenuDrawer = () => {
   return (
     <div>
       <Toolbar />
-      {dashboardMenus(lang, user?.role, t).map((menu) => (
+      {dashboardMenus(lang, t, user?.role).map((menu) => (
         <React.Fragment key={menu.key}>
           <Divider />
           <Typography variant="h6" mt={1}>

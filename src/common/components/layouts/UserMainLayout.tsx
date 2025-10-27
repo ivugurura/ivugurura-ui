@@ -8,7 +8,7 @@ import { AnnouncementBar } from '../AnnouncementBar';
 import { MainFooter } from '../Footer';
 import { NavBar } from '../navbar';
 
-interface UserMainLayout{
+interface UserMainLayout {
   lang: String;
 }
 

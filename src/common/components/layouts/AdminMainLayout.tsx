@@ -21,15 +21,15 @@ import { useAuth } from '../providers';
 import { AdminMenuDrawer } from './components/AdminMenuDrawer';
 import { SuspenseFallback } from './SuspenseFallback';
 
-interface AdminMainLayout{
+interface AdminMainLayout {
   lang: string;
 }
 
-interface AuthState{
- isAthenticated: boolean;
- user: {
-   names: string;
- }
+interface AuthState {
+  isAthenticated: boolean;
+  user: {
+    names: string;
+  };
 }
 
 const drawerWidth = 240;

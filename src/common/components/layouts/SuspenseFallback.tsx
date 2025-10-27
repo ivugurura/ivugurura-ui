@@ -1,9 +1,8 @@
 import { Box, CircularProgress, Stack } from '@mui/material';
 
 interface SuspenseFallbackProps {
-  message?: string; 
+  message?: string;
 }
-
 
 export const SuspenseFallback = ({ message }: SuspenseFallbackProps) => {
   return (

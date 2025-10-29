@@ -4,7 +4,9 @@ interface SuspenseFallbackProps {
   message?: string;
 }
 
-export const SuspenseFallback = ({ message }: SuspenseFallbackProps) => {
+export const SuspenseFallback: React.FC<SuspenseFallbackProps> = ({
+  message,
+}) => {
   return (
     <Box
       style={{

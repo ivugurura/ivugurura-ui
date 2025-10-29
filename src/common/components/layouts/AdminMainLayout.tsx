@@ -9,6 +9,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+import type { RootState } from '@reduxjs/toolkit/query';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
@@ -26,11 +27,13 @@ interface AdminMainLayout {
 }
 
 const drawerWidth = 240;
-export const AdminMainLayout = ({ lang }: AdminMainLayout) => {
+export const AdminMainLayout: React.FC<AdminMainLayoutProps> = ({ lang }) => {
   const { t } = useTranslation();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { isLoading } = useAuth();
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { isAuthenticated, user } = useSelector(
+    (state: RootState) => state.auth,
+  );
 
   useLangRedirect(lang);
 

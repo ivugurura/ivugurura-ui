@@ -20,21 +20,26 @@ import { SelectLanguage } from '../../SelectLanguage';
 
 import { ListItemLink } from './ListItemLink';
 
+interface DashboardMenusProps {
+  lang: string;
+  role?: string;
+}
+
 interface MenuRoute {
   name: React.ReactNode;
   key: string;
   to?: string;
   icon?: React.ElementType;
-  routes: MenuRoutes[];
+  routes: MenuRoute[];
 }
 
 interface Menu {
   type: string | React.ReactNode;
   key: string;
-  routes: Routes[];
+  routes: MenuRoute[];
 }
 
-const dashboardMenus = (lang = 'en', t = () => {}, role?: number) => [
+const dashboardMenus = (lang = 'en', t = () => {}, role) => [
   {
     type: t('admin.nav.webRelated'),
     key: 'webRelated',
@@ -113,7 +118,7 @@ const dashboardMenus = (lang = 'en', t = () => {}, role?: number) => [
     ],
   },
 ];
-export const AdminMenuDrawer = () => {
+export const AdminMenuDrawer: React.FC = () => {
   const { t } = useTranslation();
   const [currentlyOpen, setCurrentlyOpen] = React.useState(null);
   const { user } = useSelector((state) => state.auth);

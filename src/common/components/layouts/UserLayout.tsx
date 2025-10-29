@@ -8,11 +8,11 @@ import { PageRoutes } from '../../../RoutesConstants';
 import { SuspenseFallback } from './SuspenseFallback';
 
 interface UserRoute {
-  path: string;
-  component: React.LazyExoticComponent<React.CompontntType<pageProps>>;
+  path?: string;
+  component: React.LazyExoticComponent<React.ComponentType>;
 }
 
-const userRoutes = [
+const userRoutes: UserRoute[] = [
   {
     path: undefined,
     component: React.lazy(() => import('../../../pages/Home')),
@@ -43,9 +43,8 @@ const userRoutes = [
   },
 ];
 
-export const UserLayout = (): JSX.Element => (
+export const UserLayout: React.FC = () => (
   <Box sx={{ minHeight: '70vh' }}>
-    {/* <h2>Users layout</h2> */}
     <Routes>
       {userRoutes.map(({ path, component: Component }) => (
         <Route

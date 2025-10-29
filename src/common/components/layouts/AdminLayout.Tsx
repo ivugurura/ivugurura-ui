@@ -39,7 +39,7 @@ const dashboardRoutes = [
     component: React.lazy(() => import('../../../pages/admin/Books')),
   },
 ];
-export const AdminLayout = () => {
+export const AdminLayout: React.FC = () => {
   const { data, ...restCountsQ } = actions.useGetCountsSystemQuery();
   const { data: counts } = data || initials.dataObj();
   const toDataCounts = useMemo(

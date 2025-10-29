@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 
@@ -8,11 +10,11 @@ import { AnnouncementBar } from '../AnnouncementBar';
 import { MainFooter } from '../Footer';
 import { NavBar } from '../navbar';
 
-interface UserMainLayout {
+interface UserMainLayoutProps {
   lang: string;
 }
 
-export const UserMainLayout = ({ lang }: UserMainLayout) => {
+export const UserMainLayout: React.FC<UserMainLayoutProps> = ({ lang }) => {
   const { data: catData } = actions.useGetNavsConfigQuery();
   const { data: categories } = catData || initials.dataArr();
 

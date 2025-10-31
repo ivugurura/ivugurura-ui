@@ -10,7 +10,15 @@ import {
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
-export const ListItemLink = ({
+interface ListItemLinkProps extends Omit<RouterLinkProps, 'to'> {
+  primary: React.ReactNode; 
+  icon?: React.ElementType; 
+  open?: boolean;          
+  to?: string;             
+  canExpand?: boolean;         
+}
+
+export const ListItemLink: React.FC<ListItemLinkProps> = ({
   primary,
   icon: Icon,
   open,

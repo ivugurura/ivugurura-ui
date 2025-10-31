@@ -20,10 +20,7 @@ import { SelectLanguage } from '../../SelectLanguage';
 
 import { ListItemLink } from './ListItemLink';
 
-interface DashboardMenusProps {
-  lang: string;
-  role?: string;
-}
+
 
 interface MenuRoute {
   name: React.ReactNode;

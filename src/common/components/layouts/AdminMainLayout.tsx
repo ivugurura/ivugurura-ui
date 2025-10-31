@@ -21,7 +21,7 @@ import { useAuth } from '../providers';
 
 import { AdminMenuDrawer } from './components/AdminMenuDrawer';
 import { SuspenseFallback } from './SuspenseFallback';
-import type { RootState } from '@reduxjs/toolkit/query';
+
 
 interface AdminMainLayout {
   lang: string;

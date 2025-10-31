@@ -1,14 +1,14 @@
 import { appStates } from './states';
 
-function startCase(str = '', action = 'toUpperCase') {
+function startCase(str: string) {
   const sentences = str.toLowerCase().split(' ');
   sentences.forEach((_, i) => {
-    sentences[i] = sentences[i].charAt(0)[action]() + sentences[i].slice(1);
+    sentences[i] = sentences[i].charAt(0).toUpperCase() + sentences[i].slice(1);
   });
   return sentences.join(' ');
 }
 
-export function formatStateName(entity = '') {
+export function formatStateName(entity: string) {
   if (entity) {
     const title = startCase(entity.toLowerCase());
 
@@ -17,15 +17,13 @@ export function formatStateName(entity = '') {
   return '';
 }
 
-const buildState = (state) => {
+const buildState = (state: APP.IState) => {
   const { actions, entity } = state;
 
-  //   const entity = formatStateName(spacedEntity);
-
-  const newActions = actions; // { add: {}}
+  const newActions = actions;
   Object.keys(actions).forEach((key) => {
     if (actions[key]) {
-      const action = `${key + entity}${actions[key].suffix || ''}`;
+      const action = `${key + entity}${actions[key].suffix ?? ''}`;
       newActions[key] = { ...actions[key], action };
     }
   });
@@ -33,5 +31,5 @@ const buildState = (state) => {
   return newActions;
 };
 
-export const buildAppStates = () =>
+export const buildAppStates = (): APP.IState[] =>
   appStates.map((s) => ({ ...s, actions: buildState(s) }));

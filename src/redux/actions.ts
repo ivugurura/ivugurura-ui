@@ -1,4 +1,4 @@
-import { filePathSlice, authUserSlice } from './constantSlices';
+import { authUserSlice, filePathSlice } from './constantSlices';
 
 export { actions } from './apiSliceBuilder';
 export const { setFilePath, resetFilePath } = filePathSlice.actions;

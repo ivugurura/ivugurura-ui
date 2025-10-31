@@ -2,7 +2,7 @@ import { VERBS } from '../../helpers/http';
 
 import { getParams } from './utils';
 
-export const AudioState = {
+export const AudioState: APP.IState = {
   entity: 'Audio',
   actions: {
     list: {

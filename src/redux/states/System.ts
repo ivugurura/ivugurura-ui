@@ -2,7 +2,7 @@ import { VERBS } from '../../helpers/http';
 
 import { getParams } from './utils';
 
-export const SystemState = {
+export const SystemState: APP.IState = {
   entity: 'System',
   actions: {
     getCounts: {

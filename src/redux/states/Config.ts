@@ -1,6 +1,6 @@
 import { VERBS } from '../../helpers/http';
 
-export const ConfigState = {
+export const ConfigState: APP.IState = {
   entity: 'Config',
   actions: {
     getNavs: {

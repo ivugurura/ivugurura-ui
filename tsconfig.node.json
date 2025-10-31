@@ -8,7 +8,12 @@
     "noEmit": true,
     /* Linting */
     "strict": true,
-    "types": ["node"]
+    "types": [
+      "node",
+      "src/types"
+    ]
   },
-  "include": ["vite.config.ts"]
+  "include": [
+    "vite.config.ts"
+  ]
 }

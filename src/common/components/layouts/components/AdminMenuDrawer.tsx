@@ -20,8 +20,6 @@ import { SelectLanguage } from '../../SelectLanguage';
 
 import { ListItemLink } from './ListItemLink';
 
-
-
 interface MenuRoute {
   name: React.ReactNode;
   key: string;
@@ -36,7 +34,7 @@ interface Menu {
   routes: MenuRoute[];
 }
 
-const dashboardMenus = (lang = 'en', t:()=> string, role): Menu[] => [
+const dashboardMenus = (lang = 'en', t: () => string, role): Menu[] => [
   {
     type: t('admin.nav.webRelated'),
     key: 'webRelated',
@@ -121,7 +119,7 @@ export const AdminMenuDrawer: React.FC = () => {
   const { user } = useSelector((state: any) => state.auth);
   const { lang } = useLang();
 
-  const handleOpen = (key:string) => {
+  const handleOpen = (key: string) => {
     setCurrentlyOpen((prev) => (prev === key ? null : key));
   };
 

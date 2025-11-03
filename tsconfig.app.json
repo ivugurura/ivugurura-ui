@@ -2,11 +2,7 @@
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ES2022",
-    "lib": [
-      "ES2023",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -31,22 +27,11 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "types": [
-      "vite/client"
-    ],
+    "types": ["vite/client"],
     "paths": {
-      "@redux/actions": [
-        "src/redux/actions.ts"
-      ]
+      "@redux/actions": ["src/redux/actions.ts"]
     }
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "dist",
-    "build",
-    "build-staging",
-    "node_modules"
-  ]
+  "include": ["src"],
+  "exclude": ["dist", "build", "build-staging", "node_modules"]
 }

@@ -1,5 +1,9 @@
+import path from 'path';
+
 import reactSWC from '@vitejs/plugin-react-swc';
 import { defineConfig, loadEnv } from 'vite';
+
+const resolvePath = (p: string) => path.resolve(__dirname, p);
 
 export default defineConfig(({ mode }) => {
   loadEnv(mode, process.cwd(), ''); // load .env if needed
@@ -14,6 +18,11 @@ export default defineConfig(({ mode }) => {
     define: {
       // temporary shim if CRA-era code references process.env directly
       'process.env': {},
+    },
+    resolve: {
+      alias: {
+        '@redux/actions': resolvePath('src/redux/actions.ts'),
+      },
     },
   };
 });

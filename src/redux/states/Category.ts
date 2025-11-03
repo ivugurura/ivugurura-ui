@@ -2,7 +2,7 @@ import { VERBS } from '../../helpers/http';
 
 import { getParams } from './utils';
 
-export const CategoryState = {
+export const CategoryState: APP.IState = {
   entity: 'Category',
   actions: {
     list: {

@@ -29,8 +29,9 @@ export const LangProvider = ({ children }: LangProviderProps) => {
   const changeLang = useCallback(
     (newLang: string, isAdmin: boolean) => {
       if (newLang !== lang) {
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        i18n.changeLanguage(newLang);
+        i18n.changeLanguage(newLang).catch((e) => {
+          console.error('Error changing language:', e);
+        });
         if (isAdmin) {
           window.location.reload();
         } else {

@@ -1,6 +1,6 @@
 import { VERBS } from '../../helpers/http';
 
-export const MediaState = {
+export const MediaState: APP.IState = {
   entity: 'Media',
   actions: {
     getResources: {

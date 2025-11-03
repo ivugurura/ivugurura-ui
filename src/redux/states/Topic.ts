@@ -2,7 +2,7 @@ import { VERBS } from '../../helpers/http';
 
 import { getParams } from './utils';
 
-export const TopicState = {
+export const TopicState: APP.IState = {
   entity: 'Topic',
   actions: {
     create: {

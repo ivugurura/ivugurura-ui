@@ -37,6 +37,7 @@ export default [
         'warn',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
       ],
+      '@typescript-eslint/prefer-nullish-coalescing': 'off',
     },
   }),
 

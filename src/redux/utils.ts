@@ -1,4 +1,4 @@
-export const startCase = (str = '', toUpper = true) => {
+export const startCase = (str: string, toUpper = true) => {
   const sentences = str.toLowerCase().split(' ');
   sentences.forEach((_, i) => {
     const firstChar = sentences[i].charAt(0);
@@ -10,7 +10,7 @@ export const startCase = (str = '', toUpper = true) => {
   return sentences.join(' ');
 };
 
-export const getSearchParams = (url = '') => {
+export const getSearchParams = (url: string) => {
   const paramPattern = /:\w+/g;
 
   return (
@@ -28,9 +28,9 @@ export const getSearchParams = (url = '') => {
  * @returns formatted string
  */
 export const formatParamaterizedUrl = (
-  url = '',
-  params = {},
-  searchParams = [],
+  url: string,
+  params: Record<string, string>,
+  searchParams: string[],
 ) => {
   let endpoint = url;
   /**
@@ -52,9 +52,9 @@ export const formatParamaterizedUrl = (
 };
 
 export const formulateQuery =
-  ({ endpoint, verb, hasBody, isDownload } = {}) =>
+  ({ endpoint, verb, hasBody, isDownload }: APP.IApi) =>
   (args = {}) => {
-    const query = {
+    const query: APP.IQuery = {
       url: endpoint,
       method: verb,
       body: hasBody ? args : undefined,
@@ -79,7 +79,7 @@ export const formulateQuery =
       query.responseHandler = async (response) => {
         if (!response.ok) {
           // Capture the error message from the response
-          const error = await response.json();
+          const error = (await response.json()) as { error: string };
 
           throw new Error(error.error || 'Failed to download file');
         }
@@ -88,7 +88,7 @@ export const formulateQuery =
         const contentDisposition = response.headers.get('Content-Disposition');
         let fileName = 'downloaded_file';
         if (contentDisposition) {
-          const match = contentDisposition.match(/filename="(.+)"/);
+          const match = /filename="(.+)"/.exec(contentDisposition);
           fileName = match ? match[1] : 'downloaded_file';
         }
         return { blob, fileName };

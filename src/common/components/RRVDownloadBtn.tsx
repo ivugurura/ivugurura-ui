@@ -4,15 +4,20 @@ import { DownloadForOffline as DownloadIcon } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { toast } from 'react-toastify';
 
-import { actions } from '../../redux/apiSliceBuilder';
+import { actions, type MutationHook } from '../../redux/actions';
 
+interface RRVDownloadBtnProps {
+  useMutation: keyof typeof actions;
+  params?: Record<string, unknown>;
+  hideBtntext?: boolean;
+}
 export const RRVDownloadBtn = ({
   useMutation,
   params = {},
   hideBtntext = false,
-}) => {
-  const [downladFile, { data, isLoading, isSuccess, error }] =
-    actions[useMutation]();
+}: RRVDownloadBtnProps) => {
+  const useAction = actions[useMutation] as MutationHook<ST.IFileDownload>;
+  const [downloadFile, { data, error, isLoading, isSuccess }] = useAction();
 
   useEffect(() => {
     if (isSuccess && data?.blob) {
@@ -25,11 +30,11 @@ export const RRVDownloadBtn = ({
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url); // Cleanup
     }
-  }, [data]);
+  }, [data, isSuccess]);
 
   useEffect(() => {
     if (error?.error) {
-      toast.error(error.error, {
+      toast.error(String(error.error) || 'Download failed', {
         position: 'bottom-right',
         toastId: 13,
       });
@@ -38,7 +43,7 @@ export const RRVDownloadBtn = ({
 
   return (
     <Button
-      onClick={() => downladFile(params)}
+      onClick={() => downloadFile(params)}
       disabled={isLoading}
       startIcon={<DownloadIcon />}
       color="info"

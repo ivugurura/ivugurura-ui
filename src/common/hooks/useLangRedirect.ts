@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { useLocation, useNavigate, useParams } from 'react-router';
 
-export const useLangRedirect = (currentLang) => {
+export const useLangRedirect = (currentLang: string) => {
   const { lang: urlLang } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -13,5 +13,6 @@ export const useLangRedirect = (currentLang) => {
 
       navigate(newPath, { replace: true });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLang, urlLang]);
 };

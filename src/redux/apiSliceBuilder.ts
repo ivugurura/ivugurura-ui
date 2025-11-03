@@ -1,7 +1,12 @@
 import {
   createApi,
   fetchBaseQuery,
+  type Api,
+  type BaseQueryFn,
   type EndpointBuilder,
+  type FetchArgs,
+  type FetchBaseQueryError,
+  type FetchBaseQueryMeta,
 } from '@reduxjs/toolkit/query/react';
 
 import {
@@ -13,6 +18,61 @@ import {
 import * as initialStates from './initialStates';
 import { buildAppStates } from './stateBuilder';
 import { formulateQuery, startCase } from './utils';
+
+// Type definitions for API hooks
+export type QueryHook<TData = unknown, TArgs = void> = (
+  args: TArgs,
+  options?: unknown,
+) => {
+  data?: TData;
+  error?: unknown;
+  isLoading: boolean;
+  isSuccess: boolean;
+  isError: boolean;
+  refetch: () => void;
+};
+
+export type MutationHook<TData = unknown, TArgs = void> = () => [
+  (args: TArgs) => { data?: TData; error?: unknown },
+  {
+    data?: TData;
+    error?: unknown;
+    isLoading: boolean;
+    isSuccess: boolean;
+    isError: boolean;
+    reset: () => void;
+  },
+];
+
+// Generic hook type that can be either query or mutation
+type ApiHook<TData = unknown, TArgs = void> =
+  | QueryHook<TData, TArgs>
+  | MutationHook<TData, TArgs>;
+
+interface ApiSlicersReturn {
+  reducers: Record<string, unknown>;
+  middlewares: unknown[];
+  actions: Record<string, ApiHook>;
+  initials: typeof initialStates;
+}
+
+interface DynamicApi
+  extends Api<
+    BaseQueryFn<
+      string | FetchArgs,
+      unknown,
+      FetchBaseQueryError,
+      object,
+      FetchBaseQueryMeta
+    >,
+    Record<string, unknown>,
+    string,
+    string
+  > {
+  reducerPath: string;
+  reducer: unknown;
+  middleware: unknown;
+}
 
 const states = buildAppStates();
 
@@ -48,7 +108,7 @@ const formatBaseQuery = () => {
     },
   });
 };
-const buildAppApis = () => {
+const buildAppApis = (): DynamicApi[] => {
   const baseQuery = formatBaseQuery();
 
   return states.map((state) =>
@@ -67,9 +127,9 @@ const buildAppApis = () => {
   );
 };
 
-const buildApiSlicers = () => {
+const buildApiSlicers = (): ApiSlicersReturn => {
   const apis = buildAppApis();
-  const utils = {
+  const utils: ApiSlicersReturn = {
     reducers: {},
     middlewares: [],
     actions: {},
@@ -86,8 +146,7 @@ const buildApiSlicers = () => {
         !key.includes('Lazy') &&
         key !== 'usePrefetch'
       ) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        utils.actions[key] = api[key];
+        utils.actions[key] = api[key] as ApiHook;
       }
     });
   });
@@ -98,3 +157,6 @@ const buildApiSlicers = () => {
 const slicers = buildApiSlicers();
 
 export const { actions, initials, reducers, middlewares } = slicers;
+
+// Export type helper for using hooks with generics
+export type TypedApiHook<TData = unknown, TArgs = void> = ApiHook<TData, TArgs>;

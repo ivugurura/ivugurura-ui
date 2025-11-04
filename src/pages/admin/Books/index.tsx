@@ -106,7 +106,7 @@ const Books = () => {
             data={books}
             isLoading={isFetching}
             enableRowActions
-            renderRowActions={({ row }) => (
+            renderRowActions={({ row }: { row: { original: APP.IBook } }) => (
               <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
                 {/* <Button size="small" startIcon={<EditIcon />}>
                       Edit

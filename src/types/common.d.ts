@@ -29,4 +29,18 @@ declare namespace APP {
     firstName: string;
     lastName: string;
   }
+  interface ICategory {
+    id: string;
+    name: string;
+  }
+  interface IBook {
+    id: string;
+    name: string;
+    summary: string;
+    url: string;
+    coverImage: string;
+    slug: string;
+    author: string;
+    isDownloaded: boolean;
+  }
 }

@@ -11,6 +11,7 @@ import {
   SettingsApplicationsOutlined as SettingIcon,
 } from '@mui/icons-material';
 import { Collapse, Divider, List, Toolbar, Typography } from '@mui/material';
+import type { AppState } from '@redux/store';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -118,7 +119,7 @@ const dashboardMenus = (lang = 'en', t: () => string, role): Menu[] => [
 export const AdminMenuDrawer: React.FC = () => {
   const { t } = useTranslation();
   const [currentlyOpen, setCurrentlyOpen] = React.useState<string | null>(null);
-  const { user } = useSelector((state: any) => state.auth);
+  const { user } = useSelector<AppState, ST.IAuth>((state) => state.auth);
   const { lang } = useLang();
 
   const handleOpen = (key: string) => {

@@ -34,7 +34,6 @@ const Books = () => {
   const { paginator } = useMuiSearchPagination();
   const useListBooks = actions.useListBooksQuery as QueryHook<APP.IBook[]>;
   const { data, isFetching, refetch } = useListBooks(paginator);
-  const { data: books } = data || initials.dataArr;
 
   const useDeleteBook =
     actions.useDeleteBookMutation as MutationHook<APP.IBook>;

@@ -15,6 +15,7 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
+  type Theme,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -49,6 +50,14 @@ export const AudioList: React.FC<AudioListProps> = ({
   const [shareSong] = useShareAudio();
   const { t } = useTranslation();
   const { volume, isPlaying } = useRRVAudioPlayerCtx();
+  const visualBackground =
+    (isCurrent: boolean) =>
+    ({ palette }: Theme) => {
+      if (isPlaying && isCurrent) {
+        return palette.green;
+      }
+      return palette.listGrey;
+    };
 
   return (
     <List>
@@ -114,9 +123,7 @@ export const AudioList: React.FC<AudioListProps> = ({
             >
               <AudioVisualizer
                 isPlaying={isPlaying && isCurrent}
-                background={({ palette }) =>
-                  isPlaying && isCurrent ? palette.green : palette.listGrey
-                }
+                background={visualBackground(isCurrent)}
               />
               <Box
                 px={1}

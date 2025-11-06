@@ -6,6 +6,7 @@ import {
   Twitter as TwitterIcon,
   WhatsApp as WhatsAppIcon,
 } from '@mui/icons-material';
+import type { Theme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import {
   FacebookShareButton,

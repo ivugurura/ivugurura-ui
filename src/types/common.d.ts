@@ -37,10 +37,11 @@ declare namespace APP {
   }
   interface ITopic {
     id: string;
-    name: string;
+    title: string;
     description: string;
     coverImage: string;
     slug: string;
+    updatedAt: string;
   }
   interface ISearchData {
     topics: ITopic[];

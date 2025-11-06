@@ -54,7 +54,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
   const useSearchSystem =
     actions.useSearchSystemQuery as QueryHook<APP.ISearchData>;
   const { data, isFetching } = useSearchSystem({ searchKey });
-  const { data: searched } = data || initials.dataObj;
+  const { data: searched } = data || initials.dataObj();
 
   const handleNavigate = (type, slug) => {
     const route = `topics${type === 'topic' ? '/' : '?t='}${slug}`;

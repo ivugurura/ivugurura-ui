@@ -2,15 +2,15 @@ import React from 'react';
 
 import { Card, CardContent, Grid, Skeleton } from '@mui/material';
 
-interface TopicsCardSkeletonProps{
+interface TopicsCardSkeletonProps {
   totalItems: number;
-  itemsSize?:{
+  itemsSize?: {
     md: number;
-    xs: number
-  }
+    xs: number;
+  };
 }
 
-export const TopicsCardSkeleton: React.FC<TopicsCardSkeletonProps>= ({
+export const TopicsCardSkeleton: React.FC<TopicsCardSkeletonProps> = ({
   totalItems = 3,
   itemsSize = { md: 4, xs: 12 },
 }) => (

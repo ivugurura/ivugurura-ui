@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, Skeleton } from '@mui/material';
 
-export const TopicDetailSkeleton = () => (
+export const TopicDetailSkeleton: React.FC = () => (
   <Card sx={{ height: 600, width: '100%' }}>
     <CardHeader
       avatar={

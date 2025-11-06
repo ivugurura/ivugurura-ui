@@ -48,7 +48,7 @@ export const AdminLayout: React.FC = () => {
     Record<string, number>
   >;
   const { data, ...restCountsQ } = useGetCountsSystem();
-  const { data: counts } = data || initials.dataObj;
+  const { data: counts } = data || initials.dataObj();
   const toDataCounts = useMemo(
     () =>
       Object.keys(counts ?? {}).map((key) => ({

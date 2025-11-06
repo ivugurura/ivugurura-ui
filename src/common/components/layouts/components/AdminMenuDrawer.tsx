@@ -21,8 +21,6 @@ import { SelectLanguage } from '../../SelectLanguage';
 
 import { ListItemLink } from './ListItemLink';
 
-
-
 interface MenuRoute {
   name: React.ReactNode;
   key: string;

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { Menu as MenuIcon } from '@mui/icons-material';
 import {
@@ -9,6 +9,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+import type { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -21,13 +22,21 @@ import { SelectLanguage } from '../SelectLanguage';
 import { ContactModal } from './ContactModal';
 import { SearchModal } from './SearchModal';
 
-/**
- * Should be refactored
- */
-const AdditionalMenu = ({
+interface AdditionalMenuProps {
+  navigate: (path: string) => void;
+  t: TFunction;
+  onOpenContact?: () => void;
+  hide?: boolean;
+}
+
+interface NavBarProps {
+  navCategories?: APP.ICategory[];
+}
+
+const AdditionalMenu: React.FC<AdditionalMenuProps> = ({
   navigate,
   t,
-  onOpenContact = () => {},
+  onOpenContact,
   hide = false,
 }) => {
   const menuItems = [
@@ -50,7 +59,7 @@ const AdditionalMenu = ({
     ),
   );
 };
-export const NavBar = ({ navCategories = [] }) => {
+export const NavBar: React.FC<NavBarProps> = ({ navCategories = [] }) => {
   const { t } = useTranslation();
 
   const { lang } = useLang();
@@ -83,7 +92,9 @@ export const NavBar = ({ navCategories = [] }) => {
     ));
   }, [navCategories, navigate]);
 
-  const handleSearch = ({ target: { value } }) => {
+  const handleSearch = ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>) => {
     setSearchKey(value);
     setOpenSearch(true);
   };

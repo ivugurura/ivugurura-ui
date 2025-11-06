@@ -8,7 +8,7 @@ import {
   type ButtonProps,
   type MenuProps,
 } from '@mui/material';
-import { styled, alpha } from '@mui/material/styles';
+import { alpha, styled } from '@mui/material/styles';
 
 interface RRVDropdownProps {
   title?: React.ReactNode;
@@ -62,7 +62,7 @@ const StyledMenu = styled((props: MenuProps) => (
   },
 }));
 
-export const RRVDropdown = ({
+export const RRVDropdown: React.FC<RRVDropdownProps> = ({
   title = '',
   options = [],
   variant = 'contained',
@@ -70,7 +70,7 @@ export const RRVDropdown = ({
   buttonProps = {},
   menuProps = {},
   share,
-}: RRVDropdownProps) => {
+}) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

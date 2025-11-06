@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import {
   Button,
@@ -11,21 +11,25 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { actions } from '../../../redux/apiSliceBuilder';
+import { actions, type MutationHook } from '../../../redux/apiSliceBuilder';
 import { RRVForm } from '../RRVForm';
 
 import { contactSchema, formInitials } from './schema';
 
-interface ContactModal{
-  open: any;
-  onClose: any;
+interface ContactModalProps {
+  open: boolean;
+  onClose: () => void;
 }
 
-export const ContactModal = ({ open, onClose }) => {
+export const ContactModal: React.FC<ContactModalProps> = ({
+  open,
+  onClose,
+}) => {
   const { t } = useTranslation();
 
   const [thisState, setThisState] = useState(formInitials);
-  const [sendEmail, sendEmailRes] = actions.useContactUsSystemMutation();
+  const useContactUsSystem = actions.useContactUsSystemMutation as MutationHook;
+  const [sendEmail, sendEmailRes] = useContactUsSystem();
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>

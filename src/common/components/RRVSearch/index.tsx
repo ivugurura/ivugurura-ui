@@ -1,5 +1,7 @@
+import React from 'react';
+
 import { Search as SearchIcon } from '@mui/icons-material';
-import { InputBase } from '@mui/material';
+import { InputBase, type InputBaseProps } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
@@ -45,7 +47,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export const RRVSearch = ({ ...searchProps }) => {
+export const RRVSearch: React.FC<InputBaseProps> = (props) => {
   const { t } = useTranslation();
   return (
     <Search>
@@ -55,7 +57,7 @@ export const RRVSearch = ({ ...searchProps }) => {
       <StyledInputBase
         placeholder={`${t('search')}...`}
         inputProps={{ 'aria-label': 'search' }}
-        {...searchProps}
+        {...props}
       />
     </Search>
   );

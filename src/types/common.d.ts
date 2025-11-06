@@ -32,6 +32,19 @@ declare namespace APP {
   interface ICategory {
     id: string;
     name: string;
+    slug: string;
+    categories?: ICategory[];
+  }
+  interface ITopic {
+    id: string;
+    name: string;
+    description: string;
+    coverImage: string;
+    slug: string;
+  }
+  interface ISearchData {
+    topics: ITopic[];
+    categories: ICategory[];
   }
   interface IBook {
     id: string;

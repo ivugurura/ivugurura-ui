@@ -3,7 +3,11 @@ import React, { Suspense, useMemo } from 'react';
 import { Box } from '@mui/material';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { actions, initials } from '../../../redux/apiSliceBuilder';
+import {
+  actions,
+  initials,
+  type QueryHook,
+} from '../../../redux/apiSliceBuilder';
 import { PageRoutes } from '../../../RoutesConstants';
 
 import { SuspenseFallback } from './SuspenseFallback';
@@ -40,8 +44,11 @@ const dashboardRoutes = [
   },
 ];
 export const AdminLayout: React.FC = () => {
-  const { data, ...restCountsQ } = actions.useGetCountsSystemQuery();
-  const { data: counts } = data || initials.dataObj();
+  const useGetCountsSystem = actions.useGetCountsSystemQuery as QueryHook<
+    Record<string, number>
+  >;
+  const { data, ...restCountsQ } = useGetCountsSystem();
+  const { data: counts } = data || initials.dataObj;
   const toDataCounts = useMemo(
     () =>
       Object.keys(counts ?? {}).map((key) => ({

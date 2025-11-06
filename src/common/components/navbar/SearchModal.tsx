@@ -1,9 +1,9 @@
 import React from 'react';
 
 import {
+  Category as CategoryIcon,
   Search as SearchIcon,
   Topic as TopicIcon,
-  Category as CategoryIcon,
 } from '@mui/icons-material';
 import {
   CircularProgress,
@@ -20,14 +20,21 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import { styled, alpha } from '@mui/material/styles';
+import { alpha, styled } from '@mui/material/styles';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { toLink } from '../../../helpers/utils/constants';
 import { actions } from '../../../redux/actions';
-import { initials } from '../../../redux/apiSliceBuilder';
+import { initials, type QueryHook } from '../../../redux/apiSliceBuilder';
+
+interface SearchModalProps {
+  open: boolean;
+  onClose: () => void;
+  searchKey: string;
+  setSearchKey: (key: string) => void;
+}
 
 const ListItemStyled = styled(ListItem)(({ theme }) => ({
   cursor: 'pointer',
@@ -35,11 +42,18 @@ const ListItemStyled = styled(ListItem)(({ theme }) => ({
     backgroundColor: alpha(theme.palette.grey[600], 0.25),
   },
 }));
-export const SearchModal = ({ open, onClose, searchKey, setSearchKey }) => {
+export const SearchModal: React.FC<SearchModalProps> = ({
+  open,
+  onClose,
+  searchKey,
+  setSearchKey,
+}) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const { data, isFetching } = actions.useSearchSystemQuery({ searchKey });
+  const useSearchSystem =
+    actions.useSearchSystemQuery as QueryHook<APP.ISearchData>;
+  const { data, isFetching } = useSearchSystem({ searchKey });
   const { data: searched } = data || initials.dataObj;
 
   const handleNavigate = (type, slug) => {

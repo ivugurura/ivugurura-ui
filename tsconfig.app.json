@@ -19,7 +19,6 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "allowJs": true,
-    "baseUrl": ".",
     "checkJs": false,
     "noImplicitAny": false,
     "skipLibCheck": true,
@@ -29,7 +28,7 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["vite/client"],
     "paths": {
-      "@redux/actions": ["src/redux/actions.ts"]
+      "@redux/actions": ["./src/redux/actions.ts"]
     }
   },
   "include": ["src"],

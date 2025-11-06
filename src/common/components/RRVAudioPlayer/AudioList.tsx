@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {
   FileDownloadOutlined,
   PauseCircle,
@@ -13,21 +15,49 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
+  type Theme,
 } from '@mui/material';
+import { actions, type MutationHook } from '@redux/actions';
 import { useTranslation } from 'react-i18next';
 
 import { dateFormat, DL_ROUTE } from '../../../helpers/utils/constants';
-import { actions } from '../../../redux/apiSliceBuilder';
 import { useStyles } from '../../styles';
 import { RRVShare } from '../RRVShare';
 
 import { AudioVisualizer } from './audioVisualizerBar';
 import { useRRVAudioPlayerCtx } from './provider';
 
-export const AudioList = ({ audios, currentAudio, setCurrentAudio }) => {
-  const [shareSong] = actions.useShareAudioMutation();
+interface CurrentAudio {
+  index: number;
+  audio: APP.IAudio | null;
+}
+
+interface AudioListProps {
+  audios: APP.IAudio[];
+  currentAudio: CurrentAudio;
+  setCurrentAudio: React.Dispatch<React.SetStateAction<CurrentAudio>>;
+}
+
+export const AudioList: React.FC<AudioListProps> = ({
+  audios,
+  currentAudio,
+  setCurrentAudio,
+}) => {
+  const useShareAudio = actions.useShareAudioMutation as MutationHook<
+    APP.IAudio,
+    { slug: string }
+  >;
+  const [shareSong] = useShareAudio();
   const { t } = useTranslation();
   const { volume, isPlaying } = useRRVAudioPlayerCtx();
+  const visualBackground =
+    (isCurrent: boolean) =>
+    ({ palette }: Theme) => {
+      if (isPlaying && isCurrent) {
+        return palette.green;
+      }
+      return palette.listGrey;
+    };
 
   return (
     <List>
@@ -93,9 +123,7 @@ export const AudioList = ({ audios, currentAudio, setCurrentAudio }) => {
             >
               <AudioVisualizer
                 isPlaying={isPlaying && isCurrent}
-                background={({ palette }) =>
-                  isPlaying && isCurrent ? palette.green : palette.listGrey
-                }
+                background={visualBackground(isCurrent)}
               />
               <Box
                 px={1}

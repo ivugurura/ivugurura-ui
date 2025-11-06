@@ -22,7 +22,7 @@ export function useLang() {
   return useContext(LangContext);
 }
 
-export const LangProvider = ({ children }: LangProviderProps) => {
+export const LangProvider: React.FC<LangProviderProps> = ({ children }) => {
   const { i18n } = useTranslation();
   const lang = useMemo(() => systemLanguage, []);
 

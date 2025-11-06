@@ -1,6 +1,15 @@
-import { Box } from '@mui/material';
+import React from 'react';
 
-export const AudioVisualizer = ({ isPlaying, background = '#000' }) => {
+import { Box, type Theme } from '@mui/material';
+
+interface AudioVisualizerProps {
+  isPlaying: boolean;
+  background?: string | ((theme: Theme) => string);
+}
+export const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
+  isPlaying,
+  background = '#000',
+}) => {
   const fixedHeights = ['30%', '70%', '50%', '60%'];
   const bars = 4;
 
@@ -15,7 +24,7 @@ export const AudioVisualizer = ({ isPlaying, background = '#000' }) => {
         padding: '2px',
       }}
     >
-      {[...Array(bars)].map((_, index) => (
+      {Array.from({ length: bars }).map((_, index) => (
         <Box
           key={index}
           sx={{

@@ -17,3 +17,5 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({})
     .concat(middlewares, rtkQueryErrorLogger),
 });
+
+export type AppState = ReturnType<typeof store.getState>;

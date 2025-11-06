@@ -9,6 +9,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+import type { AppState } from '@redux/store';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
@@ -21,12 +22,18 @@ import { useAuth } from '../providers';
 import { AdminMenuDrawer } from './components/AdminMenuDrawer';
 import { SuspenseFallback } from './SuspenseFallback';
 
+interface AdminMainLayoutProps {
+  lang: string;
+}
+
 const drawerWidth = 240;
-export const AdminMainLayout = ({ lang }) => {
+export const AdminMainLayout: React.FC<AdminMainLayoutProps> = ({ lang }) => {
   const { t } = useTranslation();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { isLoading } = useAuth();
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { isAuthenticated, user } = useSelector<AppState, ST.IAuth>(
+    (state) => state.auth,
+  );
 
   useLangRedirect(lang);
 

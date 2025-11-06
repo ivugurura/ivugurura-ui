@@ -19,14 +19,22 @@ import * as initialStates from './initialStates';
 import { buildAppStates } from './stateBuilder';
 import { formulateQuery, startCase } from './utils';
 
+interface ServerData<TData> {
+  data: TData;
+  status: number;
+  totalItems?: number;
+  error?: string;
+  message?: string;
+}
+
 // Type definitions for API hooks
 export type QueryHook<TData = unknown, TArgs = void> = (
   args: TArgs,
   options?: unknown,
 ) => {
-  data?: TData;
+  data?: ServerData<TData>;
   error?: unknown;
-  isLoading: boolean;
+  isFetching: boolean;
   isSuccess: boolean;
   isError: boolean;
   refetch: () => void;

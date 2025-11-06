@@ -21,13 +21,19 @@ import {
   Typography,
 } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
+import { actions, initials, type QueryHook } from '@redux/actions';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { toLink } from '../../../helpers/utils/constants';
-import { actions } from '../../../redux/actions';
-import { initials } from '../../../redux/apiSliceBuilder';
+
+interface SearchModalProps {
+  open: boolean;
+  onClose: () => void;
+  searchKey: string;
+  setSearchKey: (key: string) => void;
+}
 
 const ListItemStyled = styled(ListItem)(({ theme }) => ({
   cursor: 'pointer',
@@ -35,11 +41,18 @@ const ListItemStyled = styled(ListItem)(({ theme }) => ({
     backgroundColor: alpha(theme.palette.grey[600], 0.25),
   },
 }));
-export const SearchModal = ({ open, onClose, searchKey, setSearchKey }) => {
+export const SearchModal: React.FC<SearchModalProps> = ({
+  open,
+  onClose,
+  searchKey,
+  setSearchKey,
+}) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const { data, isFetching } = actions.useSearchSystemQuery({ searchKey });
+  const useSearchSystem =
+    actions.useSearchSystemQuery as QueryHook<APP.ISearchData>;
+  const { data, isFetching } = useSearchSystem({ searchKey });
   const { data: searched } = data || initials.dataObj();
 
   const handleNavigate = (type, slug) => {

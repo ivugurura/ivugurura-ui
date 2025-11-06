@@ -44,6 +44,9 @@
     "cache": true
   },
   "eslint.codeActionsOnSave.mode": "problems",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
   "eslint.format.enable": false, // avoid double-formatting (Prettier handles formatting)
   // Avoid duplicate diagnostics from the built-in JS/TS validator
   "javascript.validate.enable": false,

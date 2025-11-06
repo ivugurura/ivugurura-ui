@@ -6,12 +6,17 @@ import {
   ViewAgendaOutlined as ViewIcon,
 } from '@mui/icons-material';
 import { Box, Button, Grid, IconButton } from '@mui/material';
+import {
+  actions,
+  initials,
+  type MutationHook,
+  type QueryHook,
+} from '@redux/actions';
 import { useTranslation } from 'react-i18next';
 
 import { RRVTable } from '../../../common/components/RRVTable/Table';
 import { useAlertDialog } from '../../../common/hooks/useAlertDialog';
 import { useMuiSearchPagination } from '../../../common/hooks/useMuiSearchPagination';
-import { actions, initials } from '../../../redux/apiSliceBuilder';
 import { AlertConfirm } from '../components/AlertConfirm';
 import { DashboardContainer } from '../components/DashboardContainer';
 
@@ -21,14 +26,18 @@ import { ViewBook } from './ViewBook';
 
 const Books = () => {
   const { t } = useTranslation();
-  const [currentBook, setCurrentBook] = useState({});
+  const [currentBook, setCurrentBook] = useState<APP.IBook | null>(null);
   const [openModals, setOpenModals] = useState({
     addBook: false,
     readBook: false,
   });
   const { paginator } = useMuiSearchPagination();
-  const { data, refetch, isFetching } = actions.useListBooksQuery(paginator);
-  const [deleteBook, delRes] = actions.useDeleteBookMutation();
+  const useListBooks = actions.useListBooksQuery as QueryHook<APP.IBook[]>;
+  const { data, isFetching, refetch } = useListBooks(paginator);
+
+  const useDeleteBook =
+    actions.useDeleteBookMutation as MutationHook<APP.IBook>;
+  const [deleteBook, delRes] = useDeleteBook();
 
   const { alertValues, reset, setAlertValues } = useAlertDialog();
 
@@ -37,13 +46,13 @@ const Books = () => {
       refetch();
       reset();
     }
-  }, [delRes.isSuccess]);
+  }, [delRes.isSuccess, refetch, reset]);
 
-  const handleModal = (type, value) => {
+  const handleModal = (type: string, value: boolean) => {
     setOpenModals((p) => ({ ...p, [type]: value }));
   };
 
-  const handleBookClick = (book, action) => {
+  const handleBookClick = (book: APP.IBook, action: string) => {
     setCurrentBook(book);
     if (action === 'read') {
       handleModal('readBook', true);
@@ -97,7 +106,7 @@ const Books = () => {
             data={books}
             isLoading={isFetching}
             enableRowActions
-            renderRowActions={({ row }) => (
+            renderRowActions={({ row }: { row: { original: APP.IBook } }) => (
               <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
                 {/* <Button size="small" startIcon={<EditIcon />}>
                       Edit

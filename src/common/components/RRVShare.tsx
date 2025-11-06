@@ -1,9 +1,12 @@
+import React from 'react';
+
 import {
   Facebook as FacebookIcon,
   ShareOutlined,
   Twitter as TwitterIcon,
   WhatsApp as WhatsAppIcon,
 } from '@mui/icons-material';
+import type { Theme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import {
   FacebookShareButton,
@@ -13,7 +16,17 @@ import {
 
 import { RRVDropdown } from './RRVDropdown';
 
-export const RRVShare = ({
+interface RRVShareProps {
+  onShare: (
+    event: MouseEvent<HTMLButtonElement, MouseEvent>,
+    link: string,
+  ) => void;
+  href: string;
+  title: string;
+  displayText: boolean;
+  color: string | ((theme: Theme) => string);
+}
+export const RRVShare: React.FC<RRVShareProps> = ({
   onShare,
   href = '',
   title = '',

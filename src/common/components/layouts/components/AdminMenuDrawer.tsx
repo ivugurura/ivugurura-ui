@@ -1,16 +1,17 @@
 import * as React from 'react';
 
 import {
-  HomeOutlined as HomeIcon,
   AddHomeOutlined as AddHomeIcon,
-  PlayLessonOutlined as PlayLessonIcon,
-  MusicNoteOutlined as MusicNoteIcon,
   ChatBubbleOutline as ChatBubbleIcon,
-  SettingsApplicationsOutlined as SettingIcon,
-  PeopleOutline as PeopleIcon,
+  HomeOutlined as HomeIcon,
   LibraryBooksOutlined as LibraryIcon,
+  MusicNoteOutlined as MusicNoteIcon,
+  PeopleOutline as PeopleIcon,
+  PlayLessonOutlined as PlayLessonIcon,
+  SettingsApplicationsOutlined as SettingIcon,
 } from '@mui/icons-material';
 import { Collapse, Divider, List, Toolbar, Typography } from '@mui/material';
+import type { AppState } from '@redux/store';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -20,7 +21,21 @@ import { SelectLanguage } from '../../SelectLanguage';
 
 import { ListItemLink } from './ListItemLink';
 
-const dashboardMenus = (lang = 'en', role = undefined, t = () => {}) => [
+interface MenuRoute {
+  name: React.ReactNode;
+  key: string;
+  to?: string;
+  icon?: React.ElementType;
+  routes?: MenuRoute[];
+}
+
+interface Menu {
+  type: string | React.ReactNode;
+  key: string;
+  routes: MenuRoute[];
+}
+
+const dashboardMenus = (lang = 'en', t: () => string, role): Menu[] => [
   {
     type: t('admin.nav.webRelated'),
     key: 'webRelated',
@@ -99,20 +114,20 @@ const dashboardMenus = (lang = 'en', role = undefined, t = () => {}) => [
     ],
   },
 ];
-export const AdminMenuDrawer = () => {
+export const AdminMenuDrawer: React.FC = () => {
   const { t } = useTranslation();
-  const [currentlyOpen, setCurrentlyOpen] = React.useState(null);
-  const { user } = useSelector((state) => state.auth);
+  const [currentlyOpen, setCurrentlyOpen] = React.useState<string | null>(null);
+  const { user } = useSelector<AppState, ST.IAuth>((state) => state.auth);
   const { lang } = useLang();
 
-  const handleOpen = (key) => {
+  const handleOpen = (key: string) => {
     setCurrentlyOpen((prev) => (prev === key ? null : key));
   };
 
   return (
     <div>
       <Toolbar />
-      {dashboardMenus(lang, user?.role, t).map((menu) => (
+      {dashboardMenus(lang, t, user?.role).map((menu) => (
         <React.Fragment key={menu.key}>
           <Divider />
           <Typography variant="h6" mt={1}>

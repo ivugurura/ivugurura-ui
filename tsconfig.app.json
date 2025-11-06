@@ -28,7 +28,8 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["vite/client"],
     "paths": {
-      "@redux/actions": ["./src/redux/actions.ts"]
+      "@redux/actions": ["./src/redux/actions.ts"],
+      "@redux/store": ["./src/redux/store.ts"]
     }
   },
   "include": ["src"],

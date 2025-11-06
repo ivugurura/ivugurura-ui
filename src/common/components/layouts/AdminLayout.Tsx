@@ -1,9 +1,9 @@
 import React, { Suspense, useMemo } from 'react';
 
 import { Box } from '@mui/material';
+import { actions, initials, type QueryHook } from '@redux/actions';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { actions, initials } from '../../../redux/apiSliceBuilder';
 import { PageRoutes } from '../../../RoutesConstants';
 
 import { SuspenseFallback } from './SuspenseFallback';
@@ -39,8 +39,11 @@ const dashboardRoutes = [
     component: React.lazy(() => import('../../../pages/admin/Books')),
   },
 ];
-export const AdminLayout = () => {
-  const { data, ...restCountsQ } = actions.useGetCountsSystemQuery();
+export const AdminLayout: React.FC = () => {
+  const useGetCountsSystem = actions.useGetCountsSystemQuery as QueryHook<
+    Record<string, number>
+  >;
+  const { data, ...restCountsQ } = useGetCountsSystem();
   const { data: counts } = data || initials.dataObj();
   const toDataCounts = useMemo(
     () =>

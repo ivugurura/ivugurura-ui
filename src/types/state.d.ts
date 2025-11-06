@@ -6,9 +6,6 @@ declare namespace ST {
     isAuthenticated: boolean;
     user: APP.IUser;
   }
-  interface IBook {
-    id: string;
-  }
   interface IFileDownload {
     blob: Blob;
     filename: string;

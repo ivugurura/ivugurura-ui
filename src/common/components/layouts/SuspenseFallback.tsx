@@ -1,6 +1,14 @@
+import React from 'react';
+
 import { Box, CircularProgress, Stack } from '@mui/material';
 
-export const SuspenseFallback = ({ message }) => {
+interface SuspenseFallbackProps {
+  message?: string;
+}
+
+export const SuspenseFallback: React.FC<SuspenseFallbackProps> = ({
+  message,
+}) => {
   return (
     <Box
       style={{

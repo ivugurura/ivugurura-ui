@@ -1,6 +1,14 @@
+import React from 'react';
+
 import { Card, CardHeader, Skeleton } from '@mui/material';
 
-export const TopicListItemSkeleton = ({ totalItem = 1 }) => (
+interface TopicListItemSkeletonProps {
+  totalItem?: number;
+}
+
+export const TopicListItemSkeleton: React.FC<TopicListItemSkeletonProps> = ({
+  totalItem = 1,
+}) => (
   <Card sx={{ width: '100%' }}>
     {Array.from({ length: totalItem }, (_, i) => (
       <CardHeader

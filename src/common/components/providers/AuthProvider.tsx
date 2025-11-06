@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
+import { setUser } from '@redux/actions';
 import { jwtDecode } from 'jwt-decode';
 import { useDispatch } from 'react-redux';
 
 import { validateUserAuthentication } from '../../../helpers/utils';
 import { lStorage } from '../../../helpers/utils/constants';
-import { setUser } from '../../../redux/actions';
 
 interface AuthContextType {
   isAuthenticated: boolean;

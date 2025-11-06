@@ -22,6 +22,7 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         '@redux/actions': resolvePath('src/redux/actions.ts'),
+        '@redux/store': resolvePath('src/redux/store.ts'),
       },
     },
   };

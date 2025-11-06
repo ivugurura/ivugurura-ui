@@ -31,7 +31,7 @@ const TopicEditor2 = () => {
   const [createTopic, res] = actions.useCreateTopicMutation();
   const [updateTopic, updateRes] = actions.useUpdateTopicMutation();
   const { data, isFetching } = actions.useViewTopicQuery({ slug: topicSlug });
-  const { data: topic } = data || initials.dataObj;
+  const { data: topic } = data || initials.dataObj();
 
   useEffect(() => {
     if (topicSlug && topic) {

@@ -37,7 +37,7 @@ export const SystemUsers = () => {
     setAlertData(alert);
   };
 
-  const { data: users, totalItems } = data || initials.dataArr;
+  const { data: users, totalItems } = data || initials.dataArr();
   return (
     <DashboardContainer
       title={t('admin.users.title')}

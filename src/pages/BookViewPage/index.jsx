@@ -9,7 +9,7 @@ const BookView = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const { data } = actions.useViewBookQuery({ slug });
-  const { data: book } = data || initials.dataObj;
+  const { data: book } = data || initials.dataObj();
 
   if (!book.id) return null;
 

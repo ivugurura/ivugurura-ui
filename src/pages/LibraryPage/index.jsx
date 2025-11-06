@@ -40,8 +40,8 @@ const LibraryPage = () => {
   const { data: catData, isFetching: categoriesLoading } =
     actions.useListCategoriesBookQuery();
 
-  const { data: books, totalItems } = data || initials.dataArr;
-  const { data: categories } = catData || initials.dataArr;
+  const { data: books, totalItems } = data || initials.dataArr();
+  const { data: categories } = catData || initials.dataArr();
   const allBooks = t('library.allBooks');
 
   useEffect(() => {

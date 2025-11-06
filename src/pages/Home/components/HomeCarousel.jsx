@@ -45,7 +45,7 @@ const CarsouselItem = ({ topic = null }) => (
 );
 export const HomeCarousel = () => {
   const { data, isFetching } = actions.useGetCsTopicsQuery({ truncate: 56 });
-  const { data: topics } = data || initials.dataArr;
+  const { data: topics } = data || initials.dataArr();
 
   if (isFetching) return <CarsoulLoader />;
 

@@ -5,15 +5,15 @@ export const baseState = (key = 'data', value = null) => ({
   totalItems: 0,
 });
 
-export const dataArr = {
+export const dataArr = <T>() => ({
   status: 200,
   message: '',
   totalItems: 0,
-  data: [],
-};
+  data: [] as T[],
+});
 
-export const dataObj = {
+export const dataObj = <T>() => ({
   status: 200,
   message: '',
-  data: {},
-};
+  data: {} as T,
+});

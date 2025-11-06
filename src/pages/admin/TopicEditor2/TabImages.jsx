@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Masonry } from '@mui/lab';
 import { Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -25,7 +23,7 @@ export const TopicImages = () => {
   const { data, isFetching } = actions.useGetResourcesMediaQuery({
     resourceType: 'image',
   });
-  const { data: topicImages } = data || initials.dataArr;
+  const { data: topicImages } = data || initials.dataArr();
   const filePathName = useSelector((state) => state.filer.fileName);
 
   if (isFetching) return <h2>Loading...</h2>;

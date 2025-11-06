@@ -16,7 +16,7 @@ export const HomeLatestBlog = ({
     truncate,
   });
 
-  const { data: topics } = data || initials.dataArr;
+  const { data: topics } = data || initials.dataArr();
 
   return (
     <Box sx={{ px: { xs: 2, md: 8 }, py: 4 }}>

@@ -44,7 +44,7 @@ const Settings = () => {
     }));
   };
 
-  const { data: pubs } = data || initials.dataArr;
+  const { data: pubs } = data || initials.dataArr();
   return (
     <DashboardContainer title={t('admin.webSettings.title')}>
       <AlertConfirm

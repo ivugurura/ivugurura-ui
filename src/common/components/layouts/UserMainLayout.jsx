@@ -10,7 +10,7 @@ import { NavBar } from '../navbar';
 
 export const UserMainLayout = ({ lang }) => {
   const { data: catData } = actions.useGetNavsConfigQuery();
-  const { data: categories } = catData || initials.dataArr;
+  const { data: categories } = catData || initials.dataArr();
 
   useLangRedirect(lang);
   return (

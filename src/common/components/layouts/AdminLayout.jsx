@@ -41,7 +41,7 @@ const dashboardRoutes = [
 ];
 export const AdminLayout = () => {
   const { data, ...restCountsQ } = actions.useGetCountsSystemQuery();
-  const { data: counts } = data || initials.dataObj;
+  const { data: counts } = data || initials.dataObj();
   const toDataCounts = useMemo(
     () =>
       Object.keys(counts ?? {}).map((key) => ({

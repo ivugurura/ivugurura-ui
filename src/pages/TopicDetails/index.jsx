@@ -38,7 +38,7 @@ const TopicDetailPage = () => {
   const { data, isFetching } = actions.useViewTopicQuery({ slug });
   const [topicNavs, setTopicNavs] = React.useState(initialTopicHomeNavs(t));
 
-  const { data: topic } = data || initials.dataObj;
+  const { data: topic } = data || initials.dataObj();
   useEffect(() => {
     if (topic?.slug) {
       const relatedCount = topic.category.relatedTopics.length;

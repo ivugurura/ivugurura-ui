@@ -16,7 +16,7 @@ import { actions, initials } from '../../../redux/apiSliceBuilder';
 export const AboutTopic = ({ values = {}, setValues }) => {
   const { t } = useTranslation();
   const { data } = actions.useListCategoryQuery({ categoryType: 'topic' });
-  const { data: categories } = data || initials.dataArr;
+  const { data: categories } = data || initials.dataArr();
   const onChange = ({ target }) => {
     setValues((prev) => ({ ...prev, [target.name]: target.value }));
   };

@@ -57,7 +57,7 @@ const HomeDashboard = ({ countFetch }) => {
   const [updateTopic, updateRes] = actions.useUpdateTopicMutation();
   const [setOrRemoveTopicDisplay, displayRes] =
     actions.useSetHomeTopicMutation();
-  const { data: topics, totalItems } = overviewData || initials.dataArr;
+  const { data: topics, totalItems } = overviewData || initials.dataArr();
 
   useEffect(() => {
     if (updateRes.isSuccess || displayRes.isSuccess) {

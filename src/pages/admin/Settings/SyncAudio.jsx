@@ -43,8 +43,8 @@ export const SyncAudios = ({ open, onClose }) => {
     actions.useGetResourcesMediaQuery({
       resourceType: 'audio',
     });
-  const { data: audioFiles } = filesRes || initials.dataArr;
-  const { data: audios } = data || initials.dataArr;
+  const { data: audioFiles } = filesRes || initials.dataArr();
+  const { data: audios } = data || initials.dataArr();
 
   useEffect(() => {
     if (audioFiles.length && isSuccess) {

@@ -71,9 +71,9 @@ const TopicsPage = () => {
     actions.useListCategoryQuery({
       categoryType: 'with-topics',
     });
-  const { data: topics, totalItems } = data || initials.dataArr;
+  const { data: topics, totalItems } = data || initials.dataArr();
 
-  const { data: categories } = catData || initials.dataArr;
+  const { data: categories } = catData || initials.dataArr();
   const allTopics = t('allTopics');
   const handleMenuOpen = (event) => {
     setTopicsNavs((prev) => {

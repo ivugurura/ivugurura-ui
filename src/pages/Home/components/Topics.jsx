@@ -18,7 +18,7 @@ export const HomeRecentTopics = ({
     truncate,
   });
 
-  const { data: topics } = data || initials.dataArr;
+  const { data: topics } = data || initials.dataArr();
 
   return (
     <Box p={2}>

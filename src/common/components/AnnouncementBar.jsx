@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Close as CloseIcon } from '@mui/icons-material';
-import { Typography, IconButton, Box } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ export const AnnouncementBar = () => {
   const [show, setShow] = React.useState(true);
   const { data, isFetching } = actions.useGetPubConfigQuery({ truncate: 70 });
 
-  const { data: communique } = data || initials.dataObj;
+  const { data: communique } = data || initials.dataObj();
 
   if (isFetching || !communique || !show) return null;
 

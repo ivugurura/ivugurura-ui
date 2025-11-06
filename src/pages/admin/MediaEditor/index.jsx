@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
-  ButtonGroup,
   Button,
+  ButtonGroup,
   Card,
   CardContent,
   CardHeader,
@@ -34,7 +34,7 @@ const MediaEditor = () => {
     refetch: refetchMedia,
   } = actions.useListAudiosQuery(paginator);
   const { data: albumData, refetch } = actions.useGetAlbumsMediaQuery();
-  const { data: audios, totalItems } = data || initials.dataArr;
+  const { data: audios, totalItems } = data || initials.dataArr();
 
   useEffect(() => {
     if (audios?.length > 0) {
@@ -46,7 +46,7 @@ const MediaEditor = () => {
     setEditorState((prev) => ({ ...prev, [type]: !prev[type] }));
   };
 
-  const { data: albums } = albumData || initials.dataArr;
+  const { data: albums } = albumData || initials.dataArr();
   const { audio } = currentAudio;
   return (
     <DashboardContainer

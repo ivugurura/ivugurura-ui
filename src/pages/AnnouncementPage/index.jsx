@@ -16,7 +16,7 @@ const AnnouncementsPage = () => {
   const navigate = useNavigate();
   const { data, isFetching } = actions.useGetPubConfigQuery();
 
-  const { data: communique } = data || initials.dataObj;
+  const { data: communique } = data || initials.dataObj();
 
   if (isFetching || !communique) return null;
 

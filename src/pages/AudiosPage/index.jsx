@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { FileDownloadOutlined, PlayArrow, Pause } from '@mui/icons-material';
+import { FileDownloadOutlined, Pause, PlayArrow } from '@mui/icons-material';
 import {
   Box,
   Divider,
@@ -46,7 +46,7 @@ const AudiosPage = () => {
     page,
     pageSize: 20,
   });
-  const { data: audios, totalItems } = data || initials.dataArr;
+  const { data: audios, totalItems } = data || initials.dataArr();
 
   useEffect(() => {
     if (audios?.length > 0) {

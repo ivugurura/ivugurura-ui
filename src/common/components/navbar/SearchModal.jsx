@@ -1,9 +1,9 @@
 import React from 'react';
 
 import {
+  Category as CategoryIcon,
   Search as SearchIcon,
   Topic as TopicIcon,
-  Category as CategoryIcon,
 } from '@mui/icons-material';
 import {
   CircularProgress,
@@ -20,7 +20,7 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import { styled, alpha } from '@mui/material/styles';
+import { alpha, styled } from '@mui/material/styles';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -40,7 +40,7 @@ export const SearchModal = ({ open, onClose, searchKey, setSearchKey }) => {
   const { t } = useTranslation();
 
   const { data, isFetching } = actions.useSearchSystemQuery({ searchKey });
-  const { data: searched } = data || initials.dataObj;
+  const { data: searched } = data || initials.dataObj();
 
   const handleNavigate = (type, slug) => {
     const route = `topics${type === 'topic' ? '/' : '?t='}${slug}`;

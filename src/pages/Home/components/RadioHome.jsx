@@ -15,7 +15,7 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
     page: 1,
     pageSize: nOfAudios,
   });
-  const { data: audios } = data || initials.dataArr;
+  const { data: audios } = data || initials.dataArr();
   const currentAudio = useMemo(() => {
     if (audios?.length > 0) {
       const index = selectedIndex < audios.length ? selectedIndex : 0;

@@ -26,7 +26,7 @@ export const Comments = ({ slug }) => {
     }
   }, [saveRes.isSuccess]);
 
-  const { data: comments, totalItems } = data || initials.dataArr;
+  const { data: comments, totalItems } = data || initials.dataArr();
   console.log('Comments', {
     isFetching,
     totalItems,

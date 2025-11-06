@@ -14,7 +14,7 @@ export const AddEditBook = ({ open, onClose, refetchBooks }) => {
   const [createBook, res] = actions.useCreateBookMutation();
   const { data } = actions.useListCategoriesBookQuery();
 
-  const { data: bookCategories } = data || initials.dataArr;
+  const { data: bookCategories } = data || initials.dataArr();
   const filePathName = useSelector((state) => state.filer.fileName);
 
   useEffect(() => {

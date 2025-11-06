@@ -7,10 +7,10 @@ import {
 } from '@mui/icons-material';
 import {
   Button,
-  Collapse,
   Card,
-  CardHeader,
   CardContent,
+  CardHeader,
+  Collapse,
   List,
   ListItemButton,
   ListItemIcon,
@@ -30,7 +30,7 @@ export const NavConfigs = () => {
   const handleOpenMunu = (menu) => {
     setCurrentOpenMenu((prev) => (prev?.slug === menu.slug ? null : menu));
   };
-  const { data: navs } = data || initials.dataArr;
+  const { data: navs } = data || initials.dataArr();
   const { t } = useTranslation();
   return (
     <Card>

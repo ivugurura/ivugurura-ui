@@ -45,7 +45,7 @@ const Commentaries = () => {
   const [publish, publishRes] = actions.usePublishTopicMutation();
   const [deleteComments, delResult] = actions.useDeleteCommentsTopicMutation();
   const [replyComment, replyResult] = actions.useReplyCommentTopicMutation();
-  const { data: comments, totalItems } = data || initials.dataArr;
+  const { data: comments, totalItems } = data || initials.dataArr();
 
   useEffect(() => {
     if (publishRes.isSuccess || delResult.isSuccess || replyResult.isSuccess) {

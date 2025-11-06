@@ -21,13 +21,12 @@ import {
   Typography,
 } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
+import { actions, initials, type QueryHook } from '@redux/actions';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { toLink } from '../../../helpers/utils/constants';
-import { actions } from '../../../redux/actions';
-import { initials, type QueryHook } from '../../../redux/apiSliceBuilder';
 
 interface SearchModalProps {
   open: boolean;

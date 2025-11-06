@@ -17,10 +17,10 @@ import {
   Typography,
   type Theme,
 } from '@mui/material';
+import { actions, type MutationHook } from '@redux/actions';
 import { useTranslation } from 'react-i18next';
 
 import { dateFormat, DL_ROUTE } from '../../../helpers/utils/constants';
-import { actions, type MutationHook } from '../../../redux/apiSliceBuilder';
 import { useStyles } from '../../styles';
 import { RRVShare } from '../RRVShare';
 

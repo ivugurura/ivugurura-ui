@@ -6,17 +6,17 @@ import {
   ViewAgendaOutlined as ViewIcon,
 } from '@mui/icons-material';
 import { Box, Button, Grid, IconButton } from '@mui/material';
-import { useTranslation } from 'react-i18next';
-
-import { RRVTable } from '../../../common/components/RRVTable/Table';
-import { useAlertDialog } from '../../../common/hooks/useAlertDialog';
-import { useMuiSearchPagination } from '../../../common/hooks/useMuiSearchPagination';
 import {
   actions,
   initials,
   type MutationHook,
   type QueryHook,
-} from '../../../redux/apiSliceBuilder';
+} from '@redux/actions';
+import { useTranslation } from 'react-i18next';
+
+import { RRVTable } from '../../../common/components/RRVTable/Table';
+import { useAlertDialog } from '../../../common/hooks/useAlertDialog';
+import { useMuiSearchPagination } from '../../../common/hooks/useMuiSearchPagination';
 import { AlertConfirm } from '../components/AlertConfirm';
 import { DashboardContainer } from '../components/DashboardContainer';
 

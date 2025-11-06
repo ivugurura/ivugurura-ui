@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Box } from '@mui/material';
+import { actions, type QueryHook } from '@redux/actions';
 import { Outlet } from 'react-router-dom';
 
-import { actions, type QueryHook } from '../../../redux/actions';
 import { useLangRedirect } from '../../hooks/useLangRedirect';
 import { AnnouncementBar } from '../AnnouncementBar';
 import { MainFooter } from '../Footer';

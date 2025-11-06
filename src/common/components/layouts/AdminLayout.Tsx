@@ -1,13 +1,9 @@
 import React, { Suspense, useMemo } from 'react';
 
 import { Box } from '@mui/material';
+import { actions, initials, type QueryHook } from '@redux/actions';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import {
-  actions,
-  initials,
-  type QueryHook,
-} from '../../../redux/apiSliceBuilder';
 import { PageRoutes } from '../../../RoutesConstants';
 
 import { SuspenseFallback } from './SuspenseFallback';

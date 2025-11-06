@@ -9,9 +9,9 @@ import {
   DialogTitle,
   Divider,
 } from '@mui/material';
+import { actions, type MutationHook } from '@redux/actions';
 import { useTranslation } from 'react-i18next';
 
-import { actions, type MutationHook } from '../../../redux/apiSliceBuilder';
 import { RRVForm } from '../RRVForm';
 
 import { contactSchema, formInitials } from './schema';

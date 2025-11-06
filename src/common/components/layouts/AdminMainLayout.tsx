@@ -9,12 +9,12 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+import type { AppState } from '@redux/store';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 
 import Login from '../../../pages/admin/Login';
-import type { AppState } from '../../../redux/store';
 import { useLangRedirect } from '../../hooks/useLangRedirect';
 // import { AnnouncementBar } from '../AnnouncementBar';
 import { useAuth } from '../providers';

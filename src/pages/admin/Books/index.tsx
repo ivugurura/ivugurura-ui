@@ -72,7 +72,7 @@ const Books = () => {
     }
   };
 
-  const { data: books, totalItems } = data || initials.dataArr;
+  const { data: books, totalItems } = data || initials.dataArr();
 
   return (
     <DashboardContainer

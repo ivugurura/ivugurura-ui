@@ -43,7 +43,7 @@ export type QueryHook<TData = unknown, TArgs = void> = (
 export type MutationHook<TData = unknown, TArgs = void> = () => [
   (args: TArgs) => { data?: TData; error?: unknown },
   {
-    data?: ServerData<TData>;
+    data?: TData;
     error?: unknown;
     isLoading: boolean;
     isSuccess: boolean;

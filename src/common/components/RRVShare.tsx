@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {
   Facebook as FacebookIcon,
   ShareOutlined,
@@ -13,7 +15,17 @@ import {
 
 import { RRVDropdown } from './RRVDropdown';
 
-export const RRVShare = ({
+interface RRVShareProps {
+  onShare: (
+    event: MouseEvent<HTMLButtonElement, MouseEvent>,
+    link: string,
+  ) => void;
+  href: string;
+  title: string;
+  displayText: boolean;
+  color: string | ((theme: Theme) => string);
+}
+export const RRVShare: React.FC<RRVShareProps> = ({
   onShare,
   href = '',
   title = '',

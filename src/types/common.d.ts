@@ -1,5 +1,6 @@
 declare namespace APP {
   type HttpVerb = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+  type MediaType = 'audio' | 'video' | 'image';
   interface IApi {
     endpoint: string;
     verb: HttpVerb;
@@ -56,5 +57,13 @@ declare namespace APP {
     slug: string;
     author: string;
     isDownloaded: boolean;
+  }
+  interface IAudio {
+    title: string;
+    slug: string;
+    mediaLink: string;
+    author: string;
+    actionDate: string;
+    id: number;
   }
 }

@@ -9,16 +9,18 @@ import React, {
   type Ref,
 } from 'react';
 
+import type AudioPlayer from 'react-h5-audio-player';
+
 interface RRVAudioProviderProps {
   children: ReactNode;
 }
 
-interface IAudioPlayerContextType {
+interface AudioPlayerContextProps {
   volume: number;
   isPlaying: boolean;
   isLooping: boolean;
   mute: boolean;
-  audioPlayerRef: Ref<HTMLAudioElement>;
+  audioPlayerRef: Ref<AudioPlayer>;
   changeIsPlaying: (value: boolean) => void;
   changeVolume: (event: Event, value: number | number[]) => void;
   changeMute: (value: boolean) => void;
@@ -26,14 +28,14 @@ interface IAudioPlayerContextType {
   playPauseAudio: (audio?: HTMLAudioElement) => void;
 }
 
-const AudioContext = createContext<IAudioPlayerContextType>(null);
+const AudioContext = createContext<AudioPlayerContextProps>(null);
 
 export const RRVAudioProvider: React.FC<RRVAudioProviderProps> = ({
   children,
 }) => {
   const [volume, setVolume] = useState(0.7);
   const [mute, setMute] = useState(true);
-  const audioPlayerRef = useRef(null);
+  const audioPlayerRef = useRef<AudioPlayer>(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLooping, setIsLooping] = useState(false);
@@ -51,13 +53,13 @@ export const RRVAudioProvider: React.FC<RRVAudioProviderProps> = ({
   );
 
   const playPauseAudio = useCallback(
-    (audio) => {
+    async (audio) => {
       if (!audio && !audioPlayerRef.current) return;
 
       if (isPlaying) {
         audioPlayerRef.current.audio.current.pause();
       } else {
-        audioPlayerRef.current.audio.current.play();
+        await audioPlayerRef.current.audio.current.play();
         setMute(false);
       }
       setIsPlaying((playing) => !playing);
@@ -73,7 +75,7 @@ export const RRVAudioProvider: React.FC<RRVAudioProviderProps> = ({
   }, [isLooping, audioPlayerRef]);
 
   const changeMute = useCallback(
-    (value) => {
+    (value: boolean) => {
       if (audioPlayerRef.current) {
         audioPlayerRef.current.audio.current.muted = value;
       }

@@ -2,14 +2,15 @@ import type React from 'react';
 
 import { Box } from '@mui/material';
 
-
-interface AudioVisualizerProps{
-  isPlaying: boolean; 
+interface AudioVisualizerProps {
+  isPlaying: boolean;
   background: string | ((theme: Theme) => string);
 }
 
-
-export const AudioVisualizer: React.FC<AudioVisualizerProps> = ({ isPlaying, background = '#000' }) => {
+export const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
+  isPlaying,
+  background = '#000',
+}) => {
   const fixedHeights = ['30%', '70%', '50%', '60%'];
   const bars = 4;
 

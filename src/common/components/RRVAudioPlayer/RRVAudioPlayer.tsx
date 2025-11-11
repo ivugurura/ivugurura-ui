@@ -39,16 +39,15 @@ interface CurrentAudio {
   audio: APP.IAudio | null;
 }
 
-interface RRVAudioPlayer{
-  audios:APP.IAudio[];
+interface RRVAudioPlayer {
+  audios: APP.IAudio[];
   currentAudio: CurrentAudio;
   setCurrentAudio: React.Dispatch<React.SetStateAction<CurrentAudio>>;
-  displayList: boolean
+  displayList: boolean;
   displayMore: boolean;
-
 }
 
-export const RRVAudioPlayer:React.FC<RRVAudioPlayer> = ({
+export const RRVAudioPlayer: React.FC<RRVAudioPlayer> = ({
   audios,
   currentAudio,
   setCurrentAudio,

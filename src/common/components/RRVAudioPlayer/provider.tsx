@@ -9,8 +9,7 @@ import React, {
   type Ref,
 } from 'react';
 
-
-interface RRVAudioProviderProps{
+interface RRVAudioProviderProps {
   children: ReactNode;
 }
 
@@ -19,7 +18,7 @@ interface IAudioPlayerContextType {
   isPlaying: boolean;
   isLooping: boolean;
   mute: boolean;
-  audioPlayerRef: Ref<unknown> ;
+  audioPlayerRef: Ref<HTMLAudioElement>;
   changeIsPlaying: (value: boolean) => void;
   changeVolume: (event: Event, value: number | number[]) => void;
   changeMute: (value: boolean) => void;
@@ -27,10 +26,11 @@ interface IAudioPlayerContextType {
   playPauseAudio: (audio?: HTMLAudioElement) => void;
 }
 
-
 const AudioContext = createContext<IAudioPlayerContextType>(null);
 
-export const RRVAudioProvider: React.FC<RRVAudioProviderProps> = ({ children }) => {
+export const RRVAudioProvider: React.FC<RRVAudioProviderProps> = ({
+  children,
+}) => {
   const [volume, setVolume] = useState(0.7);
   const [mute, setMute] = useState(true);
   const audioPlayerRef = useRef(null);
@@ -115,7 +115,7 @@ export const RRVAudioProvider: React.FC<RRVAudioProviderProps> = ({ children }) 
   );
 };
 
-export const useRRVAudioPlayerCtx = ()=> {
+export const useRRVAudioPlayerCtx = () => {
   const context = useContext(AudioContext);
   if (!context) {
     throw new Error('useAudioContext must be used within an RRVAudioProvider');

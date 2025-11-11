@@ -72,7 +72,7 @@ const Settings = () => {
             />
             <CardContent>
               <RRVTable
-                columns={pubsColumns(handleSetAction)}
+                columns={pubsColumns(handleSetAction, t)}
                 data={pubs}
                 isLoading={isFetching}
               />

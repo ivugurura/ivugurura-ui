@@ -66,4 +66,17 @@ declare namespace APP {
     actionDate: string;
     id: number;
   }
+  interface IAudioPlayerContextType {
+  volume: number;
+  isPlaying: boolean;
+  isLooping: boolean;
+  mute: boolean;
+  audioPlayerRef: Ref<AudioPlayer> ;
+  changeIsPlaying: (value: boolean) => void;
+  changeVolume: (event: Event, value: number | number[]) => void;
+  changeMute: (value: boolean) => void;
+  loopAudio: () => void;
+  playPauseAudio: (audio?: HTMLAudioElement) => void;
+}
+
 }

@@ -1,15 +1,36 @@
-import {
+import React, {
   createContext,
   useCallback,
   useContext,
   useMemo,
   useRef,
   useState,
+  type ReactNode,
+  type Ref,
 } from 'react';
 
-const AudioContext = createContext(null);
 
-export const RRVAudioProvider = ({ children }) => {
+interface RRVAudioProviderProps{
+  children: ReactNode;
+}
+
+interface IAudioPlayerContextType {
+  volume: number;
+  isPlaying: boolean;
+  isLooping: boolean;
+  mute: boolean;
+  audioPlayerRef: Ref<unknown> ;
+  changeIsPlaying: (value: boolean) => void;
+  changeVolume: (event: Event, value: number | number[]) => void;
+  changeMute: (value: boolean) => void;
+  loopAudio: () => void;
+  playPauseAudio: (audio?: HTMLAudioElement) => void;
+}
+
+
+const AudioContext = createContext<IAudioPlayerContextType>(null);
+
+export const RRVAudioProvider: React.FC<RRVAudioProviderProps> = ({ children }) => {
   const [volume, setVolume] = useState(0.7);
   const [mute, setMute] = useState(true);
   const audioPlayerRef = useRef(null);
@@ -94,22 +115,7 @@ export const RRVAudioProvider = ({ children }) => {
   );
 };
 
-/**
- * @typedef {Object} AudioPlayerContext
- * @property {number} volume - The volume 1-10
- * @property {boolean} isPlaying
- * @property {boolean} isLooping
- * @property {boolean} mute - whether show volume control
- * @property {Object}  audioPlayerRef - audio ref
- * @property {Function} changePlayingAudio - change playing audio
- * @property {Function} changeIsPlaying - change playing audio state
- * @property {Function} changeVolume - change volume
- * @property {Function} changeMute - Mute/unmute volume
- * @property {Function} loopAudio - Loop audio
- *
- * @returns {AudioPlayerContext}
- */
-export const useRRVAudioPlayerCtx = () => {
+export const useRRVAudioPlayerCtx = ()=> {
   const context = useContext(AudioContext);
   if (!context) {
     throw new Error('useAudioContext must be used within an RRVAudioProvider');

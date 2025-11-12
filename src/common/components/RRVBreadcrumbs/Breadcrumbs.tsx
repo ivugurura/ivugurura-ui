@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 interface Crumb {
   name: string;
   route: string;
-  primaryIcon?: React.ElementType;
-  secondaryIcon?: React.ElementType;
+  primaryIcon?: React.ReactNode;
+  secondaryIcon?: React.ReactNode;
   onClick?: () => void;
 }
 
@@ -34,7 +34,7 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
       backgroundColor: emphasize(backgroundColor, 0.12),
     },
   };
-}); // TypeScript only: need a type cast here because https://github.com/Microsoft/TypeScript/issues/26591
+});
 
 export const RRVBreadcrumbs: React.FC<RRVBreadcrumbsProps> = ({
   crumbs = [],

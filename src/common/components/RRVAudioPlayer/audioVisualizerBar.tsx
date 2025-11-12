@@ -1,4 +1,4 @@
-import type React from 'react';
+import React from 'react';
 
 import { Box } from '@mui/material';
 
@@ -25,7 +25,7 @@ export const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
         padding: '2px',
       }}
     >
-      {[...Array<undefined>(bars)].map((_, index) => (
+      {[...Array.from(bars)].map((_, index) => (
         <Box
           key={index}
           sx={{

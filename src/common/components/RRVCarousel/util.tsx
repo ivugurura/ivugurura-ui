@@ -1,8 +1,10 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { NavigateBefore, NavigateNext } from '@mui/icons-material';
 
-export const sanitizeNavProps = (props) => {
+
+
+export const sanitizeNavProps: React.FC<SanitizeProps> = (props) => {
   const { className, style, ...rest } = props || {};
 
   return props !== undefined
@@ -14,7 +16,54 @@ export const sanitizeNavProps = (props) => {
     : { style: {}, className: '', ...rest };
 };
 
-export const sanitizeProps = (props = {}) => {
+interface  SanitizeProps {
+sx?: object;
+className?: string;
+children?: React.ReactNode | React.ReactNode[];
+
+height?: string | number;
+
+index?: number;
+strictIndexing?: boolean;
+
+autoPlay?: boolean;
+stopAutoPlayOnHover?:boolean;
+interval?:number;
+
+animation?: 'fade' | "slide" ;
+duration?: number;
+swipe?: boolean;
+
+navButtonsAlwaysInvisible?: boolean;
+navButtonsAlwaysVisible?: boolean;
+cycleNavigation?: boolean;
+fullHeightHover?: boolean;
+
+navButtonsWrapperProps?: SanitizeNavProps;
+navButtonsProps?: SanitizeNavProps;
+NavButton?: React.ReactNode;
+
+NextIcon?: React.ReactNode;
+PrevIcon?: React.ReactNode;
+
+indicators?: boolean;
+indicatorContainerProps?: SanitizeNavProps;
+indicatorIconButtonProps?:SanitizeNavProps;
+activeIndicatorIconButtonProps?: SanitizeNavProps;
+IndicatorIcon?: React.ReactNode | React.ReactNode[];
+
+onChange?: () => void;
+changeOnFirstRender?: boolean;
+next?: () => void;
+prev?: () => void;
+
+}
+
+const noop = () => {
+  //Empty function
+}
+
+export const sanitizeProps: React.FC<SanitizeProps> = (props = {}) => {
   const animation = props.animation !== undefined ? props.animation : 'fade';
   const duration =
     props.duration !== undefined
@@ -74,18 +123,18 @@ export const sanitizeProps = (props = {}) => {
     ),
     IndicatorIcon: props.IndicatorIcon,
 
-    onChange: props.onChange !== undefined ? props.onChange : () => {},
+    onChange: props.onChange !== undefined ? props.onChange : noop,
     changeOnFirstRender:
       props.changeOnFirstRender !== undefined
         ? props.changeOnFirstRender
         : false,
-    next: props.next !== undefined ? props.next : () => {},
-    prev: props.prev !== undefined ? props.prev : () => {},
+    next: props.next !== undefined ? props.next : noop,
+    prev: props.prev !== undefined ? props.prev : noop,
   };
 };
 
-export const useInterval = (callback = () => {}, delay = 1) => {
-  const savedCallback = useRef(() => {});
+export const useInterval = (callback = noop, delay = 1) => {
+  const savedCallback = useRef(noop);
 
   // Remember the latest callback.
   useEffect(() => {
@@ -102,6 +151,6 @@ export const useInterval = (callback = () => {}, delay = 1) => {
       return () => clearInterval(id);
     }
 
-    return () => {};
+    return noop;
   }, [delay]);
 };

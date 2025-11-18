@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
+import type { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 
 import { http } from '../../../helpers/http';
@@ -7,6 +8,14 @@ import { IMAGE_PATH } from '../../../helpers/utils/constants';
 // import { theme } from '../../theme/themes';
 
 import styles from './DraftEditor.module.scss';
+
+interface DraftEditorProps{
+  editorState: EditorState;
+  onEditorStateChange:(state: EditorState) => void;
+  placeholder: string;
+}
+
+
 
 // const styles = {
 //   root: {
@@ -49,7 +58,7 @@ import styles from './DraftEditor.module.scss';
 //     color: theme.palette.text.primary,
 //   },
 // };
-export const DraftEditor = ({
+export const DraftEditor: React.FC<DraftEditorProps> = ({
   editorState,
   onEditorStateChange,
   placeholder,
@@ -57,19 +66,19 @@ export const DraftEditor = ({
 }) => {
   const [prevFile, setPrevFile] = useState('');
 
-  const handleImageUpload = (file) => {
+  const handleImageUpload = (file: File)=> {
     return new Promise((resolve, reject) => {
       const formData = new FormData();
       formData.append('file', file);
       http
         .post('/albums/upload/image', formData)
         .then((res) => {
-          const fileName = res.data.data;
+          const fileName = res.data as string;
           setPrevFile(fileName);
           resolve({ data: { link: `${IMAGE_PATH}/${fileName}` } });
         })
-        .catch((error) => {
-          let errorMessage = error.message;
+        .catch((error: unknown) => {
+          let errorMessage = error.message ;
           if (error.response) {
             console.log(error.response);
             const { error: apiError, message } = error.response.data || {};

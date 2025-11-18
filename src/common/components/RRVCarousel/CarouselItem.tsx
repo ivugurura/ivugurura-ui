@@ -1,10 +1,30 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import {  type DragHandlers, AnimatePresence, motion} from 'framer-motion';
 
 import { StyledItem } from './Styled';
 
-export const CarouselItem = ({
+export interface CarouselState {
+active: number;
+next:boolean;
+prevActive:number;
+
+}
+ 
+interface CarouselItemProps {
+  animation: 'slide' | 'fade'
+  next?: () => void;
+  prev?: () => void;
+  swipe?: boolean;
+  state: CarouselState;
+  index: number;
+  maxIndex: number;
+  duration: number;
+  child: React.ReactNode;
+  height: number;
+  setHeight: (height: number) => void;
+}
+export const CarouselItem: React.FC<CarouselItemProps>  = ({
   animation,
   next,
   prev,
@@ -20,7 +40,7 @@ export const CarouselItem = ({
   const slide = animation === 'slide';
   const fade = animation === 'fade';
 
-  const dragProps = {
+  const dragProps: DragHandlers = {
     drag: 'x',
     layout: true,
     onDragEnd: (event, info) => {
@@ -35,7 +55,7 @@ export const CarouselItem = ({
     dragConstraints: { left: 0, right: 0 },
   };
 
-  const divRef = useRef(null);
+  const divRef = useRef<HTMLDivElement | null>(null);
 
   function checkAndSetHeight() {
     if (index !== state.active) return;
@@ -51,7 +71,8 @@ export const CarouselItem = ({
   // Set height on every child change
   useEffect(() => {
     checkAndSetHeight();
-  }, [setHeight, state.active, index, divRef]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setHeight, state.active, index]);
 
   const variants = {
     leftwardExit: {

@@ -81,7 +81,7 @@ export const RRVAudioPlayer: React.FC<RRVAudioPlayer> = ({
       changeIsPlaying(true);
     }
   };
-
+  const PlayPauseIcon = isPlaying ? PauseCircle : PlayCircle;
   const customControls = [
     <Box
       key="custom-controls"
@@ -110,11 +110,7 @@ export const RRVAudioPlayer: React.FC<RRVAudioPlayer> = ({
         onClick={() => playPauseAudio(currentAudio.audio)}
         sx={useStyles.overviewIcon}
       >
-        {isPlaying ? (
-          <PauseCircle fontSize="large" />
-        ) : (
-          <PlayCircle fontSize="large" />
-        )}
+        <PlayPauseIcon fontSize="large" />
       </IconButton>
       <IconButton
         sx={useStyles.overviewIcon}

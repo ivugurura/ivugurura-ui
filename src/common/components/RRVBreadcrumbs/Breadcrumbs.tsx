@@ -1,6 +1,20 @@
+import React from 'react';
+
 import { Breadcrumbs, Button, Chip, Typography } from '@mui/material';
 import { emphasize, styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
+
+interface Crumb {
+  name: string;
+  route: string;
+  primaryIcon?: React.ReactNode;
+  secondaryIcon?: React.ReactNode;
+  onClick?: () => void;
+}
+
+interface RRVBreadcrumbsProps {
+  crumbs: Crumb[];
+}
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
@@ -20,9 +34,11 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
       backgroundColor: emphasize(backgroundColor, 0.12),
     },
   };
-}); // TypeScript only: need a type cast here because https://github.com/Microsoft/TypeScript/issues/26591
+});
 
-export const RRVBreadcrumbs = ({ crumbs = [] }) => (
+export const RRVBreadcrumbs: React.FC<RRVBreadcrumbsProps> = ({
+  crumbs = [],
+}) => (
   <div style={{ width: '100%', marginTop: '1rem' }}>
     <Breadcrumbs separator="›" aria-label="breadcrumb">
       {crumbs.map((crumb, index) => {

@@ -1,6 +1,21 @@
+import React from 'react';
+
 import { Menu, MenuItem } from '@mui/material';
 
-export const BreadcrumbMenu = ({
+interface MenuItemType {
+  title: string;
+  onClick: () => void;
+}
+interface BreadcrumbMenuProps {
+  menus?: MenuItemType[];
+  open: boolean;
+  anchorEl: HTMLElement | null;
+  handleClose: (event: React.MouseEvent<HTMLElement>) => void;
+  lebelledBy: string;
+  menuId: string;
+}
+
+export const BreadcrumbMenu: React.FC<BreadcrumbMenuProps> = ({
   menus = [],
   open,
   anchorEl = null,

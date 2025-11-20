@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Box, type Theme } from '@mui/material';
+import { Box } from '@mui/material';
 
 interface AudioVisualizerProps {
   isPlaying: boolean;
-  background?: string | ((theme: Theme) => string);
+  background: string | ((theme: Theme) => string);
 }
+
 export const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
   isPlaying,
   background = '#000',
@@ -24,7 +25,7 @@ export const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
         padding: '2px',
       }}
     >
-      {Array.from({ length: bars }).map((_, index) => (
+      {[...Array.from(bars)].map((_, index) => (
         <Box
           key={index}
           sx={{

@@ -1,3 +1,5 @@
+import type React from 'react';
+
 import {
   ArrowOutward,
   Loop,
@@ -32,7 +34,20 @@ import { useStyles } from '../../styles/index';
 import { AudioList } from './AudioList';
 import { useRRVAudioPlayerCtx } from './provider';
 
-export const RRVAudioPlayer = ({
+interface CurrentAudio {
+  index: number;
+  audio: APP.IAudio | null;
+}
+
+interface RRVAudioPlayer {
+  audios: APP.IAudio[];
+  currentAudio: CurrentAudio;
+  setCurrentAudio: React.Dispatch<React.SetStateAction<CurrentAudio>>;
+  displayList: boolean;
+  displayMore: boolean;
+}
+
+export const RRVAudioPlayer: React.FC<RRVAudioPlayer> = ({
   audios,
   currentAudio,
   setCurrentAudio,
@@ -66,7 +81,7 @@ export const RRVAudioPlayer = ({
       changeIsPlaying(true);
     }
   };
-
+  const PlayPauseIcon = isPlaying ? PauseCircle : PlayCircle;
   const customControls = [
     <Box
       key="custom-controls"
@@ -95,11 +110,7 @@ export const RRVAudioPlayer = ({
         onClick={() => playPauseAudio(currentAudio.audio)}
         sx={useStyles.overviewIcon}
       >
-        {isPlaying ? (
-          <PauseCircle fontSize="large" />
-        ) : (
-          <PlayCircle fontSize="large" />
-        )}
+        <PlayPauseIcon fontSize="large" />
       </IconButton>
       <IconButton
         sx={useStyles.overviewIcon}

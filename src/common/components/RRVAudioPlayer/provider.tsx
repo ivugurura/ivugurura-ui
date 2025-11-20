@@ -1,18 +1,41 @@
-import {
+import React, {
   createContext,
   useCallback,
   useContext,
   useMemo,
   useRef,
   useState,
+  type ReactNode,
+  type Ref,
 } from 'react';
 
-const AudioContext = createContext(null);
+import type AudioPlayer from 'react-h5-audio-player';
 
-export const RRVAudioProvider = ({ children }) => {
+interface RRVAudioProviderProps {
+  children: ReactNode;
+}
+
+interface AudioPlayerContextProps {
+  volume: number;
+  isPlaying: boolean;
+  isLooping: boolean;
+  mute: boolean;
+  audioPlayerRef: Ref<AudioPlayer>;
+  changeIsPlaying: (value: boolean) => void;
+  changeVolume: (event: Event, value: number | number[]) => void;
+  changeMute: (value: boolean) => void;
+  loopAudio: () => void;
+  playPauseAudio: (audio?: HTMLAudioElement) => void;
+}
+
+const AudioContext = createContext<AudioPlayerContextProps>(null);
+
+export const RRVAudioProvider: React.FC<RRVAudioProviderProps> = ({
+  children,
+}) => {
   const [volume, setVolume] = useState(0.7);
   const [mute, setMute] = useState(true);
-  const audioPlayerRef = useRef(null);
+  const audioPlayerRef = useRef<AudioPlayer>(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLooping, setIsLooping] = useState(false);
@@ -30,13 +53,13 @@ export const RRVAudioProvider = ({ children }) => {
   );
 
   const playPauseAudio = useCallback(
-    (audio) => {
+    async (audio) => {
       if (!audio && !audioPlayerRef.current) return;
 
       if (isPlaying) {
         audioPlayerRef.current.audio.current.pause();
       } else {
-        audioPlayerRef.current.audio.current.play();
+        await audioPlayerRef.current.audio.current.play();
         setMute(false);
       }
       setIsPlaying((playing) => !playing);
@@ -52,7 +75,7 @@ export const RRVAudioProvider = ({ children }) => {
   }, [isLooping, audioPlayerRef]);
 
   const changeMute = useCallback(
-    (value) => {
+    (value: boolean) => {
       if (audioPlayerRef.current) {
         audioPlayerRef.current.audio.current.muted = value;
       }
@@ -94,21 +117,6 @@ export const RRVAudioProvider = ({ children }) => {
   );
 };
 
-/**
- * @typedef {Object} AudioPlayerContext
- * @property {number} volume - The volume 1-10
- * @property {boolean} isPlaying
- * @property {boolean} isLooping
- * @property {boolean} mute - whether show volume control
- * @property {Object}  audioPlayerRef - audio ref
- * @property {Function} changePlayingAudio - change playing audio
- * @property {Function} changeIsPlaying - change playing audio state
- * @property {Function} changeVolume - change volume
- * @property {Function} changeMute - Mute/unmute volume
- * @property {Function} loopAudio - Loop audio
- *
- * @returns {AudioPlayerContext}
- */
 export const useRRVAudioPlayerCtx = () => {
   const context = useContext(AudioContext);
   if (!context) {

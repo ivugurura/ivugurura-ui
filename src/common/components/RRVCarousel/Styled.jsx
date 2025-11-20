@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { FiberManualRecord } from '@mui/icons-material';
 import { IconButton, styled } from '@mui/material';
 
@@ -32,7 +30,7 @@ export const StyledFiberManualRecordIcon = styled(FiberManualRecord)({
 });
 
 export const StyledIndicatorIconButton = styled(IconButton, {
-  shouldForwardProp: (propName: string) => !propName.startsWith('$'),
+  shouldForwardProp: (propName) => !propName.startsWith('$'),
 })(({ $active }) => ({
   cursor: 'pointer',
   transition: '200ms',
@@ -47,7 +45,7 @@ export const StyledIndicatorIconButton = styled(IconButton, {
 }));
 
 export const StyledIconButton = styled(IconButton, {
-  shouldForwardProp: (propName: string ) => !propName.startsWith('$'),
+  shouldForwardProp: (propName = '') => !propName.startsWith('$'),
 })(({ $alwaysVisible }) => ({
   margin: '0 10px',
   position: 'relative',
@@ -64,7 +62,7 @@ export const StyledIconButton = styled(IconButton, {
 }));
 
 export const StyledButtonWrapper = styled('div', {
-  shouldForwardProp: (propName: string) => !propName.startsWith('$'),
+  shouldForwardProp: (propName) => !propName.startsWith('$'),
 })(({ $next, $prev, $fullHeightHover }) => ({
   position: 'absolute',
   height: '100px',

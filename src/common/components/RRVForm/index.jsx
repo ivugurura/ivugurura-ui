@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { Grid } from '@mui/material';
 
-import { RRVSunEditor } from '../RRVEditor/SunEditor';
+import { RRVSunEditor } from '../RRVEditor/SunEditor.tsx';
 import { RRVFileUpload } from '../RRVFileUpload';
 
 import { RRVDateInput } from './RRVDateInput';

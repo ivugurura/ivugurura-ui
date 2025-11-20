@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, CardHeader, Paper } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { RRVSunEditor } from '../../../common/components/RRVEditor/SunEditor';
+import { RRVSunEditor } from '../../../common/components/RRVEditor/SunEditor.tsx';
 
 export const TopicDetails = ({ topic, ...props }) => {
   const { t } = useTranslation();

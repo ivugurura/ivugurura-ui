@@ -5,7 +5,6 @@ import SunEditor from 'suneditor-react';
 import { http } from '../../../helpers';
 import { IMAGE_PATH } from '../../../helpers/utils/constants';
 
-
 interface RRVSunEditorProps {
   value: string;
   minHeight: string;
@@ -15,7 +14,7 @@ interface RRVSunEditorProps {
 type ImageUploadBefore = (
   files: File[],
   info: unknown,
-  uploadHandler: (result?: UploadResult) => void
+  uploadHandler: (result?: UploadResult) => void,
 ) => void;
 
 interface UploadResponse {
@@ -24,7 +23,6 @@ interface UploadResponse {
 interface ImageUploadErrorResult {
   result?: unknown;
 }
-
 
 const topicEditorButtons = [
   ['undo', 'redo'],
@@ -48,14 +46,21 @@ export const RRVSunEditor: React.FC<RRVSunEditorProps> = ({
   placeholder,
   ...props
 }) => {
-  const onImageUploadBefore: ImageUploadBefore  = (files, _info, uploadHandler) => {
+  const onImageUploadBefore: ImageUploadBefore = (
+    files,
+    _info,
+    uploadHandler,
+  ) => {
     const imgFile = files[0];
     void (async () => {
       const formData = new FormData();
       formData.append('file', imgFile);
 
-      const response= await http.post<UploadResponse>('/albums/upload/image', formData);
-      const data = response.data 
+      const response = await http.post<UploadResponse>(
+        '/albums/upload/image',
+        formData,
+      );
+      const data = response.data;
 
       const res: UploadResponse = {
         result: [
@@ -85,8 +90,7 @@ export const RRVSunEditor: React.FC<RRVSunEditorProps> = ({
       value={value}
       placeholder={placeholder}
       onImageUploadBefore={onImageUploadBefore}
-      onImageUploadError={(errorMsg, result: ImageUploadErrorResult
-) =>
+      onImageUploadError={(errorMsg, result: ImageUploadErrorResult) =>
         console.log({ errorMsg, result })
       }
       {...props}

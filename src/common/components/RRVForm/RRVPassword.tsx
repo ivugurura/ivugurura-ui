@@ -7,15 +7,24 @@ import {
   OutlinedInput,
   InputAdornment,
   IconButton,
+  type FormControlProps,
 } from '@mui/material';
 
-export const RRVPassword = (props) => {
+interface RRVPasswordProps extends FormControlProps {
+  id?: string;
+  label?: React.ReactNode;
+  value: unknown;
+}
+
+export const RRVPassword: React.FC<RRVPasswordProps> = (props) => {
   const { id, value, size = 'small', label, ...inputProps } = props;
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (event) => {
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
     event.preventDefault();
   };
   return (

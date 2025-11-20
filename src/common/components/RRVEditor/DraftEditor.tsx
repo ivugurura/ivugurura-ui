@@ -9,13 +9,11 @@ import { IMAGE_PATH } from '../../../helpers/utils/constants';
 
 import styles from './DraftEditor.module.scss';
 
-interface DraftEditorProps{
+interface DraftEditorProps {
   editorState: EditorState;
-  onEditorStateChange:(state: EditorState) => void;
+  onEditorStateChange: (state: EditorState) => void;
   placeholder: string;
 }
-
-
 
 // const styles = {
 //   root: {
@@ -66,7 +64,7 @@ export const DraftEditor: React.FC<DraftEditorProps> = ({
 }) => {
   const [prevFile, setPrevFile] = useState('');
 
-  const handleImageUpload = (file: File)=> {
+  const handleImageUpload = (file: File) => {
     return new Promise((resolve, reject) => {
       const formData = new FormData();
       formData.append('file', file);
@@ -78,7 +76,7 @@ export const DraftEditor: React.FC<DraftEditorProps> = ({
           resolve({ data: { link: `${IMAGE_PATH}/${fileName}` } });
         })
         .catch((error: unknown) => {
-          let errorMessage = error.message ;
+          let errorMessage = error.message;
           if (error.response) {
             console.log(error.response);
             const { error: apiError, message } = error.response.data || {};

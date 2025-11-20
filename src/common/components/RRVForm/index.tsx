@@ -1,19 +1,46 @@
 import React, { useEffect } from 'react';
 
 import { Grid } from '@mui/material';
+import type { FieldValueType } from '@mui/x-date-pickers';
 
 import { RRVSunEditor } from '../RRVEditor/SunEditor.tsx';
-import { RRVFileUpload } from '../RRVFileUpload';
+import { RRVFileUpload } from '../RRVFileUpload.jsx';
 
-import { RRVDateInput } from './RRVDateInput';
-import { RRVInput } from './RRVInput';
-import { RRVPassword } from './RRVPassword';
-import { RRVSwitch } from './RRVSwitch';
+import { RRVDateInput } from './RRVDateInput.jsx';
+import { RRVInput } from './RRVInput.jsx';
+import { RRVPassword } from './RRVPassword.jsx';
+import { RRVSwitch } from './RRVSwitch.jsx';
 
-export const RRVForm = ({
+type FieldType =
+  | 'text-field'
+  | 'password'
+  | 'file-field'
+  | 'switch-field'
+  | 'date'
+  | 'text-editor';
+
+interface FieldRow {
+  name: string;
+  value?: unknown;
+  fieldType: FieldType;
+  hide?: boolean;
+  accept?: string;
+  isBool?: boolean;
+  [key: string]: unknown;
+}
+
+interface RRVFormProps {
+  fields: FieldRow[][];
+  states?: Record<string, unkown> | null;
+  setStates?: React.Dispatch<React.SetStateAction<Record<string, unkown>>>;
+}
+
+export const RRVForm: React.FC<RRVFormProps> = ({
   fields = [],
   states = null,
-  setStates = () => {},
+  setStates = () => {
+    /* empty */
+  },
 }) => {
   const [localFields, setLocalFields] = React.useState(fields);
   useEffect(() => {

@@ -2,13 +2,13 @@ import React, { useMemo, useState } from 'react';
 
 import { Grid } from '@mui/material';
 
-import { RRVSunEditor } from '../RRVEditor/SunEditor.tsx';
-import { RRVFileUpload } from '../RRVFileUpload.jsx';
+import { RRVSunEditor } from '../RRVEditor/SunEditor';
+import { RRVFileUpload } from '../RRVFileUpload';
 
-import { RRVDateInput } from './RRVDateInput.jsx';
-import { RRVInput } from './RRVInput.jsx';
-import { RRVPassword } from './RRVPassword.jsx';
-import { RRVSwitch } from './RRVSwitch.jsx';
+import { RRVDateInput } from './RRVDateInput';
+import { RRVInput } from './RRVInput';
+import { RRVPassword } from './RRVPassword';
+import { RRVSwitch } from './RRVSwitch';
 
 type FieldType =
   | 'text-field'

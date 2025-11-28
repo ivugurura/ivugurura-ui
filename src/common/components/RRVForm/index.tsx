@@ -27,10 +27,11 @@ interface FieldRow {
   isBool?: boolean;
 }
 
+type FormStateType = Record<string, unknown>;
 interface RRVFormProps {
   fields: FieldRow[][];
-  states?: Record<string, unkown> | null;
-  setStates?: React.Dispatch<React.SetStateAction<Record<string, unkown>>>;
+  states?: FormStateType | null;
+  setStates?: React.Dispatch<React.SetStateAction<FormStateType>>;
 }
 
 export const RRVForm: React.FC<RRVFormProps> = ({

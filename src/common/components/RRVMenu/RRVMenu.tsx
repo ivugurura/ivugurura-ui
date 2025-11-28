@@ -9,6 +9,7 @@ import {
 
 interface MenuOption {
   id: string;
+  name: React.ReactNode;
   onClick?: () => void;
 }
 
@@ -17,11 +18,14 @@ interface RRVMenuProps {
   open: boolean;
   anchorEl?:
     | Element
-    | (() => Element)
     | PopoverVirtualElement
+    | (() => Element)
     | (() => PopoverVirtualElement)
     | null;
-  handleClose: (event: ReactReduxContextValue.MouseEvent<HTMLElement>) => void;
+  handleClose: (
+    event: React.SyntheticEvent,
+    reason: 'backdropClick' | 'escapeKeyDown',
+  ) => void;
   lebelledBy?: string;
   menuId?: string;
 }

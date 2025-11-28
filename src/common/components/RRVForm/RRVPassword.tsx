@@ -3,17 +3,17 @@ import React from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   FormControl,
+  IconButton,
+  InputAdornment,
   InputLabel,
   OutlinedInput,
-  InputAdornment,
-  IconButton,
   type FormControlProps,
 } from '@mui/material';
 
 interface RRVPasswordProps extends FormControlProps {
   id?: string;
   label?: React.ReactNode;
-  value: unknown;
+  value?: string;
 }
 
 export const RRVPassword: React.FC<RRVPasswordProps> = (props) => {

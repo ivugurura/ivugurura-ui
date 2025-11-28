@@ -1,27 +1,27 @@
 import type React from 'react';
 
 import SunEditor from 'suneditor-react';
+import type { SunEditorReactProps } from 'suneditor-react/dist/types/SunEditorReactProps';
+import type {
+  UploadBeforeHandler,
+  UploadBeforeReturn,
+} from 'suneditor-react/dist/types/upload';
 
 import { http } from '../../../helpers';
 import { IMAGE_PATH } from '../../../helpers/utils/constants';
 
-interface RRVSunEditorProps {
-  value: string;
+interface RRVSunEditorProps extends SunEditorReactProps {
   minHeight: string;
-  placeholder: string;
 }
 
 type ImageUploadBefore = (
   files: File[],
   info: unknown,
-  uploadHandler: (result?: UploadResult) => void,
-) => void;
+  uploadHandler: UploadBeforeHandler,
+) => UploadBeforeReturn;
 
 interface UploadResponse {
-  data: string; // match your backend response
-}
-interface ImageUploadErrorResult {
-  result?: unknown;
+  data: string;
 }
 
 const topicEditorButtons = [
@@ -41,9 +41,7 @@ const topicEditorButtons = [
 ];
 
 export const RRVSunEditor: React.FC<RRVSunEditorProps> = ({
-  value,
   minHeight = '380px',
-  placeholder,
   ...props
 }) => {
   const onImageUploadBefore: ImageUploadBefore = (
@@ -56,13 +54,11 @@ export const RRVSunEditor: React.FC<RRVSunEditorProps> = ({
       const formData = new FormData();
       formData.append('file', imgFile);
 
-      const response = await http.post<UploadResponse>(
+      const { data } = await http.post<UploadResponse>(
         '/albums/upload/image',
         formData,
       );
-      const data = response.data;
-
-      const res: UploadResponse = {
+      const res = {
         result: [
           {
             url: `${IMAGE_PATH}/${data.data}`,
@@ -71,7 +67,6 @@ export const RRVSunEditor: React.FC<RRVSunEditorProps> = ({
           },
         ],
       };
-      console.log({ res }, files[0]);
       uploadHandler(res);
     })();
 
@@ -87,10 +82,8 @@ export const RRVSunEditor: React.FC<RRVSunEditorProps> = ({
       }}
       setDefaultStyle="font-size: 16px;"
       name="content"
-      value={value}
-      placeholder={placeholder}
       onImageUploadBefore={onImageUploadBefore}
-      onImageUploadError={(errorMsg, result: ImageUploadErrorResult) =>
+      onImageUploadError={(errorMsg, result: unknown) =>
         console.log({ errorMsg, result })
       }
       {...props}

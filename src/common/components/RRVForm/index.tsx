@@ -39,9 +39,7 @@ export const RRVForm: React.FC<RRVFormProps> = ({
   states,
   setStates,
 }) => {
-  const [localOverrides, setLocalOverrides] = useState<Record<string, unknown>>(
-    {},
-  );
+  const [localOverrides, setLocalOverrides] = useState<FormStateType>({});
 
   const localFields = useMemo(() => {
     return fields.map((f) =>

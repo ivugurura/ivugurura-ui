@@ -186,6 +186,7 @@ export const PdfViewerChrome = ({
         }, 60);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sidebarOpen, pdfDoc, currentPage]);
 
   // ensure when page changes we update the selected thumb and scroll into view
@@ -243,10 +244,12 @@ export const PdfViewerChrome = ({
       setPdfDoc(null);
       setIsLoaded(false);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pdfUrl]);
 
   useEffect(() => {
     if (pdfDoc) renderPage(pdfDoc, currentPage, scale);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, scale, sidebarOpen]);
 
   useEffect(() => {

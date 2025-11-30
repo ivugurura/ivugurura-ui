@@ -1,7 +1,28 @@
+import type React from 'react';
+
 import SunEditor from 'suneditor-react';
+import type { SunEditorReactProps } from 'suneditor-react/dist/types/SunEditorReactProps';
+import type {
+  UploadBeforeHandler,
+  UploadBeforeReturn,
+} from 'suneditor-react/dist/types/upload';
 
 import { http } from '../../../helpers';
 import { IMAGE_PATH } from '../../../helpers/utils/constants';
+
+interface RRVSunEditorProps extends SunEditorReactProps {
+  minHeight: string;
+}
+
+type ImageUploadBefore = (
+  files: File[],
+  info: unknown,
+  uploadHandler: UploadBeforeHandler,
+) => UploadBeforeReturn;
+
+interface UploadResponse {
+  data: string;
+}
 
 const topicEditorButtons = [
   ['undo', 'redo'],
@@ -19,19 +40,24 @@ const topicEditorButtons = [
   // '/', Line break
 ];
 
-export const RRVSunEditor = ({
-  value,
+export const RRVSunEditor: React.FC<RRVSunEditorProps> = ({
   minHeight = '380px',
-  placeholder,
   ...props
 }) => {
-  const onImageUploadBefore = (files, _info, uploadHandler) => {
+  const onImageUploadBefore: ImageUploadBefore = (
+    files,
+    _info,
+    uploadHandler,
+  ) => {
     const imgFile = files[0];
-    (async () => {
+    void (async () => {
       const formData = new FormData();
       formData.append('file', imgFile);
 
-      const { data } = await http.post('/albums/upload/image', formData);
+      const { data } = await http.post<UploadResponse>(
+        '/upload-file/image',
+        formData,
+      );
       const res = {
         result: [
           {
@@ -41,7 +67,6 @@ export const RRVSunEditor = ({
           },
         ],
       };
-      console.log({ res }, files[0]);
       uploadHandler(res);
     })();
 
@@ -57,10 +82,8 @@ export const RRVSunEditor = ({
       }}
       setDefaultStyle="font-size: 16px;"
       name="content"
-      value={value}
-      placeholder={placeholder}
       onImageUploadBefore={onImageUploadBefore}
-      onImageUploadError={(errorMsg, result) =>
+      onImageUploadError={(errorMsg, result: unknown) =>
         console.log({ errorMsg, result })
       }
       {...props}

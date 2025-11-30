@@ -1,8 +1,29 @@
-import { MenuItem, TextField } from '@mui/material';
+import React from 'react';
+
+import {
+  MenuItem,
+  TextField,
+  type TextFieldProps,
+  type TextFieldPropsSizeOverrides,
+} from '@mui/material';
 
 import { styles } from './styles';
 
-export const RRVInput = (props) => {
+type OptionType = Record<string, string>;
+
+interface RRVInputProps extends TextFieldProps {
+  id?: string;
+  type?: React.HTMLInputTypeAttribute;
+  select?: boolean;
+  size?: TextFieldPropsSizeOverrides;
+  value: unknown;
+  options: OptionType[];
+  name?: string;
+  valueSelector?: string;
+  labelSelector?: string;
+}
+
+export const RRVInput: React.FC<RRVInputProps> = (props) => {
   const {
     id,
     type = 'text',

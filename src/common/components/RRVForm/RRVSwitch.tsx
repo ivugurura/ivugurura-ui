@@ -1,6 +1,12 @@
-import { FormControlLabel, Switch } from '@mui/material';
+import React from 'react';
 
-export const RRVSwitch = (props) => {
+import { FormControlLabel, Switch, type SwitchProps } from '@mui/material';
+
+interface RRVSwitchProps extends SwitchProps {
+  label?: React.ReactNode;
+}
+
+export const RRVSwitch: React.FC<RRVSwitchProps> = (props) => {
   const { value, label, name, onChange } = props;
   return (
     <FormControlLabel

@@ -55,7 +55,7 @@ export const RRVSunEditor: React.FC<RRVSunEditorProps> = ({
       formData.append('file', imgFile);
 
       const { data } = await http.post<UploadResponse>(
-        '/albums/upload/image',
+        '/upload-file/image',
         formData,
       );
       const res = {

@@ -9,28 +9,11 @@ import { RRVDateInput } from './RRVDateInput';
 import { RRVInput } from './RRVInput';
 import { RRVPassword } from './RRVPassword';
 import { RRVSwitch } from './RRVSwitch';
+import type { FieldRow, FormStateType } from './types';
 
-type FieldType =
-  | 'text-field'
-  | 'password'
-  | 'file-field'
-  | 'switch-field'
-  | 'date'
-  | 'text-editor';
-
-interface FieldRow {
-  name: string;
-  value?: unknown;
-  fieldType: FieldType;
-  hide?: boolean;
-  accept?: string;
-  isBool?: boolean;
-}
-
-type FormStateType = Record<string, unknown>;
 interface RRVFormProps {
   fields: FieldRow[][];
-  states?: FormStateType | null;
+  states?: FormStateType;
   setStates?: React.Dispatch<React.SetStateAction<FormStateType>>;
 }
 

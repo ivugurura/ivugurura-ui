@@ -11,7 +11,6 @@ import {
 } from '@mui/material';
 
 interface RRVPasswordProps extends FormControlProps {
-  id?: string;
   label?: React.ReactNode;
   value?: string;
 }

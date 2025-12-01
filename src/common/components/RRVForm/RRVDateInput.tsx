@@ -8,11 +8,7 @@ import {
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { type Dayjs } from 'dayjs';
 
-interface RRVDateInputProps
-  extends Omit<DatePickerProps<Dayjs, Dayjs>, 'onChange'> {
-  value?: Dayjs | null;
-  onChange?: (value: Dayjs | null) => void;
-}
+type RRVDateInputProps = DatePickerProps<Dayjs, Dayjs>;
 
 export const RRVDateInput: React.FC<RRVDateInputProps> = (props) => {
   const { value, ...otherProps } = props;

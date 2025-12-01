@@ -1,15 +1,9 @@
-import type React from 'react';
+import React from 'react';
 
-import { FormControlLabel, Switch } from '@mui/material';
+import { FormControlLabel, Switch, type SwitchProps } from '@mui/material';
 
-interface RRVSwitchProps {
-  value?: boolean;
-  label: React.ReactNode;
-  name: string;
-  onChange?: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    checked: boolean,
-  ) => void;
+interface RRVSwitchProps extends SwitchProps {
+  label?: React.ReactNode;
 }
 
 export const RRVSwitch: React.FC<RRVSwitchProps> = (props) => {

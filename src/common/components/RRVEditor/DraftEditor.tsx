@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import type { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 
 import { http } from '../../../helpers/http';
@@ -8,13 +7,11 @@ import { IMAGE_PATH } from '../../../helpers/utils/constants';
 // import { theme } from '../../theme/themes';
 
 import styles from './DraftEditor.module.scss';
-
 interface DraftEditorProps {
-  editorState: EditorState;
-  onEditorStateChange: (state: EditorState) => void;
+  editorState: unknown;
+  onEditorStateChange: (editorState: unknown) => void;
   placeholder: string;
 }
-
 // const styles = {
 //   root: {
 //     fontFamily: theme.typography.fontFamily,
@@ -76,15 +73,22 @@ export const DraftEditor: React.FC<DraftEditorProps> = ({
           resolve({ data: { link: `${IMAGE_PATH}/${fileName}` } });
         })
         .catch((error: unknown) => {
-          let errorMessage = error.message;
-          if (error.response) {
-            console.log(error.response);
-            const { error: apiError, message } = error.response.data || {};
-            errorMessage = apiError || message || error.message;
+          let errorMessage = 'An unknown error occurred';
+          if (error instanceof Error) {
+            errorMessage = error.message;
+          }
+          if (error && typeof error === 'object' && 'response' in error) {
+            const axiosError = error as {
+              response?: { data?: { error?: string; message?: string } };
+            };
+            console.log(axiosError.response);
+            const { error: apiError, message } =
+              axiosError.response?.data || {};
+            errorMessage = apiError || message || errorMessage;
           }
           // notifier.error(errorMessage);
           console.log({ errorMessage });
-          reject(errorMessage);
+          reject(new Error(errorMessage));
         });
     });
   };

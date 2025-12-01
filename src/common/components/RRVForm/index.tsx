@@ -1,91 +1,62 @@
-import React, { useEffect } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { Grid } from '@mui/material';
-import type { FieldValueType } from '@mui/x-date-pickers';
 
-import { RRVSunEditor } from '../RRVEditor/SunEditor.tsx';
-import { RRVFileUpload } from '../RRVFileUpload.jsx';
+import { RRVSunEditor } from '../RRVEditor/SunEditor';
+import { RRVFileUpload } from '../RRVFileUpload';
 
-import { RRVDateInput } from './RRVDateInput.jsx';
-import { RRVInput } from './RRVInput.jsx';
-import { RRVPassword } from './RRVPassword.jsx';
-import { RRVSwitch } from './RRVSwitch.jsx';
-
-type FieldType =
-  | 'text-field'
-  | 'password'
-  | 'file-field'
-  | 'switch-field'
-  | 'date'
-  | 'text-editor';
-
-interface FieldRow {
-  name: string;
-  value?: unknown;
-  fieldType: FieldType;
-  hide?: boolean;
-  accept?: string;
-  isBool?: boolean;
-  [key: string]: unknown;
-}
+import { RRVDateInput } from './RRVDateInput';
+import { RRVInput } from './RRVInput';
+import { RRVPassword } from './RRVPassword';
+import { RRVSwitch } from './RRVSwitch';
+import type { FieldRow, FormStateType } from './types';
 
 interface RRVFormProps {
   fields: FieldRow[][];
-  states?: Record<string, unkown> | null;
-  setStates?: React.Dispatch<React.SetStateAction<Record<string, unkown>>>;
+  states?: FormStateType;
+  setStates?: React.Dispatch<React.SetStateAction<FormStateType>>;
 }
 
 export const RRVForm: React.FC<RRVFormProps> = ({
-  fields = [],
-  states = null,
-  setStates = () => {
-    /* empty */
-  },
+  fields,
+  states,
+  setStates,
 }) => {
-  const [localFields, setLocalFields] = React.useState(fields);
-  useEffect(() => {
-    if (states) {
-      const newFields = fields.map((f) =>
-        f.map((row) => {
-          const { name } = row;
-          if (states[name]) {
-            return { ...row, value: states[name] };
-          }
-          return row;
-        }),
-      );
-      setLocalFields(newFields);
-    }
-  }, [states, fields]);
-  const handleChange =
-    ({ name, isBool }) =>
-    (ev) => {
-      const { value, checked } = ev.target;
-      const inputValue = isBool ? checked : value;
-      const newFields = localFields.map((f) =>
-        f.map((r) => {
-          if (r.name === name) {
-            return { ...r, value: inputValue };
-          }
-          return r;
-        }),
-      );
-      setLocalFields(newFields);
-      setStates((prev) => ({ ...prev, [name]: inputValue }));
-    };
-  const handleFnChange = (name) => (newValue) => {
-    const newFields = localFields.map((f) =>
-      f.map((r) => {
-        if (r.name === name) {
-          return { ...r, value: newValue };
+  const [localOverrides, setLocalOverrides] = useState<FormStateType>({});
+
+  const localFields = useMemo(() => {
+    return fields.map((f) =>
+      f.map((row) => {
+        const { name } = row;
+        if (states?.[name] !== undefined) {
+          return { ...row, value: states[name] };
         }
-        return r;
+        if (localOverrides?.[name] !== undefined) {
+          return { ...row, value: localOverrides[name] };
+        }
+        return row;
       }),
     );
-    setLocalFields(newFields);
-    setStates((prev) => ({ ...prev, [name]: newValue }));
+  }, [states, fields, localOverrides]);
+
+  const handleChange =
+    ({ name, isBool }: { name: string; isBool?: boolean }) =>
+    (ev: React.ChangeEvent<HTMLInputElement>) => {
+      const { value, checked } = ev.target;
+      const inputValue = isBool ? checked : value;
+      setLocalOverrides((prev) => ({ ...prev, [name]: inputValue }));
+      setStates?.((prev) => ({ ...prev, [name]: inputValue }));
+    };
+
+  const handleFnChange = (name: string) => (newValue: unknown) => {
+    setLocalOverrides((prev) => ({ ...prev, [name]: newValue }));
+    setStates?.((prev) => ({ ...prev, [name]: newValue }));
   };
-  const getFieldView = ({ fieldType, accept, ...vProps }, idx) => {
+
+  const getFieldView = (
+    { fieldType, accept, ...vProps }: FieldRow,
+    idx: number,
+  ) => {
     const { value: setContents } = vProps;
     switch (fieldType) {
       case 'file-field':

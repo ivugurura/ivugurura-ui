@@ -11,7 +11,42 @@ import { uploadFileWithProgress } from '../../helpers/utils';
 import { notifier } from '../../helpers/utils/constants';
 import { setFilePath } from '../../redux/actions';
 
-const initialImageProps = {
+interface UploadResponse {
+  data: {
+    data: string;
+  };
+}
+
+interface ImageProps {
+  file: File | null;
+  uploaded: string;
+  isUploaded: boolean;
+  height: number;
+  width: number;
+  bRadius: number;
+  zoom: number;
+}
+
+interface ImageEditorBaseProps {
+  src: string;
+  height?: number;
+  width?: number;
+  bRadius?: number;
+  zoom?: number;
+}
+
+type ImageEditorProps = ImageEditorBaseProps;
+
+interface RRVFileUploadProps {
+  title?: string;
+  type?: 'image';
+  accept: string;
+  placeholder: string;
+  imgProps?: Partial<ImageEditorProps>;
+  onFirstExcute: () => void;
+}
+
+const initialImageProps: ImageProps = {
   file: null,
   uploaded: '',
   isUploaded: false,
@@ -20,12 +55,13 @@ const initialImageProps = {
   bRadius: 5,
   zoom: 0.68,
 };
-const dataUrlToFile = (dataUrl, filename) => {
+const dataUrlToFile = (dataUrl: string, filename: string) => {
   const arr = dataUrl.split(',');
   if (arr.length < 2) {
     return undefined;
   }
-  const mimeArr = arr[0].match(/:(.*?);/);
+  const mimeRegex = (/:(.*?);/ = /:(.*?);/);
+  const mimeArr = mimeRegex.exec(arr[0]);
   if (!mimeArr || mimeArr.length < 2) {
     return undefined;
   }
@@ -34,39 +70,47 @@ const dataUrlToFile = (dataUrl, filename) => {
   return new File([buff], filename.replace(' ', '_'), { type: mime });
 };
 
-export const RRVFileUpload = ({
+export const RRVFileUpload: React.FC<RRVFileUploadProps> = ({
   title = '',
   type = 'image',
   accept = '.png, .jpg, .jpeg',
   placeholder = 'Insert a file',
   imgProps = {},
-  onFirstExcute = () => {},
+  onFirstExcute = () => {
+    /* empty */
+  },
 }) => {
   const dispatch = useDispatch();
   const [imageProps, setImageProps] = React.useState({
     ...initialImageProps,
     ...imgProps,
   });
-  const imageRef = React.createRef(null);
+  const imageRef = React.useRef<unknown>(null);
   const [progress, setProgress] = React.useState(0);
 
-  const handleChange = React.useCallback(({ target }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
     setImageProps((prev) => ({
       ...prev,
-      [target.name]: parseFloat(target.value),
+      [name]: parseFloat(value),
       isUploaded: false,
     }));
-  }, []);
+  };
 
-  const onProgress = (e) => {
+  const onProgress = (e: ProgressEvent) => {
     setProgress(Math.round((100 * e.loaded) / e.total));
   };
 
   const handleUploadFile = () => {
     let fileToUpload = imageProps.file;
-    const imgCurrent = imageRef.current;
+    const imgCurrent = imageRef.current as {
+      getImageScaledToCanvas: () => HTMLCanvasElement;
+    } | null;
     if (imgCurrent && imageProps.file?.type?.includes('image/')) {
-      const imageDataUrl = imgCurrent.getImageScaledToCanvas().toDataURL();
+      const imageDataUrl: string = imgCurrent
+        .getImageScaledToCanvas()
+        .toDataURL();
       fileToUpload = dataUrlToFile(imageDataUrl, imageProps.file.name);
     }
 
@@ -77,7 +121,7 @@ export const RRVFileUpload = ({
         type,
         onProgress,
       )
-        .then((res) => {
+        .then((res: UploadResponse) => {
           const theFileName = res.data.data;
           setProgress(0);
           dispatch(setFilePath(theFileName));
@@ -91,18 +135,26 @@ export const RRVFileUpload = ({
           console.log(error);
 
           setProgress(0);
-          let errorMessage = '';
-          if (error.response) {
-            const { error: message } = error.response.data;
-            errorMessage = message;
-          } else {
-            errorMessage = error.message;
+          let errorMessage = 'Unknown error';
+
+          const safeError = error as {
+            response?: { data?: { error?: unknown } };
+            message?: unknown;
+          };
+          const safeError = error as {
+            response?: { data?: { error?: unknown } };
+            message?: unknown;
+          };
+          if (typeof safeError.response?.data?.error === 'string') {
+            errorMessage = safeError.response.data.error;
+          } else if (typeof safeError.message === 'string') {
+            errorMessage = safeError.message;
           }
           notifier.error(errorMessage);
         });
     }
   };
-  const handleFileChange = (selectedFile) => {
+  const handleFileChange = (selectedFile: File | null) => {
     setImageProps((prev) => ({ ...prev, file: selectedFile }));
     onFirstExcute();
   };

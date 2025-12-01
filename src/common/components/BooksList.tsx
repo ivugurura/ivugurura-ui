@@ -1,3 +1,5 @@
+import type React from 'react';
+
 import {
   Delete as DeleteIcon,
   // EditNoteOutlined as EditIcon,
@@ -17,6 +19,11 @@ import { useNavigate } from 'react-router';
 
 import { BOOK_COVERS_PATH, toLink } from '../../helpers/utils/constants';
 
+interface BooksListProps {
+  books?: APP.IBook[];
+  onBookClick?: (book: APP.IBook, action: 'delete' | 'edit' | 'view') => void;
+  isAdmin?: boolean;
+}
 const getCoverImage = (img) => {
   let cover = `${BOOK_COVERS_PATH}/${img}`;
   if (!img) {
@@ -24,15 +31,17 @@ const getCoverImage = (img) => {
   }
   return cover;
 };
-export const BooksList = ({
+export const BooksList: React.FC<BooksListProps> = ({
   books = [],
-  onBookClick = () => {},
+  onBookClick = () => {
+    /* empty */
+  },
   isAdmin = false,
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const handleReadBook = (book) => {
+  const handleReadBook = (book: APP.IBook) => {
     navigate(toLink(`library/${book.slug}`, isAdmin));
   };
   return (

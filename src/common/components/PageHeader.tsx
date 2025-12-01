@@ -1,6 +1,16 @@
+import React from 'react';
+
 import { Box, Typography } from '@mui/material';
 
-export const PageHeader = ({ title, description }) => {
+interface PageHeaderProps {
+  title?: string;
+  description?: string;
+}
+
+export const PageHeader: React.FC<PageHeaderProps> = ({
+  title,
+  description,
+}) => {
   return (
     <Box
       display="flex"

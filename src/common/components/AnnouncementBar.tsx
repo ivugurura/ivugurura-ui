@@ -8,10 +8,21 @@ import { Link } from 'react-router-dom';
 import { toLink } from '../../helpers/utils/constants';
 import { actions, initials } from '../../redux/apiSliceBuilder';
 
-export const AnnouncementBar = () => {
+interface PubConfigResponse {
+  data?: {
+    title: string;
+    content: string;
+  };
+}
+
+export const AnnouncementBar: React.FC<PubConfigResponse> = () => {
   const { t } = useTranslation();
   const [show, setShow] = React.useState(true);
-  const { data, isFetching } = actions.useGetPubConfigQuery({ truncate: 70 });
+  const { data, isFetching } = actions.useGetPubConfigQuery({
+    truncate: 70,
+  }) as {
+    data?: PubConfigResponse;
+  };
 
   const { data: communique } = data || initials.dataObj();
 

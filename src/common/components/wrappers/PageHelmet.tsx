@@ -1,3 +1,5 @@
+import type React from 'react';
+
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
@@ -6,9 +8,22 @@ import { useTranslation } from 'react-i18next';
 // const NODE_ENV = process.env.NODE_ENV;
 // const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
 
-const PageHelmet = ({ title, description, keywords, children, ...rest }) => {
+interface PageHelmetProps {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  children?: React.ReactNode;
+}
+
+const PageHelmet: React.FC<PageHelmetProps> = ({
+  title,
+  description,
+  keywords,
+  children,
+  ...rest
+}) => {
   const { t } = useTranslation();
-  const isProduction = process.env.REACT_APP_ENV === 'production';
+  const isProduction = import.meta.env.REACT_APP_ENV === 'production';
   //   const router = useRouter();
 
   //   useEffect(() => {

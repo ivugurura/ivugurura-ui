@@ -1,4 +1,4 @@
-export const dashboardActions = (type, topic) => {
+export const dashboardActions = (type: string, topic: APP.ITopic) => {
   const action = {
     action: type,
     title: topic.title,

@@ -36,6 +36,9 @@ declare namespace APP {
     slug: string;
     categories?: ICategory[];
   }
+  interface IHomeTopic {
+    isEnabled: boolean;
+  }
   interface ITopic {
     id: string;
     title: string;
@@ -43,6 +46,7 @@ declare namespace APP {
     coverImage: string;
     slug: string;
     updatedAt: string;
+    entities?: IHomeTopic[];
   }
   interface ISearchData {
     topics: ITopic[];

@@ -1,13 +1,15 @@
 import { Grid } from '@mui/material';
-import { useNavigate, useParams } from 'react-router';
+import {
+  // useNavigate,
+  useParams,
+} from 'react-router';
 
-import { PdfViewerChrome } from '../../common/components/PDFViewer';
-import { toLink } from '../../helpers/utils/constants';
+import { PdfViewer } from '../../common/components/PDFViewer/pdf';
 import { actions, initials } from '../../redux/apiSliceBuilder';
 
 const BookView = () => {
   const { slug } = useParams();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { data } = actions.useViewBookQuery({ slug });
   const { data: book } = data || initials.dataObj();
 
@@ -15,12 +17,9 @@ const BookView = () => {
 
   return (
     <Grid container>
-      <PdfViewerChrome
+      <PdfViewer
         pdfUrl={`${import.meta.env.VITE_API_URL}/api/v1/books/${book.id}`}
-        onPageClose={() => navigate(toLink('library'))}
         downloadParams={{ useMutation: 'useDownloadBookMutation', id: book.id }}
-        watermarkText="Reformation Voice"
-        initialScale={1}
       />
     </Grid>
   );

@@ -129,12 +129,11 @@ export const generateSignature = () => {
   const apiKey = 'your-secret-key';
   const timestamp = Math.floor(Date.now() / 1000);
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
   const hash = CryptoJS.HmacSHA256(String(timestamp), apiKey).toString(
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     CryptoJS.enc.Hex,
-  );
+  ) as string;
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   return { timestamp, hash };
 };

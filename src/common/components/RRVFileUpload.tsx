@@ -60,12 +60,11 @@ const dataUrlToFile = (dataUrl: string, filename: string) => {
   if (arr.length < 2) {
     return undefined;
   }
-  const mimeRegex = (/:(.*?);/ = /:(.*?);/);
-  const mimeArr = mimeRegex.exec(arr[0]);
-  if (!mimeArr || mimeArr.length < 2) {
+  const mimeExec = /:(.*?);/.exec(arr[0]);
+  if (!mimeExec || mimeExec.length < 2) {
     return undefined;
   }
-  const mime = mimeArr[1];
+  const mime = mimeExec[1];
   const buff = Buffer.from(arr[1], 'base64');
   return new File([buff], filename.replace(' ', '_'), { type: mime });
 };
@@ -130,15 +129,9 @@ export const RRVFileUpload: React.FC<RRVFileUploadProps> = ({
           }));
         })
         .catch((error) => {
-          console.log(error);
-
           setProgress(0);
           let errorMessage = 'Unknown error';
 
-          const safeError = error as {
-            response?: { data?: { error?: unknown } };
-            message?: unknown;
-          };
           const safeError = error as {
             response?: { data?: { error?: unknown } };
             message?: unknown;

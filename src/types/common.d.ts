@@ -66,4 +66,8 @@ declare namespace APP {
     actionDate: string;
     id: number;
   }
+  interface IPub {
+    title: string;
+    content: string;
+  }
 }

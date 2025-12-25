@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material';
 
 interface PageHeaderProps {
   title?: string;
-  description?: string;
+  description: string;
 }
 
 export const PageHeader: React.FC<PageHeaderProps> = ({

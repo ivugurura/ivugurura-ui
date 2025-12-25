@@ -2,27 +2,19 @@ import React from 'react';
 
 import { Close as CloseIcon } from '@mui/icons-material';
 import { Box, IconButton, Typography } from '@mui/material';
+import { actions, initials, type QueryHook } from '@redux/actions';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { toLink } from '../../helpers/utils/constants';
-import { actions, initials } from '../../redux/apiSliceBuilder';
 
-interface PubConfigResponse {
-  data?: {
-    title: string;
-    content: string;
-  };
-}
-
-export const AnnouncementBar: React.FC<PubConfigResponse> = () => {
+export const AnnouncementBar: React.FC = () => {
   const { t } = useTranslation();
   const [show, setShow] = React.useState(true);
-  const { data, isFetching } = actions.useGetPubConfigQuery({
+  const useGetPubConfig = actions.useGetPubConfigQuery as QueryHook<APP.IPub>;
+  const { data, isFetching } = useGetPubConfig({
     truncate: 70,
-  }) as {
-    data?: PubConfigResponse;
-  };
+  });
 
   const { data: communique } = data || initials.dataObj();
 

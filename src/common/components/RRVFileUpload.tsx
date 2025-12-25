@@ -3,13 +3,13 @@ import React from 'react';
 import { Buffer } from 'buffer';
 
 import { Box, Button, Grid, LinearProgress, Typography } from '@mui/material';
+import { setFilePath } from '@redux/actions';
 import { MuiFileInput } from 'mui-file-input';
 import AvatarEditor from 'react-avatar-editor';
 import { useDispatch } from 'react-redux';
 
 import { uploadFileWithProgress } from '../../helpers/utils';
 import { notifier } from '../../helpers/utils/constants';
-import { setFilePath } from '../../redux/actions';
 
 interface UploadResponse {
   data: {
@@ -76,9 +76,7 @@ export const RRVFileUpload: React.FC<RRVFileUploadProps> = ({
   accept = '.png, .jpg, .jpeg',
   placeholder = 'Insert a file',
   imgProps = {},
-  onFirstExcute = () => {
-    /* empty */
-  },
+  onFirstExcute,
 }) => {
   const dispatch = useDispatch();
   const [imageProps, setImageProps] = React.useState({

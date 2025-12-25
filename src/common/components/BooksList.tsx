@@ -31,11 +31,10 @@ const getCoverImage = (img) => {
   }
   return cover;
 };
+
 export const BooksList: React.FC<BooksListProps> = ({
   books = [],
-  onBookClick = () => {
-    /* empty */
-  },
+  onBookClick,
   isAdmin = false,
 }) => {
   const { t } = useTranslation();

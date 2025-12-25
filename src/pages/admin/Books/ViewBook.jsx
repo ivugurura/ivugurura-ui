@@ -1,6 +1,6 @@
 import { Dialog } from '@mui/material';
 
-import { PdfViewerChrome } from '../../../common/components/PDFViewer';
+import { PdfViewer } from '../../../common/components/PDFViewer/pdf';
 
 export const ViewBook = ({
   book = {},
@@ -16,12 +16,9 @@ export const ViewBook = ({
       fullWidth
       fullScreen={fullScreen}
     >
-      <PdfViewerChrome
+      <PdfViewer
         pdfUrl={`${import.meta.env.VITE_API_URL}/api/v1/books/${book.id}`}
-        onPageClose={onClose}
         downloadParams={{ useMutation: 'useDownloadBookMutation', id: book.id }}
-        watermarkText="Reformation Voice"
-        initialScale={1}
       />
     </Dialog>
   );

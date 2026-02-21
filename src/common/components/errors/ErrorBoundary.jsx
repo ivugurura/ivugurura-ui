@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
 export const isErrorLike = (value) =>
   typeof value === 'object' &&
@@ -62,9 +62,9 @@ export class ErrorBoundary extends React.PureComponent {
             The SITE encountered an unexpected error. If reloading the page does
             not fix it, contact your site admin or The SITE support.
           </Typography>
-          <Typography>
+          <Box>
             <Typography className="text-wrap">{error.message}</Typography>
-          </Typography>
+          </Box>
           {extraContext}
         </div>
       );

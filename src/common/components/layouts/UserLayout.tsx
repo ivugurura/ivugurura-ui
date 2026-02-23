@@ -30,6 +30,10 @@ const userRoutes: UserRoute[] = [
     component: React.lazy(() => import('../../../pages/LibraryPage')),
   },
   {
+    path: PageRoutes.Ask,
+    component: React.lazy(() => import('../../../pages/AskPage')),
+  },
+  {
     path: PageRoutes.ViewBook,
     component: React.lazy(() => import('../../../pages/BookViewPage')),
   },

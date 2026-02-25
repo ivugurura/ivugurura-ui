@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import { Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 

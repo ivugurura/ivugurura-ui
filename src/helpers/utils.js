@@ -19,8 +19,8 @@ export const chatUsers = (radioUsers, onlineUsers) => {
 
   return Array.from(userMap.values());
 };
-export const audioPath = `${process.env.REACT_APP_API_URL}/songs/`;
-export const imagesPath = `${process.env.REACT_APP_API_URL}/images/`;
+export const audioPath = `${import.meta.env.VITE_API_URL}/songs/`;
+export const imagesPath = `${import.meta.env.VITE_API_URL}/images/`;
 export const toDate = (date = null) => {
   const curr = date ? new Date(date) : new Date();
   curr.setDate(curr.getDate());

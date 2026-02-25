@@ -2,23 +2,25 @@ import moment from 'moment';
 
 import { getRole } from '../../../helpers/utils/constants';
 
-export const userColumns = () => [
-  { accessorKey: 'names', header: 'Names(First/Last name)' },
-  { accessorKey: 'username', header: 'User name', size: 1 },
-  { accessorKey: 'email', header: 'Email' },
-  {
-    id: 'role',
-    header: 'User role',
-    Cell: ({ row }) => getRole(row.original.role),
-    size: 1,
-  },
-  {
-    id: 'createdAt',
-    header: 'Registed',
-    Cell: ({ row }) => moment(row.original.createdAt).format('DD/MM/YYYY'),
-    size: 1,
-  },
-];
+export const userColumns = (t) => {
+  return [
+    { accessorKey: 'names', header: t('admin.users.tName') },
+    { accessorKey: 'username', header: t('admin.users.tUsername'), size: 1 },
+    { accessorKey: 'email', header: 'Email' },
+    {
+      id: 'role',
+      header: t('admin.users.tRole'),
+      Cell: ({ row }) => getRole(row.original.role),
+      size: 1,
+    },
+    {
+      id: 'createdAt',
+      header: t('admin.users.tRegistered'),
+      Cell: ({ row }) => moment(row.original.createdAt).format('DD/MM/YYYY'),
+      size: 1,
+    },
+  ];
+};
 
 export const userInitials = {
   email: '',
@@ -33,30 +35,39 @@ export const userEditLebels = {
   password: 'Change the password',
 };
 
-export const userSchema = (newLevel = {}) => [
-  [{ name: 'names', label: 'User full name (First and last name)' }],
+export const userSchema = (newLevel = {}, t) => [
+  [{ name: 'names', label: t('admin.users.fNames') }],
   [
     {
       name: 'isActive',
-      label: 'Is active?',
+      label: t('admin.users.fActive'),
       fieldType: 'switch-field',
       isBool: true,
     },
   ],
   [
-    { name: 'username', label: 'User name (with no space)' },
-    { name: 'email', label: 'Email', type: 'email' },
+    { name: 'username', label: t('admin.users.fUserName') },
+    { name: 'email', label: t('admin.users.fEmail'), type: 'email' },
   ],
   [
     {
       name: 'role',
-      label: 'User role',
+      label: t('admin.users.fRole'),
       select: true,
       options: [
-        { id: 2, name: 'Admin' },
-        { id: 3, name: 'Editor' },
+        {
+          id: 2,
+          name: t('admin.users.fAdmin'),
+        },
+        {
+          id: 3,
+          name: t('admin.users.fEditor'),
+        },
       ],
     },
-    { name: 'password', label: newLevel?.password || 'Set user password' },
+    {
+      name: 'password',
+      label: newLevel?.password || t('admin.users.fPassword'),
+    },
   ],
 ];

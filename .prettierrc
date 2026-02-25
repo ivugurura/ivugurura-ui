@@ -3,6 +3,6 @@
   "tabWidth": 2,
   "printWidth": 80,
   "singleQuote": true,
-  "jsxBracketSameLine": false,
-  "singleAttributePerLine": false
+  "singleAttributePerLine": false,
+  "endOfLine": "auto"
 }

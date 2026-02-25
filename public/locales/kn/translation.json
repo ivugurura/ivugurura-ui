@@ -62,15 +62,17 @@
     "viewMoreAudios": "Reba Audio zose",
     "more": "Ibikurikira",
     "edit": "Hindura",
-    "publish": "Publish",
-    "unpublish": "Unpublish",
+    "publish": "Tangaza",
+    "unpublish": "Wigitangaza",
     "addHome": "Set to home",
     "removeHome": "Remove from home",
     "addNMedia": "Shyiraho Media nshya",
     "addNAlbum": "kora Album nshya",
     "play": "Kina",
     "download": "Download",
-    "share": "Sangira"
+    "share": "Sangira",
+    "reply": "Reply",
+    "replied": "Replied"
   },
   "fields": {
     "email": "Email",
@@ -79,28 +81,40 @@
     "website": "Urubuga rwanyu(niba ruhari)",
     "message": "Andiko icyo ushaka kutugezaho"
   },
-  "library":{
+  "library": {
     "title": "Isomero",
     "menuTitle": "Ibitabo",
-    "labelTitle": "Ububiko bw ibitabo",
+    "labelTitle": "Ububiko bw'ibitabo",
     "description": "Mushobora kwisomera ibitabo by ubutumwa bwiza bw Ivugurura n Ubugorozi",
     "addNew": "Shyiraho igitabo gishya",
     "nLabel": "Ibitabo biri mu isomero",
-    "tName": "Izina ry igitabo",
+    "tName": "Izina ry'igitabo",
     "tAuthor": "Umwanditsi",
     "tCategory": "Kategori",
     "tDownloadable": "Downloadable",
-    "allBooks": "Ibitabo byose"
+    "allBooks": "Ibitabo byose",
+    "form": {
+      "title": "Shyiraho igitabo gishya",
+      "name": "Izina ry'igitabo",
+      "category": "Kategori y'igitabo",
+      "author": "Umwanditsi w'igitabo",
+      "summary": "Inshamake y'igitabo",
+      "isDownloadable": "Ese igitabo kizaba gishobora gukurwaho?",
+      "imgCover": "Ifoto y'igitabo",
+      "imgCoverPh": "Shyiraho ifoto y'igitabo",
+      "file": "Faili y'igitabo",
+      "filePh": "Shyiraho faili y'igitabo"
+    }
   },
   "admin": {
     "nav": {
-      "webRelated": "Ibijyanye n urubuga",
+      "webRelated": "Ibijyanye n'urubuga",
       "website": "Urubuga",
       "home": "Ahabanza",
       "media": "Media",
       "audio": "Audio",
       "commentaries": "Ibitekerezo",
-      "webSettings": "Settings z urubuga",
+      "webSettings": "Settings z'urubuga",
       "systemUsers": "Abakozi",
       "systemSettings": "Settings rusanga"
     },
@@ -109,10 +123,11 @@
       "description": "Mu by ukuri murashaka "
     },
     "home": {
-      "title": "Ubuyobozi bw urubuga",
+      "title": "Ubuyobozi bw'urubuga",
+      "subtitle": "Incamake y'urubuga",
       "publishDisclaimer": "Mubanze mu publishinge iki cyigisho",
       "loading": "Mube mwihanganye,...",
-      "tTitle": "Umutwe w icyigisho",
+      "tTitle": "Umutwe w'icyigisho",
       "tDescription": "Icyigisho mu nshamake",
       "tViews": "Abasomye",
       "tPublished": "Igihe cyandikiwe",
@@ -123,17 +138,17 @@
     "topic": {
       "subtitle": "Icyigisho gishya",
       "title": "Shyiraho Icyigisho gishya",
-      "about": "Ibijyanye n Icyigisho",
-      "phTitle": "Umutwe w Icyigisho",
+      "about": "Ibijyanye n'icyigisho",
+      "phTitle": "Umutwe w'icyigisho",
       "phCategory": "Icyigisho kirambuye",
-      "addImage": "Shyiraho ifoto y icyigisho",
+      "addImage": "Shyiraho ifoto y'icyigisho",
       "ciTitle": "Hitamo ifoto izajya igaragara ku cyigisho",
-      "ciSubtitle": "Ifoto muza guhitamo izajya igaragara hejuru ku cyigisho mbere y andi magagambo yose",
+      "ciSubtitle": "Ifoto muza guhitamo izajya igaragara hejuru ku cyigisho mbere y'andi magambo yose",
       "ciTabUpload": "Hitamo mu mafoto yo muri mudasobwa yawe",
       "ciTabSelect": "Hitamo mu mafoto asanzweho",
       "ciPhFile": "Kanda hano ushireho file",
       "detail": "Icyigisho mu buryo burambuye",
-      "phDetail": "mwandike hano"
+      "phDetail": "Mwandike hano"
     },
     "media": {
       "title": "Media zose",
@@ -147,6 +162,51 @@
       "public": {
         "title": "Itangazo"
       }
+    },
+    "commentaries": {
+      "title": "Ibitekerezo byatanzwe mu  byigisho",
+      "tCommentorInfo": "Amakuru y’uwatanze igitekerezo",
+      "tContent": "Ibirimo",
+      "tTopicTitle": "Umutwe w’icyigwa",
+      "tPublished": "Published"
+    },
+    "webSettings": {
+      "title": "Ibigize Amagenamiterere",
+      "subTitle": "Itangazo rusange",
+      "addNewCom": "Shyiraho Itangazo",
+      "tTitle": "Umutwe",
+      "tContent": "Ibirimo",
+      "tLanguage": "Ururimi",
+      "rowsPerPage": "Rows per page",
+      "setting": "Igenamiterere",
+      "addNewSet": "Setting Nshya",
+      "fTitle": "Kora itangazo rishya rizajya risomwa na buri wese",
+      "fSubtitle": "Itangazo: Rizajya rigaragara hejuru ku rubuga",
+      "fExpiry": "Igihe itangazo rizarangirira",
+      "fPublished": "Garagaza ko iri Published",
+      "sample": {
+        "communique": "Communique",
+        "updatingSite": "We are updating the site with new information to keep you updated"
+      }
+    },
+    "users": {
+      "title": "Urutonde rw'abakozi banditswe",
+      "addNewUser": "Shyiraho umukozi mushya",
+      "tName": "Amazina yose(irya mbere/nyuma)",
+      "tUsername": "Izina akoresha",
+      "tEmail": "Email",
+      "tRole": "Uruhare rwe",
+      "tRegistered": "Igihe yiyandikiye",
+      "fTitle": "Shyiraho umukozi mushya",
+      "fSubtitle": "Abakozi b'urubuga : Ushobora gukora cyangwa guhindura ibikubiye ku rubuga. Ashobora kuba umuyobozi cyangwa umwanditsi.",
+      "fNames": "Amazina y'umukozi (irya mbere n'irya nyuma)",
+      "fActive": "Active/Desactive",
+      "fUserName": "Izina akoresha (nta mwanya)",
+      "fEmail": "Email",
+      "fRole": "Uwo ari we",
+      "fPassword": "Shyiraho ijambo ry'ibanga",
+      "fAdmin": "Admin",
+      "fEditor": "Umwanditsi"
     }
   }
 }

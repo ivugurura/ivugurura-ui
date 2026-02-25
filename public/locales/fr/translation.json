@@ -70,7 +70,9 @@
     "addNAlbum": "Ajouter un nouvel album",
     "play": "Lecture",
     "download": "Télécharger",
-    "share": "Partager"
+    "share": "Partager",
+    "reply": "Reply",
+    "replied": "Replied"
   },
   "fields": {
     "email": "E-mail",
@@ -79,7 +81,7 @@
     "website": "Site web",
     "message": "Que veux-tu nous dire?"
   },
-  "library":{
+  "library": {
     "title": "Bibliothèque",
     "menuTitle": "Livres",
     "labelTitle": "Librairie de livres",
@@ -90,7 +92,19 @@
     "tAuthor": "Auteur",
     "tCategory": "Catégorie",
     "tDownloadable": "Téléchargeable",
-    "allBooks": "Tous les livres"
+    "allBooks": "Tous les livres",
+    "form": {
+      "title": "Créer un nouveau livre",
+      "name": "Nom du livre",
+      "category": "Catégorie du livre",
+      "author": "Auteur du livre",
+      "summary": "Résumé du livre",
+      "isDownloadable": "Téléchargeable?",
+      "imgCover": "Image de couverture",
+      "imgCoverPh": "Télécharger l'image de couverture du livre",
+      "file": "Fichier du livre",
+      "filePh": "Ajouter le fichier du livre"
+    }
   },
   "admin": {
     "nav": {
@@ -110,6 +124,7 @@
     },
     "home": {
       "title": "Tableau de bord d'administration",
+      "subtitle": "Aperçu du tableau de bord",
       "publishDisclaimer": "S'il vous plaît, publiez d'abord le sujet",
       "loading": "Chargement du contenu...",
       "tTitle": "Titre du sujet",
@@ -147,6 +162,51 @@
       "public": {
         "title": "Communiqué"
       }
+    },
+    "commentaries": {
+      "title": "Commentaires sur les sujets",
+      "tCommentorInfo": "Informations sur le commentateur",
+      "tContent": "Contenu",
+      "tTopicTitle": "Titre du sujet",
+      "tPublished": "Publié"
+    },
+    "webSettings": {
+      "title": "Menu des paramètres",
+      "subTitle": "Communication publique",
+      "addNewCom": "Ajouter une nouvelle communication",
+      "tTitle": "Titre",
+      "tContent": "Contenu",
+      "tLanguage": "Langue",
+      "rowsPerPage": "Lignes par page",
+      "setting": "Paramètre",
+      "addNewSet": "Ajouter un nouvel",
+      "fTitle": "Créer une nouvelle communication à notre audience",
+      "fSubtitle": "Communication: Elle apparaîtra en haut de la navigation Web.",
+      "fExpiry": "Quand la communication expire",
+      "fPublished": "Marquer comme publié",
+      "sample": {
+        "communique": "Communique",
+        "updatingSite": "Nous mettons à jour le site avec de nouvelles informations pour vous tenir informé"
+      }
+    },
+    "users": {
+      "title": "Utilisateurs du système",
+      "addNewUser": "Ajouter un nouvel utilisateur",
+      "tName": "Noms (Prénom/Nom de famille)",
+      "tUsername": "Nom d'utilisateur",
+      "tEmail": "Email",
+      "tRole": "Rôle de l'utilisateur",
+      "tRegistered": "Enregistré",
+      "fTitle": "Ajouter un nouvel utilisateur",
+      "fSubtitle": "Utilisateurs du système : Un utilisateur qui peut créer ou modifier du contenu sur le site Web. Peut être un administrateur, un éditeur.",
+      "fNames": "Nom complet de l'utilisateur (Prénom et nom de famille)",
+      "fActive": "Est actif?",
+      "fUserName": "Nom d'utilisateur (sans espace)",
+      "fEmail": "Email",
+      "fRole": "Rôle de l'utilisateur",
+      "fPassword": "Définir le mot de passe",
+      "fAdmin": "Administrateur",
+      "fEditor": "Éditeur"
     }
   }
 }

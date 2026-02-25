@@ -70,7 +70,9 @@
     "addNAlbum": "Add new album",
     "play": "Play",
     "download": "Download",
-    "share": "Share"
+    "share": "Share",
+    "reply": "Reply",
+    "replied": "Replied"
   },
   "fields": {
     "email": "E-mail",
@@ -79,7 +81,7 @@
     "website": "Website",
     "message": "What do you want to tell us?"
   },
-  "library":{
+  "library": {
     "title": "Library",
     "menuTitle": "Books",
     "labelTitle": "Book store",
@@ -122,6 +124,7 @@
     },
     "home": {
       "title": "Admin dashboard",
+      "subtitle": "Dashboard overview",
       "publishDisclaimer": "Please publish the topic first",
       "loading": "Loading your content...",
       "tTitle": "Topic title",
@@ -159,6 +162,51 @@
       "public": {
         "title": "Communique"
       }
+    },
+    "commentaries": {
+      "title": "Commentaries to the Topics",
+      "tCommentorInfo": "Commentor Info",
+      "tContent": "Content",
+      "tTopicTitle": "Topic title",
+      "tPublished": "Published"
+    },
+    "webSettings": {
+      "title": "Setting Menu",
+      "subTitle": "Public communication",
+      "addNewCom": "Add a new communication",
+      "tTitle": "Title",
+      "tContent": "Content",
+      "tLanguage": "Language",
+      "rowsPerPage": "Rows per page",
+      "setting": "Setting",
+      "addNewSet": "Add new",
+      "fTitle": "Create a new communication to our audience",
+      "fSubtitle": "Communication: It will appear on top of the web navigation.",
+      "fExpiry": "When the communication is expired",
+      "fPublished": "Mark as it published",
+      "sample": {
+        "communique": "Communique",
+        "updatingSite": "We are updating the site with new information to keep you updated"
+      }
+    },
+    "users": {
+      "title": "List of registered users",
+      "addNewUser": "Add new user",
+      "tName": "Names (FirstLast name)",
+      "tUsername": "User name",
+      "tEmail": "Email",
+      "tRole": "User role",
+      "tRegistered": "Registered",
+      "fTitle": "Add a new User",
+      "fSubtitle": "System Users: An user who can create or modifiy contents on the website. Can be an admin, editor",
+      "fNames": "User full name (First and last name)",
+      "fActive": "Is active?",
+      "fUserName": "User name (with no space)",
+      "fEmail": "Email",
+      "fRole": "User role",
+      "fPassword": "Set user password",
+      "fAdmin": "Admin",
+      "fEditor": "Editor"
     }
   }
 }

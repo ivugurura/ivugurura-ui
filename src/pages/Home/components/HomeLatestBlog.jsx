@@ -12,7 +12,7 @@ export const HomeLatestBlog = ({
   truncate = 148,
 }) => {
   const { t } = useTranslation();
-  const { data, isFetching } = actions.useGetCsTopicsQuery({
+  const { data, isFetching } = actions.useGetRecentTopicsQuery({
     truncate,
   });
 
@@ -28,7 +28,6 @@ export const HomeLatestBlog = ({
         variant="subtitle1"
         sx={{
           fontWeight: 400,
-
           py: {
             xs: 2,
             sm: 3,

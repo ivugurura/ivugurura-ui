@@ -14,7 +14,7 @@ export const HomeRecentTopics = ({
   truncate = 148,
 }) => {
   const { t } = useTranslation();
-  const { data, isFetching } = actions.useGetRecentTopicsQuery({
+  const { data, isFetching } = actions.useGetCsTopicsQuery({
     truncate,
   });
 

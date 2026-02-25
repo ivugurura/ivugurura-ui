@@ -1,4 +1,4 @@
-import type React from 'react';
+import React from 'react';
 
 import SunEditor from 'suneditor-react';
 import type { SunEditorReactProps } from 'suneditor-react/dist/types/SunEditorReactProps';

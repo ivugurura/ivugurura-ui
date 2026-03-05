@@ -617,13 +617,7 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({
                         rotate={rotation}
                         renderTextLayer={false}
                         renderAnnotationLayer={false}
-                        loading={
-                          <Skeleton
-                            variant="rounded"
-                            width="90%"
-                            height={460}
-                          />
-                        }
+                        loading={<Skeleton variant="rounded" height={460} />}
                         onLoadSuccess={handlePageLoadSuccess}
                         onRenderSuccess={handlePageRenderSuccess}
                         onRenderError={handlePageRenderError}

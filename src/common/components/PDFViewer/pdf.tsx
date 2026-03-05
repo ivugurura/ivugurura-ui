@@ -15,8 +15,11 @@ import {
 import {
   Box,
   Divider,
+  Drawer,
   IconButton,
+  Paper,
   Skeleton,
+  TextField,
   Tooltip,
   Typography,
   useMediaQuery,
@@ -33,23 +36,17 @@ import { RRVDownloadBtn } from '../RRVDownloadBtn';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.mjs`;
 
-/**
- * PdfViewer component
- *
- * Props:
- * - pdfUrl: URL to the PDF resource
- * - downloadParams: params forwarded to `RRVDownloadBtn` mutation action
- * - canDownload: when false, the download button is hidden to disallow downloads
- * - onPageClose, watermarkText, initialScale: reserved for future use
- */
 interface PdfViewerProps {
   pdfUrl: string;
   onPageClose?: () => void;
-  downloadParams?: Record<string, string>;
+  downloadParams?: Record<string, unknown>;
   watermarkText?: string;
   initialScale?: number;
   canDownload?: boolean;
 }
+
+const clamp = (value: number, min: number, max: number) =>
+  Math.min(Math.max(value, min), max);
 
 export const PdfViewer: React.FC<PdfViewerProps> = ({
   pdfUrl,
@@ -57,48 +54,51 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({
   canDownload = true,
   initialScale = 1,
 }) => {
-  const [numPages, setNumPages] = React.useState(0);
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const [basePageWidth, setBasePageWidth] = React.useState<number>(0);
-  const [containerWidth, setContainerWidth] = React.useState<number>(800);
-  const [scale, setScale] = React.useState<number>(initialScale);
-  const [fitToWidth, setFitToWidth] = React.useState<boolean>(true);
-  const [rotation, setRotation] = React.useState<number>(0);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const [showThumbs, setShowThumbs] = React.useState<boolean>(!isMobile);
 
-  const viewerRef = React.useRef<HTMLDivElement | null>(null);
+  const [numPages, setNumPages] = React.useState(0);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [pageInputValue, setPageInputValue] = React.useState('1');
+  const [showThumbs, setShowThumbs] = React.useState(!isMobile);
+  const [zoom, setZoom] = React.useState(initialScale);
+  const [fitToWidth, setFitToWidth] = React.useState(true);
+  const [rotation, setRotation] = React.useState(0);
+  const [viewportWidth, setViewportWidth] = React.useState(900);
+  const [naturalPageWidth, setNaturalPageWidth] = React.useState<number | null>(
+    null,
+  );
+
+  const viewportRef = React.useRef<HTMLDivElement | null>(null);
+
   React.useEffect(() => {
-    if (!viewerRef.current) return;
-    const ro = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const cw = entry.contentRect.width;
-        setContainerWidth(Math.max(300, cw));
+    setShowThumbs(!isMobile);
+  }, [isMobile]);
+
+  React.useEffect(() => {
+    if (!viewportRef.current) {
+      return;
+    }
+
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      if (!entry) {
+        return;
       }
+      setViewportWidth(Math.max(300, Math.floor(entry.contentRect.width)));
     });
-    ro.observe(viewerRef.current);
-    return () => ro.disconnect();
+
+    observer.observe(viewportRef.current);
+    return () => observer.disconnect();
   }, []);
-  const onDocumentLoadSuccess: OnDocumentLoadSuccess = (ev) => {
-    setNumPages(ev.numPages);
-    setCurrentPage(1);
-  };
 
-  const goToPage = (p: number) => {
-    const next = Math.min(Math.max(p, 1), numPages || 1);
-    setCurrentPage(next);
-  };
+  React.useEffect(() => {
+    setPageInputValue(String(currentPage));
+  }, [currentPage]);
 
-  const zoomIn = () => setScale((s) => Math.min(s + 0.1, 5));
-  const zoomOut = () => setScale((s) => Math.max(s - 0.1, 0.2));
-  const toggleFit = () => setFitToWidth((v) => !v);
-  const rotateLeft = () => setRotation((r) => (r - 90 + 360) % 360);
-  const rotateRight = () => setRotation((r) => (r + 90) % 360);
-
-  const { useMutation, ...otherParams } = downloadParams;
   const signature = React.useMemo(() => generateSignature(), []);
-  const options: Options = React.useMemo(
+
+  const docOptions = React.useMemo<Options>(
     () => ({
       httpHeaders: {
         'X-Timestamp': String(signature.timestamp),
@@ -108,190 +108,329 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({
     }),
     [signature],
   );
-  const effectiveScale =
-    fitToWidth && basePageWidth > 0 ? containerWidth / basePageWidth : scale;
 
-  const widthForFit = fitToWidth
-    ? Math.max(300, Math.floor(containerWidth - 32))
+  const onDocumentLoadSuccess: OnDocumentLoadSuccess = ({
+    numPages: total,
+  }) => {
+    setNumPages(total);
+    setCurrentPage(1);
+    setPageInputValue('1');
+  };
+
+  const goToPage = React.useCallback(
+    (page: number) => {
+      const nextPage = clamp(page, 1, Math.max(1, numPages));
+      setCurrentPage(nextPage);
+    },
+    [numPages],
+  );
+
+  const handleThumbnailClick = (page: number) => {
+    goToPage(page);
+    if (isMobile) {
+      setShowThumbs(false);
+    }
+  };
+
+  const commitPageInput = () => {
+    const next = Number.parseInt(pageInputValue, 10);
+    if (Number.isNaN(next)) {
+      setPageInputValue(String(currentPage));
+      return;
+    }
+    goToPage(next);
+  };
+
+  const zoomIn = () => {
+    setFitToWidth(false);
+    setZoom((previous) => clamp(Number((previous + 0.1).toFixed(2)), 0.5, 4));
+  };
+
+  const zoomOut = () => {
+    setFitToWidth(false);
+    setZoom((previous) => clamp(Number((previous - 0.1).toFixed(2)), 0.5, 4));
+  };
+
+  const rotateLeft = () => {
+    setRotation((previous) => (previous - 90 + 360) % 360);
+  };
+
+  const rotateRight = () => {
+    setRotation((previous) => (previous + 90) % 360);
+  };
+
+  const { useMutation, ...otherParams } = downloadParams as {
+    useMutation?: string;
+    [key: string]: unknown;
+  };
+
+  const mainPageWidth = fitToWidth
+    ? Math.max(300, Math.floor(viewportWidth - 48))
     : undefined;
-  console.log({ isMobile });
+
+  const zoomPercent = fitToWidth
+    ? Math.round(
+        naturalPageWidth && naturalPageWidth > 0
+          ? (Math.max(300, Math.floor(viewportWidth - 48)) / naturalPageWidth) *
+              100
+          : 100,
+      )
+    : Math.round(zoom * 100);
+
+  const thumbnails = (
+    <Box
+      sx={{
+        width: { xs: 220, sm: 170 },
+        height: '100%',
+        overflowY: 'auto',
+        p: 1,
+        bgcolor: 'background.default',
+      }}
+    >
+      {Array.from({ length: numPages }, (_, index) => {
+        const page = index + 1;
+        const isActive = page === currentPage;
+        return (
+          <Box
+            key={`thumb-${page}`}
+            role="button"
+            onClick={() => handleThumbnailClick(page)}
+            sx={{
+              mb: 1,
+              p: 0.5,
+              border: '1px solid',
+              borderColor: isActive ? 'primary.main' : 'divider',
+              borderRadius: 1,
+              cursor: 'pointer',
+              bgcolor: isActive ? 'action.selected' : 'background.paper',
+            }}
+          >
+            <Page
+              pageNumber={page}
+              width={isMobile ? 190 : 148}
+              renderTextLayer={false}
+              renderAnnotationLayer={false}
+              rotate={rotation}
+            />
+            <Typography
+              variant="caption"
+              sx={{ display: 'block', mt: 0.5, textAlign: 'center' }}
+            >
+              {page}
+            </Typography>
+          </Box>
+        );
+      })}
+    </Box>
+  );
 
   return (
     <Document
       file={pdfUrl}
-      options={options}
+      options={docOptions}
       onLoadSuccess={onDocumentLoadSuccess}
       loading={
         <Box sx={{ p: 2, width: '100%' }}>
-          <Skeleton variant="rounded" height={32} sx={{ mb: 2 }} />
-          <Skeleton variant="rounded" height={180} sx={{ mb: 1 }} />
-          <Skeleton variant="rounded" height={24} width="40%" />
+          <Skeleton variant="rounded" height={44} sx={{ mb: 2 }} />
+          <Skeleton variant="rounded" height={420} sx={{ mb: 1.5 }} />
+          <Skeleton variant="rounded" height={18} width="32%" />
         </Box>
       }
       error={
         <Box sx={{ p: 4, textAlign: 'center', color: 'text.secondary' }}>
-          <Typography variant="body1" sx={{ mb: 1 }}>
-            Unable to load PDF.
-          </Typography>
+          <Typography variant="body1">Unable to load PDF.</Typography>
           <Typography variant="caption">
-            Please check your network or permissions and try again.
+            Please check network access and permissions.
           </Typography>
         </Box>
       }
     >
       <Box
         sx={{
-          position: 'relative',
           display: 'flex',
           height: '100%',
-          minHeight: 400,
+          minHeight: 560,
+          maxHeight: '86vh',
+          border: '1px solid',
+          borderColor: 'divider',
+          borderRadius: 1,
+          overflow: 'hidden',
+          bgcolor: 'background.paper',
         }}
       >
-        {/* Sidebar Thumbnails */}
-        {!isMobile && (
+        {!isMobile && showThumbs && (
           <Box
             sx={{
-              width: 160,
+              width: 170,
               borderRight: '1px solid',
               borderColor: 'divider',
-              p: 1,
-              overflowY: 'auto',
-              height: '100vh',
             }}
           >
-            {Array.from({ length: numPages || 0 }, (_, i) => (
-              <Box
-                key={`thumb_${i + 1}`}
-                sx={{
-                  mb: 1,
-                  borderRadius: 1,
-                  overflow: 'hidden',
-                  cursor: 'pointer',
-                  border:
-                    i + 1 === currentPage
-                      ? '2px solid #1976d2'
-                      : '1px solid #ddd',
-                }}
-                onClick={() => goToPage(i + 1)}
-              >
-                <Page
-                  pageNumber={i + 1}
-                  width={150}
-                  renderTextLayer={false}
-                  renderAnnotationLayer={false}
-                />
-                <Typography
-                  variant="caption"
-                  sx={{ display: 'block', textAlign: 'center', py: 0.5 }}
-                >
-                  {i + 1}
-                </Typography>
-              </Box>
-            ))}
+            {thumbnails}
           </Box>
         )}
 
-        {/* Main area */}
-        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          {/* Toolbar */}
-          <Box
+        {isMobile && (
+          <Drawer
+            anchor="left"
+            open={showThumbs}
+            onClose={() => setShowThumbs(false)}
+            ModalProps={{ keepMounted: true }}
+          >
+            {thumbnails}
+          </Drawer>
+        )}
+
+        <Box
+          sx={{
+            flex: 1,
+            minWidth: 0,
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <Paper
+            elevation={0}
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1,
-              px: 1,
-              py: 0.5,
               borderBottom: '1px solid',
               borderColor: 'divider',
+              px: 1,
+              py: 0.5,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0.5,
+              flexWrap: 'wrap',
+              position: 'sticky',
+              top: 0,
+              zIndex: 2,
+              bgcolor: 'background.paper',
             }}
           >
+            <Tooltip title={showThumbs ? 'Hide thumbnails' : 'Show thumbnails'}>
+              <IconButton
+                size="small"
+                onClick={() => setShowThumbs((previous) => !previous)}
+              >
+                <ViewSidebarIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+
+            <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
+
             <Tooltip title="First page">
               <span>
                 <IconButton
+                  size="small"
                   onClick={() => goToPage(1)}
                   disabled={currentPage <= 1}
                 >
-                  <FirstPageIcon />
+                  <FirstPageIcon fontSize="small" />
                 </IconButton>
               </span>
             </Tooltip>
-            <Tooltip title="Previous">
+            <Tooltip title="Previous page">
               <span>
                 <IconButton
+                  size="small"
                   onClick={() => goToPage(currentPage - 1)}
                   disabled={currentPage <= 1}
                 >
-                  <PrevPageIcon />
+                  <PrevPageIcon fontSize="small" />
                 </IconButton>
               </span>
             </Tooltip>
-            <Typography variant="body2">
-              Page {currentPage} / {numPages || '-'}
+
+            <TextField
+              size="small"
+              value={pageInputValue}
+              onChange={(event) => setPageInputValue(event.target.value)}
+              onBlur={commitPageInput}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  commitPageInput();
+                }
+              }}
+              inputProps={{
+                inputMode: 'numeric',
+                pattern: '[0-9]*',
+                style: { width: 52, textAlign: 'center' },
+              }}
+            />
+
+            <Typography variant="body2" color="text.secondary">
+              / {numPages || '-'}
             </Typography>
-            <Tooltip title="Next">
+
+            <Tooltip title="Next page">
               <span>
                 <IconButton
+                  size="small"
                   onClick={() => goToPage(currentPage + 1)}
-                  disabled={currentPage >= numPages}
+                  disabled={numPages === 0 || currentPage >= numPages}
                 >
-                  <NextPageIcon />
+                  <NextPageIcon fontSize="small" />
                 </IconButton>
               </span>
             </Tooltip>
             <Tooltip title="Last page">
               <span>
                 <IconButton
+                  size="small"
                   onClick={() => goToPage(numPages)}
-                  disabled={currentPage >= numPages}
+                  disabled={numPages === 0 || currentPage >= numPages}
                 >
-                  <LastPageIcon />
+                  <LastPageIcon fontSize="small" />
                 </IconButton>
               </span>
             </Tooltip>
 
-            <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
+            <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
 
             <Tooltip title="Zoom out">
-              <IconButton onClick={zoomOut}>
-                <ZoomOutIcon />
+              <IconButton size="small" onClick={zoomOut}>
+                <ZoomOutIcon fontSize="small" />
               </IconButton>
             </Tooltip>
-            <Typography variant="body2">
-              {Math.round(effectiveScale * 100)}%
+
+            <Typography
+              variant="body2"
+              sx={{ minWidth: 46, textAlign: 'center' }}
+            >
+              {zoomPercent}%
             </Typography>
+
             <Tooltip title="Zoom in">
-              <IconButton onClick={zoomIn}>
-                <ZoomInIcon />
+              <IconButton size="small" onClick={zoomIn}>
+                <ZoomInIcon fontSize="small" />
               </IconButton>
             </Tooltip>
+
             <Tooltip
               title={fitToWidth ? 'Disable fit to width' : 'Fit to width'}
             >
-              <IconButton onClick={toggleFit}>
-                <FitScreenIcon />
+              <IconButton
+                size="small"
+                onClick={() => setFitToWidth((previous) => !previous)}
+              >
+                <FitScreenIcon fontSize="small" />
               </IconButton>
             </Tooltip>
 
-            <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
+            <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
 
             <Tooltip title="Rotate left">
-              <IconButton onClick={rotateLeft}>
-                <RotateLeftIcon />
+              <IconButton size="small" onClick={rotateLeft}>
+                <RotateLeftIcon fontSize="small" />
               </IconButton>
             </Tooltip>
+
             <Tooltip title="Rotate right">
-              <IconButton onClick={rotateRight}>
-                <RotateRightIcon />
+              <IconButton size="small" onClick={rotateRight}>
+                <RotateRightIcon fontSize="small" />
               </IconButton>
             </Tooltip>
 
             <Box sx={{ flex: 1 }} />
-
-            <Tooltip title={showThumbs ? 'Hide thumbnails' : 'Show thumbnails'}>
-              <IconButton onClick={() => setShowThumbs((v) => !v)}>
-                <ViewSidebarIcon />
-              </IconButton>
-            </Tooltip>
 
             {canDownload && (
               <RRVDownloadBtn
@@ -300,29 +439,29 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({
                 hideBtntext
               />
             )}
-          </Box>
+          </Paper>
 
-          {/* Page viewer */}
           <Box
-            ref={viewerRef}
+            ref={viewportRef}
             sx={{
               flex: 1,
               overflow: 'auto',
-              display: 'flex',
-              alignItems: 'flex-start',
-              justifyContent: 'center',
               p: 2,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'flex-start',
+              bgcolor: 'grey.100',
             }}
           >
             <Page
-              pageNumber={currentPage}
+              pageNumber={Math.max(1, currentPage)}
+              width={mainPageWidth}
+              scale={fitToWidth ? undefined : zoom}
+              rotate={rotation}
               renderTextLayer={false}
               renderAnnotationLayer={false}
-              scale={widthForFit ? undefined : effectiveScale}
-              width={widthForFit}
-              rotate={rotation}
               onLoadSuccess={(page) => {
-                if (!basePageWidth) setBasePageWidth(page.width);
+                setNaturalPageWidth(page.width);
               }}
             />
           </Box>

@@ -2,8 +2,6 @@ import React from 'react';
 
 import {
   Delete as DeleteIcon,
-  // EditNoteOutlined as EditIcon,
-  DownloadOutlined as DownloadIcon,
   LockOutlined as LockIcon,
   ViewAgendaOutlined as ViewIcon,
 } from '@mui/icons-material';
@@ -22,6 +20,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import { BOOK_COVERS_PATH, toLink } from '../../helpers/utils/constants';
+
+import { RRVDownloadBtn } from './RRVDownloadBtn';
 
 interface BooksListProps {
   books?: APP.IBook[];
@@ -47,6 +47,7 @@ export const BooksList: React.FC<BooksListProps> = ({
   const handleReadBook = (book: APP.IBook) => {
     navigate(toLink(`library/${book.slug}`, isAdmin));
   };
+
   return (
     <Grid container spacing={3}>
       {books.map((book) => (
@@ -79,12 +80,11 @@ export const BooksList: React.FC<BooksListProps> = ({
                   {book.name}
                 </Typography>
                 {book.isDownloadable ? (
-                  <IconButton
-                    aria-label="download"
-                    onClick={(event) => event.stopPropagation()}
-                  >
-                    <DownloadIcon />
-                  </IconButton>
+                  <RRVDownloadBtn
+                    useMutation="useDownloadBookMutation"
+                    params={{ id: book.id }}
+                    hideBtntext
+                  />
                 ) : (
                   <IconButton
                     aria-label="locked"

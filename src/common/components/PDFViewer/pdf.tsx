@@ -345,12 +345,7 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({
           <Box sx={{ p: 2, width: '100%' }}>
             <Skeleton variant="rounded" height={44} sx={{ mb: 2 }} />
             <Skeleton variant="rounded" height={420} sx={{ mb: 1.5 }} />
-            <Skeleton
-              variant="rounded"
-              height={18}
-              width="32%"
-              sx={{ mb: 1 }}
-            />
+            <Skeleton variant="rounded" height={18} sx={{ mb: 1 }} />
             <Typography variant="caption" color="text.secondary">
               {loadProgress !== null
                 ? `Loading document... ${loadProgress}%`
@@ -443,22 +438,26 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({
               <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
 
               <Tooltip title="First page">
-                <IconButton
-                  size="small"
-                  onClick={() => goToPage(1)}
-                  disabled={currentPage <= 1}
-                >
-                  <FirstPageIcon fontSize="small" />
-                </IconButton>
+                <span>
+                  <IconButton
+                    size="small"
+                    onClick={() => goToPage(1)}
+                    disabled={currentPage <= 1}
+                  >
+                    <FirstPageIcon fontSize="small" />
+                  </IconButton>
+                </span>
               </Tooltip>
               <Tooltip title="Previous page">
-                <IconButton
-                  size="small"
-                  onClick={() => goToPage(currentPage - 1)}
-                  disabled={currentPage <= 1}
-                >
-                  <PrevPageIcon fontSize="small" />
-                </IconButton>
+                <span>
+                  <IconButton
+                    size="small"
+                    onClick={() => goToPage(currentPage - 1)}
+                    disabled={currentPage <= 1}
+                  >
+                    <PrevPageIcon fontSize="small" />
+                  </IconButton>
+                </span>
               </Tooltip>
 
               <TextField
@@ -483,22 +482,26 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({
               </Typography>
 
               <Tooltip title="Next page">
-                <IconButton
-                  size="small"
-                  onClick={() => goToPage(currentPage + 1)}
-                  disabled={numPages === 0 || currentPage >= numPages}
-                >
-                  <NextPageIcon fontSize="small" />
-                </IconButton>
+                <span>
+                  <IconButton
+                    size="small"
+                    onClick={() => goToPage(currentPage + 1)}
+                    disabled={numPages === 0 || currentPage >= numPages}
+                  >
+                    <NextPageIcon fontSize="small" />
+                  </IconButton>
+                </span>
               </Tooltip>
               <Tooltip title="Last page">
-                <IconButton
-                  size="small"
-                  onClick={() => goToPage(numPages)}
-                  disabled={numPages === 0 || currentPage >= numPages}
-                >
-                  <LastPageIcon fontSize="small" />
-                </IconButton>
+                <span>
+                  <IconButton
+                    size="small"
+                    onClick={() => goToPage(numPages)}
+                    disabled={numPages === 0 || currentPage >= numPages}
+                  >
+                    <LastPageIcon fontSize="small" />
+                  </IconButton>
+                </span>
               </Tooltip>
 
               <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />

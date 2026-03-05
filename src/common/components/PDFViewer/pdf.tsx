@@ -53,7 +53,7 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({
   pdfUrl,
   downloadParams = {},
   canDownload = true,
-  initialScale = 0.6,
+  initialScale = 1,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -63,7 +63,7 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({
   const [pageInputValue, setPageInputValue] = React.useState('1');
   const [showThumbs, setShowThumbs] = React.useState(!isMobile);
   const [zoom, setZoom] = React.useState(initialScale);
-  const [fitToWidth, setFitToWidth] = React.useState(true);
+  const [fitToWidth, setFitToWidth] = React.useState(initialScale === 1);
   const [rotation, setRotation] = React.useState(0);
   const [viewportWidth, setViewportWidth] = React.useState(900);
   const [naturalPageWidth, setNaturalPageWidth] = React.useState<number | null>(
@@ -74,6 +74,9 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({
   const [loadProgress, setLoadProgress] = React.useState<number | null>(null);
 
   const viewportRef = React.useRef<HTMLDivElement | null>(null);
+  const pageRefs = React.useRef<Record<number, HTMLDivElement | null>>({});
+  const suppressScrollSyncRef = React.useRef(false);
+  const scrollSyncTimeoutRef = React.useRef<number | null>(null);
 
   React.useEffect(() => {
     setShowThumbs(!isMobile);
@@ -105,13 +108,22 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({
     setIsPageRendering(true);
     setLoadProgress(null);
     setNaturalPageWidth(null);
+    pageRefs.current = {};
   }, [pdfUrl]);
 
   React.useEffect(() => {
     if (numPages > 0) {
       setIsPageRendering(true);
     }
-  }, [currentPage, zoom, fitToWidth, rotation, numPages, viewportWidth]);
+  }, [zoom, fitToWidth, rotation, numPages, viewportWidth]);
+
+  React.useEffect(() => {
+    return () => {
+      if (scrollSyncTimeoutRef.current !== null) {
+        window.clearTimeout(scrollSyncTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const signature = React.useMemo(() => generateSignature(), []);
 
@@ -137,9 +149,33 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({
   };
 
   const goToPage = React.useCallback(
-    (page: number) => {
+    (page: number, behavior: ScrollBehavior = 'smooth') => {
       const nextPage = clamp(page, 1, Math.max(1, numPages));
       setCurrentPage(nextPage);
+
+      const viewport = viewportRef.current;
+      const pageElement = pageRefs.current[nextPage];
+
+      if (!viewport || !pageElement) {
+        return;
+      }
+
+      suppressScrollSyncRef.current = true;
+      viewport.scrollTo({
+        top: Math.max(0, pageElement.offsetTop - 8),
+        behavior,
+      });
+
+      if (scrollSyncTimeoutRef.current !== null) {
+        window.clearTimeout(scrollSyncTimeoutRef.current);
+      }
+
+      scrollSyncTimeoutRef.current = window.setTimeout(
+        () => {
+          suppressScrollSyncRef.current = false;
+        },
+        behavior === 'smooth' ? 420 : 120,
+      );
     },
     [numPages],
   );
@@ -150,6 +186,48 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({
       setShowThumbs(false);
     }
   };
+
+  const handleViewportScroll = React.useCallback(() => {
+    const viewport = viewportRef.current;
+    if (!viewport || suppressScrollSyncRef.current || numPages === 0) {
+      return;
+    }
+
+    const viewportMiddle = viewport.scrollTop + viewport.clientHeight / 2;
+    let nearestPage = currentPage;
+    let nearestDistance = Number.POSITIVE_INFINITY;
+
+    for (let page = 1; page <= numPages; page += 1) {
+      const pageElement = pageRefs.current[page];
+      if (!pageElement) {
+        continue;
+      }
+
+      const pageMiddle = pageElement.offsetTop + pageElement.offsetHeight / 2;
+      const distance = Math.abs(pageMiddle - viewportMiddle);
+
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestPage = page;
+      }
+    }
+
+    if (nearestPage !== currentPage) {
+      setCurrentPage(nearestPage);
+    }
+  }, [currentPage, numPages]);
+
+  const handlePageLoadSuccess = React.useCallback((page: { width: number }) => {
+    setNaturalPageWidth((previous) => previous ?? page.width);
+  }, []);
+
+  const handlePageRenderSuccess = React.useCallback(() => {
+    setIsPageRendering(false);
+  }, []);
+
+  const handlePageRenderError = React.useCallback(() => {
+    setIsPageRendering(false);
+  }, []);
 
   const commitPageInput = () => {
     const next = Number.parseInt(pageInputValue, 10);
@@ -482,9 +560,12 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({
 
             <Box
               ref={viewportRef}
+              onScroll={handleViewportScroll}
               sx={{
                 flex: 1,
                 overflow: 'auto',
+                scrollBehavior: 'smooth',
+                WebkitOverflowScrolling: 'touch',
                 width: '100%',
                 p: { xs: 1, sm: 2 },
                 display: 'flex',
@@ -514,26 +595,43 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({
                   </Typography>
                 </Box>
               )}
-              <Page
-                pageNumber={Math.max(1, currentPage)}
-                width={mainPageWidth}
-                scale={fitToWidth ? undefined : zoom}
-                rotate={rotation}
-                renderTextLayer={false}
-                renderAnnotationLayer={false}
-                loading={
-                  <Skeleton variant="rounded" width="90%" height={460} />
-                }
-                onLoadSuccess={(page) => {
-                  setNaturalPageWidth(page.width);
-                }}
-                onRenderSuccess={() => {
-                  setIsPageRendering(false);
-                }}
-                onRenderError={() => {
-                  setIsPageRendering(false);
-                }}
-              />
+              <Box sx={{ width: '100%', maxWidth: '100%' }}>
+                {Array.from({ length: numPages }, (_, index) => {
+                  const page = index + 1;
+                  return (
+                    <Box
+                      key={`page-${page}`}
+                      ref={(node: HTMLDivElement | null) => {
+                        pageRefs.current[page] = node;
+                      }}
+                      sx={{
+                        mb: 2,
+                        display: 'flex',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <Page
+                        pageNumber={page}
+                        width={mainPageWidth}
+                        scale={fitToWidth ? undefined : zoom}
+                        rotate={rotation}
+                        renderTextLayer={false}
+                        renderAnnotationLayer={false}
+                        loading={
+                          <Skeleton
+                            variant="rounded"
+                            width="90%"
+                            height={460}
+                          />
+                        }
+                        onLoadSuccess={handlePageLoadSuccess}
+                        onRenderSuccess={handlePageRenderSuccess}
+                        onRenderError={handlePageRenderError}
+                      />
+                    </Box>
+                  );
+                })}
+              </Box>
             </Box>
           </Box>
         </Box>

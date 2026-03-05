@@ -10,6 +10,7 @@ interface ViewBookProps {
   onClose?: () => void;
   fullScreen?: boolean;
 }
+
 export const ViewBook: React.FC<ViewBookProps> = ({
   book,
   open,
@@ -30,6 +31,7 @@ export const ViewBook: React.FC<ViewBookProps> = ({
       <PdfViewer
         pdfUrl={`${import.meta.env.VITE_API_URL}/api/v1/books/${book?.id}`}
         canDownload={book?.isDownloadable}
+        initialScale={1}
         downloadParams={{
           useMutation: 'useDownloadBookMutation',
           id: book?.id,

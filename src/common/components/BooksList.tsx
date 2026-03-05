@@ -82,7 +82,7 @@ export const BooksList: React.FC<BooksListProps> = ({
                 {book.isDownloadable ? (
                   <RRVDownloadBtn
                     useMutation="useDownloadBookMutation"
-                    params={{ id: book.id }}
+                    params={{ id: book.id, fileName: book.name }}
                     hideBtntext
                   />
                 ) : (

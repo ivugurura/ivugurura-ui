@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
 
-import { DownloadForOffline as DownloadIcon } from '@mui/icons-material';
+import {
+  DownloadForOffline as DownloadIcon,
+  Sync as SyncIcon,
+} from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { toast } from 'react-toastify';
 
@@ -50,10 +53,10 @@ export const RRVDownloadBtn = ({
     <Button
       onClick={handleDownload}
       disabled={isLoading}
-      startIcon={<DownloadIcon />}
+      startIcon={isLoading ? <SyncIcon /> : <DownloadIcon />}
       color="info"
     >
-      {!hideBtntext && 'Download'}
+      {!hideBtntext && (isLoading ? 'Downloading...' : 'Download')}
     </Button>
   );
 };

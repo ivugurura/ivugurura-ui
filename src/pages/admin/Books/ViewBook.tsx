@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Dialog } from '@mui/material';
 
-import { PdfViewer } from '../../../common/components/PDFViewer/pdf';
+import { PdfViewer } from '../../../common/components/PDFViewer';
 
 interface ViewBookProps {
   book?: APP.IBook;
@@ -35,6 +35,7 @@ export const ViewBook: React.FC<ViewBookProps> = ({
         downloadParams={{
           useMutation: 'useDownloadBookMutation',
           id: book?.id,
+          fileName: book?.name,
         }}
       />
     </Dialog>

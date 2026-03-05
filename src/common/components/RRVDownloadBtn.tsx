@@ -24,16 +24,19 @@ export const RRVDownloadBtn = ({
 
   useEffect(() => {
     if (isSuccess && data?.blob) {
+      const fileName =
+        data.filename ||
+        `${typeof params?.fileName === 'string' ? params.fileName : 'Reformation'}.pdf`;
       const url = window.URL.createObjectURL(data.blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = data.filename || 'Reformation Resource.pdf';
+      link.download = fileName;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url); // Cleanup
     }
-  }, [data, isSuccess]);
+  }, [data, isSuccess, params?.fileName]);
 
   useEffect(() => {
     if (error?.error) {

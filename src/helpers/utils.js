@@ -102,3 +102,10 @@ export const getRadioKingId = (lang) => {
 
   return ids[lang] || ids.en;
 };
+
+export const getInitialScaleByWidth = (width) => {
+  if (width <= 320) return 0.5;
+  if (width <= 425) return 0.6;
+  if (width <= 768) return 0.8;
+  return 1;
+};

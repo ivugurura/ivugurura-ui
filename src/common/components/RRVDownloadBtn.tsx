@@ -24,7 +24,7 @@ export const RRVDownloadBtn = ({
       const url = window.URL.createObjectURL(data.blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = data.filename || 'downloaded_file';
+      link.download = data.filename || 'Reformation Resource.pdf';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -41,9 +41,14 @@ export const RRVDownloadBtn = ({
     }
   }, [error?.error]);
 
+  const handleDownload = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    downloadFile(params);
+  };
+
   return (
     <Button
-      onClick={() => downloadFile(params)}
+      onClick={handleDownload}
       disabled={isLoading}
       startIcon={<DownloadIcon />}
       color="info"

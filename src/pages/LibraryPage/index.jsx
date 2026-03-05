@@ -49,6 +49,7 @@ const LibraryPage = () => {
       const category = categories.find((cat) => cat.slug === categorySlug);
       setSelectedCategoryId(category?.id || null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categories.length, categorySlug]);
 
   const handleCategoryClick = (category) => {

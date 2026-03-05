@@ -60,7 +60,7 @@ declare namespace APP {
     coverImage: string;
     slug: string;
     author: string;
-    isDownloaded: boolean;
+    isDownloadable: boolean;
   }
   interface IAudio {
     title: string;

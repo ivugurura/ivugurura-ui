@@ -3,15 +3,19 @@ import React from 'react';
 import {
   Delete as DeleteIcon,
   // EditNoteOutlined as EditIcon,
+  DownloadOutlined as DownloadIcon,
+  LockOutlined as LockIcon,
   ViewAgendaOutlined as ViewIcon,
 } from '@mui/icons-material';
 import {
+  Box,
   Button,
   Card,
   CardActions,
   CardContent,
   CardMedia,
   Grid,
+  IconButton,
   Typography,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
@@ -62,10 +66,35 @@ export const BooksList: React.FC<BooksListProps> = ({
               image={getCoverImage(book.coverImage)}
               alt={book.name}
             />
-            <CardContent sx={{ flexGrow: 1 }}>
-              <Typography gutterBottom variant="h5" component="div">
-                {book.name}
-              </Typography>
+            <CardContent sx={{ p: 1.5 }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 1,
+                }}
+              >
+                <Typography gutterBottom variant="h5" component="div">
+                  {book.name}
+                </Typography>
+                {book.isDownloadable ? (
+                  <IconButton
+                    aria-label="download"
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    <DownloadIcon />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    aria-label="locked"
+                    disabled
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    <LockIcon />
+                  </IconButton>
+                )}
+              </Box>
               <Typography variant="body2" color="text.secondary">
                 {`${t('by')} ${t('subtitle')}`}
               </Typography>

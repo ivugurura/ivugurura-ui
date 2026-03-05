@@ -250,7 +250,7 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({
           display: 'flex',
           height: '100%',
           minHeight: 560,
-          maxHeight: '86vh',
+          maxHeight: '90vh',
           border: '1px solid',
           borderColor: 'divider',
           borderRadius: 1,

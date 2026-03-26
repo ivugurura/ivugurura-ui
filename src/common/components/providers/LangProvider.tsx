@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useContext, useMemo } from 'react';
 
+import { actions, type QueryHook } from '@redux/actions';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -7,6 +8,7 @@ import { systemLanguage } from '../../../helpers/utils/constants';
 
 interface LangContextProps {
   lang: string;
+  languageId: number;
   changeLang: (newLang: string, isAdmin: boolean) => void;
 }
 interface LangProviderProps {
@@ -14,6 +16,7 @@ interface LangProviderProps {
 }
 const initialStates = {
   lang: systemLanguage,
+  languageId: 2,
   changeLang: () => Promise.resolve({}),
 };
 const LangContext = createContext<LangContextProps>(initialStates);
@@ -24,6 +27,10 @@ export function useLang() {
 
 export const LangProvider: React.FC<LangProviderProps> = ({ children }) => {
   const { i18n } = useTranslation();
+  const useGetLangsSystem = actions.useGetLangsSystemQuery as QueryHook<
+    APP.ILang[]
+  >;
+  const { data } = useGetLangsSystem();
   const lang = useMemo(() => systemLanguage, []);
 
   const changeLang = useCallback(
@@ -42,7 +49,12 @@ export const LangProvider: React.FC<LangProviderProps> = ({ children }) => {
     [i18n, lang],
   );
 
-  const values = useMemo(() => ({ lang, changeLang }), [lang, changeLang]);
+  const serverLang = data?.data.find((l) => l.short_name === lang);
+
+  const values = useMemo(
+    () => ({ lang, changeLang, languageId: serverLang?.id ?? 2 }),
+    [lang, changeLang, serverLang],
+  );
 
   if (!lang) return <div />;
 

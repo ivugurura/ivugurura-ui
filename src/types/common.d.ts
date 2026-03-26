@@ -74,4 +74,9 @@ declare namespace APP {
     title: string;
     content: string;
   }
+  interface ILang {
+    id: number;
+    name: string;
+    short_name: string;
+  }
 }

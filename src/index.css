@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+
+:root {
+  --iv-text: #1f2937;
+  --iv-muted: #6b7280;
+  --iv-ink: #0f172a;
+  --iv-accent: #1d4ed8;
+  --iv-surface: #ffffff;
+}
+
 a {
   text-decoration: none;
 }

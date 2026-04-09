@@ -39,7 +39,7 @@ const formatTime = () =>
 // TODO: Replace with your FastAPI base URL
 const BASE_URL = 'http://localhost:8000/api/v1';
 const AskPage = () => {
-  const { languageId } = useLang();
+  const { languageId, lang } = useLang();
 
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -77,7 +77,7 @@ const AskPage = () => {
       const response = await fetch(`${BASE_URL}/ask`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, languageId }),
+        body: JSON.stringify({ question, languageId, lang }),
       });
 
       if (!response.ok) {
@@ -236,7 +236,7 @@ const AskPage = () => {
                           sx={{
                             p: 2,
                             backgroundColor:
-                              msg.role === 'user' ? '#1d4ed8' : '#ffffff',
+                              msg.role === 'user' ? '#b8c4e7' : '#ffffff',
                             color: msg.role === 'user' ? 'white' : '#1f2937',
                             borderRadius: 3,
                             border:

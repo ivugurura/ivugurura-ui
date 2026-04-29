@@ -66,5 +66,4 @@ jobs:
             echo "Unzip the build"
             tar zxvf build-staging.tar.gz
             echo "Restart the server"
-            pm2 restart 1
             echo "Done"

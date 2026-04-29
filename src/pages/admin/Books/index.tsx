@@ -45,8 +45,9 @@ const Books = () => {
     if (delRes.isSuccess) {
       refetch();
       reset();
+      delRes.reset();
     }
-  }, [delRes.isSuccess, refetch, reset]);
+  }, [delRes, refetch, reset]);
 
   const handleModal = (type: string, value: boolean) => {
     setOpenModals((p) => ({ ...p, [type]: value }));

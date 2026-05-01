@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Editor } from 'react-draft-wysiwyg';
 
@@ -59,7 +59,7 @@ export const DraftEditor: React.FC<DraftEditorProps> = ({
   placeholder,
   ...rest
 }) => {
-  const [prevFile, setPrevFile] = useState('');
+  // const [prevFile, setPrevFile] = useState('');
 
   const handleImageUpload = (file: File) => {
     return new Promise((resolve, reject) => {
@@ -69,7 +69,7 @@ export const DraftEditor: React.FC<DraftEditorProps> = ({
         .post('/albums/upload/image', formData)
         .then((res) => {
           const fileName = res.data as string;
-          setPrevFile(fileName);
+          // setPrevFile(fileName);
           resolve({ data: { link: `${IMAGE_PATH}/${fileName}` } });
         })
         .catch((error: unknown) => {
@@ -81,19 +81,14 @@ export const DraftEditor: React.FC<DraftEditorProps> = ({
             const axiosError = error as {
               response?: { data?: { error?: string; message?: string } };
             };
-            console.log(axiosError.response);
             const { error: apiError, message } =
               axiosError.response?.data || {};
             errorMessage = apiError || message || errorMessage;
           }
-          // notifier.error(errorMessage);
-          console.log({ errorMessage });
           reject(new Error(errorMessage));
         });
     });
   };
-
-  console.log({ prevFile });
   return (
     <Editor
       editorState={editorState}

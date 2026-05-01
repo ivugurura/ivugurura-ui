@@ -68,7 +68,6 @@ const TopicEditor2 = () => {
     }
     return createTopic(payload);
   };
-  console.log({ isFetching });
   const isLoading = res.isLoading || updateRes.isLoading;
   return (
     <>

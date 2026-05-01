@@ -91,7 +91,7 @@ const MediaEditor = () => {
             <Card>
               <AudioPlayer
                 src={toAssetPath(audio.mediaLink, false)}
-                onPlay={() => console.log('onPlay')}
+                onPlay={() => {}}
               />
               <CardHeader
                 title={audio.title}

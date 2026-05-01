@@ -73,6 +73,15 @@ export const RRVSunEditor: React.FC<RRVSunEditorProps> = ({
     // called here for stop double image
     uploadHandler();
   };
+  const onImageUploadError = (errorMsg, result: unknown) => {
+    let errorMessage = 'An unknown error occurred';
+    if (typeof errorMsg === 'string') {
+      errorMessage = errorMsg;
+    } else if (errorMsg instanceof Error) {
+      errorMessage = errorMsg.message;
+    }
+    console.error('Image upload error:', { errorMessage, result });
+  };
   return (
     <SunEditor
       setOptions={{
@@ -83,9 +92,7 @@ export const RRVSunEditor: React.FC<RRVSunEditorProps> = ({
       setDefaultStyle="font-size: 16px;"
       name="content"
       onImageUploadBefore={onImageUploadBefore}
-      onImageUploadError={(errorMsg, result: unknown) =>
-        console.log({ errorMsg, result })
-      }
+      onImageUploadError={onImageUploadError}
       {...props}
     />
   );

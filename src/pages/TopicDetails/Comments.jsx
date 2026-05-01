@@ -16,7 +16,7 @@ export const Comments = ({ slug }) => {
   const [comment, setComment] = React.useState(commentState);
   const [save, saveRes] = actions.useAddCommentTopicMutation();
 
-  const { data, isFetching } = actions.useViewCommentsTopicQuery({ slug });
+  const { data } = actions.useViewCommentsTopicQuery({ slug });
 
   useEffect(() => {
     if (saveRes.isSuccess) {
@@ -24,13 +24,10 @@ export const Comments = ({ slug }) => {
       setComment(commentState);
       saveRes.reset();
     }
-  }, [saveRes.isSuccess]);
+  }, [saveRes, t]);
 
-  const { data: comments, totalItems } = data || initials.dataArr();
-  console.log('Comments', {
-    isFetching,
-    totalItems,
-  });
+  const { data: comments } = data || initials.dataArr();
+
   const hasComments = comments?.length > 0;
   return (
     <Grid item xs={12}>

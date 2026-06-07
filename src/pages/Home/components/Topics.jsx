@@ -1,64 +1,146 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { ArrowOutward } from '@mui/icons-material';
+import { Box, Button, Chip, Grid, Skeleton, Typography } from '@mui/material';
+import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { TopicsCardSkeleton } from '../../../common/components/loaders';
-import { toLink } from '../../../helpers/utils/constants';
+import { toAssetPath, toLink } from '../../../helpers/utils/constants';
 import { actions, initials } from '../../../redux/apiSliceBuilder';
-import TopicItem from '../../TopicItem';
 
-export const HomeRecentTopics = ({
-  xs = 12,
-  sm = 12,
-  md = 4.01,
-  truncate = 148,
-}) => {
+import { styles } from './Topics.style';
+
+const FeaturedCard = ({ topic }) => (
+  <Box
+    component={Link}
+    to={toLink(`topics/${topic.slug}`)}
+    sx={styles.featuredCard}
+  >
+    <Box
+      component="img"
+      src={toAssetPath(topic.coverImage)}
+      alt={topic.title}
+      sx={styles.featuredImage}
+    />
+    <Box className="featured-overlay" sx={styles.featuredOverlay} />
+    <Box sx={styles.featuredContent}>
+      <Chip label="Featured" size="small" sx={styles.featuredChip} />
+      <Typography
+        className="featured-title"
+        variant="h5"
+        fontWeight={700}
+        sx={styles.featuredTitle}
+      >
+        {topic.title}
+      </Typography>
+      <Typography variant="caption" sx={styles.featuredDate}>
+        {moment(topic.updatedAt).format('DD MMM YYYY')}
+      </Typography>
+    </Box>
+  </Box>
+);
+
+const SmallCard = ({ topic }) => (
+  <Box
+    component={Link}
+    to={toLink(`topics/${topic.slug}`)}
+    sx={styles.smallCardLink}
+  >
+    <Box
+      component="img"
+      src={toAssetPath(topic.coverImage)}
+      alt={topic.title}
+      sx={styles.smallCardImage}
+    />
+    <Box sx={{ overflow: 'hidden' }}>
+      <Typography
+        className="small-title"
+        variant="body2"
+        fontWeight={600}
+        sx={styles.smallCardTitle}
+      >
+        {topic.title}
+      </Typography>
+      <Typography variant="caption" sx={styles.smallCardDate}>
+        {moment(topic.updatedAt).format('DD MMM YYYY')}
+      </Typography>
+    </Box>
+  </Box>
+);
+
+const LoadingSkeleton = () => (
+  <Grid container spacing={2}>
+    <Grid item xs={12} md={7}>
+      <Skeleton variant="rounded" height={460} sx={{ borderRadius: 3 }} />
+    </Grid>
+    <Grid item xs={12} md={5}>
+      <Grid container spacing={2}>
+        {[...Array(4)].map((_, i) => (
+          <Grid key={i} item xs={12} sm={6}>
+            <Skeleton variant="rounded" height={200} sx={{ borderRadius: 2 }} />
+          </Grid>
+        ))}
+      </Grid>
+    </Grid>
+  </Grid>
+);
+
+export const HomeRecentTopics = ({ truncate = 148 }) => {
   const { t } = useTranslation();
-  const { data, isFetching } = actions.useGetCsTopicsQuery({
-    truncate,
-  });
-
+  const { data, isFetching } = actions.useGetCsTopicsQuery({ truncate });
   const { data: topics } = data || initials.dataArr();
 
+  const [featured, ...rest] = topics || [];
+  const sideTopics = rest.slice(0, 4);
+
   return (
-    <Box p={2}>
-      <Box display="flex" flexDirection="column" alignItems="center" pb={4}>
-        <Typography variant="subtitle2" py={2}>
-          {t('readOurBlog').toUpperCase()}
-        </Typography>
-        <Typography
-          variant="h1"
-          sx={{
-            fontSize: {
-              xs: '20px',
-              sm: '28px',
-              md: '36px',
-            },
-          }}
-          fontWeight={800}
-        >
-          {t('teachings')}
-        </Typography>
-      </Box>
-      <Grid container spacing={4} display="flex" justifyContent="center">
-        {isFetching ? (
-          <TopicsCardSkeleton totalItems={4} itemsSize={{ xs, sm, md }} />
-        ) : (
-          topics?.length > 0 &&
-          topics.map((topic) => (
-            <Grid key={topic.title} item xs={xs} sm={sm} md={md}>
-              <TopicItem topic={topic} hasMore />
-            </Grid>
-          ))
-        )}
-      </Grid>
-      <Grid container display="flex" justifyContent="center">
-        <Box paddingTop={2} alignItems="flex-end">
-          <Button variant="text" component={Link} to={toLink('topics')}>
-            {t('actions.viewMore')}
-          </Button>
+    <Box sx={styles.wrapper}>
+      <Box sx={styles.sectionHeader}>
+        <Box>
+          <Typography variant="overline" sx={styles.sectionLabel}>
+            {t('readOurBlog').toUpperCase()}
+          </Typography>
+          <Typography variant="h4" fontWeight={800} sx={styles.sectionTitle}>
+            {t('teachings')}
+          </Typography>
         </Box>
-      </Grid>
+        <Button
+          component={Link}
+          to={toLink('topics')}
+          endIcon={<ArrowOutward fontSize="small" />}
+          sx={styles.viewMoreBtn}
+        >
+          {t('actions.viewMore')}
+        </Button>
+      </Box>
+
+      {isFetching ? (
+        <LoadingSkeleton />
+      ) : topics?.length > 0 ? (
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={7}>
+            {featured && <FeaturedCard topic={featured} />}
+          </Grid>
+          <Grid item xs={12} md={5}>
+            <Grid container spacing={2}>
+              {sideTopics.map((topic) => (
+                <Grid key={topic.slug} item xs={12} sm={6}>
+                  <Box sx={styles.sideCard}>
+                    <Box
+                      component="img"
+                      src={toAssetPath(topic.coverImage)}
+                      alt={topic.title}
+                      sx={styles.sideCardImage}
+                    />
+                    <Box sx={styles.sideCardContent}>
+                      <SmallCard topic={topic} />
+                    </Box>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+        </Grid>
+      ) : null}
     </Box>
   );
 };

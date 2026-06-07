@@ -9,8 +9,8 @@ export const useLocalStorage = (key = '', defValue = '') => {
     try {
       const stored = window.localStorage.getItem(key);
       return stored ? JSON.parse(stored) : defValue;
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      error;
       return defValue;
     }
   });
@@ -19,8 +19,9 @@ export const useLocalStorage = (key = '', defValue = '') => {
     if (typeof window === 'undefined') return;
     try {
       rawValueRef.current = window.localStorage.getItem(key);
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      error;
+      return;
     }
   }, [key]);
 
@@ -58,10 +59,10 @@ export const useLocalStorage = (key = '', defValue = '') => {
 
     try {
       updateLocalStorage();
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      error;
     }
-  }, [value]);
+  }, [key, value]);
 
   useEffect(() => {
     const handleStorageChange = (e) => {
@@ -73,7 +74,7 @@ export const useLocalStorage = (key = '', defValue = '') => {
           setValue(e.newValue ? JSON.parse(e.newValue) : undefined);
         }
       } catch (error) {
-        console.log(error);
+        error;
       }
     };
 

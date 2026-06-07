@@ -19,9 +19,12 @@ export const AddEditBook = ({ open, onClose, refetchBooks }) => {
 
   useEffect(() => {
     if (res.isSuccess) {
+      setNewBook(bookInitials);
       refetchBooks();
+      res.reset();
       onClose();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [res.isSuccess]);
   useEffect(() => {
     if (filePathName) {

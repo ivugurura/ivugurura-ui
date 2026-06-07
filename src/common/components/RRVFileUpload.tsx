@@ -43,7 +43,7 @@ interface RRVFileUploadProps {
   accept: string;
   placeholder: string;
   imgProps?: Partial<ImageEditorProps>;
-  onFirstExcute: () => void;
+  onFirstExcute?: () => void;
 }
 
 const initialImageProps: ImageProps = {
@@ -147,7 +147,7 @@ export const RRVFileUpload: React.FC<RRVFileUploadProps> = ({
   };
   const handleFileChange = (selectedFile: File | null) => {
     setImageProps((prev) => ({ ...prev, file: selectedFile }));
-    onFirstExcute();
+    onFirstExcute?.();
   };
   return (
     <Grid container>

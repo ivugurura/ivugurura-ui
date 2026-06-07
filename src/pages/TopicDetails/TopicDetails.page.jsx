@@ -5,9 +5,7 @@ import { RRVShare } from '../../common/components/RRVShare';
 import { MAIN_URL, toAssetPath, toLink } from '../../helpers/utils/constants';
 
 export const TopicDetailsItem = ({ topic }) => {
-  const handleShare = () => {
-    console.log('shared');
-  };
+  const handleShare = () => {};
 
   const componentShare = (
     <RRVShare

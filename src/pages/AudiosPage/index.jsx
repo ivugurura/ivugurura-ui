@@ -42,7 +42,7 @@ const AudiosPage = () => {
     handleChangePage,
     handleChangeRowsPerPage,
   } = usePagination();
-  const { data, isFetching } = actions.useListAudiosQuery({
+  const { data } = actions.useListAudiosQuery({
     page,
     pageSize: 20,
   });
@@ -53,8 +53,6 @@ const AudiosPage = () => {
       setCurrentAudio({ audio: audios[0], index: 0 });
     }
   }, [audios]);
-
-  console.log({ isFetching });
 
   return (
     <PageHelmet title={t('audios')}>

@@ -31,9 +31,7 @@ export const TopicItem = ({
   const linkProps = hasMore
     ? { component: Link, to: toLink(`topics/${topic.slug}`) }
     : {};
-  const handleShare = () => {
-    console.log('shared');
-  };
+  const handleShare = () => {};
   return (
     <Card sx={{ boxShadow: 'none' }} className={classNames(className)}>
       <Box sx={{ position: 'relative' }}>

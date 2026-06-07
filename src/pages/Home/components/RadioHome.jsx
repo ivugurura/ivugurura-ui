@@ -11,7 +11,7 @@ import { actions, initials } from '../../../redux/apiSliceBuilder';
 export const RadioHome = ({ nOfAudios = 2 }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { t } = useTranslation();
-  const { data, isFetching } = actions.useListAudiosQuery({
+  const { data } = actions.useListAudiosQuery({
     page: 1,
     pageSize: nOfAudios,
   });
@@ -27,7 +27,6 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
   const setCurrentAudio = ({ index }) => {
     setSelectedIndex(index);
   };
-  console.log({ isFetching });
 
   return (
     <Box sx={{ px: { xs: 2, md: 8 } }}>

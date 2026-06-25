@@ -38,7 +38,7 @@ const formatTime = () =>
   new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
 // TODO: Replace with your FastAPI base URL
-const BASE_URL = import.meta.env.VITE_CHAT_BASE_URL + '/ai/v1';
+const BASE_URL = import.meta.env.VITE_CHAT_BASE_URL + '/v1';
 const AskPage = () => {
   const { languageId, lang } = useLang();
 

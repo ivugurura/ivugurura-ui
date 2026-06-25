@@ -37,7 +37,7 @@ const formatTime = () =>
   new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
 // TODO: Replace with your FastAPI base URL
-const BASE_URL = 'http://localhost:8000/api/v1';
+const BASE_URL = import.meta.env.VITE_CHAT_BASE_URL + '/ai/v1';
 const AskPage = () => {
   const { languageId, lang } = useLang();
 
@@ -85,7 +85,6 @@ const AskPage = () => {
       }
 
       const data = await response.json();
-      console.log(data);
 
       const botMessage: Message = {
         id: `b-${Date.now()}`,
@@ -97,6 +96,7 @@ const AskPage = () => {
 
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
+      console.error(error);
       const botMessage: Message = {
         id: `b-${Date.now()}`,
         role: 'bot',

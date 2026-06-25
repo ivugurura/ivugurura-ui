@@ -1,6 +1,7 @@
 const common = {
   Audios: 'audios',
   Library: 'library',
+  Ask: 'ask',
   ViewBook: 'library/:slug',
 };
 

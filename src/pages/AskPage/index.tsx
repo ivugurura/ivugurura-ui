@@ -19,6 +19,7 @@ import {
 import { Link } from 'react-router-dom';
 
 import { PageHelmet, useLang } from '../../common/components';
+import { toLink } from '../../helpers/utils/constants';
 
 interface Source {
   title: string;
@@ -265,7 +266,7 @@ const AskPage = () => {
                                 {msg.sources.map((src) => (
                                   <Link
                                     key={src.slug}
-                                    href={`/topics/${src.slug}`}
+                                    href={toLink(`topics/${src.slug}`)}
                                     underline="hover"
                                     color="inherit"
                                   >

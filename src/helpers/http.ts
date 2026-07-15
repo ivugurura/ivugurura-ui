@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { systemLanguage, lStorage } from './utils/constants';
+import { lStorage, systemLanguage } from './utils/constants';
 
 export const VERBS = {
   get: 'GET',
@@ -18,3 +18,14 @@ export const http = axios.create({
     'Accept-Language': systemLanguage,
   },
 });
+
+export const createHttp = () => {
+  return axios.create({
+    baseURL: `${import.meta.env.VITE_CHAT_BASE_URL}/api/v1`,
+    withCredentials: true,
+    headers: {
+      Authorization: lStorage.token,
+      'Accept-Language': systemLanguage,
+    },
+  });
+};

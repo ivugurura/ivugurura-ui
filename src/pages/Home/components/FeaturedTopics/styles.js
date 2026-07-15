@@ -1,53 +1,6 @@
-import { palette } from '../../../common/theme/palette';
+import { palette } from '../../../../common/theme/palette';
 
-export const styles = {
-  wrapper: {
-    px: { xs: 2, md: 8 },
-    pt: { xs: 4, md: 4 },
-    pb: 4,
-  },
-  sectionHeader: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-    mb: 3,
-  },
-  sectionLabel: {
-    color: palette.listGrey,
-    letterSpacing: 2,
-    fontSize: 11,
-    display: 'block',
-  },
-  sectionTitle: {
-    color: palette.blackColor,
-    lineHeight: 1.2,
-  },
-  viewMoreBtn: {
-    textTransform: 'none',
-    color: palette.blackColor,
-    fontWeight: 600,
-    mb: 0.5,
-    whiteSpace: 'nowrap',
-  },
-  viewMoreBtnMobile: {
-    textTransform: 'none',
-    color: palette.blackColor,
-    fontWeight: 600,
-    mt: 1,
-    width: '100%',
-    justifyContent: 'center',
-    display: { xs: 'flex', md: 'none' },
-  },
-  viewMoreBtnDesktop: {
-    textTransform: 'none',
-    color: palette.blackColor,
-    fontWeight: 600,
-    mb: 0.5,
-    whiteSpace: 'nowrap',
-    display: { xs: 'none', md: 'flex' },
-  },
-
-  // Featured card
+export const sharedStyles = {
   featuredCard: {
     display: 'block',
     position: 'relative',
@@ -91,11 +44,17 @@ export const styles = {
     lineHeight: 1.3,
     mb: 1,
   },
+  featuredSummary: {
+    color: 'rgba(255,255,255,0.85)',
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+    mb: 1,
+  },
   featuredDate: {
     color: 'rgba(255,255,255,0.7)',
   },
-
-  // Small card
   smallCardLink: {
     display: 'flex',
     gap: 1.5,
@@ -122,24 +81,34 @@ export const styles = {
     lineHeight: 1.4,
     mb: 0.5,
   },
+  smallCardSummary: {
+    color: palette.listGrey,
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+    mt: 0.5,
+    mb: 0.5,
+  },
   smallCardDate: {
     color: palette.listGrey,
   },
-
-  // Side grid card wrapper
   sideCard: {
     borderRadius: 2,
     overflow: 'hidden',
     height: '100%',
-    border: { xs: 'none', sm: `1px solid ${palette.divider}` },
   },
   sideCardImage: {
     width: '100%',
     height: 130,
     objectFit: 'cover',
-    display: { xs: 'none', sm: 'block' },
+    display: 'block',
   },
   sideCardContent: {
-    p: { xs: 0, sm: 1.5 },
+    p: 1.5,
+  },
+  loadingGrid: {
+    container: true,
+    spacing: 2,
   },
 };

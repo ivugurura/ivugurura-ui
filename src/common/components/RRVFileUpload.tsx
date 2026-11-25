@@ -40,8 +40,8 @@ type ImageEditorProps = ImageEditorBaseProps;
 interface RRVFileUploadProps {
   title?: string;
   type?: 'image';
-  accept: string;
-  placeholder: string;
+  accept?: string;
+  placeholder?: string;
   imgProps?: Partial<ImageEditorProps>;
   onFirstExcute?: () => void;
 }
@@ -151,16 +151,16 @@ export const RRVFileUpload: React.FC<RRVFileUploadProps> = ({
   };
   return (
     <Grid container>
-      <Grid item xs={12}>
+      <Grid size={12}>
         <MuiFileInput
           label={title}
           value={imageProps.file}
           onChange={handleFileChange}
           placeholder={`${placeholder}(${accept.replaceAll('.', '')})`}
-          inputProps={{ accept }}
+          slotProps={{ htmlInput: { accept } }}
         />
       </Grid>
-      <Grid item xs={12} mt={1}>
+      <Grid size={12} mt={1}>
         {imageProps.file?.type?.includes('image/') && (
           <div style={{ display: 'flex', gap: '10px' }}>
             <AvatarEditor

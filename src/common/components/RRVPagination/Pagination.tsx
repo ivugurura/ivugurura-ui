@@ -2,7 +2,11 @@ import React from 'react';
 
 import { TablePagination, type TablePaginationProps } from '@mui/material';
 
-interface RRVPaginationProps extends TablePaginationProps {
+type RRVPaginationProps = Omit<
+  TablePaginationProps,
+  'count' | 'onPageChange' | 'rowsPerPage' | 'page'
+> & {
+  page?: number;
   dataCount: number;
   handleChangePage: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
@@ -12,7 +16,7 @@ interface RRVPaginationProps extends TablePaginationProps {
   handleChangeRowsPerPage?: React.ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
   >;
-}
+};
 
 export const RRVPagination: React.FC<RRVPaginationProps> = ({
   handleChangePage,

@@ -1,22 +1,31 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography, type GridSize } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { TopicsCardSkeleton } from '../../../common/components/loaders';
-import { actions, initials } from '../../../redux/apiSliceBuilder';
+import { actions, initials, type QueryHook } from '../../../redux/actions';
 import TopicItem from '../../TopicItem';
+
+interface HomeLatestBlogProps {
+  xs?: GridSize;
+  sm?: GridSize;
+  md?: GridSize;
+  truncate?: number;
+}
 
 export const HomeLatestBlog = ({
   xs = 12,
   sm = 12,
   md = 4,
   truncate = 148,
-}) => {
+}: HomeLatestBlogProps) => {
   const { t } = useTranslation();
-  const { data, isFetching } = actions.useGetRecentTopicsQuery({
-    truncate,
-  });
+  const useGetRecentTopics = actions.useGetRecentTopicsQuery as QueryHook<
+    APP.ITopic[],
+    { truncate: number }
+  >;
+  const { data, isFetching } = useGetRecentTopics({ truncate });
 
-  const { data: topics } = data || initials.dataArr();
+  const { data: topics } = data || initials.dataArr<APP.ITopic>();
 
   return (
     <Box sx={{ px: { xs: 2, md: 8 }, py: 4 }}>
@@ -44,7 +53,7 @@ export const HomeLatestBlog = ({
         ) : (
           topics?.length > 0 &&
           topics.slice(0, 3).map((topic) => (
-            <Grid key={topic.title} item xs={xs} sm={sm} md={md}>
+            <Grid key={topic.title} size={{ xs, sm, md }}>
               <TopicItem topic={topic} hasMore />
             </Grid>
           ))

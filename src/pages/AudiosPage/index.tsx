@@ -23,18 +23,37 @@ import { RRVShare } from '../../common/components/RRVShare';
 import { PageHelmet } from '../../common/components/wrappers';
 import { useMediaQuery } from '../../common/hooks/useMediaQuery';
 import { usePagination } from '../../common/hooks/usePagination';
-// import { useWindowSize } from '../../common/hooks/useWindowSize';
 import { useStyles } from '../../common/styles';
 import { dateFormat, DL_ROUTE } from '../../helpers/utils/constants';
-import { actions, initials } from '../../redux/apiSliceBuilder';
+import {
+  actions,
+  initials,
+  type MutationHook,
+  type QueryHook,
+} from '../../redux/actions';
 import SearchBar from '../components/SearchBar2';
-// import { HomeRecentTopics } from '../Home/components/Topics';
+
+interface CurrentAudio {
+  index: number;
+  audio: APP.IAudio | null;
+}
 
 const AudiosPage = () => {
   const { t } = useTranslation();
-  const [currentAudio, setCurrentAudio] = useState({ index: -1, audio: null });
+  const [currentAudio, setCurrentAudio] = useState<CurrentAudio>({
+    index: -1,
+    audio: null,
+  });
   const { isMobile } = useMediaQuery();
-  const [shareSong] = actions.useShareAudioMutation();
+  const useShareAudio = actions.useShareAudioMutation as MutationHook<
+    unknown,
+    { slug: string }
+  >;
+  const useListAudios = actions.useListAudiosQuery as QueryHook<
+    APP.IAudio[],
+    { page: number; pageSize: number }
+  >;
+  const [shareSong] = useShareAudio();
   const { isPlaying } = useRRVAudioPlayerCtx();
 
   const {
@@ -42,11 +61,11 @@ const AudiosPage = () => {
     handleChangePage,
     handleChangeRowsPerPage,
   } = usePagination();
-  const { data } = actions.useListAudiosQuery({
+  const { data } = useListAudios({
     page,
     pageSize: 20,
   });
-  const { data: audios, totalItems } = data || initials.dataArr();
+  const { data: audios, totalItems } = data || initials.dataArr<APP.IAudio>();
 
   useEffect(() => {
     if (audios?.length > 0) {
@@ -57,7 +76,7 @@ const AudiosPage = () => {
   return (
     <PageHelmet title={t('audios')}>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={12}>
+        <Grid size={12}>
           <Box px={8}>
             <Box
               display="flex"
@@ -71,7 +90,7 @@ const AudiosPage = () => {
               />
             </Box>
             <Grid container spacing={2}>
-              <Grid item md={4} sm={12} xs={12} sx={useStyles.cardContainer}>
+              <Grid size={{ xs: 12, md: 4 }} sx={useStyles.cardContainer}>
                 {currentAudio.audio && (
                   <RRVAudioPlayer
                     audios={audios}
@@ -80,7 +99,7 @@ const AudiosPage = () => {
                   />
                 )}
               </Grid>
-              <Grid item md={7.8} sm={12} xs={12}>
+              <Grid size={{ xs: 12, md: 7.8 }}>
                 <SearchBar />
                 <List>
                   {audios?.map((audio, index) => {
@@ -99,12 +118,10 @@ const AudiosPage = () => {
                           key={audio.id}
                           secondaryAction={
                             <Box
-                              size="small"
                               display="flex"
                               flexDirection={{ xs: 'column', sm: 'row' }}
                               alignItems="center"
                               gap={1}
-                              // orientation={isMobile ? 'vertical' : 'horizontal'}
                             >
                               <IconButton
                                 onClick={() =>
@@ -168,7 +185,7 @@ const AudiosPage = () => {
                             </Typography>
                           </Box>
                         </ListItem>
-                        <Divider variant="insert" component="li" />
+                        <Divider component="li" />
                       </React.Fragment>
                     );
                   })}
@@ -184,7 +201,7 @@ const AudiosPage = () => {
               <RRVPagination
                 handleChangePage={handleChangePage}
                 handleChangeRowsPerPage={handleChangeRowsPerPage}
-                dataCount={totalItems}
+                dataCount={totalItems ?? 0}
                 page={tablePage}
                 pageSize={pageSize}
                 labelRowsPerPage="N audios per page:"

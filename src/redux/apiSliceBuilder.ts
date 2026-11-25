@@ -60,7 +60,10 @@ type ApiHook<TData = unknown, TArgs = void> =
 interface ApiSlicersReturn {
   reducers: Record<string, unknown>;
   middlewares: unknown[];
-  actions: Record<string, ApiHook>;
+  // Hooks are generated at runtime, so their real types are unknown here.
+  // Cast at the call site: `actions.useXQuery as QueryHook<TData, TArgs>`.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  actions: Record<string, (...args: any[]) => any>;
   initials: typeof initialStates;
 }
 

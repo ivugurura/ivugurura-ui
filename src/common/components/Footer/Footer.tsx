@@ -7,7 +7,11 @@ import { Copyright } from '../Copyright';
 import { useLang } from '../providers';
 import './styles.css';
 
-export const MainFooter = ({ navCategories = [] }) => {
+interface MainFooterProps {
+  navCategories?: APP.ICategory[];
+}
+
+export const MainFooter = ({ navCategories = [] }: MainFooterProps) => {
   const { t } = useTranslation();
   const { lang } = useLang();
   return (
@@ -15,14 +19,14 @@ export const MainFooter = ({ navCategories = [] }) => {
       <div className="footer-middle">
         <Container>
           <Grid container>
-            <Grid item lg={10} md={10} sm={12} xs={12}>
+            <Grid size={{ xs: 12, md: 10 }}>
               <Grid container>
                 {navCategories.map((category) => (
-                  <Grid item xs={12} sm={12} md={3} lg={3} key={category.slug}>
+                  <Grid size={{ xs: 12, md: 3 }} key={category.slug}>
                     <div className="footer-pad">
                       <h4>{category.name}</h4>
                       <ul className="list-styled">
-                        {category.categories.map((subCat) => (
+                        {category.categories?.map((subCat) => (
                           <Link
                             key={subCat.slug}
                             to={`/${lang}/topics?t=${subCat.slug}`}
@@ -36,7 +40,7 @@ export const MainFooter = ({ navCategories = [] }) => {
                 ))}
               </Grid>
             </Grid>
-            <Grid item lg={2} md={2} sm={12} xs={12}>
+            <Grid size={{ xs: 12, md: 2 }}>
               <h5>{t('followUs')}</h5>
               <ul className="social-network social-circle">
                 {socialMedias.map(({ name, url, icon: Icon }) => (
@@ -61,7 +65,7 @@ export const MainFooter = ({ navCategories = [] }) => {
             </Grid>
           </Grid>
           <Grid container>
-            <Grid item md={12} className="copy">
+            <Grid size={{ md: 12 }} className="copy">
               <Copyright />
             </Grid>
           </Grid>

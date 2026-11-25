@@ -35,7 +35,7 @@ interface CurrentAudio {
 interface AudioListProps {
   audios: APP.IAudio[];
   currentAudio: CurrentAudio;
-  setCurrentAudio: React.Dispatch<React.SetStateAction<CurrentAudio>>;
+  setCurrentAudio: (value: CurrentAudio) => void;
 }
 
 export const AudioList: React.FC<AudioListProps> = ({
@@ -105,7 +105,7 @@ export const AudioList: React.FC<AudioListProps> = ({
                   title={audio.title}
                   href={DL_ROUTE + audio.slug}
                   onShare={() => shareSong({ slug: audio.slug })}
-                  color={({ palette }) => palette.white}
+                  color={({ palette }: Theme) => palette.white}
                   displayText={false}
                 />
               </Box>
@@ -156,7 +156,7 @@ export const AudioList: React.FC<AudioListProps> = ({
                   <Typography
                     variant="subtitle2"
                     fontWeight={700}
-                    color={({ palette }) =>
+                    color={({ palette }: Theme) =>
                       isPlaying && isCurrent ? palette.green : palette.white
                     }
                   >
@@ -168,7 +168,7 @@ export const AudioList: React.FC<AudioListProps> = ({
                   <Typography
                     fontSize={{ xs: 10, sm: 12 }}
                     fontWeight={500}
-                    color={({ palette }) => palette.listGrey}
+                    color={({ palette }: Theme) => palette.listGrey}
                   >
                     {t('by')} {audio.author}
                   </Typography>
@@ -178,7 +178,7 @@ export const AudioList: React.FC<AudioListProps> = ({
               <Typography
                 variant="subtitle2"
                 fontSize={{ xs: 10, sm: 12 }}
-                color={({ palette }) => palette.listGrey}
+                color={({ palette }: Theme) => palette.listGrey}
               >
                 {dateFormat(audio.createdAt)}
               </Typography>

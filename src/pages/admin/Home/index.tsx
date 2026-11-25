@@ -6,18 +6,24 @@ import {
   PublishOutlined,
 } from '@mui/icons-material';
 import { Box, Grid } from '@mui/material';
+import type { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import {
   RRVTable,
   renderRowActionMenus,
+  type RowActionParams as RRVRowActionParams,
 } from '../../../common/components/RRVTable';
 import { useAlertDialog } from '../../../common/hooks/useAlertDialog';
 import { useMuiSearchPagination } from '../../../common/hooks/useMuiSearchPagination';
 import { dashboardActions } from '../../../helpers/topics';
 import { notifier, toLink } from '../../../helpers/utils/constants';
-import { actions } from '../../../redux/actions';
+import {
+  actions,
+  type MutationHook,
+  type QueryHook,
+} from '../../../redux/actions';
 import { initials } from '../../../redux/apiSliceBuilder';
 import { AlertConfirm } from '../components/AlertConfirm';
 import { DashboardContainer } from '../components/DashboardContainer';
@@ -25,39 +31,74 @@ import { DashboardContainer } from '../components/DashboardContainer';
 import { DashboardCount } from './DashboardCount';
 import { dashboardTopicsColumns } from './schema';
 
-const dashboardMenus = (t) => [
+interface DashboardTopic extends APP.ITopic {
+  isPublished: boolean;
+}
+
+interface CountItem {
+  title: string;
+  counts: number;
+  difference?: number;
+}
+
+interface CountFetch {
+  data: CountItem[];
+  refetch: () => void;
+}
+
+interface HomeDashboardProps {
+  countFetch: CountFetch;
+}
+
+type RowActionParams = RRVRowActionParams<DashboardTopic>;
+
+const dashboardMenus = (t: TFunction) => [
   {
     title: t('actions.edit'),
     icon: EditNoteOutlined,
     action: 'edit',
   },
   {
-    title: ({ isPublished }) => t(`actions.${isPublished ? 'un' : ''}publish`),
+    title: ({ isPublished }: DashboardTopic) =>
+      t(`actions.${isPublished ? 'un' : ''}publish`),
     icon: PublishOutlined,
     action: 'publish',
   },
   {
-    title: ({ entities }) =>
+    title: ({ entities }: DashboardTopic) =>
       t(`actions.${entities?.length ? 'remove' : 'add'}Home`),
     icon: DeleteOutlineOutlined,
-    canDisable: ({ isPublished }) => !isPublished,
+    canDisable: ({ isPublished }: DashboardTopic) => !isPublished,
     action: 'home',
   },
 ];
 
-const HomeDashboard = ({ countFetch }) => {
+const HomeDashboard = ({ countFetch }: HomeDashboardProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { alertValues, reset, setAlertValues } = useAlertDialog();
   const { paginator, ...tableProps } = useMuiSearchPagination();
   const { data: counts, ...restCountsQ } = countFetch;
-  const { data: overviewData, ...overviewQ } = actions.useGetOverviewTopicQuery(
-    { truncate: 200, ...paginator },
-  );
-  const [updateTopic, updateRes] = actions.useUpdateTopicMutation();
-  const [setOrRemoveTopicDisplay, displayRes] =
-    actions.useSetHomeTopicMutation();
-  const { data: topics, totalItems } = overviewData || initials.dataArr();
+  const useGetOverview = actions.useGetOverviewTopicQuery as unknown as QueryHook<
+    DashboardTopic[],
+    typeof paginator & { truncate: number }
+  >;
+  const { data: overviewData, ...overviewQ } = useGetOverview({
+    truncate: 200,
+    ...paginator,
+  });
+  const useUpdateTopic = actions.useUpdateTopicMutation as unknown as MutationHook<
+    unknown,
+    { slug: string; isPublished: boolean }
+  >;
+  const useSetHomeTopic = actions.useSetHomeTopicMutation as unknown as MutationHook<
+    unknown,
+    { topicId: string; type: string; displayType: string }
+  >;
+  const [updateTopic, updateRes] = useUpdateTopic();
+  const [setOrRemoveTopicDisplay, displayRes] = useSetHomeTopic();
+  const { data: topics, totalItems } =
+    overviewData || initials.dataArr<DashboardTopic>();
 
   useEffect(() => {
     if (updateRes.isSuccess || displayRes.isSuccess) {
@@ -73,7 +114,7 @@ const HomeDashboard = ({ countFetch }) => {
     }
   }, [updateRes.isSuccess, displayRes.isSuccess]);
 
-  const handleMenuAction = (type, actionParams) => {
+  const handleMenuAction = (type: string, actionParams: RowActionParams) => {
     actionParams.closeMenu();
     if (type === 'edit') {
       navigate(toLink(`edit-topic/${actionParams.row.original.slug}`, true));
@@ -84,13 +125,14 @@ const HomeDashboard = ({ countFetch }) => {
       current: actionParams.row.original,
       open: true,
       actionType: type,
-      message: `Are you sure you want to ${action.toUpperCase()} 
+      message: `Are you sure you want to ${action.toUpperCase()}
       "${title.toUpperCase()}"?`,
     });
   };
 
   const handleConfirmAction = () => {
-    const { current, actionType } = alertValues;
+    const { actionType } = alertValues;
+    const current = alertValues.current as unknown as DashboardTopic;
     if (actionType === 'publish') {
       updateTopic({
         slug: current.slug,
@@ -121,7 +163,7 @@ const HomeDashboard = ({ countFetch }) => {
       />
       <Grid container spacing={1}>
         {counts.map((dt) => (
-          <Grid item key={dt.title} xs={12} sm={4} lg={2}>
+          <Grid key={dt.title} size={{ xs: 12, sm: 4, lg: 2 }}>
             <DashboardCount
               title={dt.title}
               value={dt.counts}

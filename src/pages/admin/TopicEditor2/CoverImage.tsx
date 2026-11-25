@@ -17,7 +17,15 @@ import { RRVFileUpload } from '../../../common/components/RRVFileUpload';
 
 import { TopicImages } from './TabImages';
 
-export const CoverImage = ({ open, handleClose }) => {
+interface CoverImageProps {
+  open: boolean;
+  handleClose: () => void;
+}
+
+export const CoverImage: React.FC<CoverImageProps> = ({
+  open,
+  handleClose,
+}) => {
   const { t } = useTranslation();
   const [value, setValue] = React.useState('upload');
   return (
@@ -37,8 +45,7 @@ export const CoverImage = ({ open, handleClose }) => {
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList
-              value={value}
-              onChange={(_, newValue) => setValue(newValue)}
+              onChange={(_, newValue: string) => setValue(newValue)}
               textColor="secondary"
               indicatorColor="secondary"
               aria-label="secondary tabs example"

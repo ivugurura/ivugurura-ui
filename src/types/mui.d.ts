@@ -27,9 +27,7 @@ declare module '@mui/material/styles' {
     link: string;
     unselected: string;
   }
-}
 
-declare module '@mui/material/styles/createPalette' {
   interface CommonColors {
     black: string;
     white: string;

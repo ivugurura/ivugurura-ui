@@ -8,14 +8,19 @@ import {
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { type Dayjs } from 'dayjs';
 
-type RRVDateInputProps = DatePickerProps<Dayjs, Dayjs>;
+// RRVForm passes its generic field row (value: unknown) straight through.
+type RRVDateInputProps = Omit<DatePickerProps, 'value' | 'onChange'> & {
+  value?: unknown;
+  onChange?: (value: Dayjs | null) => void;
+  isBool?: boolean;
+};
 
 export const RRVDateInput: React.FC<RRVDateInputProps> = (props) => {
-  const { value, ...otherProps } = props;
+  const { value, isBool: _isBool, ...otherProps } = props;
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DatePicker value={value || null} {...otherProps} />
+      <DatePicker value={(value as Dayjs | null) || null} {...otherProps} />
     </LocalizationProvider>
   );
 };

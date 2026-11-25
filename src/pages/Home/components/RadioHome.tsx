@@ -6,16 +6,24 @@ import { useTranslation } from 'react-i18next';
 
 import { RadioKing } from '../../../common/components/Radio';
 import { RRVAudioPlayer } from '../../../common/components/RRVAudioPlayer/RRVAudioPlayer';
-import { actions, initials } from '../../../redux/apiSliceBuilder';
+import { actions, initials, type QueryHook } from '../../../redux/actions';
 
-export const RadioHome = ({ nOfAudios = 2 }) => {
+interface RadioHomeProps {
+  nOfAudios?: number;
+}
+
+export const RadioHome = ({ nOfAudios = 2 }: RadioHomeProps) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { t } = useTranslation();
-  const { data } = actions.useListAudiosQuery({
+  const useListAudios = actions.useListAudiosQuery as QueryHook<
+    APP.IAudio[],
+    { page: number; pageSize: number }
+  >;
+  const { data } = useListAudios({
     page: 1,
     pageSize: nOfAudios,
   });
-  const { data: audios } = data || initials.dataArr();
+  const { data: audios } = data || initials.dataArr<APP.IAudio>();
   const currentAudio = useMemo(() => {
     if (audios?.length > 0) {
       const index = selectedIndex < audios.length ? selectedIndex : 0;
@@ -24,7 +32,7 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
     return { index: -1, audio: null };
   }, [audios, selectedIndex]);
 
-  const setCurrentAudio = ({ index }) => {
+  const setCurrentAudio = ({ index }: { index: number }) => {
     setSelectedIndex(index);
   };
 
@@ -36,7 +44,7 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
         </Typography>
       </Box>
       <Grid container spacing={2}>
-        <Grid item md={7} xs={12}>
+        <Grid size={{ xs: 12, md: 7 }}>
           <Typography variant="h2" fontWeight={700} pb={4}>
             {t('latestAudio')}
           </Typography>
@@ -48,7 +56,7 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
             displayMore
           />
         </Grid>
-        <Grid item md={4} xs={12}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Typography variant="h2" fontWeight={700} pb={4}>
             {t('radio')}
           </Typography>
@@ -60,8 +68,6 @@ export const RadioHome = ({ nOfAudios = 2 }) => {
             </Button>
           </Box>
         </Grid>
-
-        {/* <Radio /> */}
       </Grid>
     </Box>
   );

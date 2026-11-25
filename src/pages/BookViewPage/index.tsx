@@ -1,18 +1,18 @@
 import { Grid } from '@mui/material';
-import {
-  // useNavigate,
-  useParams,
-} from 'react-router';
+import { useParams } from 'react-router';
 
 import { PdfViewer } from '../../common/components/PDFViewer';
 import { getInitialScaleByWidth } from '../../helpers/utils';
-import { actions, initials } from '../../redux/apiSliceBuilder';
+import { actions, initials, type QueryHook } from '../../redux/actions';
 
 const BookView = () => {
-  const { slug } = useParams();
-  // const navigate = useNavigate();
-  const { data } = actions.useViewBookQuery({ slug });
-  const { data: book } = data || initials.dataObj();
+  const { slug = '' } = useParams();
+  const useViewBook = actions.useViewBookQuery as QueryHook<
+    APP.IBook,
+    { slug: string }
+  >;
+  const { data } = useViewBook({ slug });
+  const { data: book } = data || initials.dataObj<APP.IBook>();
 
   if (!book.id) return null;
 

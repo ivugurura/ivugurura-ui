@@ -3,7 +3,14 @@ import {
   Radio as RadioIcon,
   YouTube as YouTubeIcon,
 } from '@mui/icons-material';
-import { alpha, Box, Button, Container, Stack, Typography } from '@mui/material';
+import {
+  alpha,
+  Box,
+  Button,
+  Container,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 type HomeSection = 'radio' | 'youtube';
@@ -29,7 +36,7 @@ const ctaSx = {
   width: { xs: '100%', sm: 'auto' },
 } as const;
 
-export const HomeWelcomePage = ({ onScrollTo }: HomeWelcomePageProps) => {
+export const HomeWelcome = ({ onScrollTo }: HomeWelcomePageProps) => {
   const { t } = useTranslation();
   const { text, reference } = splitVerse(t('mathew2414'));
 
@@ -57,9 +64,18 @@ export const HomeWelcomePage = ({ onScrollTo }: HomeWelcomePageProps) => {
     >
       <Container maxWidth="lg">
         <Box sx={{ maxWidth: 720 }}>
-          <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center', mb: 3 }}>
+          <Stack
+            direction="row"
+            spacing={1.5}
+            sx={{ alignItems: 'center', mb: 3 }}
+          >
             <Box
-              sx={{ width: 32, height: 3, borderRadius: 2, bgcolor: 'primary.main' }}
+              sx={{
+                width: 32,
+                height: 3,
+                borderRadius: 2,
+                bgcolor: 'primary.main',
+              }}
             />
             <Typography
               variant="body2"

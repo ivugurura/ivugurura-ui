@@ -10,7 +10,7 @@ import { actions, type QueryHook } from '../../redux/actions';
 import {
   HomeLatestBlog,
   HomeRecentTopics,
-  HomeWelcomePage,
+  HomeWelcome,
   HomeYoutube,
   RadioHome,
 } from './components';
@@ -32,7 +32,7 @@ export const Home = () => {
   return (
     <PageHelmet>
       <Box>
-        <HomeWelcomePage onScrollTo={scrollToSection} />
+        <HomeWelcome onScrollTo={scrollToSection} />
         <Grid container spacing={0}>
           <Grid size={12}>
             <HomeLatestBlog />

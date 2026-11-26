@@ -2,6 +2,8 @@ import '@mui/material/styles';
 
 declare module '@mui/material/styles' {
   interface Palette {
+    navy: string;
+    navyLight: string;
     black: string;
     white: string;
     blackColor: string;
@@ -13,6 +15,8 @@ declare module '@mui/material/styles' {
   }
 
   interface PaletteOptions {
+    navy: string;
+    navyLight: string;
     black: string;
     white: string;
     blackColor: string;
@@ -29,6 +33,8 @@ declare module '@mui/material/styles' {
   }
 
   interface CommonColors {
+    navy: string;
+    navyLight: string;
     black: string;
     white: string;
     blackColor: string;

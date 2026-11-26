@@ -1,114 +1,21 @@
+import type { TypographyVariantsOptions } from '@mui/material/styles';
+
 import { palette } from './palette';
 
-export const typography = {
-  h1: {
-    color: palette.text.primary,
-    fontWeight: 500,
-    fontSize: '36px',
-    letterSpacing: '-0.24px',
-    lineHeight: '40px',
-    '@media (max-width: 768px)': {
-      fontSize: '28px',
-      lineHeight: '34px',
-    },
-    '@media (max-width: 480px)': {
-      fontSize: '20px',
-      lineHeight: '30px',
-    },
-  },
-  h2: {
-    color: palette.text.primary,
-    fontWeight: 500,
-    fontSize: '26px',
-    letterSpacing: '-0.24px',
-    '@media (max-width: 768px)': {
-      fontSize: '20px',
-    },
-    '@media (max-width: 480px)': {
-      fontSize: '16px',
-    },
-  },
-  h3: {
-    color: palette.text.primary,
-    fontWeight: 500,
-    fontSize: '24px',
-    letterSpacing: '-0.06px',
-    lineHeight: '28px',
-  },
-  h4: {
-    color: palette.text.primary,
-    fontWeight: 500,
-    fontSize: '20px',
-    letterSpacing: '-0.06px',
-    lineHeight: '24px',
-  },
-  h5: {
-    color: palette.text.primary,
-    fontWeight: 500,
-    fontSize: '16px',
-    letterSpacing: '-0.05px',
-    lineHeight: '20px',
-  },
-  h6: {
-    color: palette.text.primary,
-    fontWeight: 500,
-    fontSize: '14px',
-    letterSpacing: '-0.05px',
-    lineHeight: '20px',
-  },
+/** Same type scale as radio-ui. */
+export const typography: TypographyVariantsOptions = {
+  fontFamily: '"Roboto Slab", Georgia, "Times New Roman", serif',
+  h1: { fontSize: '2.5rem', fontWeight: 600 },
+  h2: { fontSize: '2rem', fontWeight: 600 },
+  h3: { fontSize: '1.75rem', fontWeight: 500 },
+  h4: { fontSize: '1.5rem', fontWeight: 500 },
+  h5: { fontSize: '1.25rem', fontWeight: 500 },
+  h6: { fontSize: '1rem', fontWeight: 500 },
   subtitle1: {
-    color: palette.darkGreen,
-    fontSize: '18px',
-    letterSpacing: '-0.05px',
-    lineHeight: 1.2,
-    '@media (max-width: 768px)': {
-      fontSize: '16px',
-    },
-    '@media (max-width: 480px)': {
-      fontSize: '14px',
-    },
-  },
-  subtitle2: {
-    color: palette.darkBlue,
+    fontSize: '1rem',
     fontWeight: 400,
-    fontSize: '16px',
-    letterSpacing: '-0.05px',
-    lineHeight: '21px',
-    '@media (max-width: 768px)': {
-      fontSize: '14px',
-    },
-    '@media (max-width: 480px)': {
-      fontSize: '12px',
-    },
-  },
-  body1: {
-    color: palette.text.primary,
-    fontSize: '14px',
-    letterSpacing: '-0.05px',
-    lineHeight: '21px',
-  },
-  body2: {
     color: palette.text.secondary,
-    fontSize: '12px',
-    letterSpacing: '-0.04px',
-    lineHeight: '18px',
   },
-  button: {
-    color: palette.text.primary,
-    fontSize: '14px',
-  },
-  caption: {
-    color: palette.text.secondary,
-    fontSize: '11px',
-    letterSpacing: '0.33px',
-    lineHeight: '13px',
-  },
-  overline: {
-    color: palette.text.secondary,
-    fontSize: '11px',
-    fontWeight: 500,
-    letterSpacing: '0.33px',
-    lineHeight: '13px',
-    textTransform: 'uppercase',
-  },
+  body1: { fontSize: '0.875rem' },
+  body2: { fontSize: '0.75rem', color: palette.text.secondary },
 };

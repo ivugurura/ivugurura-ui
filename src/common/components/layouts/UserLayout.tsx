@@ -44,7 +44,7 @@ const userRoutes: UserRoute[] = [
 ];
 
 export const UserLayout: React.FC = () => (
-  <Box sx={{ minHeight: '70vh' }}>
+  <Box>
     <Routes>
       {userRoutes.map(({ path, component: Component }) => (
         <Route

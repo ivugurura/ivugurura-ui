@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, type GridSize } from '@mui/material';
+import { Box, Container, Grid, Typography, type GridSize } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { TopicsCardSkeleton } from '../../../common/components/loaders';
@@ -28,26 +28,31 @@ export const HomeLatestBlog = ({
   const { data: topics } = data || initials.dataArr<APP.ITopic>();
 
   return (
-    <Box sx={{ px: { xs: 2, md: 8 }, py: 4 }}>
-      <Typography variant="h1" fontWeight={600}>
-        {t('latest')}
-      </Typography>
+    <Container component="section" maxWidth="lg" sx={{ py: { xs: 5, md: 8 } }}>
+      <Box sx={{ mb: { xs: 3, md: 4 } }}>
+        <Typography
+          variant="body2"
+          component="p"
+          sx={{
+            color: 'primary.main',
+            fontWeight: 600,
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            mb: 1,
+          }}
+        >
+          {t('teachings')}
+        </Typography>
+        <Typography
+          variant="h3"
+          component="h2"
+          sx={{ fontSize: { xs: '1.5rem', md: '1.75rem' }, fontWeight: 600 }}
+        >
+          {t('latest')}
+        </Typography>
+      </Box>
 
-      <Typography
-        variant="subtitle1"
-        sx={{
-          fontWeight: 400,
-          py: {
-            xs: 2,
-            sm: 3,
-            md: 4,
-          },
-        }}
-      >
-        {t('teachings').toUpperCase()}
-      </Typography>
-
-      <Grid container spacing={2} display="flex" justifyContent="center">
+      <Grid container spacing={3}>
         {isFetching ? (
           <TopicsCardSkeleton totalItems={3} itemsSize={{ xs, sm, md }} />
         ) : (
@@ -59,7 +64,7 @@ export const HomeLatestBlog = ({
           ))
         )}
       </Grid>
-    </Box>
+    </Container>
   );
 };
 

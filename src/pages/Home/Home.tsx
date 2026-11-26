@@ -33,7 +33,7 @@ export const Home = () => {
     <PageHelmet>
       <Box>
         <HomeWelcomePage onScrollTo={scrollToSection} />
-        <Grid container spacing={1}>
+        <Grid container spacing={0}>
           <Grid size={12}>
             <HomeLatestBlog />
           </Grid>

@@ -1,33 +1,48 @@
-import { getRadioKingId } from '../../helpers/utils';
-
 import { useLang } from './providers';
 
-export const Radio = () => (
-  <iframe
-    title="radio"
-    src="https://studio18.radiolize.com/public/ijwi_ry_ubugorozi/embed"
-    allowFullScreen
-    style={{ width: '100%' }}
-  />
-);
+/** Our own radio (radio-ui). */
+export const RADIO_SITE_URL =
+  (import.meta.env.VITE_RADIO_URL as string | undefined) ||
+  'https://radio.reformationvoice.org';
 
-export const RadioKing = () => {
+/** The radio uses `rw` for Kinyarwanda; this site uses `kn`. */
+export const toRadioLang = (lang: string) => (lang === 'kn' ? 'rw' : lang);
+
+/** Link to the full radio page (with chat and language picker). */
+export const useRadioSiteUrl = () => {
+  const { lang } = useLang();
+  return `${RADIO_SITE_URL}/?lang=${toRadioLang(lang)}`;
+};
+
+interface RadioEmbedProps {
+  /** Match the card behind the player. */
+  theme?: 'light' | 'dark';
+  height?: number | string;
+}
+
+/** Live radio player, served by radio-ui's `/embed` page. */
+export const RadioEmbed = ({
+  theme = 'dark',
+  height = 340,
+}: RadioEmbedProps) => {
   const { lang } = useLang();
 
   return (
-    <div>
-      <iframe
-        className="components"
-        title="RadioKing"
-        color="#fff"
-        src={`https://player.radioking.io/${getRadioKingId(lang)}/?c=%234C7991&c2=%23ffffff&f=h&i=0&p=0&s=0&li=0&popup=0&plc=NaN&h=undefined&l=100&v=2&fullsize`}
-        style={{
-          width: '100%',
-          height: '16rem',
-          border: 'none',
-          borderRadius: '32px',
-        }}
-      />
-    </div>
+    <iframe
+      title="Radio player"
+      allow="autoplay"
+      loading="lazy"
+      src={`${RADIO_SITE_URL}/embed?lang=${toRadioLang(lang)}&theme=${theme}`}
+      style={{
+        display: 'block',
+        width: '100%',
+        height,
+        border: 'none',
+        // Must match the embed page's scheme (always light, whatever its
+        // palette), or the browser paints an opaque box behind the page.
+        colorScheme: 'light',
+        background: 'transparent',
+      }}
+    />
   );
 };

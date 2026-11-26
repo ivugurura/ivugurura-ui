@@ -12,7 +12,7 @@ import {
   HomeRecentTopics,
   HomeWelcome,
   HomeYoutube,
-  RadioHome,
+  HomeListenSection,
 } from './components';
 import { HomeContentLayout } from './components/HomeContentLayout';
 
@@ -38,7 +38,7 @@ export const Home = () => {
             <HomeLatestBlog />
           </Grid>
           <Grid size={12} ref={radioRef}>
-            <RadioHome />
+            <HomeListenSection />
           </Grid>
           <Grid size={12} ref={youtubeRef}>
             <HomeYoutube youtubeData={youtubeData} />

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { lStorage, systemLanguage } from './utils/constants';
 
-export const VERBS = {
+export const VERBS: Record<string, APP.HttpVerb> = {
   get: 'GET',
   post: 'POST',
   patch: 'PATCH',

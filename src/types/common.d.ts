@@ -4,12 +4,13 @@ declare namespace APP {
   interface IApi {
     endpoint: string;
     verb: HttpVerb;
-    auth: boolean;
-    hasBody: boolean;
+    auth?: boolean;
+    hasBody?: boolean;
     isDownload?: boolean;
     isMutation?: boolean;
   }
   interface IActionSchema {
+    suffix?: string;
     api: IApi;
   }
   type IAction = Record<string, Partial<IActionSchema>>;

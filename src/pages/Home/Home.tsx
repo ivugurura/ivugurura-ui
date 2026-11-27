@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { PageHelmet } from '../../common/components/wrappers';
-import { actions, type QueryHook } from '../../redux/actions';
 
 import {
   HomeLatestBlog,
@@ -22,8 +21,6 @@ export const Home = () => {
   const { t } = useTranslation();
   const radioRef = useRef<HTMLDivElement>(null);
   const youtubeRef = useRef<HTMLDivElement>(null);
-  const useListYoutubes = actions.useListYoutubesQuery as QueryHook;
-  const youtubeData = useListYoutubes();
 
   const scrollToSection = (section: HomeSection) => {
     const ref = section === 'youtube' ? youtubeRef : radioRef;
@@ -41,7 +38,7 @@ export const Home = () => {
             <HomeListenSection />
           </Grid>
           <Grid size={12} ref={youtubeRef}>
-            <HomeYoutube youtubeData={youtubeData} />
+            <HomeYoutube />
           </Grid>
         </Grid>
         <HomeContentLayout cardContentProps={{ sx: { paddingBottom: 0 } }}>

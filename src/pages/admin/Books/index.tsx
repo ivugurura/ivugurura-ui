@@ -101,7 +101,7 @@ const Books = () => {
         loading={delRes.isLoading}
       />
       <Grid container spacing={1}>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <RRVTable
             columns={bookColumns(t)}
             data={books}
@@ -128,7 +128,7 @@ const Books = () => {
             )}
           />
         </Grid>
-        <Grid item xs={12} lg={2}>
+        <Grid size={{ xs: 12, lg: 2 }}>
           <h1>{totalItems}</h1>
           {` — ${t('library.nLabel')}`}
         </Grid>

@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {
   Button,
   Dialog,
@@ -12,10 +14,28 @@ import {
   TextField,
 } from '@mui/material';
 
-export const AlertConfirm = ({
+interface ReplyInputProps {
+  reply?: { content: string; replyType: string };
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+interface AlertConfirmProps {
+  open: boolean;
+  setOpen: () => void;
+  onConfirmYes?: () => void;
+  message?: React.ReactNode;
+  loading?: boolean;
+  title?: string;
+  hasInput?: boolean;
+  inputProps?: ReplyInputProps;
+}
+
+export const AlertConfirm: React.FC<AlertConfirmProps> = ({
   open,
   setOpen,
-  onConfirmYes = () => {},
+  onConfirmYes = () => {
+    /* no-op */
+  },
   message = '',
   loading = false,
   title = 'Confirm action',
@@ -41,14 +61,14 @@ export const AlertConfirm = ({
               label="Reply"
               variant="standard"
               name="content"
-              value={reply.content}
+              value={reply?.content}
               {...restProps}
             />
             <RadioGroup
               row
               aria-labelledby="form-replyType"
               name="replyType"
-              value={reply.replyType}
+              value={reply?.replyType}
               {...restProps}
             >
               <FormControlLabel

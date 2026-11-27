@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { Home as HomeIcon, RssFeed as RssFeedIcon } from '@mui/icons-material';
 import { Box, Divider, Grid, Typography } from '@mui/material';
+import type { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -9,19 +10,35 @@ import {
   TopicsCardSkeleton,
 } from '../../common/components/loaders';
 import { PageHeader } from '../../common/components/PageHeader';
-import { RRVBreadcrumbs } from '../../common/components/RRVBreadcrumbs/Breadcrumbs';
+import {
+  RRVBreadcrumbs,
+  type Crumb,
+} from '../../common/components/RRVBreadcrumbs/Breadcrumbs';
 import { RRVMenu } from '../../common/components/RRVMenu/RRVMenu';
 import { RRVPagination } from '../../common/components/RRVPagination';
 import { PageHelmet } from '../../common/components/wrappers';
 import { usePagination } from '../../common/hooks/usePagination';
 import { useQueryParams } from '../../common/hooks/useQueryParams';
 import { toLink } from '../../helpers/utils/constants';
-import { actions, initials } from '../../redux/apiSliceBuilder';
+import { actions, initials, type QueryHook } from '../../redux/actions';
 import SearchBar from '../components/SearchBar2';
 import { styles } from '../TopicDetails/TopicDetails.style';
 import TopicItem from '../TopicItem';
 
-const initialCrumbsProps = {
+interface BreadcrumbMenu {
+  id?: string;
+  menuId?: string;
+  lebelledBy?: string;
+  anchorEl: Element | null;
+  [key: string]: unknown;
+}
+
+type TopicNav = Crumb & { breadcumbMenu?: BreadcrumbMenu | null };
+
+/** "All topics" is a pseudo category whose id is null. */
+type CategoryOption = Pick<APP.ICategory, 'name'> & { id: string | null };
+
+const initialCrumbsProps: BreadcrumbMenu = {
   id: 'btn-id',
   lebelledBy: 'menu-id',
   'aria-controls': undefined,
@@ -30,7 +47,7 @@ const initialCrumbsProps = {
   onClick: undefined,
   anchorEl: null,
 };
-const initialTopicHomeNavs = (t) => [
+const initialTopicHomeNavs = (t: TFunction): TopicNav[] => [
   {
     name: t('topics'),
     route: toLink('topics'),
@@ -38,8 +55,15 @@ const initialTopicHomeNavs = (t) => [
     breadcumbMenu: null,
   },
 ];
-const CategoryItem = ({ category, selectedId, onClick }) => (
-  <Grid item xs={10} md={10}>
+
+interface CategoryItemProps {
+  category: CategoryOption;
+  selectedId: string | null;
+  onClick: (category: CategoryOption) => void;
+}
+
+const CategoryItem = ({ category, selectedId, onClick }: CategoryItemProps) => (
+  <Grid size={{ xs: 10, md: 10 }}>
     <Box onClick={() => onClick(category)}>
       <Typography
         sx={category.id === selectedId ? styles.select : styles.unselect}
@@ -52,30 +76,46 @@ const CategoryItem = ({ category, selectedId, onClick }) => (
 
 const TopicsPage = () => {
   const { t } = useTranslation();
-  const [topicsNavs, setTopicsNavs] = React.useState(initialTopicHomeNavs(t));
+  const [topicsNavs, setTopicsNavs] = React.useState<TopicNav[]>(
+    initialTopicHomeNavs(t),
+  );
   const { t: categorySlug } = useQueryParams();
-  const [selectedCategoryId, setSelectedCategoryId] = React.useState(null);
+  const [selectedCategoryId, setSelectedCategoryId] = React.useState<
+    string | null
+  >(null);
   const {
     pagination: { page, pageSize, tablePage },
     handleChangePage,
     handleChangeRowsPerPage,
     resetRowsPerPage,
   } = usePagination();
-  const { data, isFetching } = actions.useListTopicsQuery({
+  const useListTopics = actions.useListTopicsQuery as QueryHook<
+    APP.ITopic[],
+    {
+      truncate: number;
+      page: number;
+      pageSize: number;
+      category: string | null;
+    }
+  >;
+  const useListCategory = actions.useListCategoryQuery as QueryHook<
+    APP.ICategory[],
+    { categoryType: string }
+  >;
+  const { data, isFetching } = useListTopics({
     truncate: 148,
     page,
     pageSize,
     category: selectedCategoryId,
   });
-  const { data: catData, isFetching: categoriesLoading } =
-    actions.useListCategoryQuery({
-      categoryType: 'with-topics',
-    });
-  const { data: topics, totalItems } = data || initials.dataArr();
+  const { data: catData, isFetching: categoriesLoading } = useListCategory({
+    categoryType: 'with-topics',
+  });
+  const { data: topics, totalItems } = data || initials.dataArr<APP.ITopic>();
 
-  const { data: categories } = catData || initials.dataArr();
+  const { data: categories } = catData || initials.dataArr<APP.ICategory>();
   const allTopics = t('allTopics');
-  const handleMenuOpen = (event) => {
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setTopicsNavs((prev) => {
       const copyPrev = [...prev];
       const navIndex = prev.length - 1;
@@ -119,14 +159,16 @@ const TopicsPage = () => {
         ]),
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topics.length, selectedCategoryId]);
   useEffect(() => {
     if (categories.length > 0 && categorySlug) {
       const category = categories.find((cat) => cat.slug === categorySlug);
       setSelectedCategoryId(category?.id || null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categories.length, categorySlug]);
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = (category: CategoryOption) => {
     setSelectedCategoryId(category?.id || null);
     resetRowsPerPage();
   };
@@ -135,7 +177,7 @@ const TopicsPage = () => {
   return (
     <PageHelmet title={t('topics')}>
       <Box>
-        <Grid item md={12}>
+        <Grid size={{ md: 12 }}>
           <RRVBreadcrumbs crumbs={topicsNavs} />
           <RRVMenu
             handleClose={handleMenuClose}
@@ -153,7 +195,7 @@ const TopicsPage = () => {
         </Grid>
         <PageHeader description={t('teachings').toUpperCase()} />
         <Grid container spacing={2}>
-          <Grid item md={3.6} sm={12} mt={8}>
+          <Grid size={{ sm: 12, md: 3.6 }} mt={8}>
             <Grid container>
               {categoriesLoading ? (
                 <TopicListItemSkeleton totalItem={6} />
@@ -185,10 +227,10 @@ const TopicsPage = () => {
             </Grid>
           </Grid>
 
-          <Grid item md={8} sm={12}>
+          <Grid size={{ sm: 12, md: 8 }}>
             <SearchBar />
             <Grid container pt={2}>
-              <Grid item md={12}>
+              <Grid size={{ md: 12 }}>
                 <Grid container>
                   {isFetching ? (
                     <TopicsCardSkeleton />
@@ -197,7 +239,7 @@ const TopicsPage = () => {
                       {topics?.length > 0 && (
                         <Grid container spacing={3}>
                           {topics.map((topic) => (
-                            <Grid key={topic.slug} item md={5}>
+                            <Grid key={topic.slug} size={{ md: 5 }}>
                               <TopicItem
                                 key={topic.slug}
                                 topic={topic}
@@ -211,7 +253,7 @@ const TopicsPage = () => {
                       <RRVPagination
                         handleChangePage={handleChangePage}
                         handleChangeRowsPerPage={handleChangeRowsPerPage}
-                        dataCount={totalItems}
+                        dataCount={totalItems ?? 0}
                         page={tablePage}
                         pageSize={pageSize}
                         labelRowsPerPage="N topics per page:"

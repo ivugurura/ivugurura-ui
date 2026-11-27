@@ -29,6 +29,7 @@ jobs:
           touch .env
           echo VITE_API_URL="https://dev.reformationvoice.org" >> .env
           echo VITE_SOCKET_URL="https://dev.reformationvoice.org" >> .env
+          echo VITE_CHAT_BASE_URL="https://reformationvoice.org/ai" >> .env
           echo GENERATE_SOURCEMAP=true >> .env
           echo INLINE_RUNTIME_CHUNK=true >> .env
           echo SKIP_PREFLIGHT_CHECK=true >> .env

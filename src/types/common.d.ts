@@ -46,7 +46,24 @@ declare namespace APP {
     coverImage: string;
     slug: string;
     updatedAt: string;
+    content?: string;
+    category?: ITopicCategory;
     entities?: IHomeTopic[];
+  }
+  interface ITopicCategory extends ICategory {
+    relatedTopics: Pick<ITopic, 'id' | 'title' | 'slug'>[];
+  }
+  interface ICommentReply {
+    id: string;
+    content: string;
+    createdAt: string;
+  }
+  interface IComment {
+    id: string;
+    names: string;
+    content: string;
+    createdAt: string;
+    replies: ICommentReply[];
   }
   interface ISearchData {
     topics: ITopic[];
@@ -68,10 +85,16 @@ declare namespace APP {
     mediaLink: string;
     author: string;
     actionDate: string;
+    createdAt?: string;
     id: number;
   }
   interface IPub {
     title: string;
     content: string;
+  }
+  interface ILang {
+    id: number;
+    name: string;
+    short_name: string;
   }
 }

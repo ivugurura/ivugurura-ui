@@ -1,15 +1,21 @@
 import React from 'react';
 
-import { Breadcrumbs, Button, Chip, Typography } from '@mui/material';
+import {
+  Breadcrumbs,
+  Button,
+  Chip,
+  Typography,
+  type SvgIconProps,
+} from '@mui/material';
 import { emphasize, styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 
-interface Crumb {
+export interface Crumb {
   name: string;
-  route: string;
-  primaryIcon?: React.ReactNode;
-  secondaryIcon?: React.ReactNode;
-  onClick?: () => void;
+  route?: string;
+  primaryIcon?: React.ComponentType<SvgIconProps>;
+  secondaryIcon?: React.ComponentType<SvgIconProps>;
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 interface RRVBreadcrumbsProps {
@@ -34,7 +40,7 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
       backgroundColor: emphasize(backgroundColor, 0.12),
     },
   };
-});
+}) as typeof Chip; // keep Chip's polymorphic `component` typing
 
 export const RRVBreadcrumbs: React.FC<RRVBreadcrumbsProps> = ({
   crumbs = [],
@@ -64,10 +70,10 @@ export const RRVBreadcrumbs: React.FC<RRVBreadcrumbsProps> = ({
             key={name}
             label={name}
             component={Link}
-            to={route}
-            icon={Icon ? <Icon fontSize="small" /> : null}
+            to={route ?? ''}
+            icon={Icon ? <Icon fontSize="small" /> : undefined}
             deleteIcon={
-              SecondaryIcon ? <SecondaryIcon fontSize="small" /> : null
+              SecondaryIcon ? <SecondaryIcon fontSize="small" /> : undefined
             }
             sx={{ cursor: 'pointer' }}
           />

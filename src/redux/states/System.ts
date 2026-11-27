@@ -51,5 +51,11 @@ export const SystemState: APP.IState = {
         hasBody: true,
       },
     },
+    getLangs: {
+      api: {
+        verb: VERBS.get,
+        endpoint: '/manage/languages',
+      },
+    },
   },
 };

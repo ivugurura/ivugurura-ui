@@ -10,12 +10,21 @@ import { RRVPagination } from '../../common/components/RRVPagination';
 import { PageHelmet } from '../../common/components/wrappers';
 import { usePagination } from '../../common/hooks/usePagination';
 import { useQueryParams } from '../../common/hooks/useQueryParams';
-import { actions, initials } from '../../redux/apiSliceBuilder';
+import { actions, initials, type QueryHook } from '../../redux/actions';
 import SearchBar from '../components/SearchBar2';
 import { styles } from '../TopicDetails/TopicDetails.style';
 
-const CategoryItem = ({ category, selectedId, onClick }) => (
-  <Grid item xs={10} md={10}>
+/** "All books" is a pseudo category whose id is null. */
+type CategoryOption = Pick<APP.ICategory, 'name'> & { id: string | null };
+
+interface CategoryItemProps {
+  category: CategoryOption;
+  selectedId: string | null;
+  onClick: (category: CategoryOption) => void;
+}
+
+const CategoryItem = ({ category, selectedId, onClick }: CategoryItemProps) => (
+  <Grid size={{ xs: 10, md: 10 }}>
     <Box onClick={() => onClick(category)}>
       <Typography
         sx={category.id === selectedId ? styles.select : styles.unselect}
@@ -27,7 +36,9 @@ const CategoryItem = ({ category, selectedId, onClick }) => (
 );
 
 const LibraryPage = () => {
-  const [selectedCategoryId, setSelectedCategoryId] = React.useState(null);
+  const [selectedCategoryId, setSelectedCategoryId] = React.useState<
+    string | null
+  >(null);
   const { t } = useTranslation();
   const { t: categorySlug } = useQueryParams();
   const {
@@ -36,12 +47,15 @@ const LibraryPage = () => {
     handleChangeRowsPerPage,
     resetRowsPerPage,
   } = usePagination();
-  const { data } = actions.useListBooksQuery();
+  const useListBooks = actions.useListBooksQuery as QueryHook<APP.IBook[]>;
+  const useListCategoriesBook =
+    actions.useListCategoriesBookQuery as QueryHook<APP.ICategory[]>;
+  const { data } = useListBooks();
   const { data: catData, isFetching: categoriesLoading } =
-    actions.useListCategoriesBookQuery();
+    useListCategoriesBook();
 
-  const { data: books, totalItems } = data || initials.dataArr();
-  const { data: categories } = catData || initials.dataArr();
+  const { data: books, totalItems } = data || initials.dataArr<APP.IBook>();
+  const { data: categories } = catData || initials.dataArr<APP.ICategory>();
   const allBooks = t('library.allBooks');
 
   useEffect(() => {
@@ -52,11 +66,11 @@ const LibraryPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categories.length, categorySlug]);
 
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = (category: CategoryOption) => {
     setSelectedCategoryId(category?.id || null);
     resetRowsPerPage();
   };
-  const allCategories = useMemo(() => {
+  const allCategories = useMemo<CategoryOption[]>(() => {
     return [{ id: null, name: allBooks }, ...categories];
   }, [categories, allBooks]);
   return (
@@ -67,7 +81,7 @@ const LibraryPage = () => {
           description={t('library.description').toUpperCase()}
         />
         <Grid container spacing={2}>
-          <Grid item md={4} sm={12} sx={{ mt: { xs: 2, md: 4 } }}>
+          <Grid size={{ sm: 12, md: 4 }} sx={{ mt: { xs: 2, md: 4 } }}>
             <Grid container>
               {categoriesLoading ? (
                 <TopicListItemSkeleton totalItem={6} />
@@ -119,18 +133,18 @@ const LibraryPage = () => {
             </Grid>
           </Grid>
 
-          <Grid item md={8} sm={12}>
+          <Grid size={{ sm: 12, md: 8 }}>
             <Box px={2}>
               <SearchBar />
             </Box>
             <Grid container pt={2}>
-              <Grid item md={12}>
+              <Grid size={{ md: 12 }}>
                 <Grid container>
                   <BooksList books={books} />
                   <RRVPagination
                     handleChangePage={handleChangePage}
                     handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    dataCount={totalItems}
+                    dataCount={totalItems ?? 0}
                     page={tablePage}
                     pageSize={pageSize}
                     labelRowsPerPage="N topics per page:"

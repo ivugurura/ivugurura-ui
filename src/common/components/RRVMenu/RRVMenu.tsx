@@ -24,7 +24,7 @@ interface RRVMenuProps {
     | null;
   handleClose: (
     event: React.SyntheticEvent,
-    reason: 'backdropClick' | 'escapeKeyDown',
+    reason?: 'backdropClick' | 'escapeKeyDown',
   ) => void;
   lebelledBy?: string;
   menuId?: string;

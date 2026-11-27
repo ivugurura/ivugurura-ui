@@ -17,14 +17,11 @@ import {
 import { RRVDropdown } from './RRVDropdown';
 
 interface RRVShareProps {
-  onShare: (
-    event: MouseEvent<HTMLButtonElement, MouseEvent>,
-    link: string,
-  ) => void;
+  onShare?: (event: React.MouseEvent<HTMLButtonElement>, link: string) => void;
   href: string;
   title: string;
-  displayText: boolean;
-  color: string | ((theme: Theme) => string);
+  displayText?: boolean;
+  color?: string | ((theme: Theme) => string);
 }
 export const RRVShare: React.FC<RRVShareProps> = ({
   onShare,
@@ -53,7 +50,7 @@ export const RRVShare: React.FC<RRVShareProps> = ({
         onClick={onShare}
         quote={title}
         url={href}
-        key={title}
+        key={shareTitle}
       >
         <StartIcon /> {shareTitle}
       </ShareWrapper>

@@ -100,7 +100,7 @@ export const RRVForm: React.FC<RRVFormProps> = ({
         );
     }
   };
-  const getSizes = (rowsLength) => {
+  const getSizes = (rowsLength: number) => {
     const sizes = {
       lg: 12,
       md: 12,
@@ -126,9 +126,8 @@ export const RRVForm: React.FC<RRVFormProps> = ({
           if (hide) return null;
           return (
             <Grid
-              item
               key={`field-grid-${fIdx}-${rIdx}`}
-              {...getSizes(rows.length)}
+              size={getSizes(rows.length)}
             >
               {getFieldView(ro, rIdx)}
             </Grid>

@@ -16,6 +16,7 @@ import { actions } from '../../../redux/apiSliceBuilder';
 
 import { userEditLebels, userInitials, userSchema } from './schema';
 
+/** @param {{ open: boolean, onClose: () => void, refetchUsers?: () => void, current?: object | null, action?: string }} props */
 export const AddEditUser = ({
   open,
   onClose,

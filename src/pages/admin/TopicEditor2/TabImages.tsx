@@ -5,8 +5,14 @@ import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { IMAGE_PATH } from '../../../helpers/utils/constants';
-import { setFilePath } from '../../../redux/actions';
-import { actions, initials } from '../../../redux/apiSliceBuilder';
+import { actions, setFilePath, type QueryHook } from '../../../redux/actions';
+import { initials } from '../../../redux/apiSliceBuilder';
+import type { AppState } from '../../../redux/store';
+
+interface TopicImage {
+  fileName: string;
+  createdAt: string;
+}
 
 const Label = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -20,11 +26,15 @@ const Label = styled(Paper)(({ theme }) => ({
 
 export const TopicImages = () => {
   const dispatch = useDispatch();
-  const { data, isFetching } = actions.useGetResourcesMediaQuery({
+  const useGetResources = actions.useGetResourcesMediaQuery as unknown as QueryHook<
+    TopicImage[],
+    { resourceType: string }
+  >;
+  const { data, isFetching } = useGetResources({
     resourceType: 'image',
   });
-  const { data: topicImages } = data || initials.dataArr();
-  const filePathName = useSelector((state) => state.filer.fileName);
+  const { data: topicImages } = data || initials.dataArr<TopicImage>();
+  const filePathName = useSelector((state: AppState) => state.filer.fileName);
 
   if (isFetching) return <h2>Loading...</h2>;
   return topicImages.length ? (

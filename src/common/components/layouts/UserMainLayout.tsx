@@ -21,13 +21,20 @@ export const UserMainLayout: React.FC<UserMainLayoutProps> = ({ lang }) => {
 
   useLangRedirect(lang);
   return (
-    <Box>
+    // Full-height column: the footer sits at the bottom even on short pages.
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100dvh',
+        bgcolor: 'background.default',
+      }}
+    >
       <NavBar navCategories={data?.data} />
       <AnnouncementBar />
-      <main>
+      <Box component="main" sx={{ flex: 1, minWidth: 0 }}>
         <Outlet />
-      </main>
-      <div style={{ marginTop: 10 }} />
+      </Box>
       <MainFooter navCategories={data?.data} />
     </Box>
   );

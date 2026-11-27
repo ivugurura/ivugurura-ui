@@ -15,26 +15,54 @@ import AudioPlayer from 'react-h5-audio-player';
 import { RRVTable } from '../../../common/components/RRVTable/Table';
 import { useMuiSearchPagination } from '../../../common/hooks/useMuiSearchPagination';
 import { toAssetPath } from '../../../helpers/utils/constants';
-import { actions, initials } from '../../../redux/apiSliceBuilder';
+import { actions, type QueryHook } from '../../../redux/actions';
+import { initials } from '../../../redux/apiSliceBuilder';
 import { DashboardContainer } from '../components/DashboardContainer';
 
 import { AddEditTopic } from './AddEditAlbum';
 import { AddEditMedia } from './AddEditMedia';
 import { audioColumns } from './schema';
 
-const initialEditorStates = { openAlbum: false, openMedia: false };
+interface MediaAudio extends APP.IAudio {
+  language?: { name: string };
+  album?: { name: string };
+}
+
+interface IAlbum {
+  id: string;
+  name: string;
+}
+
+interface CurrentAudio {
+  index: number;
+  audio: MediaAudio | null;
+}
+
+type EditorStateKey = 'openAlbum' | 'openMedia';
+
+const initialEditorStates: Record<EditorStateKey, boolean> = {
+  openAlbum: false,
+  openMedia: false,
+};
 const MediaEditor = () => {
-  const [currentAudio, setCurrentAudio] = useState({ index: -1, audio: null });
+  const [currentAudio, setCurrentAudio] = useState<CurrentAudio>({
+    index: -1,
+    audio: null,
+  });
   const [editorState, setEditorState] = useState(initialEditorStates);
   const { paginator, ...tableProps } = useMuiSearchPagination();
 
-  const {
-    data,
-    isFetching,
-    refetch: refetchMedia,
-  } = actions.useListAudiosQuery(paginator);
-  const { data: albumData, refetch } = actions.useGetAlbumsMediaQuery();
-  const { data: audios, totalItems } = data || initials.dataArr();
+  const useListAudios = actions.useListAudiosQuery as unknown as QueryHook<
+    MediaAudio[],
+    typeof paginator
+  >;
+  const useGetAlbums = actions.useGetAlbumsMediaQuery as unknown as QueryHook<
+    IAlbum[],
+    void
+  >;
+  const { data, isFetching, refetch: refetchMedia } = useListAudios(paginator);
+  const { data: albumData, refetch } = useGetAlbums();
+  const { data: audios, totalItems } = data || initials.dataArr<MediaAudio>();
 
   useEffect(() => {
     if (audios?.length > 0) {
@@ -42,11 +70,11 @@ const MediaEditor = () => {
     }
   }, [audios]);
 
-  const handleOpenEditor = (type) => {
+  const handleOpenEditor = (type: EditorStateKey) => {
     setEditorState((prev) => ({ ...prev, [type]: !prev[type] }));
   };
 
-  const { data: albums } = albumData || initials.dataArr();
+  const { data: albums } = albumData || initials.dataArr<IAlbum>();
   const { audio } = currentAudio;
   return (
     <DashboardContainer
@@ -77,7 +105,7 @@ const MediaEditor = () => {
         refetchMedia={refetchMedia}
       />
       <Grid container spacing={1}>
-        <Grid item xs={12} lg={8}>
+        <Grid size={{ xs: 12, lg: 8 }}>
           <RRVTable
             columns={audioColumns()}
             data={audios}
@@ -86,12 +114,14 @@ const MediaEditor = () => {
             rowCount={totalItems}
           />
         </Grid>
-        <Grid item xs={12} lg={4}>
+        <Grid size={{ xs: 12, lg: 4 }}>
           {audio && (
             <Card>
               <AudioPlayer
                 src={toAssetPath(audio.mediaLink, false)}
-                onPlay={() => {}}
+                onPlay={() => {
+                  /* no-op */
+                }}
               />
               <CardHeader
                 title={audio.title}

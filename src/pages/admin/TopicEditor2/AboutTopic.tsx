@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {
   Card,
   CardContent,
@@ -8,16 +10,39 @@ import {
   MenuItem,
   Select,
   TextField,
+  type SelectChangeEvent,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { actions, initials } from '../../../redux/apiSliceBuilder';
+import { actions, type QueryHook } from '../../../redux/actions';
+import { initials } from '../../../redux/apiSliceBuilder';
 
-export const AboutTopic = ({ values = {}, setValues }) => {
+export interface AboutTopicValues {
+  title?: string;
+  categoryId?: string;
+}
+
+interface AboutTopicProps<T extends AboutTopicValues> {
+  values?: T;
+  setValues: React.Dispatch<React.SetStateAction<T>>;
+}
+
+export const AboutTopic = <T extends AboutTopicValues>({
+  values = {} as T,
+  setValues,
+}: AboutTopicProps<T>) => {
   const { t } = useTranslation();
-  const { data } = actions.useListCategoryQuery({ categoryType: 'topic' });
-  const { data: categories } = data || initials.dataArr();
-  const onChange = ({ target }) => {
+  const useListCategory = actions.useListCategoryQuery as unknown as QueryHook<
+    APP.ICategory[],
+    { categoryType: string }
+  >;
+  const { data } = useListCategory({ categoryType: 'topic' });
+  const { data: categories } = data || initials.dataArr<APP.ICategory>();
+  const onChange = ({
+    target,
+  }:
+    | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    | SelectChangeEvent) => {
     setValues((prev) => ({ ...prev, [target.name]: target.value }));
   };
   return (
@@ -25,7 +50,7 @@ export const AboutTopic = ({ values = {}, setValues }) => {
       <CardHeader title={t('admin.topic.about')} />
       <CardContent>
         <Grid container spacing={2}>
-          <Grid item md={8} xs={12}>
+          <Grid size={{ xs: 12, md: 8 }}>
             <TextField
               fullWidth
               label={t('admin.topic.phTitle')}
@@ -35,7 +60,7 @@ export const AboutTopic = ({ values = {}, setValues }) => {
               onChange={onChange}
             />
           </Grid>
-          <Grid item md={4} xs={12}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <FormControl fullWidth variant="outlined">
               <InputLabel id="blog-category">
                 {t('admin.topic.phCategory')}

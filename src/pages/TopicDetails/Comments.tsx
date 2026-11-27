@@ -5,18 +5,36 @@ import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 
 import { RRVForm } from '../../common/components/RRVForm';
+import type { FormStateType } from '../../common/components/RRVForm/types';
 import { notifier } from '../../helpers/utils/constants';
-import { actions, initials } from '../../redux/apiSliceBuilder';
+import {
+  actions,
+  initials,
+  type MutationHook,
+  type QueryHook,
+} from '../../redux/actions';
 
 import { commentSchema, commentState } from './schema';
 import { styles } from './TopicDetails.style';
 
-export const Comments = ({ slug }) => {
-  const { t } = useTranslation();
-  const [comment, setComment] = React.useState(commentState);
-  const [save, saveRes] = actions.useAddCommentTopicMutation();
+interface CommentsProps {
+  slug: string;
+}
 
-  const { data } = actions.useViewCommentsTopicQuery({ slug });
+export const Comments = ({ slug }: CommentsProps) => {
+  const { t } = useTranslation();
+  const [comment, setComment] = React.useState<FormStateType>(commentState);
+  const useAddComment = actions.useAddCommentTopicMutation as MutationHook<
+    unknown,
+    FormStateType & { slug: string }
+  >;
+  const useViewComments = actions.useViewCommentsTopicQuery as QueryHook<
+    APP.IComment[],
+    { slug: string }
+  >;
+  const [save, saveRes] = useAddComment();
+
+  const { data } = useViewComments({ slug });
 
   useEffect(() => {
     if (saveRes.isSuccess) {
@@ -26,11 +44,11 @@ export const Comments = ({ slug }) => {
     }
   }, [saveRes, t]);
 
-  const { data: comments } = data || initials.dataArr();
+  const { data: comments } = data || initials.dataArr<APP.IComment>();
 
   const hasComments = comments?.length > 0;
   return (
-    <Grid item xs={12}>
+    <Grid size={12}>
       {hasComments && (
         <Box sx={styles.root}>
           <Typography variant="h2" sx={styles.title}>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
 import {
@@ -14,12 +14,26 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Copyright } from '../../../common/components/Copyright';
 import { RRVForm } from '../../../common/components/RRVForm/index';
+import type {
+  FieldRow,
+  FormStateType,
+} from '../../../common/components/RRVForm/types';
 import { notifier, toLink } from '../../../helpers/utils/constants';
-import { actions, setUser } from '../../../redux/actions';
+import { actions, setUser, type MutationHook } from '../../../redux/actions';
+import type { AppState } from '../../../redux/store';
 
 import { loginSchema } from './schema';
 
-const initialStates = {
+interface LoginResponse {
+  message: string;
+  data: APP.IUser & { token: string };
+}
+
+interface LoginProps {
+  shouldRedirect?: boolean;
+}
+
+const initialStates: FormStateType = {
   email: '',
   password: '',
 };
@@ -28,14 +42,18 @@ const redirectToDashboard = () => {
     window.location.replace(toLink('', true));
   }, 5000);
 };
-const Login = ({ shouldRedirect = true }) => {
-  const [loginInfo, setLoginInfo] = useState(initialStates);
+const Login: React.FC<LoginProps> = ({ shouldRedirect = true }) => {
+  const [loginInfo, setLoginInfo] = useState<FormStateType>(initialStates);
 
-  const [loginUser, res] = actions.useLoginSystemMutation();
+  const useLoginSystem = actions.useLoginSystemMutation as unknown as MutationHook<
+    LoginResponse,
+    FormStateType
+  >;
+  const [loginUser, res] = useLoginSystem();
 
   const dispatch = useDispatch();
 
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state: AppState) => state.auth);
 
   useEffect(() => {
     if (isAuthenticated && shouldRedirect) {
@@ -44,7 +62,7 @@ const Login = ({ shouldRedirect = true }) => {
   }, [isAuthenticated, shouldRedirect]);
 
   useEffect(() => {
-    if (res.isSuccess) {
+    if (res.isSuccess && res.data) {
       const {
         message,
         data: { token, ...user },
@@ -62,7 +80,7 @@ const Login = ({ shouldRedirect = true }) => {
     }
   }, [res.isSuccess, shouldRedirect]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     loginUser(loginInfo);
   };
@@ -84,7 +102,7 @@ const Login = ({ shouldRedirect = true }) => {
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <RRVForm
-            fields={loginSchema()}
+            fields={loginSchema() as FieldRow[][]}
             states={loginInfo}
             setStates={setLoginInfo}
           />
@@ -101,18 +119,6 @@ const Login = ({ shouldRedirect = true }) => {
           >
             {res.isLoading ? 'Signing in,...' : 'Sign In'}
           </Button>
-          {/* <Grid container>
-              <Grid item xs>
-                <Link href="j" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="n" variant="body2">
-                  Dont have an account? Sign Up
-                </Link>
-              </Grid>
-            </Grid> */}
         </Box>
       </Box>
       <Copyright sx={{ mt: 8, mb: 4 }} />

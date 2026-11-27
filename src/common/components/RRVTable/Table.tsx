@@ -1,7 +1,31 @@
 import { Button } from '@mui/material';
-import { MaterialReactTable } from 'material-react-table';
+import {
+  MaterialReactTable,
+  type MRT_PaginationState,
+  type MRT_Row,
+  type MRT_RowData,
+  type MRT_RowSelectionState,
+  type MRT_TableOptions,
+} from 'material-react-table';
 
-export const RRVTable = ({
+type Setter<T> = (updater: T | ((prev: T) => T)) => void;
+
+export type RRVTableProps<TData extends MRT_RowData> = Omit<
+  MRT_TableOptions<TData>,
+  'state'
+> & {
+  isLoading?: boolean;
+  globalFilter?: string;
+  setGlobalFilter?: Setter<string>;
+  rowSelection?: MRT_RowSelectionState;
+  setRowSelection?: Setter<MRT_RowSelectionState>;
+  pagination?: MRT_PaginationState;
+  setPagination?: Setter<MRT_PaginationState>;
+  onHandleSelected?: (rows: MRT_Row<TData>[]) => void;
+  btnSelectionLabel?: string;
+};
+
+export const RRVTable = <TData extends MRT_RowData>({
   isLoading,
   globalFilter,
   setGlobalFilter,
@@ -9,10 +33,10 @@ export const RRVTable = ({
   pagination = { pageIndex: 0, pageSize: 10 },
   setPagination,
   setRowSelection,
-  onHandleSelected = () => {},
+  onHandleSelected,
   btnSelectionLabel,
   ...rest
-}) => (
+}: RRVTableProps<TData>) => (
   <MaterialReactTable
     state={{ isLoading, globalFilter, rowSelection, pagination }}
     onGlobalFilterChange={setGlobalFilter}
@@ -29,7 +53,7 @@ export const RRVTable = ({
             return (
               <Button
                 onClick={() => {
-                  onHandleSelected(rows);
+                  onHandleSelected?.(rows);
                 }}
               >
                 {`${btnSelectionLabel} (${rows.length})`}

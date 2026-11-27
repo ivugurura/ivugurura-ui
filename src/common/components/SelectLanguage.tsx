@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 
 import { systemLanguages } from '../../helpers/utils/constants';
 
@@ -25,8 +25,14 @@ export const SelectLanguage = ({
     <RRVDropdown
       title={
         <>
-          <img src={currentLang?.flag} alt={currentLang?.abbr} />{' '}
-          {currentLang?.lang}
+          <img src={currentLang?.flag} alt={currentLang?.abbr} />
+          {/* Flag only on phones, to leave room in the app bar. */}
+          <Box
+            component="span"
+            sx={{ display: { xs: 'none', sm: 'inline' }, ml: 0.75 }}
+          >
+            {currentLang?.lang}
+          </Box>
         </>
       }
       variant="text"

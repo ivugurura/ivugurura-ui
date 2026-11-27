@@ -42,9 +42,9 @@ interface CurrentAudio {
 interface RRVAudioPlayer {
   audios: APP.IAudio[];
   currentAudio: CurrentAudio;
-  setCurrentAudio: React.Dispatch<React.SetStateAction<CurrentAudio>>;
-  displayList: boolean;
-  displayMore: boolean;
+  setCurrentAudio: (value: CurrentAudio) => void;
+  displayList?: boolean;
+  displayMore?: boolean;
 }
 
 export const RRVAudioPlayer: React.FC<RRVAudioPlayer> = ({

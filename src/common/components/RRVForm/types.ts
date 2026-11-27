@@ -8,8 +8,13 @@ export type FieldType =
 
 export interface FieldRow {
   name: string;
+  label?: string;
+  type?: string;
+  multiline?: boolean;
+  rows?: number;
   value?: unknown;
-  fieldType: FieldType;
+  /** Defaults to `text-field`. */
+  fieldType?: FieldType;
   hide?: boolean;
   accept?: string;
   isBool?: boolean;

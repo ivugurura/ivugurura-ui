@@ -1,24 +1,33 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography, type GridSize } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { TopicsCardSkeleton } from '../../../common/components/loaders';
 import { toLink } from '../../../helpers/utils/constants';
-import { actions, initials } from '../../../redux/apiSliceBuilder';
+import { actions, initials, type QueryHook } from '../../../redux/actions';
 import TopicItem from '../../TopicItem';
+
+interface HomeRecentTopicsProps {
+  xs?: GridSize;
+  sm?: GridSize;
+  md?: GridSize;
+  truncate?: number;
+}
 
 export const HomeRecentTopics = ({
   xs = 12,
   sm = 12,
   md = 4.01,
   truncate = 148,
-}) => {
+}: HomeRecentTopicsProps) => {
   const { t } = useTranslation();
-  const { data, isFetching } = actions.useGetCsTopicsQuery({
-    truncate,
-  });
+  const useGetCsTopics = actions.useGetCsTopicsQuery as QueryHook<
+    APP.ITopic[],
+    { truncate: number }
+  >;
+  const { data, isFetching } = useGetCsTopics({ truncate });
 
-  const { data: topics } = data || initials.dataArr();
+  const { data: topics } = data || initials.dataArr<APP.ITopic>();
 
   return (
     <Box p={2}>
@@ -46,7 +55,7 @@ export const HomeRecentTopics = ({
         ) : (
           topics?.length > 0 &&
           topics.map((topic) => (
-            <Grid key={topic.title} item xs={xs} sm={sm} md={md}>
+            <Grid key={topic.title} size={{ xs, sm, md }}>
               <TopicItem topic={topic} hasMore />
             </Grid>
           ))

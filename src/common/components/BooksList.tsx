@@ -51,7 +51,7 @@ export const BooksList: React.FC<BooksListProps> = ({
   return (
     <Grid container spacing={3}>
       {books.map((book) => (
-        <Grid item xs={12} sm={6} md={4} key={book.id}>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }} key={book.id}>
           <Card
             sx={{
               height: '100%',

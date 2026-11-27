@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Box } from '@mui/material';
+import { Box, type Theme } from '@mui/material';
 
 interface AudioVisualizerProps {
   isPlaying: boolean;
-  background: string | ((theme: Theme) => string);
+  background?: string | ((theme: Theme) => string);
 }
 
 export const AudioVisualizer: React.FC<AudioVisualizerProps> = ({

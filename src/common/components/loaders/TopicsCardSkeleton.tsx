@@ -1,13 +1,16 @@
 import React from 'react';
 
-import { Card, CardContent, Grid, Skeleton } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  Grid,
+  Skeleton,
+  type GridSize,
+} from '@mui/material';
 
 interface TopicsCardSkeletonProps {
-  totalItems: number;
-  itemsSize?: {
-    md: number;
-    xs: number;
-  };
+  totalItems?: number;
+  itemsSize?: Partial<Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', GridSize>>;
 }
 
 export const TopicsCardSkeleton: React.FC<TopicsCardSkeletonProps> = ({
@@ -16,7 +19,7 @@ export const TopicsCardSkeleton: React.FC<TopicsCardSkeletonProps> = ({
 }) => (
   <Grid container spacing={2}>
     {Array.from({ length: totalItems }, (_, i) => (
-      <Grid item {...itemsSize} key={i}>
+      <Grid size={itemsSize} key={i}>
         <Card sx={{ width: '100%' }}>
           <Skeleton
             sx={{ height: 190 }}

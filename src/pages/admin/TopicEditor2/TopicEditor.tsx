@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import {
   Button,
@@ -20,7 +20,7 @@ export const TopicEditor = () => {
   return (
     <DashboardContainer title="Add a new topic">
       <Grid container spacing={1}>
-        <Grid xs={12} lg={5}>
+        <Grid size={{ xs: 12, lg: 5 }}>
           <Card>
             <CardHeader title="About the topic" />
             <TextField
@@ -61,10 +61,11 @@ export const TopicEditor = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid xs={12} lg={7} sx={{ boxSizing: 'border-box' }}>
+        <Grid size={{ xs: 12, lg: 7 }} sx={{ boxSizing: 'border-box' }}>
           <RRVEditor
             editorState={editorState}
-            onEditorStateChange={setEditorState}
+            onEditorStateChange={(state) => setEditorState(state as EditorState)}
+            placeholder=""
           />
         </Grid>
         <Button>View</Button>

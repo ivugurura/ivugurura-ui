@@ -5,14 +5,29 @@ import { Box, Button, Grid, IconButton } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { RRVTable } from '../../../common/components/RRVTable';
-import { actions, initials } from '../../../redux/apiSliceBuilder';
+import { actions, type QueryHook } from '../../../redux/actions';
+import { initials } from '../../../redux/apiSliceBuilder';
 import { AlertConfirm } from '../components/AlertConfirm';
 import { DashboardContainer } from '../components/DashboardContainer';
 
 import { AddEditUser } from './AddEditUser';
 import { userColumns } from './schema';
 
-const alertInitial = {
+interface SystemUser extends APP.IUser {
+  names?: string;
+}
+
+type UserAction = 'add' | 'edit' | 'delete';
+
+interface AlertData {
+  current?: SystemUser | null;
+  message: string;
+  open: boolean;
+  action: UserAction;
+  title?: string;
+}
+
+const alertInitial: AlertData = {
   current: null,
   message: '',
   open: false,
@@ -20,15 +35,23 @@ const alertInitial = {
 };
 export const SystemUsers = () => {
   const { t } = useTranslation();
-  const [alertData, setAlertData] = useState(alertInitial);
+  const [alertData, setAlertData] = useState<AlertData>(alertInitial);
   const [open, setOpen] = useState(false);
-  const { data, isFetching, refetch } = actions.useListUsersSystemQuery();
+  const useListUsers = actions.useListUsersSystemQuery as unknown as QueryHook<
+    SystemUser[],
+    void
+  >;
+  const { data, isFetching, refetch } = useListUsers();
 
-  const handleSetAction = (action, user) => {
-    const alert = { ...alertInitial, current: user, action };
+  const handleSetAction = (action: UserAction, user?: SystemUser) => {
+    const alert: AlertData = {
+      ...alertInitial,
+      current: user,
+      action,
+    };
     if (action === 'delete') {
-      alert.message = `Are you sure you want to ${action} the user: 
-      "${user.names}"?`;
+      alert.message = `Are you sure you want to ${action} the user:
+      "${user?.names}"?`;
       alert.open = true;
     }
     if (action === 'edit' || action === 'add') {
@@ -37,7 +60,7 @@ export const SystemUsers = () => {
     setAlertData(alert);
   };
 
-  const { data: users, totalItems } = data || initials.dataArr();
+  const { data: users, totalItems } = data || initials.dataArr<SystemUser>();
   return (
     <DashboardContainer
       title={t('admin.users.title')}
@@ -59,17 +82,19 @@ export const SystemUsers = () => {
         {...alertData}
         setOpen={() => setAlertData((prev) => ({ ...prev, ...alertInitial }))}
         title={alertData.title}
-        onConfirmYes={() => {}}
+        onConfirmYes={() => {
+          /* no-op */
+        }}
         loading={false}
       />
       <Grid container spacing={1}>
-        <Grid item xs={12} lg={12}>
+        <Grid size={{ xs: 12, lg: 12 }}>
           <RRVTable
             columns={userColumns(t)}
             data={users}
             isLoading={isFetching}
             enableRowActions
-            renderRowActions={({ row }) => (
+            renderRowActions={({ row }: { row: { original: SystemUser } }) => (
               <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
                 <IconButton
                   color="secondary"
@@ -87,7 +112,7 @@ export const SystemUsers = () => {
             )}
           />
         </Grid>
-        <Grid item xs={12} lg={2}>
+        <Grid size={{ xs: 12, lg: 2 }}>
           <h1>{totalItems}</h1>
           {t('admin.nav.systemUsers')}
         </Grid>

@@ -41,9 +41,7 @@ export const Home = () => {
             <HomeYoutube />
           </Grid>
         </Grid>
-        <HomeContentLayout cardContentProps={{ sx: { paddingBottom: 0 } }}>
-          <HomeRecentTopics truncate={140} />
-        </HomeContentLayout>
+        <HomeRecentTopics />
 
         <HomeContentLayout>
           <Box
